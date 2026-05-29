@@ -6,28 +6,49 @@ function IntroPage() {
   const [step, setStep] = useState("askName")
   const [listening, setListening] = useState(false)
   const [status, setStatus] = useState("")
+  const [lastMessage, setLastMessage] = useState("")
   const navigate = useNavigate()
 
   function speak(text, onEnd) {
     window.speechSynthesis.cancel()
+    setLastMessage(text)
     const utterance = new SpeechSynthesisUtterance(text)
     utterance.lang = "hi-IN"
-    utterance.rate = 0.9
+    utterance.rate = 0.85
     if (onEnd) utterance.onend = onEnd
     window.speechSynthesis.speak(utterance)
   }
 
-  useEffect(() => {
-    setTimeout(() => {
-      speak("नमस्ते! मैं Pyra हूँ, आपकी Python tutor। कृपया अपना नाम बताइए।")
-      setStatus("Pyra बोल रही है...")
-    }, 500)
-  }, [])
+  function welcomeMessage() {
+    speak(
+      "नमस्ते! Pyra Python Tutor में आपका स्वागत है। " +
+      "यह website आपको Python programming सिखाएगी। " +
+      "Keyboard shortcuts इस प्रकार हैं: " +
+      "P दबाएं — Pyra का परिचय सुनने के लिए। " +
+      "T दबाएं — अपना नाम बोलने के लिए। " +
+      "N दबाएं — आगे बढ़ने के लिए। " +
+      "R दबाएं — दोबारा सुनने के लिए। " +
+      "कृपया P दबाएं और शुरू करें।"
+    )
+    setStatus("P = सुनें | T = बोलें | N = आगे | R = दोबारा")
+  }
+
+  function hearIntro() {
+    speak(
+      "नमस्ते! मैं Pyra हूँ, आपकी Python tutor। " +
+      "मैं आपको Python programming सिखाऊँगी, बिल्कुल आसान तरीके से। " +
+      "कृपया अपना नाम बताइए। " +
+      "T दबाएं आवाज़ से नाम बोलने के लिए, " +
+      "या नाम type करके N दबाएं।"
+    )
+    setStatus("T = नाम बोलें | N = आगे बढ़ें")
+  }
 
   function startListening() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!SpeechRecognition) {
-      setStatus("Voice support नहीं है, कृपया type करें")
+      speak("आपका browser voice support नहीं करता, कृपया type करें")
+      setStatus("कृपया नाम type करें")
       return
     }
     const recognition = new SpeechRecognition()
@@ -35,29 +56,36 @@ function IntroPage() {
     recognition.start()
     setListening(true)
     setStatus("सुन रही हूँ... अपना नाम बोलिए")
+    speak("सुन रही हूँ, अपना नाम बोलिए")
     recognition.onresult = (e) => {
       const spokenName = e.results[0][0].transcript
       setName(spokenName)
       setListening(false)
-      setStatus("नाम मिला: " + spokenName)
+      setStatus("नाम मिला: " + spokenName + " — N दबाएं आगे बढ़ने के लिए")
+      speak("नाम मिला " + spokenName + "। N दबाएं आगे बढ़ने के लिए।")
     }
     recognition.onerror = () => {
       setListening(false)
-      setStatus("सुनाई नहीं दिया, कृपया दोबारा कोशिश करें")
+      setStatus("सुनाई नहीं दिया, दोबारा T दबाएं")
+      speak("सुनाई नहीं दिया, दोबारा T दबाएं")
     }
   }
 
   function handleNameSubmit() {
     if (!name.trim()) {
-      speak("कृपया अपना नाम बताइए")
-      setStatus("कृपया अपना नाम बताइए")
+      speak("कृपया पहले अपना नाम बताइए। T दबाएं बोलने के लिए।")
+      setStatus("पहले नाम बताइए")
       return
     }
     setStep("welcome")
     speak(
-      "नमस्ते " + name + "! Python की दुनिया में आपका स्वागत है! क्या आप lessons शुरू करना चाहते हैं?",
+      "नमस्ते " + name + "! Python की दुनिया में आपका बहुत स्वागत है! " +
+      "अब दो options हैं। " +
+      "H दबाएं — हाँ, lessons शुरू करने के लिए। " +
+      "R दबाएं — दोबारा सुनने के लिए। " +
+      "क्या आप lessons शुरू करना चाहते हैं?"
     )
-    setStatus("Pyra बोल रही है...")
+    setStatus("H = हाँ शुरू करें | R = दोबारा सुनें")
   }
 
   function startListeningForYes() {
@@ -67,88 +95,155 @@ function IntroPage() {
     recognition.lang = "hi-IN"
     recognition.start()
     setListening(true)
-    setStatus("सुन रही हूँ...")
+    setStatus("सुन रही हूँ... हाँ बोलिए")
     recognition.onresult = (e) => {
       const answer = e.results[0][0].transcript.toLowerCase()
       setListening(false)
       if (answer.includes("हाँ") || answer.includes("हां") || answer.includes("ha") || answer.includes("yes")) {
         goToLessons()
       } else {
-        setStatus("मुझे 'हाँ' सुनाई दे तो आगे बढ़ेंगे")
+        setStatus("H दबाएं या हाँ बोलिए")
+        speak("कृपया H दबाएं या हाँ बोलिए")
       }
     }
     recognition.onerror = () => {
       setListening(false)
-      setStatus("सुनाई नहीं दिया, कृपया button दबाएं")
+      setStatus("सुनाई नहीं दिया, H दबाएं")
+      speak("सुनाई नहीं दिया, H दबाएं")
     }
   }
 
   function goToLessons() {
-    speak("बहुत अच्छा! चलिए शुरू करते हैं!")
+    speak("बहुत अच्छा! चलिए Python सीखना शुरू करते हैं!")
     setTimeout(() => {
       navigate("/lessons", { state: { name } })
-    }, 2000)
+    }, 2500)
   }
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      welcomeMessage()
+    }, 6000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
+    function handleKey(e) {
+      const key = e.key.toLowerCase()
+      if (key === "p") hearIntro()
+      if (key === "t") startListening()
+      if (key === "n") handleNameSubmit()
+      if (key === "r") speak(lastMessage)
+      if (key === "h" && step === "welcome") goToLessons()
+    }
+    window.addEventListener("keydown", handleKey)
+    return () => window.removeEventListener("keydown", handleKey)
+  }, [name, step, lastMessage])
+
   return (
-    <main aria-label="परिचय पृष्ठ" style={{ maxWidth: "600px", margin: "0 auto", padding: "2rem", fontFamily: "sans-serif", color: "#fff", background: "#0f0f1a", minHeight: "100vh" }}>
-      <h1 style={{ color: "#a0a0ff" }}>🎓 Pyra — Python Tutor</h1>
+    <main aria-label="Pyra Python Tutor परिचय पृष्ठ" style={{
+      minHeight: "100vh",
+      background: "linear-gradient(135deg, #0f0f1a, #1a1a3e)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "'Segoe UI', sans-serif",
+      padding: "1rem"
+    }}>
+      <div style={{ width: "100%", maxWidth: "580px" }}>
 
-      <div aria-live="polite" style={{ background: "#1a1a2e", padding: "1.5rem", borderRadius: "12px", marginBottom: "1.5rem" }}>
+        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+          <div style={{ fontSize: "4rem" }}>🎓</div>
+          <h1 style={{ color: "#a0a0ff", fontSize: "2rem", margin: "0.5rem 0 0" }}>Pyra</h1>
+          <p style={{ color: "#888", margin: "0.3rem 0 0" }}>आपकी Python Tutor</p>
+        </div>
+
+        <div aria-live="polite" style={{
+          background: "#1a1a2e", border: "1px solid #2a2a5e",
+          padding: "1.5rem", borderRadius: "16px", marginBottom: "1.5rem", textAlign: "center"
+        }}>
+          {step === "askName" && (
+            <>
+              <p style={{ fontSize: "1.2rem", color: "#fff" }}>नमस्ते! मैं <strong style={{ color: "#a0a0ff" }}>Pyra</strong> हूँ</p>
+              <p style={{ color: "#ccc" }}>कृपया अपना नाम बताइए</p>
+            </>
+          )}
+          {step === "welcome" && (
+            <>
+              <p style={{ fontSize: "1.3rem", color: "#fff" }}>नमस्ते <strong style={{ color: "#22c55e" }}>{name}</strong>! 🎉</p>
+              <p style={{ color: "#ccc" }}>Python की दुनिया में आपका स्वागत है!</p>
+              <p style={{ color: "#a0a0ff" }}>क्या आप lessons शुरू करना चाहते हैं?</p>
+            </>
+          )}
+          {status !== "" && (
+            <p aria-live="assertive" style={{
+              marginTop: "1rem", color: "#f4a261", fontSize: "0.95rem",
+              background: "#2a1a0e", padding: "0.5rem 1rem", borderRadius: "8px"
+            }}>{status}</p>
+          )}
+        </div>
+
         {step === "askName" && (
-          <>
-            <p style={{ fontSize: "1.2rem" }}>नमस्ते! मैं <strong>Pyra</strong> हूँ, आपकी Python tutor।</p>
-            <p>कृपया अपना नाम बताइए।</p>
-          </>
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <input
+              id="nameInput" type="text" value={name}
+              onChange={(e) => setName(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleNameSubmit()}
+              placeholder="यहाँ अपना नाम लिखें..."
+              aria-label="अपना नाम लिखें"
+              style={{
+                padding: "1rem", fontSize: "1.1rem", borderRadius: "12px",
+                border: "2px solid #3a3a6e", background: "#111", color: "#fff",
+                outline: "none", width: "100%", boxSizing: "border-box"
+              }}
+            />
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.8rem" }}>
+              <button onClick={hearIntro} aria-label="P — Pyra को सुनें"
+                style={{ padding: "1rem", fontSize: "0.95rem", borderRadius: "12px", background: "#f4a261", color: "#000", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+                🔊 सुनें<br /><span style={{ fontSize: "0.8rem" }}>(P)</span>
+              </button>
+              <button onClick={startListening} disabled={listening} aria-label="T — आवाज़ से नाम बोलें"
+                style={{ padding: "1rem", fontSize: "0.95rem", borderRadius: "12px", background: listening ? "#333" : "#4a4af4", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+                {listening ? "🎙️ सुन रही हूँ" : "🎤 बोलें"}<br /><span style={{ fontSize: "0.8rem" }}>(T)</span>
+              </button>
+              <button onClick={handleNameSubmit} aria-label="N — आगे बढ़ें"
+                style={{ padding: "1rem", fontSize: "0.95rem", borderRadius: "12px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+                आगे बढ़ें<br /><span style={{ fontSize: "0.8rem" }}>(N)</span>
+              </button>
+            </div>
+          </div>
         )}
-        {step === "welcome" && (
-          <>
-            <p style={{ fontSize: "1.2rem" }}>नमस्ते <strong>{name}</strong>! 🎉</p>
-            <p>Python की दुनिया में आपका स्वागत है!</p>
-            <p>क्या आप lessons शुरू करना चाहते हैं?</p>
-          </>
-        )}
-        <p style={{ color: "#a0a0ff", marginTop: "1rem" }}>{status}</p>
-      </div>
 
-      {step === "askName" && (
-        <>
-          <label htmlFor="nameInput" style={{ display: "block", marginBottom: "0.5rem" }}>आपका नाम:</label>
-          <input
-            id="nameInput"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleNameSubmit()}
-            placeholder="यहाँ नाम लिखें..."
-            aria-label="अपना नाम लिखें"
-            style={{ width: "100%", padding: "0.8rem", fontSize: "1rem", borderRadius: "8px", border: "2px solid #555", background: "#111", color: "#fff", marginBottom: "1rem" }}
-          />
-          <div style={{ display: "flex", gap: "1rem" }}>
-            <button onClick={startListening} disabled={listening} aria-label="आवाज़ से नाम बोलें"
-              style={{ padding: "0.8rem 1.5rem", fontSize: "1rem", borderRadius: "8px", background: listening ? "#555" : "#4a4af4", color: "#fff", border: "none", cursor: "pointer" }}>
-              {listening ? "सुन रही हूँ..." : "🎤 आवाज़ से बोलें"}
+        {step === "welcome" && (
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.8rem" }}>
+            <button onClick={() => speak(lastMessage)} aria-label="R — दोबारा सुनें"
+              style={{ padding: "1rem", fontSize: "0.95rem", borderRadius: "12px", background: "#f4a261", color: "#000", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+              🔁 दोबारा<br /><span style={{ fontSize: "0.8rem" }}>(R)</span>
             </button>
-            <button onClick={handleNameSubmit} aria-label="आगे बढ़ें"
-              style={{ padding: "0.8rem 1.5rem", fontSize: "1rem", borderRadius: "8px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer" }}>
-              आगे बढ़ें →
+            <button onClick={startListeningForYes} disabled={listening} aria-label="T — आवाज़ से हाँ बोलें"
+              style={{ padding: "1rem", fontSize: "0.95rem", borderRadius: "12px", background: listening ? "#333" : "#4a4af4", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+              {listening ? "🎙️ सुन रही हूँ" : "🎤 बोलें"}<br /><span style={{ fontSize: "0.8rem" }}>(T)</span>
+            </button>
+            <button onClick={goToLessons} aria-label="H — हाँ lessons शुरू करें"
+              style={{ padding: "1rem", fontSize: "0.95rem", borderRadius: "12px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+              ✅ हाँ!<br /><span style={{ fontSize: "0.8rem" }}>(H)</span>
             </button>
           </div>
-        </>
-      )}
+        )}
 
-      {step === "welcome" && (
-        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-          <button onClick={startListeningForYes} disabled={listening} aria-label="आवाज़ से हाँ बोलें"
-            style={{ padding: "0.8rem 1.5rem", fontSize: "1rem", borderRadius: "8px", background: listening ? "#555" : "#4a4af4", color: "#fff", border: "none", cursor: "pointer" }}>
-            {listening ? "सुन रही हूँ..." : "🎤 आवाज़ से बोलें"}
-          </button>
-          <button onClick={goToLessons} aria-label="हाँ, lessons शुरू करें"
-            style={{ padding: "0.8rem 1.5rem", fontSize: "1rem", borderRadius: "8px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer" }}>
-            हाँ, शुरू करें! →
-          </button>
+        <div style={{ marginTop: "2rem", background: "#1a1a2e", borderRadius: "12px", padding: "1rem" }}>
+          <p style={{ color: "#666", fontSize: "0.85rem", margin: "0 0 0.5rem", textAlign: "center" }}>Keyboard Shortcuts</p>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.4rem" }}>
+            {[["P", "Pyra को सुनें"], ["T", "नाम बोलें"], ["N", "आगे बढ़ें"], ["R", "दोबारा सुनें"], ["H", "हाँ (अगले page पर)"]].map(([key, desc]) => (
+              <div key={key} style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+                <span style={{ background: "#2a2a5e", color: "#a0a0ff", padding: "0.2rem 0.6rem", borderRadius: "6px", fontWeight: "bold", fontSize: "0.9rem" }}>{key}</span>
+                <span style={{ color: "#aaa", fontSize: "0.85rem" }}>{desc}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      )}
+
+      </div>
     </main>
   )
 }
