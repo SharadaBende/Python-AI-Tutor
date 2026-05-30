@@ -132,84 +132,88 @@ function LessonsPage() {
   const progress = Math.round((currentLesson / lessons.length) * 100)
 
   return (
+    
     <main aria-label="Lessons पृष्ठ" style={{
       minHeight: "100vh",
       background: bg,
       display: "flex", alignItems: "flex-start", justifyContent: "center",
       fontFamily: "'Segoe UI', sans-serif", padding: "1rem"
     }}>
-      <div style={{ width: "100%", maxWidth: "800px" }}>
+      <div style={{ width: "100%", maxWidth: "1100px" }}>
         <Navbar name={name} theme={theme} toggleTheme={toggleTheme} />
-   
-        <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-          <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>📚 Lessons</h1>
-          <p style={{ color: mutedColor, margin: "0.3rem 0 0" }}>नमस्ते {name}!</p>
-        </div>
 
-        <ProgressBar
-  lessons={localStorage.getItem("lessons_done") === "true"}
-  mcq={localStorage.getItem("mcq_done") === "true"}
-  agent={localStorage.getItem("agent_visited") === "true"}
-  theme={theme}
-/>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: "1.5rem", alignItems: "start" }}>
 
-         <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "0.8rem 1rem", marginBottom: "1rem" }}>
-         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem" }}>
-            <span style={{ color: "#aaa", fontSize: "0.85rem" }}>Lesson Progress</span>
-            <span style={{ color: "#a0a0ff", fontSize: "0.85rem" }}>{currentLesson}/{lessons.length}</span>
-          </div>
-          <div style={{ background: "#2a2a4e", borderRadius: "8px", height: "8px" }}>
-            <div style={{ background: "#a0a0ff", width: progress + "%", height: "8px", borderRadius: "8px", transition: "width 0.5s" }} />
-          </div>
-        </div>
-
-
-         <div aria-live="polite" style={{ background: cardBg, border: "1px solid " + cardBorder, padding: "1.5rem", borderRadius: "16px", marginBottom: "1.5rem" }}>
-         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem" }}>
-            <span style={{ background: "#a0a0ff", color: "#000", borderRadius: "50%", width: "28px", height: "28px", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", fontSize: "0.9rem" }}>{lesson.id}</span>
-            <h2 style={{ color: "#a0a0ff", margin: "0", fontSize: "1.2rem" }}>{lesson.title}</h2>
-          </div>
-          <p style={{ color: textColor, lineHeight: "1.7", marginBottom: lesson.example ? "1rem" : "0" }}>
-  {lesson.content}</p>
-          {lesson.example && (
-            
-            <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "1rem" }}>
-            <p style={{ color: "#888", fontSize: "0.8rem", margin: "0 0 0.5rem" }}>उदाहरण:</p>
-              <pre style={{ color: "#22c55e", margin: "0", fontSize: "1rem", fontFamily: "monospace", whiteSpace: "pre-wrap" }}>{lesson.example}</pre>
+          <div>
+            <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+              <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>📚 Lessons</h1>
+              <p style={{ color: mutedColor, margin: "0.3rem 0 0" }}>नमस्ते {name}!</p>
             </div>
-          )}
-          {status !== "" && (
-            <p aria-live="assertive" style={{ marginTop: "1rem", color: "#f4a261", fontSize: "0.9rem", background: "#2a1a0e", padding: "0.5rem 1rem", borderRadius: "8px" }}>{status}</p>
-          )}
-        </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "0.8rem", marginBottom: "1.5rem" }}>
-          <button onClick={playLesson} aria-label="L — Lesson सुनें" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#f4a261", color: "#000", border: "none", cursor: "pointer", fontWeight: "bold" }}>
-            🔊 सुनें<br /><span style={{ fontSize: "0.75rem" }}>(L)</span>
-          </button>
-          <button onClick={() => speak(lastMessage)} aria-label="R — दोबारा सुनें" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#4a4af4", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
-            🔁 दोबारा<br /><span style={{ fontSize: "0.75rem" }}>(R)</span>
-          </button>
-          <button onClick={startListening} disabled={listening} aria-label="T — आवाज़ से जवाब दें" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: listening ? "#333" : "#6366f1", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
-            {listening ? "🎙️ सुन रही हूँ" : "🎤 बोलें"}<br /><span style={{ fontSize: "0.75rem" }}>(T)</span>
-          </button>
-          <button onClick={step === "done" ? () => navigate("/mcq", { state: { name } }) : nextLesson} aria-label="N — अगला lesson" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
-            {step === "done" ? "✅ MCQ" : "अगला →"}<br /><span style={{ fontSize: "0.75rem" }}>(N)</span>
-          </button>
-        </div>
-
-        <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "1rem" }}>
-          <p style={{ color: "#666", fontSize: "0.85rem", margin: "0 0 0.5rem", textAlign: "center" }}>Keyboard Shortcuts</p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.4rem" }}>
-            {[["L", "Lesson सुनें"], ["R", "दोबारा सुनें"], ["T", "आवाज़ से जवाब"], ["N", "अगला lesson"]].map(([key, desc]) => (
-              <div key={key} style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-                <span style={{ background: "#2a2a5e", color: "#a0a0ff", padding: "0.2rem 0.6rem", borderRadius: "6px", fontWeight: "bold", fontSize: "0.9rem" }}>{key}</span>
-                <span style={{ color: "#aaa", fontSize: "0.85rem" }}>{desc}</span>
+            <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "0.8rem 1rem", marginBottom: "1rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem" }}>
+                <span style={{ color: mutedColor, fontSize: "0.85rem" }}>Lesson Progress</span>
+                <span style={{ color: "#a0a0ff", fontSize: "0.85rem" }}>{currentLesson}/{lessons.length}</span>
               </div>
-            ))}
-          </div>
-        </div>
+              <div style={{ background: "#2a2a4e", borderRadius: "8px", height: "8px" }}>
+                <div style={{ background: "#a0a0ff", width: progress + "%", height: "8px", borderRadius: "8px", transition: "width 0.5s" }} />
+              </div>
+            </div>
 
+            <div aria-live="polite" style={{ background: cardBg, border: "1px solid " + cardBorder, padding: "1.5rem", borderRadius: "16px", marginBottom: "1.5rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem" }}>
+                <span style={{ background: "#a0a0ff", color: "#000", borderRadius: "50%", width: "28px", height: "28px", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", fontSize: "0.9rem" }}>{lesson.id}</span>
+                <h2 style={{ color: "#a0a0ff", margin: "0", fontSize: "1.2rem" }}>{lesson.title}</h2>
+              </div>
+              <p style={{ color: textColor, lineHeight: "1.7", marginBottom: lesson.example ? "1rem" : "0" }}>{lesson.content}</p>
+              {lesson.example && (
+                <div style={{ background: codeBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "1rem" }}>
+                  <p style={{ color: mutedColor, fontSize: "0.8rem", margin: "0 0 0.5rem" }}>उदाहरण:</p>
+                  <pre style={{ color: "#22c55e", margin: "0", fontSize: "1rem", fontFamily: "monospace", whiteSpace: "pre-wrap" }}>{lesson.example}</pre>
+                </div>
+              )}
+              {status !== "" && (
+                <p aria-live="assertive" style={{ marginTop: "1rem", color: "#f4a261", fontSize: "0.9rem", background: "#2a1a0e", padding: "0.5rem 1rem", borderRadius: "8px" }}>{status}</p>
+              )}
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.8rem" }}>
+              <button onClick={playLesson} aria-label="L — Lesson सुनें" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#f4a261", color: "#000", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+                🔊 सुनें<br /><span style={{ fontSize: "0.75rem" }}>(L)</span>
+              </button>
+              <button onClick={() => speak(lastMessage)} aria-label="R — दोबारा सुनें" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#4a4af4", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+                🔁 दोबारा<br /><span style={{ fontSize: "0.75rem" }}>(R)</span>
+              </button>
+              <button onClick={startListening} disabled={listening} aria-label="T — आवाज़ से जवाब दें" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: listening ? "#333" : "#6366f1", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+                {listening ? "🎙️ सुन रही हूँ" : "🎤 बोलें"}<br /><span style={{ fontSize: "0.75rem" }}>(T)</span>
+              </button>
+              <button onClick={step === "done" ? () => navigate("/mcq", { state: { name } }) : nextLesson} aria-label="N — अगला lesson" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+                {step === "done" ? "✅ MCQ" : "अगला →"}<br /><span style={{ fontSize: "0.75rem" }}>(N)</span>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <ProgressBar
+              lessons={localStorage.getItem("lessons_done") === "true"}
+              mcq={localStorage.getItem("mcq_done") === "true"}
+              agent={localStorage.getItem("agent_visited") === "true"}
+              theme={theme}
+            />
+            <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "1rem" }}>
+              <p style={{ color: mutedColor, fontSize: "0.85rem", margin: "0 0 0.5rem", textAlign: "center" }}>Keyboard Shortcuts</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                {[["L", "Lesson सुनें"], ["R", "दोबारा सुनें"], ["T", "आवाज़ से जवाब"], ["N", "अगला lesson"], ["M", "Theme बदलें"], ["1", "Lessons page"], ["2", "MCQ page"], ["3", "Agent page"]].map(([key, desc]) => (
+                  <div key={key} style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+                    <span style={{ background: "#2a2a5e", color: "#a0a0ff", padding: "0.2rem 0.6rem", borderRadius: "6px", fontWeight: "bold", fontSize: "0.9rem", minWidth: "28px", textAlign: "center" }}>{key}</span>
+                    <span style={{ color: mutedColor, fontSize: "0.85rem" }}>{desc}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </main>
   )
