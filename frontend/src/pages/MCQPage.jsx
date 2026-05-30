@@ -5,7 +5,7 @@ import ProgressBar from "../components/ProgressBar"
 import { useNavigate, useLocation } from "react-router-dom"
 import { speak as speakUtil } from "../components/speak"
 
-const questions = [
+const pythonQuestions = [
   { id: 1, question: "Python किसने बनाया?", options: ["Bill Gates", "Guido van Rossum", "Steve Jobs", "Elon Musk"], answer: 1 },
   { id: 2, question: "Python कब बना?", options: ["1980", "1995", "1991", "2000"], answer: 2 },
   { id: 3, question: "Screen पर text दिखाने के लिए कौन सा function use होता है?", options: ["input()", "show()", "print()", "display()"], answer: 2 },
@@ -28,10 +28,39 @@ const questions = [
   { id: 20, question: "दो strings जोड़ने के लिए कौन सा operator use होता है?", options: ["*", "-", "+", "/"], answer: 2 },
 ]
 
+const sqlQuestions = [
+  { id: 1, question: "SQL का full form क्या है?", options: ["Simple Query Language", "Structured Query Language", "System Query Language", "Standard Query Language"], answer: 1 },
+  { id: 2, question: "Database से data निकालने के लिए कौन सा command use होता है?", options: ["INSERT", "UPDATE", "SELECT", "DELETE"], answer: 2 },
+  { id: 3, question: "WHERE clause किसलिए use होता है?", options: ["Data sort करने के लिए", "Data filter करने के लिए", "Table बनाने के लिए", "Data delete करने के लिए"], answer: 1 },
+  { id: 4, question: "नया data database में डालने के लिए कौन सा command use होता है?", options: ["SELECT", "UPDATE", "DELETE", "INSERT"], answer: 3 },
+  { id: 5, question: "Database में पुराना data बदलने के लिए कौन सा command use होता है?", options: ["INSERT", "UPDATE", "SELECT", "CREATE"], answer: 1 },
+  { id: 6, question: "Data को sort करने के लिए कौन सा clause use होता है?", options: ["WHERE", "GROUP BY", "ORDER BY", "HAVING"], answer: 2 },
+  { id: 7, question: "Rows की संख्या निकालने के लिए कौन सा function use होता है?", options: ["SUM()", "AVG()", "COUNT()", "MAX()"], answer: 2 },
+  { id: 8, question: "नई table बनाने के लिए कौन सा command use होता है?", options: ["NEW TABLE", "CREATE TABLE", "MAKE TABLE", "ADD TABLE"], answer: 1 },
+  { id: 9, question: "दो tables को जोड़ने के लिए कौन सा command use होता है?", options: ["MERGE", "COMBINE", "JOIN", "CONNECT"], answer: 2 },
+  { id: 10, question: "SELECT * FROM students में * का मतलब क्या है?", options: ["कोई data नहीं", "सभी columns", "पहला column", "आखिरी column"], answer: 1 },
+]
+
+const javascriptQuestions = [
+  { id: 1, question: "JavaScript किसलिए use होती है?", options: ["Database के लिए", "Websites को interactive बनाने के लिए", "Server बनाने के लिए", "Images बनाने के लिए"], answer: 1 },
+  { id: 2, question: "JavaScript में output दिखाने के लिए क्या use होता है?", options: ["print()", "echo()", "console.log()", "show()"], answer: 2 },
+  { id: 3, question: "JavaScript में variable बनाने के लिए कौन सा keyword use होता है?", options: ["var only", "let only", "const only", "let, const, var"], answer: 3 },
+  { id: 4, question: "JavaScript में array किसमें लिखी जाती है?", options: ["() brackets", "{} brackets", "[] brackets", "<> brackets"], answer: 2 },
+  { id: 5, question: "JavaScript में object किसमें लिखा जाता है?", options: ["() brackets", "{} brackets", "[] brackets", "<> brackets"], answer: 1 },
+  { id: 6, question: "JavaScript में function बनाने के लिए कौन सा keyword use होता है?", options: ["def", "func", "function", "method"], answer: 2 },
+  { id: 7, question: "DOM का full form क्या है?", options: ["Data Object Model", "Document Object Model", "Display Object Model", "Dynamic Object Model"], answer: 1 },
+  { id: 8, question: "JavaScript में for loop कैसे लिखते हैं?", options: ["for i in range()", "foreach()", "for (let i=0; i<5; i++)", "loop(5)"], answer: 2 },
+  { id: 9, question: "const से बनाया variable बाद में बदल सकते हैं?", options: ["हाँ", "नहीं", "कभी कभी", "पता नहीं"], answer: 1 },
+  { id: 10, question: "JavaScript में string जोड़ने के लिए कौन सा operator use होता है?", options: ["*", "-", "+", "/"], answer: 2 },
+]
+
+
 function MCQPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const name = location.state?.name || "दोस्त"
+  const language = location.state?.language || "python"
+  const questions = language === "sql" ? sqlQuestions : language === "javascript" ? javascriptQuestions : pythonQuestions
   const [current, setCurrent] = useState(0)
   const [selected, setSelected] = useState(null)
   const [score, setScore] = useState(0)
@@ -175,7 +204,9 @@ function MCQPage() {
 
           <div>
             <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-              <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>🧠 MCQ Practice</h1>
+              <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>
+  {language === "sql" ? "🗄️ SQL" : language === "javascript" ? "🌐 JavaScript" : "🐍 Python"} MCQ
+</h1>
               <p style={{ color: mutedColor, margin: "0.3rem 0 0" }}>नमस्ते {name}!</p>
             </div>
 

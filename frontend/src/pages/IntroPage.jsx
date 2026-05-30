@@ -16,7 +16,7 @@ function IntroPage() {
 
   function welcomeMessage() {
     speak(
-      "नमस्ते! Pyra Python Tutor में आपका स्वागत है। " +
+      "नमस्ते! दृष्टि में आपका स्वागत है — जहाँ code बोलता है। " +
       "यह website आपको Python programming सिखाएगी। " +
       "Keyboard shortcuts इस प्रकार हैं: " +
       "P दबाएं — Pyra का परिचय सुनने के लिए। " +
@@ -148,10 +148,12 @@ function IntroPage() {
       <div style={{ width: "100%", maxWidth: "800px" }}>
 
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <div style={{ fontSize: "4rem" }}>🎓</div>
-          <h1 style={{ color: "#a0a0ff", fontSize: "2rem", margin: "0.5rem 0 0" }}>Pyra</h1>
-          <p style={{ color: "#888", margin: "0.3rem 0 0" }}>आपकी Python Tutor</p>
-        </div>
+           <div style={{ fontSize: "4rem" }}>🎓</div>
+<h1 style={{ color: "#a0a0ff", fontSize: "2.5rem", margin: "0.5rem 0 0" }}>दृष्टि</h1>
+<p style={{ color: "#a0a0ff", fontSize: "1rem", margin: "0.3rem 0 0", letterSpacing: "2px" }}>Drishti</p>
+<p style={{ color: "#888", margin: "0.3rem 0 0" }}>जहाँ code बोलता है</p>
+<p style={{ color: "#666", margin: "0.2rem 0 0", fontSize: "0.9rem" }}>आपकी tutor — Pyra</p>
+           </div>
        
 
         <div aria-live="polite" style={{

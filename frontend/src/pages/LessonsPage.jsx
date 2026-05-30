@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar"
 import { useTheme } from "../components/useTheme"
 
 const pythonLessons = [
-  { id: 1, title: "Python क्या है?", content: "Python एक programming language है। इसे 1991 में Guido van Rossum ने बनाया था। Python बहुत आसान है — इसे पढ़ना और लिखना दोनों सरल हैं। Python से हम websites, games, और AI बना सकते हैं।", example: null },
+  { id: 1, title: "Python क्या है?", content: "Python एक programming language है जिसका उपयोग websites, AI, automation, data analysis और software development के लिए किया जाता है।। इसे 1991 में Guido van Rossum ने बनाया था। Python बहुत आसान है — इसे पढ़ना और लिखना दोनों सरल हैं। Python से हम websites, games, और AI बना सकते हैं।", example: null },
   { id: 2, title: "print() function", content: "print() function screen पर कुछ भी दिखाता है। जो भी हम brackets के अंदर लिखते हैं, वो screen पर आ जाता है।", example: 'print("नमस्ते दुनिया!")' },
   { id: 3, title: "Variables", content: "Variable एक box की तरह है जिसमें हम कोई भी value रख सकते हैं।", example: 'naam = "Sharada"\numar = 20\nprint(naam)' },
   { id: 4, title: "Data Types", content: "Python में अलग-अलग तरह का data होता है। int, float, string, bool।", example: 'age = 20\nname = "Pyra"\nis_student = True' },
@@ -144,12 +144,12 @@ function LessonsPage() {
       if (e.target.tagName === "INPUT") return
       const key = e.key.toLowerCase()
       if (key === "l") playLesson()
-      if (key === "n" && step === "done") navigate("/mcq", { state: { name } })
+      if (key === "n" && step === "done") navigate("/mcq", { state: { name, language } })
       if (key === "n" && step !== "done") nextLesson()
       if (key === "r") speak(lastMessage)
       if (key === "t") startListening()
       if (key === "1") navigate("/lessons", { state: { name } })
-      if (key === "2") navigate("/mcq", { state: { name } })
+      if (key === "2") navigate("/mcq", { state: { name, language } })
       if (key === "3") navigate("/agent", { state: { name } })
       if (key === "m") toggleTheme()
       if (key === "b") document.getElementById("sidebar-toggle")?.click()
@@ -170,7 +170,7 @@ function LessonsPage() {
       fontFamily: "'Segoe UI', sans-serif", padding: "1rem" , fontSize: fontSize + "px"
     }}>
       <div style={{ width: "100%", maxWidth: "1100px" }}>
-        <Navbar name={name} theme={theme} toggleTheme={toggleTheme} fontSize={fontSize} setFontSize={setFontSize} speed={speed} setSpeed={setSpeed} />
+  <Navbar name={name} theme={theme} toggleTheme={toggleTheme} fontSize={fontSize} setFontSize={setFontSize} speed={speed} setSpeed={setSpeed} language={language} />
 
         <div style={{ display: "grid", gridTemplateColumns: "auto 1fr 300px", gap: "1.5rem", alignItems: "start" }}>
 
@@ -231,7 +231,7 @@ function LessonsPage() {
               <button onClick={startListening} disabled={listening} aria-label="T — आवाज़ से जवाब दें" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: listening ? "#333" : "#6366f1", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
                 {listening ? "🎙️ सुन रही हूँ" : "🎤 बोलें"}<br /><span style={{ fontSize: "0.75rem" }}>(T)</span>
               </button>
-              <button onClick={step === "done" ? () => navigate("/mcq", { state: { name } }) : nextLesson} aria-label="N — अगला lesson" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+              <button onClick={step === "done" ? () => navigate("/mcq", { state: { name, language } }) : nextLesson} aria-label="N — अगला lesson" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
                 {step === "done" ? "✅ MCQ" : "अगला →"}<br /><span style={{ fontSize: "0.75rem" }}>(N)</span>
               </button>
             </div>
