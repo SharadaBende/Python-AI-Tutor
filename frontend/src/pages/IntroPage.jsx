@@ -145,7 +145,7 @@ function IntroPage() {
       fontFamily: "'Segoe UI', sans-serif",
       padding: "1rem"
     }}>
-      <div style={{ width: "100%", maxWidth: "580px" }}>
+      <div style={{ width: "100%", maxWidth: "800px" }}>
 
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
           <div style={{ fontSize: "4rem" }}>🎓</div>

@@ -135,10 +135,10 @@ function LessonsPage() {
     <main aria-label="Lessons पृष्ठ" style={{
       minHeight: "100vh",
       background: bg,
-      display: "flex", alignItems: "center", justifyContent: "center",
+      display: "flex", alignItems: "flex-start", justifyContent: "center",
       fontFamily: "'Segoe UI', sans-serif", padding: "1rem"
     }}>
-      <div style={{ width: "100%", maxWidth: "580px" }}>
+      <div style={{ width: "100%", maxWidth: "800px" }}>
         <Navbar name={name} theme={theme} toggleTheme={toggleTheme} />
    
         <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>

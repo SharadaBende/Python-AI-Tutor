@@ -15,8 +15,8 @@ function AgentPage() {
   const [listening, setListening] = useState(false)
   const [status, setStatus] = useState("")
   const [lastMessage, setLastMessage] = useState("")
-  const { theme, toggleTheme, bg } = useTheme()
-const navigate = useNavigate()
+  const { theme, toggleTheme, bg, cardBg, cardBorder, mutedColor, textColor, codeBg } = useTheme()
+  const navigate = useNavigate()
 
   function speak(text, onEnd) {
     speakUtil(text, onEnd, setLastMessage)
@@ -116,15 +116,15 @@ if (key === "m") toggleTheme()
   return (
     <main aria-label="Code Agent पृष्ठ" style={{
       minHeight: "100vh",
-      background: "linear-gradient(135deg, #0f0f1a, #1a1a3e)",
-      display: "flex", alignItems: "center", justifyContent: "center",
+      background: bg,
+      display: "flex", alignItems: "flex-start", justifyContent: "center",
       fontFamily: "'Segoe UI', sans-serif", padding: "1rem"
     }}>
-      <div style={{ width: "100%", maxWidth: "580px" }}>
+        <div style={{ width: "100%", maxWidth: "800px" }}>
       <Navbar name={name} theme={theme} toggleTheme={toggleTheme} />
         <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
           <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>🤖 Code Agent</h1>
-          <p style={{ color: "#888", margin: "0.3rem 0 0" }}>नमस्ते {name}! मुझे कोई भी program बनाने को कहें</p>
+          <p style={{ color: mutedColor, margin: "0.3rem 0 0" }}>नमस्ते {name}! मुझे कोई भी program बनाने को कहें</p>
         </div>
 
 <ProgressBar
@@ -135,9 +135,9 @@ if (key === "m") toggleTheme()
 />
 
         <div aria-live="polite" style={{
-          background: "#1a1a2e", border: "1px solid #2a2a5e",
+           background: cardBg, border: "1px solid " + cardBorder,
           padding: "1.5rem", borderRadius: "16px", marginBottom: "1rem"
-        }}>
+           }}>
           <label htmlFor="commandInput" style={{ color: "#aaa", fontSize: "0.9rem", display: "block", marginBottom: "0.5rem" }}>
             आपकी command:
           </label>
@@ -151,7 +151,7 @@ if (key === "m") toggleTheme()
             aria-label="Python command लिखें"
             style={{
               width: "100%", padding: "1rem", fontSize: "1rem", borderRadius: "12px",
-              border: "2px solid #3a3a6e", background: "#0f0f1a", color: "#fff",
+              border: "2px solid " + cardBorder, background: codeBg, color: textColor,
               outline: "none", boxSizing: "border-box", marginBottom: "0.5rem"
             }}
           />
@@ -164,9 +164,9 @@ if (key === "m") toggleTheme()
         </div>
 
         {code !== "" && (
-          <div style={{ background: "#1a1a2e", border: "1px solid #2a2a5e", borderRadius: "16px", padding: "1.5rem", marginBottom: "1rem" }}>
+          <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "16px", padding: "1.5rem", marginBottom: "1rem" }}>
             <p style={{ color: "#888", fontSize: "0.85rem", margin: "0 0 0.5rem" }}>Generated Code:</p>
-            <pre style={{ color: "#22c55e", margin: "0 0 1rem", fontSize: "0.95rem", fontFamily: "monospace", whiteSpace: "pre-wrap", background: "#0f0f1a", padding: "1rem", borderRadius: "8px" }}>
+            <pre style={{ color: "#22c55e", margin: "0 0 1rem", fontSize: "0.95rem", fontFamily: "monospace", whiteSpace: "pre-wrap", background: codeBg, padding: "1rem", borderRadius: "8px" }}>
               {code}
             </pre>
             {output !== "" && (
@@ -201,7 +201,7 @@ if (key === "m") toggleTheme()
           </button>
         </div>
 
-        <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem" }}>
+        <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "1rem" }}>
           <p style={{ color: "#666", fontSize: "0.85rem", margin: "0 0 0.5rem", textAlign: "center" }}>Keyboard Shortcuts</p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.4rem" }}>
             {[["T", "Command बोलें"], ["C", "Code बनाएं"], ["R", "दोबारा सुनें"]].map(([key, desc]) => (

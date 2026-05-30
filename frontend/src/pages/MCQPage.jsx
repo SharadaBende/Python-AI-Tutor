@@ -165,10 +165,10 @@ function MCQPage() {
     <main aria-label="MCQ Practice पृष्ठ" style={{
       minHeight: "100vh",
       background: bg,
-      display: "flex", alignItems: "center", justifyContent: "center",
+      display: "flex", alignItems: "flex-start", justifyContent: "center",
       fontFamily: "'Segoe UI', sans-serif", padding: "1rem"
     }}>
-      <div style={{ width: "100%", maxWidth: "580px" }}>
+      <div style={{ width: "100%", maxWidth: "800px" }}>
      <Navbar name={name} theme={theme} toggleTheme={toggleTheme} />
         <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
           <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>🧠 MCQ Practice</h1>
