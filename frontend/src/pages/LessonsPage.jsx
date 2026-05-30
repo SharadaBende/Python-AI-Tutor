@@ -1,3 +1,4 @@
+import { t } from "../components/translations"
 import { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { speak as speakUtil } from "../components/speak"
@@ -56,6 +57,8 @@ function LessonsPage() {
   const name = location.state?.name || "दोस्त"
   const language = location.state?.language || "python"
   const lessons = language === "sql" ? sqlLessons : language === "javascript" ? javascriptLessons : pythonLessons
+  const instructionLang = location.state?.instructionLang || "hindi"
+  const lang = t[instructionLang]
   const [currentLesson, setCurrentLesson] = useState(0)
   const [step, setStep] = useState("intro")
   const [status, setStatus] = useState("")
@@ -70,51 +73,40 @@ function LessonsPage() {
   useEffect(() => {
     setTimeout(() => {
       speak(
-        "वाह " + name + "! Lessons page पर आपका स्वागत है। " +
-        "L दबाएं lesson सुनने के लिए। " +
-        "N दबाएं अगले lesson के लिए। " +
-        "R दबाएं दोबारा सुनने के लिए।"
+        lang.welcome(name) + " " +
+        lang.pressL + " " +
+        lang.pressN + " " +
+        lang.pressR
       )
-      setStatus("L = Lesson सुनें | N = अगला | R = दोबारा")
+      setStatus(lang.status)
       setStep("ready")
     }, 1000)
   }, [])
 
-  async function playLesson() {
+ async function playLesson() {
     const lesson = lessons[currentLesson]
-    speak("Lesson " + lesson.id + " लोड हो रहा है... रुकिए।")
-    setStatus("AI lesson तैयार कर रही है...")
+    speak(lang.loading(lesson.id))
+    setStatus(lang.loading(lesson.id))
     setStep("playing")
-    try {
-      const res = await fetch("http://127.0.0.1:8000/get-lesson", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic: lesson.title, student_name: name }),
-      })
-      const data = await res.json()
-      let text = "Lesson " + lesson.id + ". " + lesson.title + ". " + data.lesson
-      if (lesson.example) text += " उदाहरण: " + lesson.example
-      text += " क्या आप समझ गए? N दबाएं अगले lesson के लिए। R दबाएं दोबारा सुनने के लिए।"
-      speak(text)
-      setStatus("सुनिए... R = दोबारा | N = अगला lesson")
-    } catch {
-      speak("Lesson लोड नहीं हुआ, दोबारा L दबाएं")
-      setStatus("Error — दोबारा L दबाएं")
-      setStep("ready")
-    }
+
+    let text = "Lesson " + lesson.id + ". " + lesson.title + ". " + lesson.content
+    if (lesson.example) text += " " + lang.example + " " + lesson.example
+    text += " " + lang.understood + " " + lang.nextLesson
+    speak(text)
+    setStatus("R = " + lang.repeatBtn + " | N = " + lang.nextBtn)
   }
 
   function nextLesson() {
     if (currentLesson < lessons.length - 1) {
       setCurrentLesson((prev) => prev + 1)
       setStep("ready")
-      speak("बहुत अच्छा! अगला lesson तैयार है। L दबाएं सुनने के लिए।")
-      setStatus("L = Lesson सुनें")
+      speak(lang.excellent + " " + lang.pressL)
+      setStatus(lang.pressL)
     } else {
       localStorage.setItem("lessons_done", "true")
-      speak("शाबाश " + name + "! आपने सभी 15 lessons पूरे कर लिए! N दबाएं MCQ practice के लिए।")
+      speak(lang.allDone(name))
       setStep("done")
-      setStatus("सभी lessons पूरे! N = MCQ Practice")
+      setStatus(lang.allDone(name))
     }
   }
 
@@ -222,16 +214,16 @@ function LessonsPage() {
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.8rem" }}>
-              <button onClick={playLesson} aria-label="L — Lesson सुनें" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#f4a261", color: "#000", border: "none", cursor: "pointer", fontWeight: "bold" }}>
-                🔊 सुनें<br /><span style={{ fontSize: "0.75rem" }}>(L)</span>
-              </button>
+              <button onClick={playLesson} aria-label="L">
+  {lang.listenBtn}<br /><span style={{ fontSize: "0.75rem" }}>(L)</span>
+</button>
               <button onClick={() => speak(lastMessage)} aria-label="R — दोबारा सुनें" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#4a4af4", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
                 🔁 दोबारा<br /><span style={{ fontSize: "0.75rem" }}>(R)</span>
               </button>
               <button onClick={startListening} disabled={listening} aria-label="T — आवाज़ से जवाब दें" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: listening ? "#333" : "#6366f1", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
                 {listening ? "🎙️ सुन रही हूँ" : "🎤 बोलें"}<br /><span style={{ fontSize: "0.75rem" }}>(T)</span>
               </button>
-              <button onClick={step === "done" ? () => navigate("/mcq", { state: { name, language } }) : nextLesson} aria-label="N — अगला lesson" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+              <button onClick={step === "done" ? () => navigate("/mcq", { state: { name, language, instructionLang } }) : nextLesson} aria-label="N — अगला lesson" style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
                 {step === "done" ? "✅ MCQ" : "अगला →"}<br /><span style={{ fontSize: "0.75rem" }}>(N)</span>
               </button>
             </div>

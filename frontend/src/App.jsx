@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import IntroPage from "./pages/IntroPage"
+import InstructionLanguagePage from "./pages/InstructionLanguagePage"
 import LanguagePage from "./pages/LanguagePage"
 import LessonsPage from "./pages/LessonsPage"
 import MCQPage from "./pages/MCQPage"
@@ -11,6 +12,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<IntroPage />} />
+        <Route path="/instruction-language" element={<InstructionLanguagePage />} />
         <Route path="/language" element={<LanguagePage />} />
         <Route path="/lessons" element={<LessonsPage />} />
         <Route path="/mcq" element={<MCQPage />} />
