@@ -1,5 +1,9 @@
+import Navbar from "../components/Navbar"
+import { useTheme } from "../components/useTheme"
 import { useState, useEffect } from "react"
+import ProgressBar from "../components/ProgressBar"
 import { useNavigate, useLocation } from "react-router-dom"
+import { speak as speakUtil } from "../components/speak"
 
 const questions = [
   { id: 1, question: "Python किसने बनाया?", options: ["Bill Gates", "Guido van Rossum", "Steve Jobs", "Elon Musk"], answer: 1 },
@@ -35,15 +39,10 @@ function MCQPage() {
   const [status, setStatus] = useState("")
   const [lastMessage, setLastMessage] = useState("")
   const [listening, setListening] = useState(false)
+ const { theme, toggleTheme, bg, cardBg, cardBorder, mutedColor, textColor } = useTheme()
 
   function speak(text, onEnd) {
-    window.speechSynthesis.cancel()
-    setLastMessage(text)
-    const utterance = new SpeechSynthesisUtterance(text)
-    utterance.lang = "hi-IN"
-    utterance.rate = 0.85
-    if (onEnd) utterance.onend = onEnd
-    window.speechSynthesis.speak(utterance)
+    speakUtil(text, onEnd, setLastMessage)
   }
 
   useEffect(() => {
@@ -102,6 +101,7 @@ function MCQPage() {
       speak("अगला question तैयार है। Q दबाएं सुनने के लिए।")
       setStatus("Q = Question सुनें")
     } else {
+        localStorage.setItem("mcq_done", "true")
       setStep("done")
       const finalScore = score + (selected === questions[current].answer ? 1 : 0)
       speak(
@@ -149,6 +149,10 @@ function MCQPage() {
       if (key === "t") startListening()
       if (key === "n" && step === "done") navigate("/agent", { state: { name } })
       if (key === "n" && step !== "done") nextQuestion()
+     if (key === "1") navigate("/lessons", { state: { name } })
+     if (key === "2") navigate("/mcq", { state: { name } })
+     if (key === "3") navigate("/agent", { state: { name } })
+     if (key === "m") toggleTheme()
     }
     window.addEventListener("keydown", handleKey)
     return () => window.removeEventListener("keydown", handleKey)
@@ -160,18 +164,25 @@ function MCQPage() {
   return (
     <main aria-label="MCQ Practice पृष्ठ" style={{
       minHeight: "100vh",
-      background: "linear-gradient(135deg, #0f0f1a, #1a1a3e)",
+      background: bg,
       display: "flex", alignItems: "center", justifyContent: "center",
       fontFamily: "'Segoe UI', sans-serif", padding: "1rem"
     }}>
       <div style={{ width: "100%", maxWidth: "580px" }}>
-
+     <Navbar name={name} theme={theme} toggleTheme={toggleTheme} />
         <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
           <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>🧠 MCQ Practice</h1>
-          <p style={{ color: "#888", margin: "0.3rem 0 0" }}>नमस्ते {name}!</p>
+         <p style={{ color: mutedColor, margin: "0.3rem 0 0" }}>नमस्ते {name}!</p> 
         </div>
 
-        <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "0.8rem 1rem", marginBottom: "1rem" }}>
+        <ProgressBar
+  lessons={localStorage.getItem("lessons_done") === "true"}
+  mcq={localStorage.getItem("mcq_done") === "true"}
+  agent={localStorage.getItem("agent_visited") === "true"}
+  theme={theme}
+/>
+
+        <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "0.8rem 1rem", marginBottom: "1rem" }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem" }}>
             <span style={{ color: "#aaa", fontSize: "0.85rem" }}>Progress</span>
             <span style={{ color: "#a0a0ff", fontSize: "0.85rem" }}>{current}/{questions.length} questions</span>
@@ -182,11 +193,11 @@ function MCQPage() {
         </div>
 
         <div aria-live="polite" style={{
-          background: "#1a1a2e", border: "1px solid #2a2a5e",
+          background: cardBg, border: "1px solid " + cardBorder,
           padding: "1.5rem", borderRadius: "16px", marginBottom: "1rem"
         }}>
           <p style={{ color: "#888", fontSize: "0.85rem", margin: "0 0 0.5rem" }}>Question {q.id} of {questions.length}</p>
-          <p style={{ color: "#fff", fontSize: "1.1rem", fontWeight: "500", marginBottom: "1.2rem" }}>{q.question}</p>
+          <p style={{ color: textColor, fontSize: "1.1rem", fontWeight: "500", marginBottom: "1.2rem" }}>{q.question}</p>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
             {q.options.map((opt, i) => (
               <button key={i} onClick={() => selectAnswer(i)}
@@ -194,7 +205,7 @@ function MCQPage() {
                 style={{
                   padding: "0.8rem 1rem", borderRadius: "10px", border: "1.5px solid",
                   textAlign: "left", cursor: "pointer", fontSize: "1rem",
-                  background: selected === i ? (i === q.answer ? "#14532d" : "#450a0a") : "#0f0f1a",
+                  background: selected === i ? (i === q.answer ? "#14532d" : "#450a0a") : cardBg,
                   borderColor: selected === i ? (i === q.answer ? "#22c55e" : "#ef4444") : "#2a2a5e",
                   color: selected === i ? (i === q.answer ? "#22c55e" : "#ef4444") : "#ccc",
                   transition: "all 0.2s"
@@ -232,7 +243,7 @@ function MCQPage() {
           </button>
         </div>
 
-        <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem" }}>
+        <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "1rem" }}>
           <p style={{ color: "#666", fontSize: "0.85rem", margin: "0 0 0.5rem", textAlign: "center" }}>Keyboard Shortcuts</p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.4rem" }}>
             {[["Q", "Question सुनें"], ["1-4", "जवाब चुनें"], ["R", "दोबारा सुनें"], ["T", "आवाज़ से जवाब"], ["N", "अगला question"]].map(([key, desc]) => (

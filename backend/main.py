@@ -68,3 +68,26 @@ def generate_code(data: CodeRequest):
     except Exception as e:
         output = str(e)
     return {"code": code, "output": output}
+
+
+
+class LessonRequest(BaseModel):
+    topic: str
+    student_name: str
+
+@app.post("/get-lesson")
+def get_lesson(data: LessonRequest):
+    response = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[
+            {"role": "system", "content": """You are Pyra, a Python tutor for visually impaired students in India. 
+Always reply in Hindi using Devanagari script.
+Keep explanation short, simple, and clear — max 4 lines.
+Use a real life example that a blind person can relate to.
+Never use visual examples like colors or images.
+End with one simple example code if needed."""},
+            {"role": "user", "content": f"Student ka naam {data.student_name} hai. Unhe {data.topic} samjhao."}
+        ],
+        max_tokens=300,
+    )
+    return {"lesson": response.choices[0].message.content}

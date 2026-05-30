@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react"
-import { useLocation } from "react-router-dom"
+import ProgressBar from "../components/ProgressBar"
+import { useLocation, useNavigate } from "react-router-dom"
+import { speak as speakUtil } from "../components/speak"
+import Navbar from "../components/Navbar"
+import { useTheme } from "../components/useTheme"
 
 function AgentPage() {
   const location = useLocation()
@@ -11,18 +15,15 @@ function AgentPage() {
   const [listening, setListening] = useState(false)
   const [status, setStatus] = useState("")
   const [lastMessage, setLastMessage] = useState("")
+  const { theme, toggleTheme, bg } = useTheme()
+const navigate = useNavigate()
 
   function speak(text, onEnd) {
-    window.speechSynthesis.cancel()
-    setLastMessage(text)
-    const utterance = new SpeechSynthesisUtterance(text)
-    utterance.lang = "hi-IN"
-    utterance.rate = 0.85
-    if (onEnd) utterance.onend = onEnd
-    window.speechSynthesis.speak(utterance)
+    speakUtil(text, onEnd, setLastMessage)
   }
 
   useEffect(() => {
+    localStorage.setItem("agent_visited", "true")
     setTimeout(() => {
       speak(
         "शाबाश " + name + "! अब Code Agent का समय है। " +
@@ -103,6 +104,10 @@ function AgentPage() {
       if (key === "t") startListening()
       if (key === "c") generateCode()
       if (key === "r") speak(lastMessage)
+      if (key === "1") navigate("/lessons", { state: { name } })
+if (key === "2") navigate("/mcq", { state: { name } })
+if (key === "3") navigate("/agent", { state: { name } })
+if (key === "m") toggleTheme()
     }
     window.addEventListener("keydown", handleKey)
     return () => window.removeEventListener("keydown", handleKey)
@@ -116,11 +121,18 @@ function AgentPage() {
       fontFamily: "'Segoe UI', sans-serif", padding: "1rem"
     }}>
       <div style={{ width: "100%", maxWidth: "580px" }}>
-
+      <Navbar name={name} theme={theme} toggleTheme={toggleTheme} />
         <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
           <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>🤖 Code Agent</h1>
           <p style={{ color: "#888", margin: "0.3rem 0 0" }}>नमस्ते {name}! मुझे कोई भी program बनाने को कहें</p>
         </div>
+
+<ProgressBar
+  lessons={localStorage.getItem("lessons_done") === "true"}
+  mcq={localStorage.getItem("mcq_done") === "true"}
+  agent={localStorage.getItem("agent_visited") === "true"}
+  theme={theme}
+/>
 
         <div aria-live="polite" style={{
           background: "#1a1a2e", border: "1px solid #2a2a5e",

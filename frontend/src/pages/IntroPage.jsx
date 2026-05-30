@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { speak as speakUtil } from "../components/speak"
 
 function IntroPage() {
   const [name, setName] = useState("")
@@ -10,13 +11,7 @@ function IntroPage() {
   const navigate = useNavigate()
 
   function speak(text, onEnd) {
-    window.speechSynthesis.cancel()
-    setLastMessage(text)
-    const utterance = new SpeechSynthesisUtterance(text)
-    utterance.lang = "hi-IN"
-    utterance.rate = 0.85
-    if (onEnd) utterance.onend = onEnd
-    window.speechSynthesis.speak(utterance)
+    speakUtil(text, onEnd, setLastMessage)
   }
 
   function welcomeMessage() {
@@ -157,6 +152,7 @@ function IntroPage() {
           <h1 style={{ color: "#a0a0ff", fontSize: "2rem", margin: "0.5rem 0 0" }}>Pyra</h1>
           <p style={{ color: "#888", margin: "0.3rem 0 0" }}>आपकी Python Tutor</p>
         </div>
+       
 
         <div aria-live="polite" style={{
           background: "#1a1a2e", border: "1px solid #2a2a5e",
