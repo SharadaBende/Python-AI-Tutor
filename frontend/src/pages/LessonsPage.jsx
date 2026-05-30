@@ -32,6 +32,66 @@ const lessons = [
     content: "input() function से हम user से कुछ भी पूछ सकते हैं। User जो भी type करे, वो हम variable में रख सकते हैं।",
     example: 'naam = input("आपका नाम क्या है? ")\nprint("नमस्ते", naam)',
   },
+  {
+    id: 6,
+    title: "If/Else Conditions",
+    content: "If/Else से हम condition check करते हैं। अगर condition सही है तो if वाला code चलता है, नहीं तो else वाला। जैसे — अगर बारिश है तो छाता लो, नहीं तो धूप का चश्मा लो।",
+    example: "umar = 18\nif umar >= 18:\n    print(\"आप vote कर सकते हैं\")\nelse:\n    print(\"आप vote नहीं कर सकते\")",
+  },
+  {
+    id: 7,
+    title: "For Loop",
+    content: "For loop से हम कोई काम बार बार कर सकते हैं। जैसे 1 से 5 तक गिनना हो तो for loop use करते हैं। range() function numbers की list बनाता है।",
+    example: "for i in range(1, 6):\n    print(i)",
+  },
+  {
+    id: 8,
+    title: "While Loop",
+    content: "While loop तब तक चलता है जब तक condition सही हो। जैसे — जब तक पानी न मिले, चलते रहो। While loop में ध्यान रखें कि loop कभी न कभी बंद हो।",
+    example: "count = 1\nwhile count <= 5:\n    print(count)\n    count = count + 1",
+  },
+  {
+    id: 9,
+    title: "Lists",
+    content: "List एक थैले की तरह है जिसमें हम कई चीज़ें रख सकते हैं। List में numbers, strings, कुछ भी रख सकते हैं। List square brackets में लिखी जाती है।",
+    example: "fruits = [\"apple\", \"banana\", \"mango\"]\nprint(fruits[0])\nprint(len(fruits))",
+  },
+  {
+    id: 10,
+    title: "Functions",
+    content: "Function एक छोटा program होता है जो एक काम करता है। Function को एक बार लिखो और बार बार use करो। def keyword से function बनाते हैं।",
+    example: "def namaste(naam):\n    print(\"नमस्ते\", naam)\n\nnamaste(\"Sharada\")\nnamaste(\"Pyra\")",
+  },
+  {
+    id: 11,
+    title: "String Operations",
+    content: "String यानी text के साथ हम कई operations कर सकते हैं। दो strings को जोड़ सकते हैं, बड़े छोटे अक्षर बदल सकते हैं, और string की length निकाल सकते हैं।",
+    example: "naam = \"sharada\"\nprint(naam.upper())\nprint(len(naam))\nprint(\"नमस्ते \" + naam)",
+  },
+  {
+    id: 12,
+    title: "Math Operations",
+    content: "Python में सभी math operations होते हैं। जोड़ के लिए +, घटाव के लिए -, गुणा के लिए *, भाग के लिए /, और शेषफल के लिए % use होता है।",
+    example: "a = 10\nb = 3\nprint(a + b)\nprint(a - b)\nprint(a * b)\nprint(a / b)\nprint(a % b)",
+  },
+  {
+    id: 13,
+    title: "Comments",
+    content: "Comments वो lines हैं जो Python run नहीं करता। Comments से हम अपने code को explain करते हैं। # से single line comment बनाते हैं। Comments बहुत जरूरी हैं।",
+    example: "# यह एक calculator है\na = 10  # पहला number\nb = 5   # दूसरा number\nprint(a + b)  # जोड़",
+  },
+  {
+    id: 14,
+    title: "Error Handling",
+    content: "try/except से हम errors को handle करते हैं। अगर code में कोई गलती हो तो program बंद न हो। try में normal code लिखते हैं और except में error का solution लिखते हैं।",
+    example: "try:\n    result = 10 / 0\nexcept ZeroDivisionError:\n    print(\"शून्य से भाग नहीं होता!\")",
+  },
+  {
+    id: 15,
+    title: "Mini Project — Calculator",
+    content: "अब तक जो सीखा उससे एक simple calculator बनाते हैं। इसमें हम functions, variables, और print() सब use करेंगे। यह आपका पहला Python project है!",
+    example: "def calculator(a, b, operation):\n    if operation == \"+\":\n        return a + b\n    elif operation == \"-\":\n        return a - b\n    elif operation == \"*\":\n        return a * b\n    elif operation == \"/\":\n        return a / b\n\nprint(calculator(10, 5, \"+\"))\nprint(calculator(10, 5, \"*\"))",
+  },
 ]
 
 function LessonsPage() {
@@ -58,10 +118,10 @@ function LessonsPage() {
     setTimeout(() => {
       speak(
         "वाह " + name + "! Lessons page पर आपका स्वागत है। " +
-        "Keyboard shortcuts इस प्रकार हैं: " +
-        "L दबाएं — lesson सुनने के लिए। " +
-        "N दबाएं — अगले lesson के लिए। " +
-        "R दबाएं — दोबारा सुनने के लिए। " +
+        "Keyboard shortcuts: " +
+        "L दबाएं lesson सुनने के लिए। " +
+        "N दबाएं अगले lesson के लिए। " +
+        "R दबाएं दोबारा सुनने के लिए। " +
         "L दबाएं और पहला lesson शुरू करें।"
       )
       setStatus("L = Lesson सुनें | N = अगला | R = दोबारा")
@@ -85,16 +145,12 @@ function LessonsPage() {
     if (currentLesson < lessons.length - 1) {
       setCurrentLesson((prev) => prev + 1)
       setStep("ready")
-      speak(
-        "बहुत अच्छा! अगला lesson तैयार है। " +
-        "L दबाएं सुनने के लिए।"
-      )
+      speak("बहुत अच्छा! अगला lesson तैयार है। L दबाएं सुनने के लिए।")
       setStatus("L = Lesson सुनें")
     } else {
       speak(
-        "शाबाश " + name + "! आपने सभी lessons पूरे कर लिए! " +
-        "अब हम MCQ practice करेंगे। " +
-        "N दबाएं आगे बढ़ने के लिए।"
+        "शाबाश " + name + "! आपने सभी 15 lessons पूरे कर लिए! " +
+        "अब हम MCQ practice करेंगे। N दबाएं आगे बढ़ने के लिए।"
       )
       setStep("done")
       setStatus("सभी lessons पूरे! N = MCQ Practice")
@@ -127,6 +183,7 @@ function LessonsPage() {
 
   useEffect(() => {
     function handleKey(e) {
+      if (e.target.tagName === "INPUT") return
       const key = e.key.toLowerCase()
       if (key === "l") playLesson()
       if (key === "n" && step === "done") navigate("/mcq", { state: { name } })
@@ -139,7 +196,7 @@ function LessonsPage() {
   }, [currentLesson, step, lastMessage])
 
   const lesson = lessons[currentLesson]
-  const progress = Math.round(((currentLesson) / lessons.length) * 100)
+  const progress = Math.round((currentLesson / lessons.length) * 100)
 
   return (
     <main aria-label="Lessons पृष्ठ" style={{
@@ -210,7 +267,7 @@ function LessonsPage() {
         <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem" }}>
           <p style={{ color: "#666", fontSize: "0.85rem", margin: "0 0 0.5rem", textAlign: "center" }}>Keyboard Shortcuts</p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.4rem" }}>
-            {[["L", "Lesson सुनें"], ["R", "दोबारा सुनें"], ["T", "आवाज़ से जवाब दें"], ["N", "अगला lesson"]].map(([key, desc]) => (
+            {[["L", "Lesson सुनें"], ["R", "दोबारा सुनें"], ["T", "आवाज़ से जवाब"], ["N", "अगला lesson"]].map(([key, desc]) => (
               <div key={key} style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
                 <span style={{ background: "#2a2a5e", color: "#a0a0ff", padding: "0.2rem 0.6rem", borderRadius: "6px", fontWeight: "bold", fontSize: "0.9rem" }}>{key}</span>
                 <span style={{ color: "#aaa", fontSize: "0.85rem" }}>{desc}</span>

@@ -2,36 +2,26 @@ import { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 
 const questions = [
-  {
-    id: 1,
-    question: "Python क्या है?",
-    options: ["एक खाना", "एक programming language", "एक जानवर", "एक game"],
-    answer: 1,
-  },
-  {
-    id: 2,
-    question: "Screen पर text दिखाने के लिए कौन सा function use होता है?",
-    options: ["input()", "show()", "print()", "display()"],
-    answer: 2,
-  },
-  {
-    id: 3,
-    question: "Variable क्या होता है?",
-    options: ["एक number", "data रखने का box", "एक function", "एक error"],
-    answer: 1,
-  },
-  {
-    id: 4,
-    question: "naam = 'Sharada' में naam क्या है?",
-    options: ["function", "variable", "number", "error"],
-    answer: 1,
-  },
-  {
-    id: 5,
-    question: "User से input लेने के लिए कौन सा function use होता है?",
-    options: ["print()", "scan()", "input()", "read()"],
-    answer: 2,
-  },
+  { id: 1, question: "Python किसने बनाया?", options: ["Bill Gates", "Guido van Rossum", "Steve Jobs", "Elon Musk"], answer: 1 },
+  { id: 2, question: "Python कब बना?", options: ["1980", "1995", "1991", "2000"], answer: 2 },
+  { id: 3, question: "Screen पर text दिखाने के लिए कौन सा function use होता है?", options: ["input()", "show()", "print()", "display()"], answer: 2 },
+  { id: 4, question: "Variable क्या होता है?", options: ["एक number", "data रखने का box", "एक function", "एक error"], answer: 1 },
+  { id: 5, question: "naam = 'Sharada' में naam क्या है?", options: ["function", "variable", "number", "error"], answer: 1 },
+  { id: 6, question: "User से input लेने के लिए कौन सा function use होता है?", options: ["print()", "scan()", "input()", "read()"], answer: 2 },
+  { id: 7, question: "पूरी संख्या जैसे 5, 10 किस data type में आती है?", options: ["float", "string", "bool", "int"], answer: 3 },
+  { id: 8, question: "True या False किस data type में आता है?", options: ["int", "float", "bool", "string"], answer: 2 },
+  { id: 9, question: "If/Else किसलिए use होता है?", options: ["Loop के लिए", "Condition check के लिए", "Function बनाने के लिए", "Input लेने के लिए"], answer: 1 },
+  { id: 10, question: "For loop में range(1, 5) कितनी बार चलेगा?", options: ["5 बार", "4 बार", "3 बार", "6 बार"], answer: 1 },
+  { id: 11, question: "While loop कब तक चलता है?", options: ["एक बार", "पाँच बार", "जब तक condition सही हो", "कभी नहीं"], answer: 2 },
+  { id: 12, question: "List किसमें लिखी जाती है?", options: ["() brackets", "{} brackets", "[] brackets", "<> brackets"], answer: 2 },
+  { id: 13, question: "Function बनाने के लिए कौन सा keyword use होता है?", options: ["func", "define", "def", "function"], answer: 2 },
+  { id: 14, question: "string को uppercase करने के लिए क्या use होता है?", options: [".lower()", ".upper()", ".title()", ".big()"], answer: 1 },
+  { id: 15, question: "शेषफल निकालने के लिए कौन सा operator use होता है?", options: ["/", "*", "%", "//"], answer: 2 },
+  { id: 16, question: "Comment लिखने के लिए कौन सा symbol use होता है?", options: ["//", "/*", "#", "--"], answer: 2 },
+  { id: 17, question: "Error handle करने के लिए क्या use होता है?", options: ["if/else", "try/except", "for/while", "def/return"], answer: 1 },
+  { id: 18, question: "list की length निकालने के लिए क्या use होता है?", options: ["size()", "count()", "length()", "len()"], answer: 3 },
+  { id: 19, question: "3.14 किस data type में आता है?", options: ["int", "string", "float", "bool"], answer: 2 },
+  { id: 20, question: "दो strings जोड़ने के लिए कौन सा operator use होता है?", options: ["*", "-", "+", "/"], answer: 2 },
 ]
 
 function MCQPage() {
@@ -59,12 +49,11 @@ function MCQPage() {
   useEffect(() => {
     setTimeout(() => {
       speak(
-        "शाबाश " + name + "! अब MCQ practice का समय है। " +
-        "Keyboard shortcuts: " +
-        "Q दबाएं — question सुनने के लिए। " +
-        "1, 2, 3, 4 दबाएं — जवाब चुनने के लिए। " +
-        "R दबाएं — दोबारा सुनने के लिए। " +
-        "Q दबाएं और पहला question शुरू करें।"
+        "शाबाश " + name + "! अब MCQ practice का समय है। 20 questions हैं। " +
+        "Q दबाएं question सुनने के लिए। " +
+        "1, 2, 3, 4 दबाएं जवाब देने के लिए। " +
+        "R दबाएं दोबारा सुनने के लिए। " +
+        "Q दबाएं और शुरू करें।"
       )
       setStatus("Q = Question सुनें | 1,2,3,4 = जवाब | R = दोबारा")
       setStep("ready")
@@ -74,9 +63,7 @@ function MCQPage() {
   function playQuestion() {
     const q = questions[current]
     let text = "Question " + q.id + ". " + q.question + ". "
-    q.options.forEach((opt, i) => {
-      text += (i + 1) + ". " + opt + ". "
-    })
+    q.options.forEach((opt, i) => { text += (i + 1) + ". " + opt + ". " })
     text += "1, 2, 3, या 4 दबाएं जवाब देने के लिए।"
     speak(text)
     setStep("playing")
@@ -116,12 +103,13 @@ function MCQPage() {
       setStatus("Q = Question सुनें")
     } else {
       setStep("done")
+      const finalScore = score + (selected === questions[current].answer ? 1 : 0)
       speak(
-        "बहुत शाबाश " + name + "! आपने सभी questions पूरे किए। " +
-        score + " में से " + questions.length + " सही जवाब दिए। " +
+        "बहुत शाबाश " + name + "! आपने सभी 20 questions पूरे किए। " +
+        "20 में से " + finalScore + " सही जवाब दिए। " +
         "N दबाएं Code Agent पर जाने के लिए।"
       )
-      setStatus("🎉 Quiz पूरा! Score: " + score + "/" + questions.length + " | N = Code Agent")
+      setStatus("🎉 Quiz पूरा! Score: " + finalScore + "/20 | N = Code Agent")
     }
   }
 
@@ -150,6 +138,7 @@ function MCQPage() {
 
   useEffect(() => {
     function handleKey(e) {
+      if (e.target.tagName === "INPUT") return
       const key = e.key.toLowerCase()
       if (key === "q") playQuestion()
       if (key === "1") selectAnswer(0)
@@ -163,7 +152,7 @@ function MCQPage() {
     }
     window.addEventListener("keydown", handleKey)
     return () => window.removeEventListener("keydown", handleKey)
-  }, [current, step, lastMessage, score])
+  }, [current, step, lastMessage, score, selected])
 
   const q = questions[current]
   const progress = Math.round((current / questions.length) * 100)
@@ -198,7 +187,6 @@ function MCQPage() {
         }}>
           <p style={{ color: "#888", fontSize: "0.85rem", margin: "0 0 0.5rem" }}>Question {q.id} of {questions.length}</p>
           <p style={{ color: "#fff", fontSize: "1.1rem", fontWeight: "500", marginBottom: "1.2rem" }}>{q.question}</p>
-
           <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
             {q.options.map((opt, i) => (
               <button key={i} onClick={() => selectAnswer(i)}
@@ -206,15 +194,9 @@ function MCQPage() {
                 style={{
                   padding: "0.8rem 1rem", borderRadius: "10px", border: "1.5px solid",
                   textAlign: "left", cursor: "pointer", fontSize: "1rem",
-                  background: selected === i
-                    ? i === q.answer ? "#14532d" : "#450a0a"
-                    : "#0f0f1a",
-                  borderColor: selected === i
-                    ? i === q.answer ? "#22c55e" : "#ef4444"
-                    : "#2a2a5e",
-                  color: selected === i
-                    ? i === q.answer ? "#22c55e" : "#ef4444"
-                    : "#ccc",
+                  background: selected === i ? (i === q.answer ? "#14532d" : "#450a0a") : "#0f0f1a",
+                  borderColor: selected === i ? (i === q.answer ? "#22c55e" : "#ef4444") : "#2a2a5e",
+                  color: selected === i ? (i === q.answer ? "#22c55e" : "#ef4444") : "#ccc",
                   transition: "all 0.2s"
                 }}>
                 <span style={{ fontWeight: "bold", marginRight: "0.5rem", color: "#a0a0ff" }}>{i + 1}.</span>
@@ -222,7 +204,6 @@ function MCQPage() {
               </button>
             ))}
           </div>
-
           {status !== "" && (
             <p aria-live="assertive" style={{
               marginTop: "1rem", color: "#f4a261", fontSize: "0.9rem",
