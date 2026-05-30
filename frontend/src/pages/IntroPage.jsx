@@ -111,7 +111,7 @@ function IntroPage() {
   function goToLessons() {
     speak("बहुत अच्छा! चलिए Python सीखना शुरू करते हैं!")
     setTimeout(() => {
-      navigate("/lessons", { state: { name } })
+      navigate("/language", { state: { name } })
     }, 2500)
   }
 

@@ -2,31 +2,60 @@ import { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { speak as speakUtil } from "../components/speak"
 import ProgressBar from "../components/ProgressBar"
+import LessonSidebar from "../components/LessonSidebar"
 import Navbar from "../components/Navbar"
 import { useTheme } from "../components/useTheme"
 
-const lessons = [
+const pythonLessons = [
   { id: 1, title: "Python क्या है?", content: "Python एक programming language है। इसे 1991 में Guido van Rossum ने बनाया था। Python बहुत आसान है — इसे पढ़ना और लिखना दोनों सरल हैं। Python से हम websites, games, और AI बना सकते हैं।", example: null },
   { id: 2, title: "print() function", content: "print() function screen पर कुछ भी दिखाता है। जो भी हम brackets के अंदर लिखते हैं, वो screen पर आ जाता है।", example: 'print("नमस्ते दुनिया!")' },
-  { id: 3, title: "Variables", content: "Variable एक box की तरह है जिसमें हम कोई भी value रख सकते हैं। जैसे एक डिब्बे में चीज़ रखते हैं, वैसे ही variable में data रखते हैं।", example: 'naam = "Sharada"\numar = 20\nprint(naam)' },
-  { id: 4, title: "Data Types", content: "Python में अलग-अलग तरह का data होता है। int — पूरी संख्या जैसे 5, 10। float — दशमलव संख्या जैसे 3.14। string — text जैसे नमस्ते। bool — True या False।", example: 'age = 20\nheight = 5.6\nname = "Pyra"\nis_student = True' },
-  { id: 5, title: "User से Input लेना", content: "input() function से हम user से कुछ भी पूछ सकते हैं। User जो भी type करे, वो हम variable में रख सकते हैं।", example: 'naam = input("आपका नाम क्या है? ")\nprint("नमस्ते", naam)' },
-  { id: 6, title: "If/Else Conditions", content: "If/Else से हम condition check करते हैं। अगर condition सही है तो if वाला code चलता है, नहीं तो else वाला।", example: 'umar = 18\nif umar >= 18:\n    print("आप vote कर सकते हैं")\nelse:\n    print("आप vote नहीं कर सकते")' },
-  { id: 7, title: "For Loop", content: "For loop से हम कोई काम बार बार कर सकते हैं। range() function numbers की list बनाता है।", example: "for i in range(1, 6):\n    print(i)" },
-  { id: 8, title: "While Loop", content: "While loop तब तक चलता है जब तक condition सही हो। While loop में ध्यान रखें कि loop कभी न कभी बंद हो।", example: "count = 1\nwhile count <= 5:\n    print(count)\n    count = count + 1" },
-  { id: 9, title: "Lists", content: "List एक थैले की तरह है जिसमें हम कई चीज़ें रख सकते हैं। List square brackets में लिखी जाती है।", example: 'fruits = ["apple", "banana", "mango"]\nprint(fruits[0])\nprint(len(fruits))' },
-  { id: 10, title: "Functions", content: "Function एक छोटा program होता है जो एक काम करता है। def keyword से function बनाते हैं।", example: 'def namaste(naam):\n    print("नमस्ते", naam)\n\nnamaste("Sharada")\nnamaste("Pyra")' },
-  { id: 11, title: "String Operations", content: "String यानी text के साथ हम कई operations कर सकते हैं। दो strings जोड़ सकते हैं, बड़े छोटे अक्षर बदल सकते हैं।", example: 'naam = "sharada"\nprint(naam.upper())\nprint(len(naam))\nprint("नमस्ते " + naam)' },
-  { id: 12, title: "Math Operations", content: "Python में सभी math operations होते हैं। जोड़ के लिए +, घटाव के लिए -, गुणा के लिए *, भाग के लिए /, शेषफल के लिए %।", example: "a = 10\nb = 3\nprint(a + b)\nprint(a - b)\nprint(a * b)\nprint(a % b)" },
-  { id: 13, title: "Comments", content: "Comments वो lines हैं जो Python run नहीं करता। # से single line comment बनाते हैं।", example: "# यह एक calculator है\na = 10\nb = 5\nprint(a + b)" },
-  { id: 14, title: "Error Handling", content: "try/except से हम errors को handle करते हैं। अगर code में कोई गलती हो तो program बंद न हो।", example: "try:\n    result = 10 / 0\nexcept ZeroDivisionError:\n    print('शून्य से भाग नहीं होता!')" },
-  { id: 15, title: "Mini Project — Calculator", content: "अब तक जो सीखा उससे एक simple calculator बनाते हैं। यह आपका पहला Python project है!", example: 'def calculator(a, b, op):\n    if op == "+":\n        return a + b\n    elif op == "-":\n        return a - b\n    elif op == "*":\n        return a * b\n\nprint(calculator(10, 5, "+"))\nprint(calculator(10, 5, "*"))' },
+  { id: 3, title: "Variables", content: "Variable एक box की तरह है जिसमें हम कोई भी value रख सकते हैं।", example: 'naam = "Sharada"\numar = 20\nprint(naam)' },
+  { id: 4, title: "Data Types", content: "Python में अलग-अलग तरह का data होता है। int, float, string, bool।", example: 'age = 20\nname = "Pyra"\nis_student = True' },
+  { id: 5, title: "User से Input लेना", content: "input() function से हम user से कुछ भी पूछ सकते हैं।", example: 'naam = input("आपका नाम? ")\nprint("नमस्ते", naam)' },
+  { id: 6, title: "If/Else Conditions", content: "If/Else से हम condition check करते हैं।", example: 'umar = 18\nif umar >= 18:\n    print("Vote कर सकते हैं")\nelse:\n    print("Vote नहीं कर सकते")' },
+  { id: 7, title: "For Loop", content: "For loop से हम कोई काम बार बार कर सकते हैं।", example: "for i in range(1, 6):\n    print(i)" },
+  { id: 8, title: "While Loop", content: "While loop तब तक चलता है जब तक condition सही हो।", example: "count = 1\nwhile count <= 5:\n    print(count)\n    count = count + 1" },
+  { id: 9, title: "Lists", content: "List एक थैले की तरह है जिसमें हम कई चीज़ें रख सकते हैं।", example: 'fruits = ["apple", "banana", "mango"]\nprint(fruits[0])' },
+  { id: 10, title: "Functions", content: "Function एक छोटा program होता है जो एक काम करता है।", example: 'def namaste(naam):\n    print("नमस्ते", naam)\n\nnamaste("Sharada")' },
+  { id: 11, title: "String Operations", content: "String के साथ हम कई operations कर सकते हैं।", example: 'naam = "sharada"\nprint(naam.upper())\nprint(len(naam))' },
+  { id: 12, title: "Math Operations", content: "Python में सभी math operations होते हैं।", example: "a = 10\nb = 3\nprint(a + b)\nprint(a % b)" },
+  { id: 13, title: "Comments", content: "Comments वो lines हैं जो Python run नहीं करता।", example: "# यह calculator है\na = 10\nb = 5\nprint(a + b)" },
+  { id: 14, title: "Error Handling", content: "try/except से हम errors को handle करते हैं।", example: "try:\n    result = 10 / 0\nexcept ZeroDivisionError:\n    print('शून्य से भाग नहीं!')" },
+  { id: 15, title: "Mini Project — Calculator", content: "अब तक जो सीखा उससे calculator बनाते हैं।", example: 'def calc(a, b, op):\n    if op == "+":\n        return a + b\n    elif op == "*":\n        return a * b\nprint(calc(10, 5, "+"))' },
+]
+
+const sqlLessons = [
+  { id: 1, title: "SQL क्या है?", content: "SQL यानी Structured Query Language। इससे हम database से data निकालते हैं, डालते हैं, और बदलते हैं। SQL सीखना बहुत जरूरी है क्योंकि सभी apps में database होता है।", example: null },
+  { id: 2, title: "SELECT Statement", content: "SELECT से हम database से data निकालते हैं। यह SQL का सबसे जरूरी command है।", example: "SELECT * FROM students;" },
+  { id: 3, title: "WHERE Clause", content: "WHERE से हम condition लगाकर specific data निकालते हैं।", example: "SELECT * FROM students\nWHERE age > 18;" },
+  { id: 4, title: "INSERT Statement", content: "INSERT से हम database में नया data डालते हैं।", example: "INSERT INTO students (naam, age)\nVALUES ('Sharada', 20);" },
+  { id: 5, title: "UPDATE Statement", content: "UPDATE से हम database में पुराना data बदलते हैं।", example: "UPDATE students\nSET age = 21\nWHERE naam = 'Sharada';" },
+  { id: 6, title: "DELETE Statement", content: "DELETE से हम database से data हटाते हैं।", example: "DELETE FROM students\nWHERE naam = 'Sharada';" },
+  { id: 7, title: "CREATE TABLE", content: "CREATE TABLE से हम नई table बनाते हैं।", example: "CREATE TABLE students (\n  id INT,\n  naam VARCHAR(50),\n  age INT\n);" },
+  { id: 8, title: "ORDER BY", content: "ORDER BY से हम data को sort करते हैं।", example: "SELECT * FROM students\nORDER BY age DESC;" },
+  { id: 9, title: "COUNT Function", content: "COUNT से हम rows की संख्या निकालते हैं।", example: "SELECT COUNT(*)\nFROM students;" },
+  { id: 10, title: "JOIN", content: "JOIN से हम दो tables को जोड़कर data निकालते हैं।", example: "SELECT students.naam, marks.score\nFROM students\nJOIN marks ON students.id = marks.id;" },
+]
+
+const javascriptLessons = [
+  { id: 1, title: "JavaScript क्या है?", content: "JavaScript एक programming language है जो websites को interactive बनाती है। हर website में JavaScript होती है। इसे browser directly समझता है।", example: null },
+  { id: 2, title: "console.log()", content: "console.log() से हम browser console में कुछ भी print कर सकते हैं।", example: 'console.log("नमस्ते दुनिया!");' },
+  { id: 3, title: "Variables", content: "JavaScript में let, const, और var से variables बनाते हैं।", example: 'let naam = "Sharada";\nconst umar = 20;\nconsole.log(naam);' },
+  { id: 4, title: "Data Types", content: "JavaScript में string, number, boolean, null, undefined होते हैं।", example: 'let name = "Pyra";\nlet age = 20;\nlet isStudent = true;' },
+  { id: 5, title: "If/Else", content: "If/Else से condition check करते हैं।", example: 'let umar = 18;\nif (umar >= 18) {\n  console.log("Vote कर सकते हैं");\n} else {\n  console.log("नहीं कर सकते");\n}' },
+  { id: 6, title: "For Loop", content: "For loop से काम बार बार करते हैं।", example: "for (let i = 1; i <= 5; i++) {\n  console.log(i);\n}" },
+  { id: 7, title: "Functions", content: "Function से code को reuse करते हैं।", example: 'function namaste(naam) {\n  console.log("नमस्ते " + naam);\n}\nnamaste("Sharada");' },
+  { id: 8, title: "Arrays", content: "Array में हम कई values एक साथ रखते हैं।", example: 'let fruits = ["apple", "banana", "mango"];\nconsole.log(fruits[0]);\nconsole.log(fruits.length);' },
+  { id: 9, title: "Objects", content: "Object में हम related data एक साथ रखते हैं।", example: 'let student = {\n  naam: "Sharada",\n  age: 20\n};\nconsole.log(student.naam);' },
+  { id: 10, title: "DOM Manipulation", content: "DOM से हम webpage के elements को JavaScript से बदल सकते हैं।", example: 'document.getElementById("title")\n  .innerHTML = "नमस्ते!";' },
 ]
 
 function LessonsPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const name = location.state?.name || "दोस्त"
+  const language = location.state?.language || "python"
+  const lessons = language === "sql" ? sqlLessons : language === "javascript" ? javascriptLessons : pythonLessons
   const [currentLesson, setCurrentLesson] = useState(0)
   const [step, setStep] = useState("intro")
   const [status, setStatus] = useState("")
@@ -123,6 +152,7 @@ function LessonsPage() {
       if (key === "2") navigate("/mcq", { state: { name } })
       if (key === "3") navigate("/agent", { state: { name } })
       if (key === "m") toggleTheme()
+      if (key === "b") document.getElementById("sidebar-toggle")?.click()
     }
     window.addEventListener("keydown", handleKey)
     return () => window.removeEventListener("keydown", handleKey)
@@ -142,11 +172,25 @@ function LessonsPage() {
       <div style={{ width: "100%", maxWidth: "1100px" }}>
         <Navbar name={name} theme={theme} toggleTheme={toggleTheme} fontSize={fontSize} setFontSize={setFontSize} speed={speed} setSpeed={setSpeed} />
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: "1.5rem", alignItems: "start" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "auto 1fr 300px", gap: "1.5rem", alignItems: "start" }}>
+
+          <LessonSidebar
+  lessons={lessons}
+  currentLesson={currentLesson}
+  setCurrentLesson={setCurrentLesson}
+  setStep={setStep}
+  theme={theme}
+  cardBg={cardBg}
+  cardBorder={cardBorder}
+  mutedColor={mutedColor}
+  speak={speak}
+/>
 
           <div>
             <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-              <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>📚 Lessons</h1>
+              <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>
+  {language === "sql" ? "🗄️ SQL" : language === "javascript" ? "🌐 JavaScript" : "🐍 Python"} Lessons
+</h1>
               <p style={{ color: mutedColor, margin: "0.3rem 0 0" }}>नमस्ते {name}!</p>
             </div>
 

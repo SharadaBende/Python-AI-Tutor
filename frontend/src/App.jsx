@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import IntroPage from "./pages/IntroPage"
+import LanguagePage from "./pages/LanguagePage"
 import LessonsPage from "./pages/LessonsPage"
 import MCQPage from "./pages/MCQPage"
 import AgentPage from "./pages/AgentPage"
@@ -10,6 +11,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<IntroPage />} />
+        <Route path="/language" element={<LanguagePage />} />
         <Route path="/lessons" element={<LessonsPage />} />
         <Route path="/mcq" element={<MCQPage />} />
         <Route path="/agent" element={<AgentPage />} />
