@@ -22,7 +22,7 @@ export function speak(text, onEnd, setLastMessage) {
 
   const utterance = new SpeechSynthesisUtterance(text)
   utterance.lang = "hi-IN"
-  utterance.rate = 0.85
+  utterance.rate = parseFloat(localStorage.getItem("speed") || "0.85")
   utterance.pitch = 1.1
   utterance.volume = 1
 

@@ -4,6 +4,12 @@ export function useTheme() {
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") || "dark"
   )
+  const [fontSize, setFontSize] = useState(
+    parseInt(localStorage.getItem("fontSize") || "16")
+  )
+  const [speed, setSpeed] = useState(
+    parseFloat(localStorage.getItem("speed") || "0.85")
+  )
 
   useEffect(() => {
     localStorage.setItem("theme", theme)
@@ -23,5 +29,5 @@ export function useTheme() {
   const mutedColor = theme === "dark" ? "#888" : "#666"
   const codeBg = theme === "dark" ? "#0f0f1a" : "#f5f5ff"
 
-  return { theme, toggleTheme, bg, textColor, cardBg, cardBorder, mutedColor, codeBg }
+  return { theme, toggleTheme, bg, textColor, cardBg, cardBorder, mutedColor, codeBg, fontSize, setFontSize, speed, setSpeed }
 }

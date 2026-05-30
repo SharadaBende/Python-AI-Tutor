@@ -39,7 +39,7 @@ function MCQPage() {
   const [status, setStatus] = useState("")
   const [lastMessage, setLastMessage] = useState("")
   const [listening, setListening] = useState(false)
- const { theme, toggleTheme, bg, cardBg, cardBorder, mutedColor, textColor } = useTheme()
+  const { theme, toggleTheme, bg, textColor, cardBg, cardBorder, mutedColor, codeBg, fontSize, setFontSize, speed, setSpeed } = useTheme()
 
   function speak(text, onEnd) {
     speakUtil(text, onEnd, setLastMessage)
@@ -166,95 +166,96 @@ function MCQPage() {
       minHeight: "100vh",
       background: bg,
       display: "flex", alignItems: "flex-start", justifyContent: "center",
-      fontFamily: "'Segoe UI', sans-serif", padding: "1rem"
+      fontFamily: "'Segoe UI', sans-serif", padding: "1rem" , fontSize: fontSize + "px"
     }}>
-      <div style={{ width: "100%", maxWidth: "800px" }}>
-     <Navbar name={name} theme={theme} toggleTheme={toggleTheme} />
-        <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-          <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>🧠 MCQ Practice</h1>
-         <p style={{ color: mutedColor, margin: "0.3rem 0 0" }}>नमस्ते {name}!</p> 
-        </div>
+      <div style={{ width: "100%", maxWidth: "1100px" }}>
+        <Navbar name={name} theme={theme} toggleTheme={toggleTheme} fontSize={fontSize} setFontSize={setFontSize} speed={speed} setSpeed={setSpeed} />
 
-        <ProgressBar
-  lessons={localStorage.getItem("lessons_done") === "true"}
-  mcq={localStorage.getItem("mcq_done") === "true"}
-  agent={localStorage.getItem("agent_visited") === "true"}
-  theme={theme}
-/>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: "1.5rem", alignItems: "start" }}>
 
-        <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "0.8rem 1rem", marginBottom: "1rem" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem" }}>
-            <span style={{ color: "#aaa", fontSize: "0.85rem" }}>Progress</span>
-            <span style={{ color: "#a0a0ff", fontSize: "0.85rem" }}>{current}/{questions.length} questions</span>
-          </div>
-          <div style={{ background: "#2a2a4e", borderRadius: "8px", height: "8px" }}>
-            <div style={{ background: "#22c55e", width: progress + "%", height: "8px", borderRadius: "8px", transition: "width 0.5s" }} />
-          </div>
-        </div>
+          <div>
+            <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+              <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>🧠 MCQ Practice</h1>
+              <p style={{ color: mutedColor, margin: "0.3rem 0 0" }}>नमस्ते {name}!</p>
+            </div>
 
-        <div aria-live="polite" style={{
-          background: cardBg, border: "1px solid " + cardBorder,
-          padding: "1.5rem", borderRadius: "16px", marginBottom: "1rem"
-        }}>
-          <p style={{ color: "#888", fontSize: "0.85rem", margin: "0 0 0.5rem" }}>Question {q.id} of {questions.length}</p>
-          <p style={{ color: textColor, fontSize: "1.1rem", fontWeight: "500", marginBottom: "1.2rem" }}>{q.question}</p>
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-            {q.options.map((opt, i) => (
-              <button key={i} onClick={() => selectAnswer(i)}
-                aria-label={(i + 1) + ". " + opt}
-                style={{
-                  padding: "0.8rem 1rem", borderRadius: "10px", border: "1.5px solid",
-                  textAlign: "left", cursor: "pointer", fontSize: "1rem",
-                  background: selected === i ? (i === q.answer ? "#14532d" : "#450a0a") : cardBg,
-                  borderColor: selected === i ? (i === q.answer ? "#22c55e" : "#ef4444") : "#2a2a5e",
-                  color: selected === i ? (i === q.answer ? "#22c55e" : "#ef4444") : "#ccc",
-                  transition: "all 0.2s"
-                }}>
-                <span style={{ fontWeight: "bold", marginRight: "0.5rem", color: "#a0a0ff" }}>{i + 1}.</span>
-                {opt}
-              </button>
-            ))}
-          </div>
-          {status !== "" && (
-            <p aria-live="assertive" style={{
-              marginTop: "1rem", color: "#f4a261", fontSize: "0.9rem",
-              background: "#2a1a0e", padding: "0.5rem 1rem", borderRadius: "8px"
-            }}>{status}</p>
-          )}
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "0.8rem", marginBottom: "1.5rem" }}>
-          <button onClick={playQuestion} aria-label="Q — Question सुनें"
-            style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#f4a261", color: "#000", border: "none", cursor: "pointer", fontWeight: "bold" }}>
-            🔊 सुनें<br /><span style={{ fontSize: "0.75rem" }}>(Q)</span>
-          </button>
-          <button onClick={() => speak(lastMessage)} aria-label="R — दोबारा सुनें"
-            style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#4a4af4", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
-            🔁 दोबारा<br /><span style={{ fontSize: "0.75rem" }}>(R)</span>
-          </button>
-          <button onClick={startListening} disabled={listening} aria-label="T — आवाज़ से जवाब दें"
-            style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: listening ? "#333" : "#6366f1", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
-            {listening ? "🎙️ सुन रही हूँ" : "🎤 बोलें"}<br /><span style={{ fontSize: "0.75rem" }}>(T)</span>
-          </button>
-          <button onClick={step === "done" ? () => navigate("/agent", { state: { name } }) : nextQuestion}
-            aria-label="N — अगला question"
-            style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
-            {step === "done" ? "✅ Agent" : "अगला →"}<br /><span style={{ fontSize: "0.75rem" }}>(N)</span>
-          </button>
-        </div>
-
-        <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "1rem" }}>
-          <p style={{ color: "#666", fontSize: "0.85rem", margin: "0 0 0.5rem", textAlign: "center" }}>Keyboard Shortcuts</p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.4rem" }}>
-            {[["Q", "Question सुनें"], ["1-4", "जवाब चुनें"], ["R", "दोबारा सुनें"], ["T", "आवाज़ से जवाब"], ["N", "अगला question"]].map(([key, desc]) => (
-              <div key={key} style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-                <span style={{ background: "#2a2a5e", color: "#a0a0ff", padding: "0.2rem 0.6rem", borderRadius: "6px", fontWeight: "bold", fontSize: "0.9rem" }}>{key}</span>
-                <span style={{ color: "#aaa", fontSize: "0.85rem" }}>{desc}</span>
+            <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "0.8rem 1rem", marginBottom: "1rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem" }}>
+                <span style={{ color: mutedColor, fontSize: "0.85rem" }}>Progress</span>
+                <span style={{ color: "#a0a0ff", fontSize: "0.85rem" }}>{current}/{questions.length} questions</span>
               </div>
-            ))}
-          </div>
-        </div>
+              <div style={{ background: "#2a2a4e", borderRadius: "8px", height: "8px" }}>
+                <div style={{ background: "#22c55e", width: progress + "%", height: "8px", borderRadius: "8px", transition: "width 0.5s" }} />
+              </div>
+            </div>
 
+            <div aria-live="polite" style={{ background: cardBg, border: "1px solid " + cardBorder, padding: "1.5rem", borderRadius: "16px", marginBottom: "1rem" }}>
+              <p style={{ color: mutedColor, fontSize: "0.85rem", margin: "0 0 0.5rem" }}>Question {q.id} of {questions.length}</p>
+              <p style={{ color: textColor, fontSize: "1.1rem", fontWeight: "500", marginBottom: "1.2rem" }}>{q.question}</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                {q.options.map((opt, i) => (
+                  <button key={i} onClick={() => selectAnswer(i)}
+                    aria-label={(i + 1) + ". " + opt}
+                    style={{
+                      padding: "0.8rem 1rem", borderRadius: "10px", border: "1.5px solid",
+                      textAlign: "left", cursor: "pointer", fontSize: "1rem",
+                      background: selected === i ? (i === q.answer ? "#14532d" : "#450a0a") : cardBg,
+                      borderColor: selected === i ? (i === q.answer ? "#22c55e" : "#ef4444") : cardBorder,
+                      color: selected === i ? (i === q.answer ? "#22c55e" : "#ef4444") : textColor,
+                      transition: "all 0.2s"
+                    }}>
+                    <span style={{ fontWeight: "bold", marginRight: "0.5rem", color: "#a0a0ff" }}>{i + 1}.</span>
+                    {opt}
+                  </button>
+                ))}
+              </div>
+              {status !== "" && (
+                <p aria-live="assertive" style={{ marginTop: "1rem", color: "#f4a261", fontSize: "0.9rem", background: "#2a1a0e", padding: "0.5rem 1rem", borderRadius: "8px" }}>{status}</p>
+              )}
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.8rem" }}>
+              <button onClick={playQuestion} aria-label="Q — Question सुनें"
+                style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#f4a261", color: "#000", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+                🔊 सुनें<br /><span style={{ fontSize: "0.75rem" }}>(Q)</span>
+              </button>
+              <button onClick={() => speak(lastMessage)} aria-label="R — दोबारा सुनें"
+                style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#4a4af4", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+                🔁 दोबारा<br /><span style={{ fontSize: "0.75rem" }}>(R)</span>
+              </button>
+              <button onClick={startListening} disabled={listening} aria-label="T — आवाज़ से जवाब दें"
+                style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: listening ? "#333" : "#6366f1", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+                {listening ? "🎙️ सुन रही हूँ" : "🎤 बोलें"}<br /><span style={{ fontSize: "0.75rem" }}>(T)</span>
+              </button>
+              <button onClick={step === "done" ? () => navigate("/agent", { state: { name } }) : nextQuestion}
+                aria-label="N — अगला question"
+                style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
+                {step === "done" ? "✅ Agent" : "अगला →"}<br /><span style={{ fontSize: "0.75rem" }}>(N)</span>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <ProgressBar
+              lessons={localStorage.getItem("lessons_done") === "true"}
+              mcq={localStorage.getItem("mcq_done") === "true"}
+              agent={localStorage.getItem("agent_visited") === "true"}
+              theme={theme}
+            />
+            <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "1rem" }}>
+              <p style={{ color: mutedColor, fontSize: "0.85rem", margin: "0 0 0.5rem", textAlign: "center" }}>Keyboard Shortcuts</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                {[["Q", "Question सुनें"], ["1-4", "जवाब चुनें"], ["R", "दोबारा सुनें"], ["T", "आवाज़ से जवाब"], ["N", "अगला question"], ["M", "Theme बदलें"], ["1", "Lessons page"], ["2", "MCQ page"], ["3", "Agent page"]].map(([key, desc]) => (
+                  <div key={key} style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+                    <span style={{ background: "#2a2a5e", color: "#a0a0ff", padding: "0.2rem 0.6rem", borderRadius: "6px", fontWeight: "bold", fontSize: "0.9rem", minWidth: "28px", textAlign: "center" }}>{key}</span>
+                    <span style={{ color: mutedColor, fontSize: "0.85rem" }}>{desc}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </main>
   )

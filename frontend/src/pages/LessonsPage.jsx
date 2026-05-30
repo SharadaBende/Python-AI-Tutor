@@ -32,7 +32,7 @@ function LessonsPage() {
   const [status, setStatus] = useState("")
   const [lastMessage, setLastMessage] = useState("")
   const [listening, setListening] = useState(false)
-  const { theme, toggleTheme, bg, textColor, cardBg, cardBorder, mutedColor, codeBg } = useTheme()
+  const { theme, toggleTheme, bg, textColor, cardBg, cardBorder, mutedColor, codeBg, fontSize, setFontSize, speed, setSpeed } = useTheme()
 
   function speak(text, onEnd) {
     speakUtil(text, onEnd, setLastMessage)
@@ -137,10 +137,10 @@ function LessonsPage() {
       minHeight: "100vh",
       background: bg,
       display: "flex", alignItems: "flex-start", justifyContent: "center",
-      fontFamily: "'Segoe UI', sans-serif", padding: "1rem"
+      fontFamily: "'Segoe UI', sans-serif", padding: "1rem" , fontSize: fontSize + "px"
     }}>
       <div style={{ width: "100%", maxWidth: "1100px" }}>
-        <Navbar name={name} theme={theme} toggleTheme={toggleTheme} />
+        <Navbar name={name} theme={theme} toggleTheme={toggleTheme} fontSize={fontSize} setFontSize={setFontSize} speed={speed} setSpeed={setSpeed} />
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: "1.5rem", alignItems: "start" }}>
 
