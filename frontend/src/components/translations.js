@@ -72,7 +72,7 @@ export const t = {
     output: "Output:",
   },
   marathi: {
-    voiceLang: "mr-IN",
+    voiceLang: "hi-IN",
     welcome: (name) => `वाह ${name}! Lessons page वर आपले स्वागत आहे।`,
     pressL: "L दाबा lesson ऐकण्यासाठी।",
     pressN: "N दाबा पुढच्या lesson साठी।",

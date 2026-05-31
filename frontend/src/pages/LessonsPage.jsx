@@ -8,21 +8,36 @@ import Navbar from "../components/Navbar"
 import { useTheme } from "../components/useTheme"
 
 const pythonLessons = [
-  { id: 1, title: "Python क्या है?", content: "Python एक programming language है जिसका उपयोग websites, AI, automation, data analysis और software development के लिए किया जाता है।। इसे 1991 में Guido van Rossum ने बनाया था। Python बहुत आसान है — इसे पढ़ना और लिखना दोनों सरल हैं। Python से हम websites, games, और AI बना सकते हैं।", example: null },
-  { id: 2, title: "print() function", content: "print() function screen पर कुछ भी दिखाता है। जो भी हम brackets के अंदर लिखते हैं, वो screen पर आ जाता है।", example: 'print("नमस्ते दुनिया!")' },
-  { id: 3, title: "Variables", content: "Variable एक box की तरह है जिसमें हम कोई भी value रख सकते हैं।", example: 'naam = "Sharada"\numar = 20\nprint(naam)' },
-  { id: 4, title: "Data Types", content: "Python में अलग-अलग तरह का data होता है। int, float, string, bool।", example: 'age = 20\nname = "Pyra"\nis_student = True' },
-  { id: 5, title: "User से Input लेना", content: "input() function से हम user से कुछ भी पूछ सकते हैं।", example: 'naam = input("आपका नाम? ")\nprint("नमस्ते", naam)' },
-  { id: 6, title: "If/Else Conditions", content: "If/Else से हम condition check करते हैं।", example: 'umar = 18\nif umar >= 18:\n    print("Vote कर सकते हैं")\nelse:\n    print("Vote नहीं कर सकते")' },
-  { id: 7, title: "For Loop", content: "For loop से हम कोई काम बार बार कर सकते हैं।", example: "for i in range(1, 6):\n    print(i)" },
-  { id: 8, title: "While Loop", content: "While loop तब तक चलता है जब तक condition सही हो।", example: "count = 1\nwhile count <= 5:\n    print(count)\n    count = count + 1" },
-  { id: 9, title: "Lists", content: "List एक थैले की तरह है जिसमें हम कई चीज़ें रख सकते हैं।", example: 'fruits = ["apple", "banana", "mango"]\nprint(fruits[0])' },
-  { id: 10, title: "Functions", content: "Function एक छोटा program होता है जो एक काम करता है।", example: 'def namaste(naam):\n    print("नमस्ते", naam)\n\nnamaste("Sharada")' },
-  { id: 11, title: "String Operations", content: "String के साथ हम कई operations कर सकते हैं।", example: 'naam = "sharada"\nprint(naam.upper())\nprint(len(naam))' },
-  { id: 12, title: "Math Operations", content: "Python में सभी math operations होते हैं।", example: "a = 10\nb = 3\nprint(a + b)\nprint(a % b)" },
-  { id: 13, title: "Comments", content: "Comments वो lines हैं जो Python run नहीं करता।", example: "# यह calculator है\na = 10\nb = 5\nprint(a + b)" },
-  { id: 14, title: "Error Handling", content: "try/except से हम errors को handle करते हैं।", example: "try:\n    result = 10 / 0\nexcept ZeroDivisionError:\n    print('शून्य से भाग नहीं!')" },
-  { id: 15, title: "Mini Project — Calculator", content: "अब तक जो सीखा उससे calculator बनाते हैं।", example: 'def calc(a, b, op):\n    if op == "+":\n        return a + b\n    elif op == "*":\n        return a * b\nprint(calc(10, 5, "+"))' },
+  { id: 1, title: "Python क्या है?", content: "Python एक programming language है। सरल भाषा में कहें तो — Python एक तरीका है जिससे हम computer को instructions देते हैं। जैसे हम किसी को हिंदी में बोलते हैं, वैसे ही हम computer को Python में बोलते हैं। Python को 1991 में Guido van Rossum नाम के एक scientist ने बनाया था। Python इसलिए खास है क्योंकि इसे पढ़ना और समझना बहुत आसान है। Python से हम websites बना सकते हैं, games बना सकते हैं, AI बना सकते हैं, और data analysis कर सकते हैं। दुनिया की बड़ी companies जैसे Google, Netflix, और Instagram भी Python use करती हैं।", example: null },
+  { id: 2, title: "print() function", content: "print() function Python का सबसे पहला और सबसे जरूरी function है। print का मतलब है — screen पर कुछ दिखाना। जो भी हम print के brackets के अंदर लिखते हैं, वो computer की screen पर दिख जाता है। जैसे अगर हम print नमस्ते लिखें, तो screen पर नमस्ते दिखेगा। Text लिखते समय उसे quotes के अंदर लिखना जरूरी है। हम numbers भी print कर सकते हैं, और दो चीज़ें एक साथ भी print कर सकते हैं। print() function हर Python programmer रोज़ use करता है।", example: 'print("नमस्ते दुनिया!")\nprint(42)\nprint("मेरा नाम", "Pyra", "है")' },
+  { id: 3, title: "Variables", content: "Variable को हम एक डिब्बे की तरह सोच सकते हैं। जैसे घर में अलग अलग डिब्बों में चीनी, नमक, और चावल रखते हैं, वैसे ही computer में अलग अलग variables में अलग अलग data रखते हैं। हर variable का एक नाम होता है। उस नाम से हम उस data को बाद में use कर सकते हैं। जैसे naam नाम के variable में Sharada रखा, तो जब भी naam लिखेंगे, Sharada मिलेगा। Variable बनाने के लिए पहले नाम लिखो, फिर equal sign, फिर value। Variable का नाम हमेशा छोटे अक्षरों में लिखते हैं और बीच में space नहीं होती।", example: 'naam = "Sharada"\numar = 20\nsheher = "Mumbai"\nprint(naam)\nprint(umar)\nprint(sheher)' },
+  { id: 4, title: "Data Types", content: "Python में अलग अलग तरह का data होता है, जिन्हें Data Types कहते हैं। पहला है int यानी पूरी संख्या जैसे 5, 10, 100। दूसरा है float यानी दशमलव संख्या जैसे 3.14, 5.5। तीसरा है string यानी text जैसे नमस्ते, Sharada। string हमेशा quotes के अंदर लिखते हैं। चौथा है bool जिसमें सिर्फ दो values होती हैं — True या False। जैसे क्या आज बारिश है? True या False। Python खुद समझ लेता है कि कौन सा data type है। हमें अलग से बताना नहीं पड़ता। यह Python की सबसे अच्छी खासियत है।", example: 'umar = 20\nlambaai = 5.6\nnaam = "Pyra"\nkya_student_hai = True\nprint(umar)\nprint(lambaai)\nprint(naam)\nprint(kya_student_hai)' },
+  { id: 5, title: "User से Input लेना", content: "अब तक हमने सिर्फ खुद data लिखा। लेकिन real programs में user से data लेना पड़ता है। इसके लिए Python में input() function होता है। input() function screen पर एक सवाल दिखाता है और user का जवाब सुनता है। जो भी user type करता है वो एक variable में save हो जाता है। जैसे अगर हम पूछें आपका नाम क्या है, तो user जो नाम type करेगा वो naam variable में save हो जाएगा। फिर हम उस naam को print कर सकते हैं। यह बहुत जरूरी है क्योंकि हर app में user से कुछ न कुछ लेना पड़ता है।", example: 'naam = input("आपका नाम क्या है? ")\numar = input("आपकी उम्र क्या है? ")\nprint("नमस्ते", naam)\nprint("आपकी उम्र है", umar)' },
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  // { id: 2, title: "print() function", content: "print() function screen पर कुछ भी दिखाता है। जो भी हम brackets के अंदर लिखते हैं, वो screen पर आ जाता है।", example: 'print("नमस्ते दुनिया!")' },
+  // { id: 3, title: "Variables", content: "Variable एक box की तरह है जिसमें हम कोई भी value रख सकते हैं।", example: 'naam = "Sharada"\numar = 20\nprint(naam)' },
+  // { id: 4, title: "Data Types", content: "Python में अलग-अलग तरह का data होता है। int, float, string, bool।", example: 'age = 20\nname = "Pyra"\nis_student = True' },
+  // { id: 5, title: "User से Input लेना", content: "input() function से हम user से कुछ भी पूछ सकते हैं।", example: 'naam = input("आपका नाम? ")\nprint("नमस्ते", naam)' },
+  // { id: 6, title: "If/Else Conditions", content: "If/Else से हम condition check करते हैं।", example: 'umar = 18\nif umar >= 18:\n    print("Vote कर सकते हैं")\nelse:\n    print("Vote नहीं कर सकते")' },
+  // { id: 7, title: "For Loop", content: "For loop से हम कोई काम बार बार कर सकते हैं।", example: "for i in range(1, 6):\n    print(i)" },
+  // { id: 8, title: "While Loop", content: "While loop तब तक चलता है जब तक condition सही हो।", example: "count = 1\nwhile count <= 5:\n    print(count)\n    count = count + 1" },
+  // { id: 9, title: "Lists", content: "List एक थैले की तरह है जिसमें हम कई चीज़ें रख सकते हैं।", example: 'fruits = ["apple", "banana", "mango"]\nprint(fruits[0])' },
+  // { id: 10, title: "Functions", content: "Function एक छोटा program होता है जो एक काम करता है।", example: 'def namaste(naam):\n    print("नमस्ते", naam)\n\nnamaste("Sharada")' },
+  // { id: 11, title: "String Operations", content: "String के साथ हम कई operations कर सकते हैं।", example: 'naam = "sharada"\nprint(naam.upper())\nprint(len(naam))' },
+  // { id: 12, title: "Math Operations", content: "Python में सभी math operations होते हैं।", example: "a = 10\nb = 3\nprint(a + b)\nprint(a % b)" },
+  // { id: 13, title: "Comments", content: "Comments वो lines हैं जो Python run नहीं करता।", example: "# यह calculator है\na = 10\nb = 5\nprint(a + b)" },
+  // { id: 14, title: "Error Handling", content: "try/except से हम errors को handle करते हैं।", example: "try:\n    result = 10 / 0\nexcept ZeroDivisionError:\n    print('शून्य से भाग नहीं!')" },
+  // { id: 15, title: "Mini Project — Calculator", content: "अब तक जो सीखा उससे calculator बनाते हैं।", example: 'def calc(a, b, op):\n    if op == "+":\n        return a + b\n    elif op == "*":\n        return a * b\nprint(calc(10, 5, "+"))' },
 ]
 
 const sqlLessons = [
@@ -67,7 +82,31 @@ function LessonsPage() {
   const { theme, toggleTheme, bg, textColor, cardBg, cardBorder, mutedColor, codeBg, fontSize, setFontSize, speed, setSpeed } = useTheme()
 
   function speak(text, onEnd) {
-    speakUtil(text, onEnd, setLastMessage)
+    window.speechSynthesis.cancel()
+    setLastMessage(text)
+    const utterance = new SpeechSynthesisUtterance(text)
+    utterance.lang = lang.voiceLang
+    utterance.rate = parseFloat(localStorage.getItem("speed") || "0.85")
+    utterance.pitch = 1.0
+    utterance.volume = 1
+
+    const trySpeak = () => {
+      const voices = window.speechSynthesis.getVoices()
+      const preferred = voices.find(v =>
+        v.name === "Google US English" && lang.voiceLang === "en-US" ||
+        v.name === "Google हिन्दी" && lang.voiceLang === "hi-IN" ||
+        v.lang === lang.voiceLang
+      )
+      if (preferred) utterance.voice = preferred
+      if (onEnd) utterance.onend = onEnd
+      window.speechSynthesis.speak(utterance)
+    }
+
+    if (window.speechSynthesis.getVoices().length === 0) {
+      window.speechSynthesis.onvoiceschanged = trySpeak
+    } else {
+      trySpeak()
+    }
   }
 
   useEffect(() => {

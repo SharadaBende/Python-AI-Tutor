@@ -1,3 +1,4 @@
+import { t } from "../components/translations"
 import Navbar from "../components/Navbar"
 import { useTheme } from "../components/useTheme"
 import { useState, useEffect } from "react"
@@ -61,6 +62,8 @@ function MCQPage() {
   const name = location.state?.name || "दोस्त"
   const language = location.state?.language || "python"
   const questions = language === "sql" ? sqlQuestions : language === "javascript" ? javascriptQuestions : pythonQuestions
+  const instructionLang = location.state?.instructionLang || "hindi"
+  const lang = t[instructionLang]
   const [current, setCurrent] = useState(0)
   const [selected, setSelected] = useState(null)
   const [score, setScore] = useState(0)
@@ -70,20 +73,43 @@ function MCQPage() {
   const [listening, setListening] = useState(false)
   const { theme, toggleTheme, bg, textColor, cardBg, cardBorder, mutedColor, codeBg, fontSize, setFontSize, speed, setSpeed } = useTheme()
 
-  function speak(text, onEnd) {
-    speakUtil(text, onEnd, setLastMessage)
+function speak(text, onEnd) {
+    window.speechSynthesis.cancel()
+    setLastMessage(text)
+    const utterance = new SpeechSynthesisUtterance(text)
+    utterance.lang = lang.voiceLang
+    utterance.rate = parseFloat(localStorage.getItem("speed") || "0.85")
+    utterance.pitch = 1.0
+    utterance.volume = 1
+
+    const trySpeak = () => {
+      const voices = window.speechSynthesis.getVoices()
+      const preferred = voices.find(v =>
+        v.name === "Google US English" && lang.voiceLang === "en-US" ||
+        v.name === "Google हिन्दी" && lang.voiceLang === "hi-IN" ||
+        v.lang === lang.voiceLang
+      )
+      if (preferred) utterance.voice = preferred
+      if (onEnd) utterance.onend = onEnd
+      window.speechSynthesis.speak(utterance)
+    }
+
+    if (window.speechSynthesis.getVoices().length === 0) {
+      window.speechSynthesis.onvoiceschanged = trySpeak
+    } else {
+      trySpeak()
+    }
   }
 
-  useEffect(() => {
+ useEffect(() => {
     setTimeout(() => {
       speak(
-        "शाबाश " + name + "! अब MCQ practice का समय है। 20 questions हैं। " +
-        "Q दबाएं question सुनने के लिए। " +
-        "1, 2, 3, 4 दबाएं जवाब देने के लिए। " +
-        "R दबाएं दोबारा सुनने के लिए। " +
-        "Q दबाएं और शुरू करें।"
+        lang.mcqWelcome(name) + " " +
+        lang.pressQ + " " +
+        lang.press1234 + " " +
+        lang.pressR
       )
-      setStatus("Q = Question सुनें | 1,2,3,4 = जवाब | R = दोबारा")
+      setStatus("Q = " + lang.pressQ + " | 1,2,3,4 = जवाब | R = " + lang.repeatBtn)
       setStep("ready")
     }, 1000)
   }, [])
@@ -109,14 +135,15 @@ function MCQPage() {
     const isCorrect = index === q.answer
     if (isCorrect) {
       setScore((prev) => prev + 1)
-      speak("बहुत अच्छा! सही जवाब है। N दबाएं अगले question के लिए।")
-      setStatus("✅ सही जवाब! N = अगला question")
+      speak(lang.correct + " " + lang.nextQ)
+      setStatus("✅ " + lang.correct)
     } else {
-      speak("गलत जवाब। सही जवाब था: " + q.options[q.answer] + ". N दबाएं अगले question के लिए।")
-      setStatus("❌ गलत! सही: " + q.options[q.answer] + " | N = अगला")
+      speak(lang.wrong(q.options[q.answer]) + " " + lang.nextQ)
+      setStatus("❌ " + lang.wrong(q.options[q.answer]))
     }
     setStep("answered")
   }
+
 
   function nextQuestion() {
     if (step !== "answered") {
@@ -175,13 +202,12 @@ function MCQPage() {
       if (key === "3") selectAnswer(2)
       if (key === "4") selectAnswer(3)
       if (key === "r") speak(lastMessage)
-      if (key === "t") startListening()
-      if (key === "n" && step === "done") navigate("/agent", { state: { name } })
+      if (key === "n" && step === "done") navigate("/agent", { state: { name, language, instructionLang } })
       if (key === "n" && step !== "done") nextQuestion()
-     if (key === "1") navigate("/lessons", { state: { name } })
-     if (key === "2") navigate("/mcq", { state: { name } })
-     if (key === "3") navigate("/agent", { state: { name } })
-     if (key === "m") toggleTheme()
+      if (key === "1") navigate("/lessons", { state: { name, language, instructionLang } })
+      if (key === "2") navigate("/mcq", { state: { name, language, instructionLang } })
+      if (key === "3") navigate("/agent", { state: { name, language, instructionLang } })
+      if (key === "m") toggleTheme()
     }
     window.addEventListener("keydown", handleKey)
     return () => window.removeEventListener("keydown", handleKey)
@@ -198,7 +224,7 @@ function MCQPage() {
       fontFamily: "'Segoe UI', sans-serif", padding: "1rem" , fontSize: fontSize + "px"
     }}>
       <div style={{ width: "100%", maxWidth: "1100px" }}>
-        <Navbar name={name} theme={theme} toggleTheme={toggleTheme} fontSize={fontSize} setFontSize={setFontSize} speed={speed} setSpeed={setSpeed} />
+        <Navbar name={name} theme={theme} toggleTheme={toggleTheme} fontSize={fontSize} setFontSize={setFontSize} speed={speed} setSpeed={setSpeed} language={language} instructionLang={instructionLang} />
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: "1.5rem", alignItems: "start" }}>
 
@@ -258,7 +284,7 @@ function MCQPage() {
                 style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: listening ? "#333" : "#6366f1", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
                 {listening ? "🎙️ सुन रही हूँ" : "🎤 बोलें"}<br /><span style={{ fontSize: "0.75rem" }}>(T)</span>
               </button>
-              <button onClick={step === "done" ? () => navigate("/agent", { state: { name } }) : nextQuestion}
+              <button onClick={step === "done" ? () =>  navigate("/agent", { state: { name, language, instructionLang } }): nextQuestion}
                 aria-label="N — अगला question"
                 style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
                 {step === "done" ? "✅ Agent" : "अगला →"}<br /><span style={{ fontSize: "0.75rem" }}>(N)</span>
@@ -288,7 +314,7 @@ function MCQPage() {
 
         </div>
       </div>
-    </main>
+   </main>
   )
 }
 

@@ -40,7 +40,7 @@ function LanguagePage() {
     }
     speak(lang.label + " चुना! Lessons शुरू हो रहे हैं।")
     setTimeout(() => {
-      navigate("/lessons", { state: { name, language: lang.id } })
+      navigate("/lessons", { state: { name, language: lang.id, instructionLang: location.state?.instructionLang || "hindi" } })
     }, 1500)
   }
 

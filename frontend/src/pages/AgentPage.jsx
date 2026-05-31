@@ -1,3 +1,4 @@
+import { t } from "../components/translations"
 import { useState, useEffect } from "react"
 import ProgressBar from "../components/ProgressBar"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -8,6 +9,9 @@ import { useTheme } from "../components/useTheme"
 function AgentPage() {
   const location = useLocation()
   const name = location.state?.name || "दोस्त"
+  const instructionLang = location.state?.instructionLang || "hindi"
+  const language = location.state?.language || "python"
+  const lang = t[instructionLang]
   const [command, setCommand] = useState("")
   const [code, setCode] = useState("")
   const [output, setOutput] = useState("")
@@ -18,23 +22,44 @@ function AgentPage() {
   const { theme, toggleTheme, bg, textColor, cardBg, cardBorder, mutedColor, codeBg, fontSize, setFontSize, speed, setSpeed } = useTheme()
   const navigate = useNavigate()
 
-  function speak(text, onEnd) {
-    speakUtil(text, onEnd, setLastMessage)
+ function speak(text, onEnd) {
+    window.speechSynthesis.cancel()
+    setLastMessage(text)
+    const utterance = new SpeechSynthesisUtterance(text)
+    utterance.lang = lang.voiceLang
+    utterance.rate = parseFloat(localStorage.getItem("speed") || "0.85")
+    utterance.pitch = 1.0
+    utterance.volume = 1
+
+    const trySpeak = () => {
+      const voices = window.speechSynthesis.getVoices()
+      const preferred = voices.find(v =>
+        v.name === "Google US English" && lang.voiceLang === "en-US" ||
+        v.name === "Google हिन्दी" && lang.voiceLang === "hi-IN" ||
+        v.lang === lang.voiceLang
+      )
+      if (preferred) utterance.voice = preferred
+      if (onEnd) utterance.onend = onEnd
+      window.speechSynthesis.speak(utterance)
+    }
+
+    if (window.speechSynthesis.getVoices().length === 0) {
+      window.speechSynthesis.onvoiceschanged = trySpeak
+    } else {
+      trySpeak()
+    }
   }
 
   useEffect(() => {
     localStorage.setItem("agent_visited", "true")
     setTimeout(() => {
       speak(
-        "शाबाश " + name + "! अब Code Agent का समय है। " +
-        "आप मुझे कोई भी Python program बनाने के लिए कह सकते हैं। " +
-        "Keyboard shortcuts: " +
-        "T दबाएं — आवाज़ से command बोलने के लिए। " +
-        "C दबाएं — code बनाने के लिए। " +
-        "R दबाएं — दोबारा सुनने के लिए। " +
-        "F दबाएं — course पूरा करने और certificate लेने के लिए। " +
-        "उदाहरण के लिए कहें: नमस्ते print करो, या दो numbers जोड़ो।"
-      )
+  lang.agentWelcome(name) + " " +
+  "T दबाएं — आवाज़ से command बोलने के लिए। " +
+  "C दबाएं — code बनाने के लिए। " +
+  "R दबाएं — दोबारा सुनने के लिए। " +
+  "F दबाएं — certificate लेने के लिए।"
+)
       setStatus("T = Command बोलें | C = Code बनाएं | R = दोबारा | F = Certificate")
     }, 1000)
   },
@@ -106,11 +131,11 @@ function AgentPage() {
       if (key === "t") startListening()
       if (key === "c") generateCode()
       if (key === "r") speak(lastMessage)
-      if (key === "1") navigate("/lessons", { state: { name } })
-      if (key === "2") navigate("/mcq", { state: { name } })
-      if (key === "3") navigate("/agent", { state: { name } })
       if (key === "m") toggleTheme()
-      if (key === "f") navigate("/certificate", { state: { name, score: parseInt(localStorage.getItem("mcq_score") || "0") } })
+      if (key === "1") navigate("/lessons", { state: { name, language, instructionLang } })
+      if (key === "2") navigate("/mcq", { state: { name, language, instructionLang } })
+      if (key === "3") navigate("/agent", { state: { name, language, instructionLang } })
+      if (key === "f") navigate("/certificate", { state: { name, score: parseInt(localStorage.getItem("mcq_score") || "0"), instructionLang } })
     }
     window.addEventListener("keydown", handleKey)
     return () => window.removeEventListener("keydown", handleKey)
@@ -124,7 +149,7 @@ function AgentPage() {
       fontFamily: "'Segoe UI', sans-serif", padding: "1rem", fontSize: fontSize + "px"
     }}>
       <div style={{ width: "100%", maxWidth: "1100px" }}>
-        <Navbar name={name} theme={theme} toggleTheme={toggleTheme} fontSize={fontSize} setFontSize={setFontSize} speed={speed} setSpeed={setSpeed} />
+        <Navbar name={name} theme={theme} toggleTheme={toggleTheme} fontSize={fontSize} setFontSize={setFontSize} speed={speed} setSpeed={setSpeed} language={language} instructionLang={instructionLang} />
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: "1.5rem", alignItems: "start" }}>
 
@@ -136,15 +161,15 @@ function AgentPage() {
 
             <div aria-live="polite" style={{ background: cardBg, border: "1px solid " + cardBorder, padding: "1.5rem", borderRadius: "16px", marginBottom: "1rem" }}>
               <label htmlFor="commandInput" style={{ color: mutedColor, fontSize: "0.9rem", display: "block", marginBottom: "0.5rem" }}>
-                आपकी command:
-              </label>
+  {lang.commandPrompt}
+</label>
               <input
                 id="commandInput"
                 type="text"
                 value={command}
                 onChange={(e) => setCommand(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && generateCode()}
-                placeholder="जैसे: नमस्ते print करो, दो numbers जोड़ो..."
+                placeholder={lang.commandPlaceholder}
                 aria-label="Python command लिखें"
                 style={{
                   width: "100%", padding: "1rem", fontSize: "1rem", borderRadius: "12px",

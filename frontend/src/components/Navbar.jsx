@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom"
 
-function Navbar({ name, theme, toggleTheme, fontSize, setFontSize, speed, setSpeed, language }) {
+function Navbar({ name, theme, toggleTheme, fontSize, setFontSize, speed, setSpeed, language, instructionLang }) {
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -11,7 +11,7 @@ function Navbar({ name, theme, toggleTheme, fontSize, setFontSize, speed, setSpe
   ]
 
   function goTo(path) {
-    navigate(path, { state: { name, language } })
+    navigate(path, { state: { name, language, instructionLang } })
   }
 
   function increaseFontSize() {
