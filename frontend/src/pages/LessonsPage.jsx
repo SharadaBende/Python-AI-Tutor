@@ -100,32 +100,211 @@ const pythonLessonsMarathi = [
 
 
 
+// ✅ REPLACE your existing sqlLessons and sqlLessonsEnglish with these
+// ✅ Also paste sqlLessonsMarathi as a new array
+// ✅ Paste all 3 arrays BEFORE `const javascriptLessons` in LessonsPage.jsx
+
+// ─────────────────────────────────────────
+// SQL LESSONS — HINDI
+// ─────────────────────────────────────────
 const sqlLessons = [
-  { id: 1, title: "SQL क्या है?", content: "SQL यानी Structured Query Language। इससे हम database से data निकालते हैं, डालते हैं, और बदलते हैं। SQL सीखना बहुत जरूरी है क्योंकि सभी apps में database होता है।", example: null },
-  { id: 2, title: "SELECT Statement", content: "SELECT से हम database से data निकालते हैं। यह SQL का सबसे जरूरी command है।", example: "SELECT * FROM students;" },
-  { id: 3, title: "WHERE Clause", content: "WHERE से हम condition लगाकर specific data निकालते हैं।", example: "SELECT * FROM students\nWHERE age > 18;" },
-  { id: 4, title: "INSERT Statement", content: "INSERT से हम database में नया data डालते हैं।", example: "INSERT INTO students (naam, age)\nVALUES ('Sharada', 20);" },
-  { id: 5, title: "UPDATE Statement", content: "UPDATE से हम database में पुराना data बदलते हैं।", example: "UPDATE students\nSET age = 21\nWHERE naam = 'Sharada';" },
-  { id: 6, title: "DELETE Statement", content: "DELETE से हम database से data हटाते हैं।", example: "DELETE FROM students\nWHERE naam = 'Sharada';" },
-  { id: 7, title: "CREATE TABLE", content: "CREATE TABLE से हम नई table बनाते हैं।", example: "CREATE TABLE students (\n  id INT,\n  naam VARCHAR(50),\n  age INT\n);" },
-  { id: 8, title: "ORDER BY", content: "ORDER BY से हम data को sort करते हैं।", example: "SELECT * FROM students\nORDER BY age DESC;" },
-  { id: 9, title: "COUNT Function", content: "COUNT से हम rows की संख्या निकालते हैं।", example: "SELECT COUNT(*)\nFROM students;" },
-  { id: 10, title: "JOIN", content: "JOIN से हम दो tables को जोड़कर data निकालते हैं।", example: "SELECT students.naam, marks.score\nFROM students\nJOIN marks ON students.id = marks.id;" },
+  {
+    id: 1,
+    title: "SQL क्या है?",
+    content: "SQL का पूरा नाम है Structured Query Language। SQL एक special language है जिससे हम database के साथ बात करते हैं। Database एक जगह है जहाँ बहुत सारा data store होता है। जैसे school में एक register होता है जिसमें सभी students के नाम, उम्र, और marks लिखे होते हैं — वैसे ही computer में database होता है। SQL से हम उस database से data निकाल सकते हैं, नया data डाल सकते हैं, पुराना data बदल सकते हैं, और data हटा सकते हैं। SQL 1970 के दशक में बनाई गई थी और आज भी दुनिया की हर बड़ी company इसे use करती है। हर app जैसे WhatsApp, Instagram, और Amazon के पीछे एक database होता है और उसे SQL से manage किया जाता है। SQL सीखना हर programmer के लिए बहुत जरूरी है।",
+    example: null
+  },
+  {
+    id: 2,
+    title: "SELECT Statement",
+    content: "SELECT statement SQL का सबसे जरूरी और सबसे ज्यादा use होने वाला command है। SELECT का मतलब है — database की table से data निकालना या देखना। जैसे हम library में जाकर कहते हैं मुझे सभी किताबें दिखाओ, वैसे ही SELECT से हम table का सारा data देख सकते हैं। Star symbol यानी asterisk का मतलब है सभी columns। FROM के बाद table का नाम लिखते हैं। अगर हमें सिर्फ कुछ specific columns चाहिए तो star की जगह column के नाम लिखते हैं। SELECT एक non-destructive command है यानी इससे data सिर्फ दिखता है, बदलता या हटता नहीं। यह सबसे safe command है।",
+    example: "-- सभी data देखें\nSELECT * FROM students;\n\n-- सिर्फ नाम और उम्र देखें\nSELECT name, age FROM students;\n\n-- सिर्फ नाम देखें\nSELECT name FROM students;"
+  },
+  {
+    id: 3,
+    title: "WHERE Clause",
+    content: "WHERE clause से हम condition लगाकर specific data निकालते हैं। जैसे अगर हमें सिर्फ 18 साल से बड़े students चाहिए, तो WHERE से वो filter कर सकते हैं। WHERE हमेशा SELECT के बाद और table के नाम के बाद लिखते हैं। WHERE में हम greater than, less than, equal to, not equal to जैसे operators use करते हैं। Text values को quotes के अंदर लिखते हैं। WHERE में AND और OR से एक साथ कई conditions लगा सकते हैं। AND का मतलब है दोनों conditions सच हों। OR का मतलब है कोई एक condition सच हो। WHERE clause बहुत powerful है और real projects में हर query में use होता है।",
+    example: "-- उम्र 18 से ज्यादा वाले students\nSELECT * FROM students\nWHERE age > 18;\n\n-- Mumbai के students\nSELECT * FROM students\nWHERE city = 'Mumbai';\n\n-- Mumbai के 18+ students\nSELECT * FROM students\nWHERE city = 'Mumbai' AND age > 18;"
+  },
+  {
+    id: 4,
+    title: "INSERT Statement",
+    content: "INSERT statement से हम database की table में नया data डालते हैं। जैसे school register में नए student का नाम लिखते हैं, वैसे ही INSERT से नया record add करते हैं। INSERT INTO के बाद table का नाम लिखते हैं। फिर brackets में वो columns लिखते हैं जिनमें data डालना है। VALUES के बाद brackets में actual values लिखते हैं। Columns और values का order एक जैसा होना चाहिए। Text values को single quotes में लिखते हैं। Numbers को quotes की जरूरत नहीं। एक बार में एक या एक साथ कई records insert किए जा सकते हैं। INSERT करने के बाद वो data permanently table में save हो जाता है।",
+    example: "-- एक नया student add करें\nINSERT INTO students (name, age, city)\nVALUES ('Sharada', 20, 'Mumbai');\n\n-- एक साथ कई students add करें\nINSERT INTO students (name, age, city)\nVALUES ('Rahul', 22, 'Delhi'),\n       ('Priya', 19, 'Pune'),\n       ('Amit', 21, 'Chennai');"
+  },
+  {
+    id: 5,
+    title: "UPDATE Statement",
+    content: "UPDATE statement से हम table में पहले से मौजूद data को बदलते हैं। जैसे किसी student का address बदल गया, तो हम उसे update करते हैं। UPDATE के बाद table का नाम लिखते हैं। SET के बाद column का नाम और नई value लिखते हैं। WHERE clause लगाना बहुत जरूरी है — अगर WHERE नहीं लगाया तो table के सभी rows update हो जाएंगे जो बहुत बड़ी गलती है। WHERE से हम specify करते हैं कि कौन सी row update होनी चाहिए। SET में comma से multiple columns एक साथ update किए जा सकते हैं। UPDATE एक destructive operation है इसलिए हमेशा सोच-समझकर use करें।",
+    example: "-- Sharada की उम्र update करें\nUPDATE students\nSET age = 21\nWHERE name = 'Sharada';\n\n-- एक साथ दो चीज़ें update करें\nUPDATE students\nSET age = 21, city = 'Pune'\nWHERE name = 'Sharada';"
+  },
+  {
+    id: 6,
+    title: "DELETE Statement",
+    content: "DELETE statement से हम table से data हटाते हैं। जैसे school register से किसी student का नाम काटते हैं, वैसे ही DELETE से record हटाते हैं। DELETE FROM के बाद table का नाम लिखते हैं। UPDATE की तरह यहाँ भी WHERE clause लगाना बहुत जरूरी है। अगर WHERE नहीं लगाया तो table के सभी records delete हो जाएंगे — यह बहुत बड़ी गलती है और data वापस नहीं आएगा। WHERE से हम specify करते हैं कि कौन सा record delete होना चाहिए। DELETE करने से पहले हमेशा एक बार SELECT करके देख लो कि कौन सा data delete होगा। DELETE permanent है — एक बार delete हुआ data वापस नहीं आता।",
+    example: "-- पहले check करो कि क्या delete होगा\nSELECT * FROM students\nWHERE name = 'Sharada';\n\n-- फिर delete करो\nDELETE FROM students\nWHERE name = 'Sharada';\n\n-- सभी records delete (खतरनाक!)\n-- DELETE FROM students;"
+  },
+  {
+    id: 7,
+    title: "CREATE TABLE",
+    content: "CREATE TABLE से हम database में नई table बनाते हैं। Table एक spreadsheet की तरह होती है जिसमें rows और columns होते हैं। CREATE TABLE के बाद table का नाम लिखते हैं। फिर brackets के अंदर सभी columns के नाम और उनके data types लिखते हैं। INT का मतलब पूरी संख्या। VARCHAR का मतलब text और brackets में maximum length लिखते हैं। DATE का मतलब तारीख। PRIMARY KEY वो column होता है जो हर row को unique identify करता है जैसे id। NOT NULL का मतलब है कि यह column खाली नहीं रह सकता। Table बनाने के बाद उसमें INSERT से data डाल सकते हैं।",
+    example: "CREATE TABLE students (\n  id INT PRIMARY KEY,\n  name VARCHAR(50) NOT NULL,\n  age INT,\n  city VARCHAR(50),\n  marks FLOAT\n);\n\n-- Table देखें\nSELECT * FROM students;"
+  },
+  {
+    id: 8,
+    title: "ORDER BY",
+    content: "ORDER BY से हम query के result को sort करते हैं। जैसे हम students को उनके marks के हिसाब से ऊपर से नीचे लगाना चाहते हैं, वो ORDER BY से होता है। ORDER BY हमेशा query के अंत में लिखते हैं। ASC का मतलब है ascending order यानी छोटे से बड़े की तरफ। DESC का मतलब है descending order यानी बड़े से छोटे की तरफ। Default ORDER BY ASC होता है। एक से ज्यादा columns से भी sort कर सकते हैं — पहले एक column से फिर दूसरे से। ORDER BY text columns पर भी काम करता है — alphabetically sort होता है।",
+    example: "-- उम्र के हिसाब से छोटे से बड़े\nSELECT * FROM students\nORDER BY age ASC;\n\n-- marks के हिसाब से बड़े से छोटे\nSELECT * FROM students\nORDER BY marks DESC;\n\n-- नाम alphabetically\nSELECT * FROM students\nORDER BY name ASC;"
+  },
+  {
+    id: 9,
+    title: "COUNT, SUM, AVG Functions",
+    content: "SQL में कुछ special functions होते हैं जिन्हें Aggregate Functions कहते हैं। ये functions पूरी table पर काम करते हैं और एक result देते हैं। COUNT() से rows की संख्या निकालते हैं। SUM() से किसी column के सभी numbers का जोड़ निकालते हैं। AVG() से average निकालते हैं। MAX() से सबसे बड़ी value निकालते हैं। MIN() से सबसे छोटी value निकालते हैं। ये functions WHERE के साथ भी use हो सकते हैं। जैसे सिर्फ Mumbai के students की average age निकालनी हो। AS keyword से result को एक नाम दे सकते हैं जिसे alias कहते हैं।",
+    example: "-- कुल कितने students हैं\nSELECT COUNT(*) AS total_students\nFROM students;\n\n-- सभी की average age\nSELECT AVG(age) AS average_age\nFROM students;\n\n-- सबसे ज्यादा marks\nSELECT MAX(marks) AS highest_marks\nFROM students;"
+  },
+  {
+    id: 10,
+    title: "JOIN — दो Tables जोड़ना",
+    content: "JOIN से हम दो या उससे ज्यादा tables का data एक साथ निकालते हैं। Real databases में data अलग-अलग tables में रखा जाता है। जैसे एक table में students की जानकारी और दूसरी table में उनके marks। JOIN से हम दोनों tables को जोड़कर एक साथ देख सकते हैं। INNER JOIN सबसे common join है — यह दोनों tables में matching records दिखाता है। JOIN करने के लिए दोनों tables में एक common column होना चाहिए जैसे student_id। ON keyword के बाद वो common column लिखते हैं। JOIN एक बहुत powerful feature है जो real projects में हर जगह use होता है।",
+    example: "-- students और marks tables join करें\nSELECT students.name, students.city, marks.score\nFROM students\nINNER JOIN marks\nON students.id = marks.student_id;\n\n-- WHERE के साथ join\nSELECT students.name, marks.score\nFROM students\nINNER JOIN marks ON students.id = marks.student_id\nWHERE marks.score > 80;"
+  },
 ]
 
-
+// ─────────────────────────────────────────
+// SQL LESSONS — ENGLISH
+// ─────────────────────────────────────────
 const sqlLessonsEnglish = [
-  { id: 1, title: "What is SQL?", content: "SQL stands for Structured Query Language. We use it to get data from a database, add new data, and change existing data. SQL is very important because every app uses a database.", example: null },
-  { id: 2, title: "SELECT Statement", content: "SELECT is used to get data from a database. It is the most important SQL command.", example: "SELECT * FROM students;" },
-  { id: 3, title: "WHERE Clause", content: "WHERE is used to filter data based on a condition.", example: "SELECT * FROM students\nWHERE age > 18;" },
-  { id: 4, title: "INSERT Statement", content: "INSERT is used to add new data into a database.", example: "INSERT INTO students (name, age)\nVALUES ('Sharada', 20);" },
-  { id: 5, title: "UPDATE Statement", content: "UPDATE is used to change existing data in a database.", example: "UPDATE students\nSET age = 21\nWHERE name = 'Sharada';" },
-  { id: 6, title: "DELETE Statement", content: "DELETE is used to remove data from a database.", example: "DELETE FROM students\nWHERE name = 'Sharada';" },
-  { id: 7, title: "CREATE TABLE", content: "CREATE TABLE is used to create a new table in a database.", example: "CREATE TABLE students (\n  id INT,\n  name VARCHAR(50),\n  age INT\n);" },
-  { id: 8, title: "ORDER BY", content: "ORDER BY is used to sort data in ascending or descending order.", example: "SELECT * FROM students\nORDER BY age DESC;" },
-  { id: 9, title: "COUNT Function", content: "COUNT is used to count the number of rows in a table.", example: "SELECT COUNT(*)\nFROM students;" },
-  { id: 10, title: "JOIN", content: "JOIN is used to combine data from two tables.", example: "SELECT students.name, marks.score\nFROM students\nJOIN marks ON students.id = marks.id;" },
+  {
+    id: 1,
+    title: "What is SQL?",
+    content: "SQL stands for Structured Query Language. SQL is a special language that we use to communicate with a database. A database is a place where a large amount of data is stored. Think of it like a school register that contains the names, ages, and marks of all students — a database is like that but stored on a computer. Using SQL we can retrieve data from a database, insert new data, update existing data, and delete data. SQL was created in the 1970s and even today every major company in the world uses it. Every app like WhatsApp, Instagram, and Amazon has a database behind it and SQL is used to manage that database. Learning SQL is essential for every programmer.",
+    example: null
+  },
+  {
+    id: 2,
+    title: "SELECT Statement",
+    content: "The SELECT statement is the most important and most frequently used command in SQL. SELECT means retrieving or viewing data from a table in the database. Just like going to a library and saying show me all the books, SELECT lets us see all the data in a table. The star symbol also called asterisk means all columns. After FROM we write the name of the table. If we only need specific columns we write the column names instead of the star. SELECT is a non-destructive command which means it only shows the data without changing or deleting anything. It is the safest SQL command to use.",
+    example: "-- View all data\nSELECT * FROM students;\n\n-- View only name and age\nSELECT name, age FROM students;\n\n-- View only names\nSELECT name FROM students;"
+  },
+  {
+    id: 3,
+    title: "WHERE Clause",
+    content: "The WHERE clause lets us filter data by applying a condition. For example if we only want students who are older than 18 we can filter them using WHERE. WHERE is always written after SELECT and after the table name. In WHERE we use operators like greater than, less than, equal to, and not equal to. Text values are written inside single quotes. We can apply multiple conditions at once using AND and OR with WHERE. AND means both conditions must be true. OR means at least one condition must be true. The WHERE clause is very powerful and is used in almost every query in real projects.",
+    example: "-- Students older than 18\nSELECT * FROM students\nWHERE age > 18;\n\n-- Students from Mumbai\nSELECT * FROM students\nWHERE city = 'Mumbai';\n\n-- Students from Mumbai AND older than 18\nSELECT * FROM students\nWHERE city = 'Mumbai' AND age > 18;"
+  },
+  {
+    id: 4,
+    title: "INSERT Statement",
+    content: "The INSERT statement is used to add new data into a table in the database. Just like writing a new student's name in a school register, INSERT adds a new record to the table. After INSERT INTO we write the table name. Then inside brackets we write the column names where we want to insert data. After VALUES we write the actual values inside brackets. The order of columns and values must match. Text values are written inside single quotes. Numbers do not need quotes. We can insert one record or multiple records at once. Once inserted the data is permanently saved in the table.",
+    example: "-- Add one new student\nINSERT INTO students (name, age, city)\nVALUES ('Sharada', 20, 'Mumbai');\n\n-- Add multiple students at once\nINSERT INTO students (name, age, city)\nVALUES ('Rahul', 22, 'Delhi'),\n       ('Priya', 19, 'Pune'),\n       ('Amit', 21, 'Chennai');"
+  },
+  {
+    id: 5,
+    title: "UPDATE Statement",
+    content: "The UPDATE statement is used to change existing data in a table. For example if a student's address has changed we update it using UPDATE. After UPDATE we write the table name. After SET we write the column name and the new value. Using the WHERE clause is very important here — if we do not use WHERE then all rows in the table will be updated which is a very serious mistake. WHERE tells SQL which specific row should be updated. We can update multiple columns at once by separating them with commas in the SET clause. UPDATE is a destructive operation so always use it carefully.",
+    example: "-- Update Sharada's age\nUPDATE students\nSET age = 21\nWHERE name = 'Sharada';\n\n-- Update two things at once\nUPDATE students\nSET age = 21, city = 'Pune'\nWHERE name = 'Sharada';"
+  },
+  {
+    id: 6,
+    title: "DELETE Statement",
+    content: "The DELETE statement is used to remove data from a table. Just like crossing out a student's name from a school register, DELETE removes a record. After DELETE FROM we write the table name. Just like UPDATE the WHERE clause is extremely important here. If we do not use WHERE then all records in the table will be deleted — this is a very serious mistake and the data cannot be recovered. WHERE tells SQL exactly which record should be deleted. Before running DELETE always run a SELECT first to verify which data will be deleted. DELETE is permanent — once deleted the data cannot be recovered.",
+    example: "-- First check what will be deleted\nSELECT * FROM students\nWHERE name = 'Sharada';\n\n-- Then delete\nDELETE FROM students\nWHERE name = 'Sharada';\n\n-- Delete all records (DANGEROUS!)\n-- DELETE FROM students;"
+  },
+  {
+    id: 7,
+    title: "CREATE TABLE",
+    content: "CREATE TABLE is used to create a new table in the database. A table is like a spreadsheet with rows and columns. After CREATE TABLE we write the table name. Then inside brackets we write all the column names and their data types. INT means a whole number. VARCHAR means text and we write the maximum length inside brackets. DATE means a date value. PRIMARY KEY is the column that uniquely identifies each row such as an id column. NOT NULL means that column cannot be left empty. After creating the table we can use INSERT to add data into it.",
+    example: "CREATE TABLE students (\n  id INT PRIMARY KEY,\n  name VARCHAR(50) NOT NULL,\n  age INT,\n  city VARCHAR(50),\n  marks FLOAT\n);\n\n-- View the table\nSELECT * FROM students;"
+  },
+  {
+    id: 8,
+    title: "ORDER BY",
+    content: "ORDER BY is used to sort the results of a query. For example if we want to arrange students from highest to lowest marks we use ORDER BY. ORDER BY is always written at the end of a query. ASC means ascending order which goes from smallest to largest. DESC means descending order which goes from largest to smallest. The default order of ORDER BY is ASC. We can sort by more than one column — first by one column and then by another. ORDER BY also works on text columns and sorts them alphabetically.",
+    example: "-- Sort by age from youngest to oldest\nSELECT * FROM students\nORDER BY age ASC;\n\n-- Sort by marks from highest to lowest\nSELECT * FROM students\nORDER BY marks DESC;\n\n-- Sort by name alphabetically\nSELECT * FROM students\nORDER BY name ASC;"
+  },
+  {
+    id: 9,
+    title: "COUNT, SUM, AVG Functions",
+    content: "SQL has special functions called Aggregate Functions. These functions work on an entire table and return a single result. COUNT() counts the number of rows. SUM() adds up all the numbers in a column. AVG() calculates the average value. MAX() finds the largest value. MIN() finds the smallest value. These functions can also be used together with WHERE to filter before calculating. For example finding the average age of only students from Mumbai. The AS keyword gives a name to the result which is called an alias. Aggregate functions are used in almost every real-world database application.",
+    example: "-- Total number of students\nSELECT COUNT(*) AS total_students\nFROM students;\n\n-- Average age of all students\nSELECT AVG(age) AS average_age\nFROM students;\n\n-- Highest marks in the class\nSELECT MAX(marks) AS highest_marks\nFROM students;"
+  },
+  {
+    id: 10,
+    title: "JOIN — Combining Two Tables",
+    content: "JOIN is used to retrieve data from two or more tables at the same time. In real databases data is kept in separate tables. For example one table has student information and another table has their marks. JOIN lets us combine both tables and view the data together. INNER JOIN is the most common type of join — it shows only the records that have a match in both tables. To use JOIN both tables must have a common column such as student_id. After the ON keyword we write that common column. JOIN is a very powerful feature that is used everywhere in real projects.",
+    example: "-- Join students and marks tables\nSELECT students.name, students.city, marks.score\nFROM students\nINNER JOIN marks\nON students.id = marks.student_id;\n\n-- Join with WHERE filter\nSELECT students.name, marks.score\nFROM students\nINNER JOIN marks ON students.id = marks.student_id\nWHERE marks.score > 80;"
+  },
 ]
+
+// ─────────────────────────────────────────
+// SQL LESSONS — MARATHI (NEW)
+// ─────────────────────────────────────────
+const sqlLessonsMarathi = [
+  {
+    id: 1,
+    title: "SQL म्हणजे काय?",
+    content: "SQL चे पूर्ण नाव आहे Structured Query Language. SQL ही एक special language आहे ज्याने आपण database शी बोलतो. Database म्हणजे एक जागा जिथे खूप सारा data store होतो. जसे शाळेत एक register असते ज्यात सर्व students चे नाव, वय, आणि marks लिहिलेले असतात — तसेच computer मध्ये database असतो. SQL ने आपण त्या database मधून data काढू शकतो, नवीन data टाकू शकतो, जुना data बदलू शकतो, आणि data हटवू शकतो. SQL 1970 च्या दशकात बनवली गेली होती आणि आजही जगातील प्रत्येक मोठी company ती वापरते. WhatsApp, Instagram, आणि Amazon सारख्या प्रत्येक app च्या मागे एक database असतो आणि त्याला SQL ने manage केले जाते. SQL शिकणे प्रत्येक programmer साठी खूप आवश्यक आहे.",
+    example: null
+  },
+  {
+    id: 2,
+    title: "SELECT Statement",
+    content: "SELECT statement हे SQL मधील सर्वात महत्त्वाचे आणि सर्वाधिक वापरले जाणारे command आहे. SELECT चा अर्थ आहे — database च्या table मधून data काढणे किंवा पाहणे. जसे आपण library मध्ये जाऊन म्हणतो मला सर्व पुस्तके दाखवा, तसेच SELECT ने आपण table चा सर्व data पाहू शकतो. Star symbol म्हणजे asterisk चा अर्थ आहे सर्व columns. FROM च्या नंतर table चे नाव लिहतो. जर आपल्याला फक्त काही specific columns हवे असतील तर star च्या जागी column चे नाव लिहतो. SELECT हे non-destructive command आहे म्हणजे यातून data फक्त दिसतो, बदलत किंवा हटत नाही. हे सर्वात safe command आहे.",
+    example: "-- सर्व data पाहा\nSELECT * FROM students;\n\n-- फक्त नाव आणि वय पाहा\nSELECT name, age FROM students;\n\n-- फक्त नावे पाहा\nSELECT name FROM students;"
+  },
+  {
+    id: 3,
+    title: "WHERE Clause",
+    content: "WHERE clause ने आपण condition लावून specific data काढतो. उदाहरणार्थ जर आपल्याला फक्त 18 वर्षांपेक्षा मोठे students हवे असतील तर WHERE ने ते filter करता येतात. WHERE नेहमी SELECT च्या नंतर आणि table च्या नावाच्या नंतर लिहतो. WHERE मध्ये आपण greater than, less than, equal to, not equal to असे operators वापरतो. Text values single quotes मध्ये लिहतो. WHERE सोबत AND आणि OR वापरून एकत्र अनेक conditions लावता येतात. AND चा अर्थ आहे दोन्ही conditions बरोबर असाव्यात. OR चा अर्थ आहे कोणतीही एक condition बरोबर असावी. WHERE clause खूप powerful आहे आणि real projects मध्ये प्रत्येक query मध्ये वापरले जाते.",
+    example: "-- 18 पेक्षा मोठे students\nSELECT * FROM students\nWHERE age > 18;\n\n-- Pune चे students\nSELECT * FROM students\nWHERE city = 'Pune';\n\n-- Pune चे आणि 18+ students\nSELECT * FROM students\nWHERE city = 'Pune' AND age > 18;"
+  },
+  {
+    id: 4,
+    title: "INSERT Statement",
+    content: "INSERT statement ने आपण database च्या table मध्ये नवीन data टाकतो. जसे शाळेच्या register मध्ये नव्या student चे नाव लिहतो, तसेच INSERT ने नवीन record add करतो. INSERT INTO च्या नंतर table चे नाव लिहतो. मग brackets मध्ये ते columns लिहतो ज्यात data टाकायचा आहे. VALUES च्या नंतर brackets मध्ये actual values लिहतो. Columns आणि values चा order एकसारखा असायला हवा. Text values single quotes मध्ये लिहतो. Numbers ला quotes ची गरज नाही. एकावेळी एक किंवा एकत्र अनेक records insert करता येतात. INSERT केल्यानंतर तो data permanently table मध्ये save होतो.",
+    example: "-- एक नवीन student add करा\nINSERT INTO students (name, age, city)\nVALUES ('Sharada', 20, 'Pune');\n\n-- एकत्र अनेक students add करा\nINSERT INTO students (name, age, city)\nVALUES ('Rahul', 22, 'Mumbai'),\n       ('Priya', 19, 'Nashik'),\n       ('Amit', 21, 'Nagpur');"
+  },
+  {
+    id: 5,
+    title: "UPDATE Statement",
+    content: "UPDATE statement ने आपण table मधील आधीच असलेला data बदलतो. उदाहरणार्थ एखाद्या student चा address बदलला, तर आपण तो update करतो. UPDATE च्या नंतर table चे नाव लिहतो. SET च्या नंतर column चे नाव आणि नवीन value लिहतो. WHERE clause लावणे खूप महत्त्वाचे आहे — जर WHERE लावला नाही तर table च्या सर्व rows update होतील जी खूप मोठी चूक आहे. WHERE ने आपण specify करतो की कोणती row update व्हायला हवी. SET मध्ये comma ने multiple columns एकत्र update करता येतात. UPDATE हे destructive operation आहे म्हणून नेहमी विचारपूर्वक वापरा.",
+    example: "-- Sharada चे वय update करा\nUPDATE students\nSET age = 21\nWHERE name = 'Sharada';\n\n-- एकत्र दोन गोष्टी update करा\nUPDATE students\nSET age = 21, city = 'Mumbai'\nWHERE name = 'Sharada';"
+  },
+  {
+    id: 6,
+    title: "DELETE Statement",
+    content: "DELETE statement ने आपण table मधून data हटवतो. जसे शाळेच्या register मधून एखाद्या student चे नाव खोडतो, तसेच DELETE ने record हटवतो. DELETE FROM च्या नंतर table चे नाव लिहतो. UPDATE सारखेच इथेही WHERE clause लावणे अत्यंत आवश्यक आहे. जर WHERE लावला नाही तर table चे सर्व records delete होतील — ही खूप मोठी चूक आहे आणि data परत येणार नाही. WHERE ने आपण specify करतो की कोणता record delete व्हायला हवा. DELETE करण्यापूर्वी नेहमी आधी SELECT करून पाहा की कोणता data delete होणार आहे. DELETE permanent आहे — एकदा delete झालेला data परत येत नाही.",
+    example: "-- आधी check करा काय delete होणार\nSELECT * FROM students\nWHERE name = 'Sharada';\n\n-- मग delete करा\nDELETE FROM students\nWHERE name = 'Sharada';\n\n-- सर्व records delete (धोकादायक!)\n-- DELETE FROM students;"
+  },
+  {
+    id: 7,
+    title: "CREATE TABLE",
+    content: "CREATE TABLE ने आपण database मध्ये नवीन table बनवतो. Table म्हणजे एक spreadsheet सारखी असते ज्यात rows आणि columns असतात. CREATE TABLE च्या नंतर table चे नाव लिहतो. मग brackets च्या आत सर्व columns चे नाव आणि त्यांचे data types लिहतो. INT चा अर्थ पूर्ण संख्या. VARCHAR चा अर्थ text आणि brackets मध्ये maximum length लिहतो. DATE चा अर्थ तारीख. PRIMARY KEY तो column असतो जो प्रत्येक row ला uniquely identify करतो जसे id. NOT NULL चा अर्थ आहे की हा column रिकामा राहू शकत नाही. Table बनवल्यानंतर त्यात INSERT ने data टाकता येतो.",
+    example: "CREATE TABLE students (\n  id INT PRIMARY KEY,\n  name VARCHAR(50) NOT NULL,\n  age INT,\n  city VARCHAR(50),\n  marks FLOAT\n);\n\n-- Table पाहा\nSELECT * FROM students;"
+  },
+  {
+    id: 8,
+    title: "ORDER BY",
+    content: "ORDER BY ने आपण query च्या result ला sort करतो. उदाहरणार्थ students ना त्यांच्या marks नुसार वरून खाली लावायचे असेल तर ORDER BY वापरतो. ORDER BY नेहमी query च्या शेवटी लिहतो. ASC चा अर्थ आहे ascending order म्हणजे लहानातून मोठ्याकडे. DESC चा अर्थ आहे descending order म्हणजे मोठ्यातून लहानाकडे. Default ORDER BY ASC असतो. एकापेक्षा जास्त columns नुसार देखील sort करता येते. ORDER BY text columns वर देखील काम करतो — alphabetically sort होतो.",
+    example: "-- वयानुसार लहानातून मोठ्याकडे\nSELECT * FROM students\nORDER BY age ASC;\n\n-- marks नुसार मोठ्यातून लहानाकडे\nSELECT * FROM students\nORDER BY marks DESC;\n\n-- नावानुसार alphabetically\nSELECT * FROM students\nORDER BY name ASC;"
+  },
+  {
+    id: 9,
+    title: "COUNT, SUM, AVG Functions",
+    content: "SQL मध्ये काही special functions असतात ज्यांना Aggregate Functions म्हणतात. हे functions संपूर्ण table वर काम करतात आणि एक result देतात. COUNT() ने rows ची संख्या काढतो. SUM() ने एखाद्या column च्या सर्व numbers ची बेरीज काढतो. AVG() ने average काढतो. MAX() ने सर्वात मोठी value काढतो. MIN() ने सर्वात लहान value काढतो. हे functions WHERE सोबत देखील वापरता येतात. उदाहरणार्थ फक्त Pune च्या students ची average age काढायची असेल. AS keyword ने result ला एक नाव देता येते ज्याला alias म्हणतात. Aggregate functions real-world database applications मध्ये सर्वत्र वापरले जातात.",
+    example: "-- एकूण किती students आहेत\nSELECT COUNT(*) AS total_students\nFROM students;\n\n-- सर्वांची average age\nSELECT AVG(age) AS average_age\nFROM students;\n\n-- सर्वात जास्त marks\nSELECT MAX(marks) AS highest_marks\nFROM students;"
+  },
+  {
+    id: 10,
+    title: "JOIN — दोन Tables जोडणे",
+    content: "JOIN ने आपण दोन किंवा अधिक tables चा data एकत्र काढतो. Real databases मध्ये data वेगवेगळ्या tables मध्ये ठेवला जातो. उदाहरणार्थ एका table मध्ये students ची माहिती आणि दुसऱ्या table मध्ये त्यांचे marks. JOIN ने आपण दोन्ही tables जोडून एकत्र पाहू शकतो. INNER JOIN हे सर्वात common join आहे — हे दोन्ही tables मध्ये matching records दाखवते. JOIN वापरण्यासाठी दोन्ही tables मध्ये एक common column असायला हवा जसे student_id. ON keyword च्या नंतर तो common column लिहतो. JOIN हे खूप powerful feature आहे जे real projects मध्ये सर्वत्र वापरले जाते.",
+    example: "-- students आणि marks tables join करा\nSELECT students.name, students.city, marks.score\nFROM students\nINNER JOIN marks\nON students.id = marks.student_id;\n\n-- WHERE सोबत join\nSELECT students.name, marks.score\nFROM students\nINNER JOIN marks ON students.id = marks.student_id\nWHERE marks.score > 80;"
+  },
+]
+
+
+
+
 
 const javascriptLessons = [
   { id: 1, title: "JavaScript क्या है?", content: "JavaScript एक programming language है जो websites को interactive बनाती है। हर website में JavaScript होती है। इसे browser directly समझता है।", example: null },
@@ -165,7 +344,7 @@ const instructionLang = location.state?.instructionLang || "hindi"  // ✅ moved
 const lessons = instructionLang === "english"
   ? (language === "sql" ? sqlLessonsEnglish : language === "javascript" ? javascriptLessonsEnglish : pythonLessonsEnglish)
   : instructionLang === "marathi"
-  ? pythonLessonsMarathi
+  ? (language === "sql" ? sqlLessonsMarathi : language === "javascript" ? javascriptLessonsMarathi : pythonLessonsMarathi)
   : (language === "sql" ? sqlLessons : language === "javascript" ? javascriptLessons : pythonLessons)
  const lang = t[instructionLang]
   const [currentLesson, setCurrentLesson] = useState(0)
