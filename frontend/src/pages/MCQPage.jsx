@@ -27,7 +27,123 @@ const pythonQuestions = [
   { id: 18, question: "list की length निकालने के लिए क्या use होता है?", options: ["size()", "count()", "length()", "len()"], answer: 3 },
   { id: 19, question: "3.14 किस data type में आता है?", options: ["int", "string", "float", "bool"], answer: 2 },
   { id: 20, question: "दो strings जोड़ने के लिए कौन सा operator use होता है?", options: ["*", "-", "+", "/"], answer: 2 },
+  { id: 21, question: "list में नया item add करने के लिए कौन सा method use होता है?", options: ["add()", "insert()", "append()", "push()"], answer: 2 },
+  { id: 22, question: "Python में indentation के लिए कितने spaces use होते हैं?", options: ["2", "4", "6", "8"], answer: 1 },
+  { id: 23, question: "range(0, 10, 2) से कौन से numbers आएंगे?", options: ["0,2,4,6,8", "0,2,4,6,8,10", "2,4,6,8,10", "1,3,5,7,9"], answer: 0 },
+  { id: 24, question: "Python में string की length निकालने के लिए क्या use होता है?", options: ["size()", "length()", "len()", "count()"], answer: 2 },
+  { id: 25, question: "Python में f-string का उदाहरण कौन सा है?", options: ['f"नमस्ते {naam}"', '"नमस्ते" + naam', 'print(naam)', 'format(naam)'], answer: 0 },
+  { id: 26, question: "def keyword किसके लिए use होता है?", options: ["Variable बनाने के लिए", "Loop के लिए", "Function define करने के लिए", "Condition के लिए"], answer: 2 },
+  { id: 27, question: "Python में None का क्या मतलब है?", options: ["Zero", "False", "कोई value नहीं", "Error"], answer: 2 },
+  { id: 28, question: "list में से किसी item को हटाने के लिए कौन सा method use होता है?", options: ["delete()", "remove()", "pop() only", "clear()"], answer: 1 },
+  { id: 29, question: "Python में 2 ** 3 का result क्या होगा?", options: ["6", "5", "8", "9"], answer: 2 },
+  { id: 30, question: "Python में string को split करने के लिए कौन सा method use होता है?", options: ["divide()", "break()", "split()", "cut()"], answer: 2 },
+  { id: 31, question: "try block में क्या लिखते हैं?", options: ["वो code जो हमेशा चले", "वो code जिसमें error आ सकती है", "Function का code", "Loop का code"], answer: 1 },
+  { id: 32, question: "Python में list का पहला element किस index पर होता है?", options: ["1", "0", "-1", "2"], answer: 1 },
+  { id: 33, question: "while True: loop कब बंद होगा?", options: ["अपने आप", "कभी नहीं, जब तक break न हो", "5 बार बाद", "10 बार बाद"], answer: 1 },
+  { id: 34, question: "Python में किस keyword से function value return करता है?", options: ["give", "send", "return", "output"], answer: 2 },
+  { id: 35, question: "input() function किस data type में value देता है?", options: ["int", "float", "bool", "string"], answer: 3 },
+  { id: 36, question: "Python में equal check करने के लिए कौन सा operator use होता है?", options: ["=", "==", "===", "!="], answer: 1 },
+  { id: 37, question: "Python में list के आखिरी element को कैसे access करते हैं?", options: ["list[0]", "list[last]", "list[-1]", "list[end]"], answer: 2 },
+  { id: 38, question: "import keyword किसलिए use होता है?", options: ["Variable बनाने के लिए", "Module को program में लाने के लिए", "Function बनाने के लिए", "Loop के लिए"], answer: 1 },
+  { id: 39, question: "Python में not operator क्या करता है?", options: ["दो values जोड़ता है", "Boolean value को उल्टा कर देता है", "Number को negative बनाता है", "String को reverse करता है"], answer: 1 },
+  { id: 40, question: "Python में dictionary किसमें लिखी जाती है?", options: ["[] brackets", "() brackets", "{} brackets", "<> brackets"], answer: 2 },
+
+];
+// ─────────────────────────────────────────
+// PYTHON QUESTIONS — ENGLISH (all 40)
+// ─────────────────────────────────────────
+const pythonQuestionsEnglish = [
+  { id: 1, question: "Who created Python?", options: ["Bill Gates", "Guido van Rossum", "Steve Jobs", "Elon Musk"], answer: 1 },
+  { id: 2, question: "In which year was Python created?", options: ["1980", "1995", "1991", "2000"], answer: 2 },
+  { id: 3, question: "Which function is used to display text on the screen?", options: ["input()", "show()", "print()", "display()"], answer: 2 },
+  { id: 4, question: "What is a variable?", options: ["A number", "A box to store data", "A function", "An error"], answer: 1 },
+  { id: 5, question: "In naam = 'Sharada', what is naam?", options: ["function", "variable", "number", "error"], answer: 1 },
+  { id: 6, question: "Which function is used to take input from the user?", options: ["print()", "scan()", "input()", "read()"], answer: 2 },
+  { id: 7, question: "Which data type does a whole number like 5 or 10 belong to?", options: ["float", "string", "bool", "int"], answer: 3 },
+  { id: 8, question: "Which data type has only True or False values?", options: ["int", "float", "bool", "string"], answer: 2 },
+  { id: 9, question: "What is If/Else used for?", options: ["For loops", "For checking conditions", "For creating functions", "For taking input"], answer: 1 },
+  { id: 10, question: "How many times will range(1, 5) run in a for loop?", options: ["5 times", "4 times", "3 times", "6 times"], answer: 1 },
+  { id: 11, question: "How long does a while loop run?", options: ["Once", "Five times", "As long as the condition is true", "Never"], answer: 2 },
+  { id: 12, question: "Inside which brackets is a list written?", options: ["() brackets", "{} brackets", "[] brackets", "<> brackets"], answer: 2 },
+  { id: 13, question: "Which keyword is used to create a function?", options: ["func", "define", "def", "function"], answer: 2 },
+  { id: 14, question: "What is used to convert a string to uppercase?", options: [".lower()", ".upper()", ".title()", ".big()"], answer: 1 },
+  { id: 15, question: "Which operator is used to get the remainder?", options: ["/", "*", "%", "//"], answer: 2 },
+  { id: 16, question: "Which symbol is used to write a comment in Python?", options: ["//", "/*", "#", "--"], answer: 2 },
+  { id: 17, question: "What is used to handle errors in Python?", options: ["if/else", "try/except", "for/while", "def/return"], answer: 1 },
+  { id: 18, question: "What is used to find the length of a list?", options: ["size()", "count()", "length()", "len()"], answer: 3 },
+  { id: 19, question: "Which data type does 3.14 belong to?", options: ["int", "string", "float", "bool"], answer: 2 },
+  { id: 20, question: "Which operator is used to join two strings?", options: ["*", "-", "+", "/"], answer: 2 },
+  { id: 21, question: "Which method is used to add a new item to a list?", options: ["add()", "insert()", "append()", "push()"], answer: 2 },
+  { id: 22, question: "How many spaces are used for indentation in Python?", options: ["2", "4", "6", "8"], answer: 1 },
+  { id: 23, question: "What numbers will range(0, 10, 2) produce?", options: ["0,2,4,6,8", "0,2,4,6,8,10", "2,4,6,8,10", "1,3,5,7,9"], answer: 0 },
+  { id: 24, question: "What is used to find the length of a string?", options: ["size()", "length()", "len()", "count()"], answer: 2 },
+  { id: 25, question: "Which of these is an example of an f-string?", options: ['f"Hello {name}"', '"Hello" + name', 'print(name)', 'format(name)'], answer: 0 },
+  { id: 26, question: "What is the def keyword used for?", options: ["To create a variable", "For a loop", "To define a function", "For a condition"], answer: 2 },
+  { id: 27, question: "What does None mean in Python?", options: ["Zero", "False", "No value at all", "Error"], answer: 2 },
+  { id: 28, question: "Which method is used to remove an item from a list?", options: ["delete()", "remove()", "pop() only", "clear()"], answer: 1 },
+  { id: 29, question: "What is the result of 2 ** 3 in Python?", options: ["6", "5", "8", "9"], answer: 2 },
+  { id: 30, question: "Which method is used to split a string?", options: ["divide()", "break()", "split()", "cut()"], answer: 2 },
+  { id: 31, question: "What do we write inside the try block?", options: ["Code that always runs", "Code that might cause an error", "Function code", "Loop code"], answer: 1 },
+  { id: 32, question: "At which index is the first element of a list in Python?", options: ["1", "0", "-1", "2"], answer: 1 },
+  { id: 33, question: "When will a while True loop stop?", options: ["By itself", "Never, unless there is a break", "After 5 times", "After 10 times"], answer: 1 },
+  { id: 34, question: "Which keyword makes a function send back a value?", options: ["give", "send", "return", "output"], answer: 2 },
+  { id: 35, question: "What data type does the input() function return?", options: ["int", "float", "bool", "string"], answer: 3 },
+  { id: 36, question: "Which operator is used to check equality in Python?", options: ["=", "==", "===", "!="], answer: 1 },
+  { id: 37, question: "How do you access the last element of a list in Python?", options: ["list[0]", "list[last]", "list[-1]", "list[end]"], answer: 2 },
+  { id: 38, question: "What is the import keyword used for?", options: ["To create a variable", "To bring a module into the program", "To create a function", "For a loop"], answer: 1 },
+  { id: 39, question: "What does the not operator do in Python?", options: ["Adds two values", "Reverses a Boolean value", "Makes a number negative", "Reverses a string"], answer: 1 },
+  { id: 40, question: "Inside which brackets is a dictionary written in Python?", options: ["[] brackets", "() brackets", "{} brackets", "<> brackets"], answer: 2 },
+];
+
+// ─────────────────────────────────────────
+// PYTHON QUESTIONS — MARATHI (all 40)
+// ─────────────────────────────────────────
+const pythonQuestionsMarathi = [
+  { id: 1, question: "Python कोणी बनवली?", options: ["Bill Gates", "Guido van Rossum", "Steve Jobs", "Elon Musk"], answer: 1 },
+  { id: 2, question: "Python कोणत्या वर्षी बनवली गेली?", options: ["1980", "1995", "1991", "2000"], answer: 2 },
+  { id: 3, question: "Screen वर text दाखवण्यासाठी कोणते function वापरतात?", options: ["input()", "show()", "print()", "display()"], answer: 2 },
+  { id: 4, question: "Variable म्हणजे काय?", options: ["एक number", "data ठेवण्याचा डबा", "एक function", "एक error"], answer: 1 },
+  { id: 5, question: "naam = 'Sharada' मध्ये naam काय आहे?", options: ["function", "variable", "number", "error"], answer: 1 },
+  { id: 6, question: "User कडून input घेण्यासाठी कोणते function वापरतात?", options: ["print()", "scan()", "input()", "read()"], answer: 2 },
+  { id: 7, question: "5 किंवा 10 सारखी पूर्ण संख्या कोणत्या data type मध्ये येते?", options: ["float", "string", "bool", "int"], answer: 3 },
+  { id: 8, question: "True किंवा False कोणत्या data type मध्ये येते?", options: ["int", "float", "bool", "string"], answer: 2 },
+  { id: 9, question: "If/Else कशासाठी वापरतात?", options: ["Loop साठी", "Condition check साठी", "Function बनवण्यासाठी", "Input घेण्यासाठी"], answer: 1 },
+  { id: 10, question: "for loop मध्ये range(1, 5) किती वेळा चालेल?", options: ["5 वेळा", "4 वेळा", "3 वेळा", "6 वेळा"], answer: 1 },
+  { id: 11, question: "while loop किती वेळ चालतो?", options: ["एकदा", "पाच वेळा", "जोपर्यंत condition बरोबर असेल", "कधीही नाही"], answer: 2 },
+  { id: 12, question: "List कोणत्या brackets मध्ये लिहतात?", options: ["() brackets", "{} brackets", "[] brackets", "<> brackets"], answer: 2 },
+  { id: 13, question: "Function बनवण्यासाठी कोणता keyword वापरतात?", options: ["func", "define", "def", "function"], answer: 2 },
+  { id: 14, question: "String uppercase करण्यासाठी काय वापरतात?", options: [".lower()", ".upper()", ".title()", ".big()"], answer: 1 },
+  { id: 15, question: "बाकी (remainder) काढण्यासाठी कोणता operator वापरतात?", options: ["/", "*", "%", "//"], answer: 2 },
+  { id: 16, question: "Python मध्ये comment लिहण्यासाठी कोणता symbol वापरतात?", options: ["//", "/*", "#", "--"], answer: 2 },
+  { id: 17, question: "Python मध्ये error handle करण्यासाठी काय वापरतात?", options: ["if/else", "try/except", "for/while", "def/return"], answer: 1 },
+  { id: 18, question: "List ची length काढण्यासाठी काय वापरतात?", options: ["size()", "count()", "length()", "len()"], answer: 3 },
+  { id: 19, question: "3.14 कोणत्या data type मध्ये येते?", options: ["int", "string", "float", "bool"], answer: 2 },
+  { id: 20, question: "दोन strings जोडण्यासाठी कोणता operator वापरतात?", options: ["*", "-", "+", "/"], answer: 2 },
+  { id: 21, question: "List मध्ये नवीन item add करण्यासाठी कोणती method वापरतात?", options: ["add()", "insert()", "append()", "push()"], answer: 2 },
+  { id: 22, question: "Python मध्ये indentation साठी किती spaces वापरतात?", options: ["2", "4", "6", "8"], answer: 1 },
+  { id: 23, question: "range(0, 10, 2) मधून कोणते numbers येतील?", options: ["0,2,4,6,8", "0,2,4,6,8,10", "2,4,6,8,10", "1,3,5,7,9"], answer: 0 },
+  { id: 24, question: "String ची length काढण्यासाठी काय वापरतात?", options: ["size()", "length()", "len()", "count()"], answer: 2 },
+  { id: 25, question: "f-string चे उदाहरण कोणते आहे?", options: ['f"नमस्कार {naam}"', '"नमस्कार" + naam', 'print(naam)', 'format(naam)'], answer: 0 },
+  { id: 26, question: "def keyword कशासाठी वापरतात?", options: ["Variable बनवण्यासाठी", "Loop साठी", "Function define करण्यासाठी", "Condition साठी"], answer: 2 },
+  { id: 27, question: "Python मध्ये None चा अर्थ काय आहे?", options: ["Zero", "False", "कोणतीही value नाही", "Error"], answer: 2 },
+  { id: 28, question: "List मधून item काढण्यासाठी कोणती method वापरतात?", options: ["delete()", "remove()", "pop() only", "clear()"], answer: 1 },
+  { id: 29, question: "Python मध्ये 2 ** 3 चे result काय असेल?", options: ["6", "5", "8", "9"], answer: 2 },
+  { id: 30, question: "String split करण्यासाठी कोणती method वापरतात?", options: ["divide()", "break()", "split()", "cut()"], answer: 2 },
+  { id: 31, question: "try block मध्ये काय लिहतात?", options: ["नेहमी चालणारा code", "ज्यात error येऊ शकते असा code", "Function चा code", "Loop चा code"], answer: 1 },
+  { id: 32, question: "Python मध्ये list च्या पहिल्या element चा index कोणता असतो?", options: ["1", "0", "-1", "2"], answer: 1 },
+  { id: 33, question: "while True: loop कधी बंद होईल?", options: ["आपोआप", "कधीही नाही, break शिवाय", "5 वेळांनंतर", "10 वेळांनंतर"], answer: 1 },
+  { id: 34, question: "कोणत्या keyword ने function value परत देतो?", options: ["give", "send", "return", "output"], answer: 2 },
+  { id: 35, question: "input() function कोणत्या data type मध्ये value देतो?", options: ["int", "float", "bool", "string"], answer: 3 },
+  { id: 36, question: "Python मध्ये equality check करण्यासाठी कोणता operator वापरतात?", options: ["=", "==", "===", "!="], answer: 1 },
+  { id: 37, question: "Python मध्ये list च्या शेवटच्या element ला कसे access करतात?", options: ["list[0]", "list[last]", "list[-1]", "list[end]"], answer: 2 },
+  { id: 38, question: "import keyword कशासाठी वापरतात?", options: ["Variable बनवण्यासाठी", "Module program मध्ये आणण्यासाठी", "Function बनवण्यासाठी", "Loop साठी"], answer: 1 },
+  { id: 39, question: "Python मध्ये not operator काय करतो?", options: ["दोन values जोडतो", "Boolean value उलटी करतो", "Number negative बनवतो", "String reverse करतो"], answer: 1 },
+  { id: 40, question: "Python मध्ये dictionary कोणत्या brackets मध्ये लिहतात?", options: ["[] brackets", "() brackets", "{} brackets", "<> brackets"], answer: 2 },
 ]
+
+
+
+
 
 const sqlQuestions = [
   { id: 1, question: "SQL का full form क्या है?", options: ["Simple Query Language", "Structured Query Language", "System Query Language", "Standard Query Language"], answer: 1 },
@@ -61,8 +177,12 @@ function MCQPage() {
   const navigate = useNavigate()
   const name = location.state?.name || "दोस्त"
   const language = location.state?.language || "python"
-  const questions = language === "sql" ? sqlQuestions : language === "javascript" ? javascriptQuestions : pythonQuestions
-  const instructionLang = location.state?.instructionLang || "hindi"
+  const instructionLang = location.state?.instructionLang || "hindi"  // ← define first
+  const questions = instructionLang === "english"                      // ← then use it
+  ? (language === "sql" ? sqlQuestionsEnglish : language === "javascript" ? javascriptQuestionsEnglish : pythonQuestionsEnglish)
+  : instructionLang === "marathi"
+  ? (language === "sql" ? sqlQuestionsMarathi : language === "javascript" ? javascriptQuestionsMarathi : pythonQuestionsMarathi)
+  : (language === "sql" ? sqlQuestions : language === "javascript" ? javascriptQuestions : pythonQuestions)
   const lang = t[instructionLang]
   const [current, setCurrent] = useState(0)
   const [selected, setSelected] = useState(null)
@@ -204,9 +324,6 @@ function speak(text, onEnd) {
       if (key === "r") speak(lastMessage)
       if (key === "n" && step === "done") navigate("/agent", { state: { name, language, instructionLang } })
       if (key === "n" && step !== "done") nextQuestion()
-      if (key === "1") navigate("/lessons", { state: { name, language, instructionLang } })
-      if (key === "2") navigate("/mcq", { state: { name, language, instructionLang } })
-      if (key === "3") navigate("/agent", { state: { name, language, instructionLang } })
       if (key === "m") toggleTheme()
     }
     window.addEventListener("keydown", handleKey)
