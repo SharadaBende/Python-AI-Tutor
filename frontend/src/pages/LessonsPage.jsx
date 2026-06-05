@@ -49,53 +49,21 @@ const pythonLessonsEnglish = [
 // ✅ Paste this BEFORE `const sqlLessons` in your LessonsPage.jsx
 
 const pythonLessonsMarathi = [
-  { id: 1,
-    title: "Python म्हणजे काय?",
-    content: "Python ही एक programming language आहे. सोप्या भाषेत सांगायचे तर — Python हा एक मार्ग आहे ज्याने आपण computer ला सूचना देतो. जसे आपण एखाद्या माणसाशी मराठीत बोलतो, तसेच आपण computer शी Python मध्ये बोलतो. Python 1991 साली Guido van Rossum नावाच्या एका शास्त्रज्ञाने बनवली होती. Python खास आहे कारण ती वाचायला आणि समजायला खूप सोपी आहे. Python सारखी दिसते ती जवळजवळ इंग्रजी भाषेसारखीच असते. Python वापरून आपण websites बनवू शकतो, games बनवू शकतो, Artificial Intelligence बनवू शकतो, आणि data analysis करू शकतो. जगातील मोठ्या companies जसे Google, Netflix, आणि Instagram देखील Python वापरतात. Python ही beginners साठी सर्वात चांगली programming language आहे कारण तिचे rules खूप सोपे आहेत. आपण या course मध्ये Python शिकणार आहोत आणि स्वतःचे programs बनवणार आहोत.",
-    example: null },
-  { id: 2,
-    title: "print() function",
-    content: "print() function हे Python मधील सर्वात पहिले आणि सर्वात महत्त्वाचे function आहे. print चा अर्थ आहे — screen वर काहीतरी दाखवणे. आपण print च्या brackets च्या आत जे काही लिहितो ते computer च्या screen वर दिसते. उदाहरणार्थ जर आपण print नमस्कार लिहिले तर screen वर नमस्कार दिसेल. Text लिहिताना त्याला quotes च्या आत लिहणे आवश्यक आहे. आपण numbers देखील print करू शकतो आणि एकाच वेळी दोन गोष्टी एकत्र print करू शकतो. print() function मध्ये comma वापरून अनेक गोष्टी एका ओळीत print करता येतात. प्रत्येक Python programmer रोज print() function वापरतो. हे function debugging साठी देखील खूप उपयुक्त आहे म्हणजे program मध्ये काय चालू आहे हे तपासण्यासाठी.",
-    example: 'print("नमस्कार जग!")\nprint(42)\nprint("माझे नाव", "Pyra", "आहे")\nprint("आज", 2024, "साल आहे")' },
-  { id: 3, title: "Variables",
-    content: "Variable ला आपण एक डबा किंवा खोकं समजू शकतो. जसे घरात वेगवेगळ्या डब्यांमध्ये साखर, मीठ, आणि तांदूळ ठेवतो, तसेच computer मध्ये वेगवेगळ्या variables मध्ये वेगवेगळा data ठेवतो. प्रत्येक variable ला एक नाव असते. त्या नावाने आपण तो data नंतर वापरू शकतो. उदाहरणार्थ naam नावाच्या variable मध्ये Sharada ठेवले, तर जेव्हाही naam लिहू तेव्हा Sharada मिळेल. Variable बनवण्यासाठी आधी नाव लिहा, मग equal sign, मग value. Variable चे नाव नेहमी लहान अक्षरांमध्ये लिहतात आणि मध्ये space नसते. जर नावात दोन शब्द असतील तर underscore वापरतात जसे my_name. Variable ची value नंतर बदलता येते. एकदा variable बनवला की तो program संपेपर्यंत आपल्याला वापरता येतो.",
-    example: 'naam = "Sharada"\nvay = 20\nshahar = "Pune"\nprint(naam)\nprint(vay)\nprint(shahar)' },
-  { id: 4, title: "Data Types",
-    content: "Python मध्ये वेगवेगळ्या प्रकारचा data असतो ज्यांना Data Types म्हणतात. पहिला आहे int म्हणजे पूर्ण संख्या जसे 5, 10, 100, 1000. दुसरा आहे float म्हणजे दशांश संख्या जसे 3.14, 5.5, 9.99. तिसरा आहे string म्हणजे text जसे नमस्कार, Sharada, Pune. string नेहमी quotes च्या आत लिहतात. चौथा आहे bool ज्यामध्ये फक्त दोन values असतात — True किंवा False. उदाहरणार्थ आज पाऊस आहे का? True किंवा False. Python स्वतः समजते की कोणता data type आहे. आपल्याला वेगळे सांगायची गरज नाही. हे Python ची सर्वात चांगली खासियत आहे. type() function वापरून आपण कोणत्याही variable चा data type तपासू शकतो.",
-    example: 'vay = 20\nunchaai = 5.6\nnaam = "Pyra"\nkya_vidyarthi_ahe = True\nprint(vay)\nprint(unchaai)\nprint(naam)\nprint(kya_vidyarthi_ahe)\nprint(type(vay))\nprint(type(naam))' },
-  { id: 5, title: "User कडून Input घेणे",
-    content: "आतापर्यंत आपण स्वतःच data लिहिला. पण real programs मध्ये user कडून data घ्यावा लागतो. यासाठी Python मध्ये input() function आहे. input() function screen वर एक प्रश्न दाखवतो आणि user चे उत्तर ऐकतो. user जे काही type करतो ते एका variable मध्ये save होते. उदाहरणार्थ जर आपण विचारले तुमचे नाव काय आहे, तर user जे नाव type करेल ते naam variable मध्ये save होईल. मग आपण तो naam print करू शकतो. हे खूप महत्त्वाचे आहे कारण प्रत्येक app मध्ये user कडून काही ना काही घ्यावे लागते. एक महत्त्वाची गोष्ट — input() function नेहमी string देते. जर आपल्याला number हवे असेल तर int() किंवा float() वापरून convert करावे लागते.",
-    example: 'naam = input("तुमचे नाव काय आहे? ")\nvay = int(input("तुमचे वय किती आहे? "))\nprint("नमस्कार", naam)\nprint("तुमचे वय आहे", vay)\nprint("10 वर्षांनी तुम्ही", vay + 10, "वर्षांचे असाल")' },
-  { id: 6, title: "If/Else Conditions",
-    content: "If/Else ने आपण computer ला निर्णय घेण्यास शिकवतो. जसे आपण विचार करतो — जर पाऊस असेल तर छत्री घे, नाहीतर उन्हाचा चष्मा घे. तसेच Python मध्ये if लिहून condition लिहतो. जर condition बरोबर असेल तर if वाला code चालतो. जर condition चुकीची असेल तर else वाला code चालतो. Condition मध्ये आपण greater than, less than, equal to असे operators वापरतो. if च्या नंतर colon लावणे आवश्यक आहे आणि पुढच्या ओळीत 4 spaces चे indentation देणे आवश्यक आहे. elif वापरून अनेक conditions तपासता येतात. elif म्हणजे else if. आपण एकाच वेळी if, elif, आणि else एकत्र वापरू शकतो. हे Python चा खूप महत्त्वाचा concept आहे.",
-    example: 'vay = 18\nif vay >= 18:\n    print("तुम्ही मतदान करू शकता")\nelse:\n    print("तुम्ही मतदान करू शकत नाही")\n\nmarks = 75\nif marks >= 90:\n    print("Grade: A")\nelif marks >= 75:\n    print("Grade: B")\nelif marks >= 60:\n    print("Grade: C")\nelse:\n    print("Grade: F")' },
-  { id: 7, title: "For Loop",
-    content: "For loop ने आपण एखादे काम अनेक वेळा करवू शकतो. जर आपल्याला 1 ते 100 पर्यंत मोजायचे असेल तर काय आपण 100 वेळा print लिहणार? नाही! यासाठी for loop वापरतो. for loop मध्ये range() function वापरतात. range(1, 6) चा अर्थ आहे 1 ते 5 पर्यंत. प्रत्येक वेळी loop चालल्यावर i ची value बदलते. पहिल्यांदा i=1, दुसऱ्यांदा i=2, आणि असे पुढे जाते. for loop चा उपयोग list च्या प्रत्येक item वर काम करण्यासाठी देखील होतो. range() मध्ये तिसरा parameter step असतो. जसे range(0, 10, 2) म्हणजे 0, 2, 4, 6, 8 — दोन दोन करून. Loops हे programming चे सर्वात महत्त्वाचे concept आहे.",
-    example: "for i in range(1, 6):\n    print(i)\n\nfor i in range(1, 11):\n    print(i, 'चा square आहे', i*i)\n\nfor i in range(10, 0, -1):\n    print(i, '...')\nprint('सुरुवात!')" },
-  { id: 8, title: "While Loop",
-    content: "While loop तोपर्यंत चालतो जोपर्यंत एखादी condition बरोबर असते. जसे — जोपर्यंत पाणी मिळत नाही तोपर्यंत चालत राहा. हे for loop पेक्षा वेगळे आहे. for loop मध्ये आपल्याला आधीच माहीत असते की किती वेळा चालेल. while loop मध्ये condition वर अवलंबून असते. while loop बद्दल एक गोष्ट खूप महत्त्वाची आहे — loop च्या आत असे काहीतरी असायला हवे जे condition ला eventually false करेल. नाहीतर loop नेहमी चालत राहील ज्याला infinite loop म्हणतात. count = count + 1 म्हणूनच लिहतो जेणेकरून loop बंद होईल. while loop password check करण्यासाठी, game मध्ये, आणि user input घेण्यासाठी खूप उपयुक्त आहे.",
-    example: "count = 1\nwhile count <= 5:\n    print(count)\n    count = count + 1\n\npassword = ''\nwhile password != 'hello':\n    password = input('Passwor d टाका: ')\nprint('बरोबर password!')"},
-  { id: 9, title: "Lists",
-    content: "List एखाद्या पिशवीसारखी आहे ज्यात आपण अनेक गोष्टी एकत्र ठेवू शकतो. जसे एका पिशवीत सफरचंद, केळे, आणि आंबा ठेवतो, तसेच list मध्ये अनेक values ठेवता येतात. List square brackets मध्ये लिहतात आणि items ला comma ने वेगळे करतात. List मधील प्रत्येक item ला एक number असतो ज्याला index म्हणतात. Index नेहमी 0 पासून सुरू होतो. म्हणजे पहिला item index 0 वर आहे, दुसरा index 1 वर. len() function ने list मध्ये किती items आहेत हे कळते. append() ने नवीन item add करता येतो. remove() ने item हटवता येतो. List मधील कोणताही item बदलता येतो. Lists हे Python मधील सर्वात उपयुक्त data structure आहे.",
-    example: 'fruits = ["apple", "banana", "mango"]\nprint(fruits[0])\nprint(fruits[1])\nprint(len(fruits))\nfruits.append("orange")\nprint(fruits)\nfruits.remove("banana")\nprint(fruits)' },
-  { id: 10, title: "Functions",
-    content: "Function हा एक छोटा program असतो जो एक specific काम करतो. Function चा सर्वात मोठा फायदा म्हणजे एकदा लिहा आणि अनेक वेळा वापरा. जसे TV चा remote एक function आहे — तो एकदा बनवला आणि अनेक वेळा वापरतो. def keyword ने function बनवतात. def च्या नंतर function चे नाव लिहतात, मग brackets मध्ये parameters. Parameters म्हणजे त्या values ज्या आपण function ला देतो. Function च्या आत चा code तेव्हा चालतो जेव्हा आपण function ला call करतो. Function call करण्यासाठी function चे नाव आणि brackets लिहतात. return keyword वापरून function एखादे value परत देऊ शकते. Functions मुळे code neat आणि reusable होतो.",
-    example: 'def namaskaar(naam):\n    print("नमस्कार", naam, "जी!")\n\ndef add(a, b):\n    result = a + b\n    return result\n\nnamaskaar("Sharada")\nnamaskaar("Pyra")\nans = add(5, 3)\nprint("5 + 3 =", ans)\nprint("10 + 20 =", add(10, 20))' },
-  { id: 11, title: "String Operations",
-    content: "String म्हणजे text. String सोबत आपण खूप काही करू शकतो. दोन strings जोडण्यासाठी plus operator वापरतो. upper() ने सर्व अक्षरे मोठी होतात. lower() ने सर्व अक्षरे लहान होतात. len() ने string मध्ये किती characters आहेत हे कळते. replace() ने एखादा शब्द बदलता येतो. split() ने string चे parts करता येतात. in keyword ने check करता येते की एखादा शब्द string मध्ये आहे की नाही. strip() ने string च्या सुरुवातीचे आणि शेवटचे spaces हटवता येतात. String operations खूप उपयुक्त आहेत कारण real programs मध्ये text सोबत खूप काम करावे लागते. Forms, messages, files — सगळीकडे strings असतात.",
-    example: 'naam = "sharada"\nprint(naam.upper())\nprint(naam.lower())\nprint(len(naam))\nprint("नमस्कार " + naam)\nprint(naam.replace("sharada", "pyra"))\nprint("sha" in naam)\nwords = "apple,banana,mango"\nprint(words.split(","))' },
-  { id: 12, title: "Math Operations",
-    content: "Python एक उत्तम calculator देखील आहे. बेरजेसाठी plus, वजाबाकीसाठी minus, गुणाकारासाठी star, भागाकारासाठी slash वापरतो. बाकी म्हणजे remainder साठी percent sign वापरतो. Double star ने power काढता येतो जसे 2 ची power 3 म्हणजे 8. Double slash ने floor division होतो जो भागाकारानंतर decimal हटवतो. Python मध्ये math module देखील असतो ज्याने square root, trigonometry सारख्या calculations करता येतात. import math लिहून हा module वापरता येतो. math.sqrt() ने square root, math.pi ने pi ची value मिळते. Calculator बनवण्यात हेच सर्व operations काम येतात.",
-    example: "a = 10\nb = 3\nprint('बेरीज:', a + b)\nprint('वजाबाकी:', a - b)\nprint('गुणाकार:', a * b)\nprint('भागाकार:', a / b)\nprint('बाकी:', a % b)\nprint('घात:', 2 ** 10)\n\nimport math\nprint('Square root of 16:', math.sqrt(16))" },
-  { id: 13, title: "Comments",
-    content: "Comments म्हणजे त्या ओळी ज्या Python run करत नाही. Comments फक्त आपल्या developers साठी असतात — code समजावून सांगण्यासाठी. जसे पुस्तकात notes लिहतो, तसेच code मध्ये comments लिहतो. Hash symbol म्हणजे # ने single line comment बनवतो. # च्या नंतर जे काही लिहाल ते Python ignore करते. Comments लिहणे खूप महत्त्वाचे आहे कारण नंतर जेव्हा आपण आपला code दुबारा वाचू किंवा दुसरा कोणी वाचेल तर समजेल. चांगले programmers नेहमी comments लिहतात. Comments मुळे team work करणे सोपे होते. एक professional programmer म्हणून comments लिहणे ही सवय लावून घ्या.",
-    example: "# हे एक simple calculator आहे\na = 10  # पहिला number\nb = 5   # दुसरा number\n\n# बेरीज करतो\nresult = a + b\nprint('बेरीज:', result)  # result print करा\n\n# हे program Sharada ने लिहिले आहे" },
-  { id: 14, title: "Error Handling",
-    content: "जेव्हा Python ला एखादी चूक सापडते तेव्हा program बंद होतो. पण real apps मध्ये आपल्याला program बंद व्हायला नको असतो. यासाठी try आणि except वापरतो. try च्या आत तो code लिहतो ज्यात error येऊ शकते. जर error आली तर except वाला code चालतो आणि program बंद होत नाही. उदाहरणार्थ जर आपण एखाद्या number ला zero ने divide केले तर error येते. try आणि except ने ती error पकडून user ला एक चांगला message देऊ शकतो. ZeroDivisionError म्हणजे zero ने divide केल्याची error. ValueError म्हणजे चुकीच्या type ची value दिली तेव्हा येणारी error. finally block नेहमी चालतो मग error असो किंवा नसो. हे professional programming चा खूप महत्त्वाचा भाग आहे.",
-    example: "try:\n    result = 10 / 0\n    print(result)\nexcept ZeroDivisionError:\n    print('चूक! शून्याने भाग होत नाही')\n\ntry:\n    number = int('hello')\nexcept ValueError:\n    print('चूक! हे number नाही')\nfinally:\n    print('Program चालू आहे')" },
-  { id: 15, title: "Mini Project — Calculator",
-    content: "शाब्बास! तुम्ही Python चे सर्व basic concepts शिकलात. आता आपण हे सर्व एकत्र करून एक real calculator बनवूया. या calculator मध्ये आपण functions वापरू, if/else conditions वापरू, आणि variables वापरू. हे तुमचे पहिले Python project आहे. हे बनवल्यावर तुम्ही म्हणू शकता की मी Python मध्ये एक program बनवला आहे. हा calculator दोन numbers घेतो, operation विचारतो, आणि result देतो. या project मध्ये आपण शिकलेल्या सर्व गोष्टी एकत्र आल्या आहेत — variables, functions, if/elif/else, आणि return. पुढे जाऊन तुम्ही हा calculator आणखी चांगला बनवू शकता जसे की history ठेवणे किंवा square root add करणे.",
-    example: 'def calculator(a, b, operation):\n    if operation == "+":\n        return a + b\n    elif operation == "-":\n        return a - b\n    elif operation == "*":\n        return a * b\n    elif operation == "/":\n        if b != 0:\n            return a / b\n        else:\n            return "शून्याने भाग होत नाही"\n    else:\n        return "चुकीचे operation"\n\nprint(calculator(10, 5, "+"))\nprint(calculator(10, 5, "-"))\nprint(calculator(10, 5, "*"))\nprint(calculator(10, 5, "/"))' },
+  { id: 1, title: "Python म्हणजे काय?", content: "Python ही एक programming language आहे. सोप्या भाषेत सांगायचे तर — Python हा एक मार्ग आहे ज्याने आपण computer ला सूचना देतो. जसे आपण एखाद्या माणसाशी मराठीत बोलतो, तसेच आपण computer शी Python मध्ये बोलतो. Python 1991 साली Guido van Rossum नावाच्या एका शास्त्रज्ञाने बनवली होती. Python खास आहे कारण ती वाचायला आणि समजायला खूप सोपी आहे. Python सारखी दिसते ती जवळजवळ इंग्रजी भाषेसारखीच असते. Python वापरून आपण websites बनवू शकतो, games बनवू शकतो, Artificial Intelligence बनवू शकतो, आणि data analysis करू शकतो. जगातील मोठ्या companies जसे Google, Netflix, आणि Instagram देखील Python वापरतात. Python ही beginners साठी सर्वात चांगली programming language आहे कारण तिचे rules खूप सोपे आहेत. आपण या course मध्ये Python शिकणार आहोत आणि स्वतःचे programs बनवणार आहोत.", example: null },
+  { id: 2, title: "print() function", content: "print() function हे Python मधील सर्वात पहिले आणि सर्वात महत्त्वाचे function आहे. print चा अर्थ आहे — screen वर काहीतरी दाखवणे. आपण print च्या brackets च्या आत जे काही लिहितो ते computer च्या screen वर दिसते. उदाहरणार्थ जर आपण print नमस्कार लिहिले तर screen वर नमस्कार दिसेल. Text लिहिताना त्याला quotes च्या आत लिहणे आवश्यक आहे. आपण numbers देखील print करू शकतो आणि एकाच वेळी दोन गोष्टी एकत्र print करू शकतो. print() function मध्ये comma वापरून अनेक गोष्टी एका ओळीत print करता येतात. प्रत्येक Python programmer रोज print() function वापरतो. हे function debugging साठी देखील खूप उपयुक्त आहे म्हणजे program मध्ये काय चालू आहे हे तपासण्यासाठी.", example: 'print("नमस्कार जग!")\nprint(42)\nprint("माझे नाव", "Pyra", "आहे")\nprint("आज", 2024, "साल आहे")' },
+  { id: 3, title: "Variables", content: "Variable ला आपण एक डबा किंवा खोकं समजू शकतो. जसे घरात वेगवेगळ्या डब्यांमध्ये साखर, मीठ, आणि तांदूळ ठेवतो, तसेच computer मध्ये वेगवेगळ्या variables मध्ये वेगवेगळा data ठेवतो. प्रत्येक variable ला एक नाव असते. त्या नावाने आपण तो data नंतर वापरू शकतो. उदाहरणार्थ naam नावाच्या variable मध्ये Sharada ठेवले, तर जेव्हाही naam लिहू तेव्हा Sharada मिळेल. Variable बनवण्यासाठी आधी नाव लिहा, मग equal sign, मग value. Variable चे नाव नेहमी लहान अक्षरांमध्ये लिहतात आणि मध्ये space नसते. जर नावात दोन शब्द असतील तर underscore वापरतात जसे my_name. Variable ची value नंतर बदलता येते. एकदा variable बनवला की तो program संपेपर्यंत आपल्याला वापरता येतो.", example: 'naam = "Sharada"\nvay = 20\nshahar = "Pune"\nprint(naam)\nprint(vay)\nprint(shahar)' },
+  { id: 4, title: "Data Types", content: "Python मध्ये वेगवेगळ्या प्रकारचा data असतो ज्यांना Data Types म्हणतात. पहिला आहे int म्हणजे पूर्ण संख्या जसे 5, 10, 100, 1000. दुसरा आहे float म्हणजे दशांश संख्या जसे 3.14, 5.5, 9.99. तिसरा आहे string म्हणजे text जसे नमस्कार, Sharada, Pune. string नेहमी quotes च्या आत लिहतात. चौथा आहे bool ज्यामध्ये फक्त दोन values असतात — True किंवा False. उदाहरणार्थ आज पाऊस आहे का? True किंवा False. Python स्वतः समजते की कोणता data type आहे. आपल्याला वेगळे सांगायची गरज नाही. हे Python ची सर्वात चांगली खासियत आहे. type() function वापरून आपण कोणत्याही variable चा data type तपासू शकतो.", example: 'vay = 20\nunchaai = 5.6\nnaam = "Pyra"\nkya_vidyarthi_ahe = True\nprint(vay)\nprint(unchaai)\nprint(naam)\nprint(kya_vidyarthi_ahe)\nprint(type(vay))\nprint(type(naam))' },
+  { id: 5, title: "User कडून Input घेणे", content: "आतापर्यंत आपण स्वतःच data लिहिला. पण real programs मध्ये user कडून data घ्यावा लागतो. यासाठी Python मध्ये input() function आहे. input() function screen वर एक प्रश्न दाखवतो आणि user चे उत्तर ऐकतो. user जे काही type करतो ते एका variable मध्ये save होते. उदाहरणार्थ जर आपण विचारले तुमचे नाव काय आहे, तर user जे नाव type करेल ते naam variable मध्ये save होईल. मग आपण तो naam print करू शकतो. हे खूप महत्त्वाचे आहे कारण प्रत्येक app मध्ये user कडून काही ना काही घ्यावे लागते. एक महत्त्वाची गोष्ट — input() function नेहमी string देते. जर आपल्याला number हवे असेल तर int() किंवा float() वापरून convert करावे लागते.", example: 'naam = input("तुमचे नाव काय आहे? ")\nvay = int(input("तुमचे वय किती आहे? "))\nprint("नमस्कार", naam)\nprint("तुमचे वय आहे", vay)\nprint("10 वर्षांनी तुम्ही", vay + 10, "वर्षांचे असाल")' },
+  { id: 6, title: "If/Else Conditions", content: "If/Else ने आपण computer ला निर्णय घेण्यास शिकवतो. जसे आपण विचार करतो — जर पाऊस असेल तर छत्री घे, नाहीतर उन्हाचा चष्मा घे. तसेच Python मध्ये if लिहून condition लिहतो. जर condition बरोबर असेल तर if वाला code चालतो. जर condition चुकीची असेल तर else वाला code चालतो. Condition मध्ये आपण greater than, less than, equal to असे operators वापरतो. if च्या नंतर colon लावणे आवश्यक आहे आणि पुढच्या ओळीत 4 spaces चे indentation देणे आवश्यक आहे. elif वापरून अनेक conditions तपासता येतात. elif म्हणजे else if. आपण एकाच वेळी if, elif, आणि else एकत्र वापरू शकतो. हे Python चा खूप महत्त्वाचा concept आहे.",example: 'vay = 18\nif vay >= 18:\n    print("तुम्ही मतदान करू शकता")\nelse:\n    print("तुम्ही मतदान करू शकत नाही")\n\nmarks = 75\nif marks >= 90:\n    print("Grade: A")\nelif marks >= 75:\n    print("Grade: B")\nelif marks >= 60:\n    print("Grade: C")\nelse:\n    print("Grade: F")' },
+  { id: 7, title: "For Loop", content: "For loop ने आपण एखादे काम अनेक वेळा करवू शकतो. जर आपल्याला 1 ते 100 पर्यंत मोजायचे असेल तर काय आपण 100 वेळा print लिहणार? नाही! यासाठी for loop वापरतो. for loop मध्ये range() function वापरतात. range(1, 6) चा अर्थ आहे 1 ते 5 पर्यंत. प्रत्येक वेळी loop चालल्यावर i ची value बदलते. पहिल्यांदा i=1, दुसऱ्यांदा i=2, आणि असे पुढे जाते. for loop चा उपयोग list च्या प्रत्येक item वर काम करण्यासाठी देखील होतो. range() मध्ये तिसरा parameter step असतो. जसे range(0, 10, 2) म्हणजे 0, 2, 4, 6, 8 — दोन दोन करून. Loops हे programming चे सर्वात महत्त्वाचे concept आहे.", example: "for i in range(1, 6):\n    print(i)\n\nfor i in range(1, 11):\n    print(i, 'चा square आहे', i*i)\n\nfor i in range(10, 0, -1):\n    print(i, '...')\nprint('सुरुवात!')" },
+  { id: 8, title: "While Loop", content: "While loop तोपर्यंत चालतो जोपर्यंत एखादी condition बरोबर असते. जसे — जोपर्यंत पाणी मिळत नाही तोपर्यंत चालत राहा. हे for loop पेक्षा वेगळे आहे. for loop मध्ये आपल्याला आधीच माहीत असते की किती वेळा चालेल. while loop मध्ये condition वर अवलंबून असते. while loop बद्दल एक गोष्ट खूप महत्त्वाची आहे — loop च्या आत असे काहीतरी असायला हवे जे condition ला eventually false करेल. नाहीतर loop नेहमी चालत राहील ज्याला infinite loop म्हणतात. count = count + 1 म्हणूनच लिहतो जेणेकरून loop बंद होईल. while loop password check करण्यासाठी, game मध्ये, आणि user input घेण्यासाठी खूप उपयुक्त आहे.", example: "count = 1\nwhile count <= 5:\n    print(count)\n    count = count + 1\n\npassword = ''\nwhile password != 'hello':\n    password = input('Passwor d टाका: ')\nprint('बरोबर password!')"},
+  { id: 9, title: "Lists", content: "List एखाद्या पिशवीसारखी आहे ज्यात आपण अनेक गोष्टी एकत्र ठेवू शकतो. जसे एका पिशवीत सफरचंद, केळे, आणि आंबा ठेवतो, तसेच list मध्ये अनेक values ठेवता येतात. List square brackets मध्ये लिहतात आणि items ला comma ने वेगळे करतात. List मधील प्रत्येक item ला एक number असतो ज्याला index म्हणतात. Index नेहमी 0 पासून सुरू होतो. म्हणजे पहिला item index 0 वर आहे, दुसरा index 1 वर. len() function ने list मध्ये किती items आहेत हे कळते. append() ने नवीन item add करता येतो. remove() ने item हटवता येतो. List मधील कोणताही item बदलता येतो. Lists हे Python मधील सर्वात उपयुक्त data structure आहे.", example: 'fruits = ["apple", "banana", "mango"]\nprint(fruits[0])\nprint(fruits[1])\nprint(len(fruits))\nfruits.append("orange")\nprint(fruits)\nfruits.remove("banana")\nprint(fruits)' },
+  { id: 10, title: "Functions", content: "Function हा एक छोटा program असतो जो एक specific काम करतो. Function चा सर्वात मोठा फायदा म्हणजे एकदा लिहा आणि अनेक वेळा वापरा. जसे TV चा remote एक function आहे — तो एकदा बनवला आणि अनेक वेळा वापरतो. def keyword ने function बनवतात. def च्या नंतर function चे नाव लिहतात, मग brackets मध्ये parameters. Parameters म्हणजे त्या values ज्या आपण function ला देतो. Function च्या आत चा code तेव्हा चालतो जेव्हा आपण function ला call करतो. Function call करण्यासाठी function चे नाव आणि brackets लिहतात. return keyword वापरून function एखादे value परत देऊ शकते. Functions मुळे code neat आणि reusable होतो.", example: 'def namaskaar(naam):\n    print("नमस्कार", naam, "जी!")\n\ndef add(a, b):\n    result = a + b\n    return result\n\nnamaskaar("Sharada")\nnamaskaar("Pyra")\nans = add(5, 3)\nprint("5 + 3 =", ans)\nprint("10 + 20 =", add(10, 20))' },
+  { id: 11, title: "String Operations", content: "String म्हणजे text. String सोबत आपण खूप काही करू शकतो. दोन strings जोडण्यासाठी plus operator वापरतो. upper() ने सर्व अक्षरे मोठी होतात. lower() ने सर्व अक्षरे लहान होतात. len() ने string मध्ये किती characters आहेत हे कळते. replace() ने एखादा शब्द बदलता येतो. split() ने string चे parts करता येतात. in keyword ने check करता येते की एखादा शब्द string मध्ये आहे की नाही. strip() ने string च्या सुरुवातीचे आणि शेवटचे spaces हटवता येतात. String operations खूप उपयुक्त आहेत कारण real programs मध्ये text सोबत खूप काम करावे लागते. Forms, messages, files — सगळीकडे strings असतात.", example: 'naam = "sharada"\nprint(naam.upper())\nprint(naam.lower())\nprint(len(naam))\nprint("नमस्कार " + naam)\nprint(naam.replace("sharada", "pyra"))\nprint("sha" in naam)\nwords = "apple,banana,mango"\nprint(words.split(","))' },
+  { id: 12, title: "Math Operations", content: "Python एक उत्तम calculator देखील आहे. बेरजेसाठी plus, वजाबाकीसाठी minus, गुणाकारासाठी star, भागाकारासाठी slash वापरतो. बाकी म्हणजे remainder साठी percent sign वापरतो. Double star ने power काढता येतो जसे 2 ची power 3 म्हणजे 8. Double slash ने floor division होतो जो भागाकारानंतर decimal हटवतो. Python मध्ये math module देखील असतो ज्याने square root, trigonometry सारख्या calculations करता येतात. import math लिहून हा module वापरता येतो. math.sqrt() ने square root, math.pi ने pi ची value मिळते. Calculator बनवण्यात हेच सर्व operations काम येतात.", example: "a = 10\nb = 3\nprint('बेरीज:', a + b)\nprint('वजाबाकी:', a - b)\nprint('गुणाकार:', a * b)\nprint('भागाकार:', a / b)\nprint('बाकी:', a % b)\nprint('घात:', 2 ** 10)\n\nimport math\nprint('Square root of 16:', math.sqrt(16))" },
+  { id: 13, title: "Comments", content: "Comments म्हणजे त्या ओळी ज्या Python run करत नाही. Comments फक्त आपल्या developers साठी असतात — code समजावून सांगण्यासाठी. जसे पुस्तकात notes लिहतो, तसेच code मध्ये comments लिहतो. Hash symbol म्हणजे # ने single line comment बनवतो. # च्या नंतर जे काही लिहाल ते Python ignore करते. Comments लिहणे खूप महत्त्वाचे आहे कारण नंतर जेव्हा आपण आपला code दुबारा वाचू किंवा दुसरा कोणी वाचेल तर समजेल. चांगले programmers नेहमी comments लिहतात. Comments मुळे team work करणे सोपे होते. एक professional programmer म्हणून comments लिहणे ही सवय लावून घ्या.", example: "# हे एक simple calculator आहे\na = 10  # पहिला number\nb = 5   # दुसरा number\n\n# बेरीज करतो\nresult = a + b\nprint('बेरीज:', result)  # result print करा\n\n# हे program Sharada ने लिहिले आहे" },
+  { id: 14, title: "Error Handling", content: "जेव्हा Python ला एखादी चूक सापडते तेव्हा program बंद होतो. पण real apps मध्ये आपल्याला program बंद व्हायला नको असतो. यासाठी try आणि except वापरतो. try च्या आत तो code लिहतो ज्यात error येऊ शकते. जर error आली तर except वाला code चालतो आणि program बंद होत नाही. उदाहरणार्थ जर आपण एखाद्या number ला zero ने divide केले तर error येते. try आणि except ने ती error पकडून user ला एक चांगला message देऊ शकतो. ZeroDivisionError म्हणजे zero ने divide केल्याची error. ValueError म्हणजे चुकीच्या type ची value दिली तेव्हा येणारी error. finally block नेहमी चालतो मग error असो किंवा नसो. हे professional programming चा खूप महत्त्वाचा भाग आहे.", example: "try:\n    result = 10 / 0\n    print(result)\nexcept ZeroDivisionError:\n    print('चूक! शून्याने भाग होत नाही')\n\ntry:\n    number = int('hello')\nexcept ValueError:\n    print('चूक! हे number नाही')\nfinally:\n    print('Program चालू आहे')" },
+  { id: 15, title: "Mini Project — Calculator", content: "शाब्बास! तुम्ही Python चे सर्व basic concepts शिकलात. आता आपण हे सर्व एकत्र करून एक real calculator बनवूया. या calculator मध्ये आपण functions वापरू, if/else conditions वापरू, आणि variables वापरू. हे तुमचे पहिले Python project आहे. हे बनवल्यावर तुम्ही म्हणू शकता की मी Python मध्ये एक program बनवला आहे. हा calculator दोन numbers घेतो, operation विचारतो, आणि result देतो. या project मध्ये आपण शिकलेल्या सर्व गोष्टी एकत्र आल्या आहेत — variables, functions, if/elif/else, आणि return. पुढे जाऊन तुम्ही हा calculator आणखी चांगला बनवू शकता जसे की history ठेवणे किंवा square root add करणे.", example: 'def calculator(a, b, operation):\n    if operation == "+":\n        return a + b\n    elif operation == "-":\n        return a - b\n    elif operation == "*":\n        return a * b\n    elif operation == "/":\n        if b != 0:\n            return a / b\n        else:\n            return "शून्याने भाग होत नाही"\n    else:\n        return "चुकीचे operation"\n\nprint(calculator(10, 5, "+"))\nprint(calculator(10, 5, "-"))\nprint(calculator(10, 5, "*"))\nprint(calculator(10, 5, "/"))' },
 ]
 
 
@@ -305,33 +273,209 @@ const sqlLessonsMarathi = [
 
 
 
+// ✅ REPLACE your existing javascriptLessons and javascriptLessonsEnglish with these
+// ✅ Also paste javascriptLessonsMarathi as a new array
+// ✅ Paste all 3 arrays BEFORE the `function LessonsPage()` line in LessonsPage.jsx
 
+// ─────────────────────────────────────────
+// JAVASCRIPT LESSONS — HINDI
+// ─────────────────────────────────────────
 const javascriptLessons = [
-  { id: 1, title: "JavaScript क्या है?", content: "JavaScript एक programming language है जो websites को interactive बनाती है। हर website में JavaScript होती है। इसे browser directly समझता है।", example: null },
-  { id: 2, title: "console.log()", content: "console.log() से हम browser console में कुछ भी print कर सकते हैं।", example: 'console.log("नमस्ते दुनिया!");' },
-  { id: 3, title: "Variables", content: "JavaScript में let, const, और var से variables बनाते हैं।", example: 'let naam = "Sharada";\nconst umar = 20;\nconsole.log(naam);' },
-  { id: 4, title: "Data Types", content: "JavaScript में string, number, boolean, null, undefined होते हैं।", example: 'let name = "Pyra";\nlet age = 20;\nlet isStudent = true;' },
-  { id: 5, title: "If/Else", content: "If/Else से condition check करते हैं।", example: 'let umar = 18;\nif (umar >= 18) {\n  console.log("Vote कर सकते हैं");\n} else {\n  console.log("नहीं कर सकते");\n}' },
-  { id: 6, title: "For Loop", content: "For loop से काम बार बार करते हैं।", example: "for (let i = 1; i <= 5; i++) {\n  console.log(i);\n}" },
-  { id: 7, title: "Functions", content: "Function से code को reuse करते हैं।", example: 'function namaste(naam) {\n  console.log("नमस्ते " + naam);\n}\nnamaste("Sharada");' },
-  { id: 8, title: "Arrays", content: "Array में हम कई values एक साथ रखते हैं।", example: 'let fruits = ["apple", "banana", "mango"];\nconsole.log(fruits[0]);\nconsole.log(fruits.length);' },
-  { id: 9, title: "Objects", content: "Object में हम related data एक साथ रखते हैं।", example: 'let student = {\n  naam: "Sharada",\n  age: 20\n};\nconsole.log(student.naam);' },
-  { id: 10, title: "DOM Manipulation", content: "DOM से हम webpage के elements को JavaScript से बदल सकते हैं।", example: 'document.getElementById("title")\n  .innerHTML = "नमस्ते!";' },
+  {
+    id: 1,
+    title: "JavaScript क्या है?",
+    content: "JavaScript एक programming language है जो websites को interactive और जीवंत बनाती है। जब आप किसी website पर button click करते हैं और कुछ होता है, menu खुलती है, या कोई animation चलती है — यह सब JavaScript की वजह से होता है। JavaScript को 1995 में Brendan Eich ने बनाया था। JavaScript तीन चीज़ों में से एक है जो हर website बनाने के लिए जरूरी है — HTML structure देता है, CSS design देता है, और JavaScript behavior देता है। JavaScript browser में directly चलती है, कोई extra software install करने की जरूरत नहीं। आज JavaScript सिर्फ browser में नहीं बल्कि server पर भी चलती है। JavaScript दुनिया की सबसे popular programming language है और हर web developer को यह जरूर सीखनी चाहिए।",
+    example: null
+  },
+  {
+    id: 2,
+    title: "console.log()",
+    content: "console.log() JavaScript का सबसे पहला और सबसे जरूरी function है। यह Python के print() जैसा ही है। console.log() browser के developer console में कुछ भी print करता है। Developer console देखने के लिए browser में F12 press करें और Console tab पर जाएं। console.log() में हम text, numbers, variables, और calculations — कुछ भी pass कर सकते हैं। Text को quotes के अंदर लिखते हैं — single या double दोनों चलते हैं। console.log() debugging के लिए बहुत उपयोगी है यानी program में क्या हो रहा है यह check करने के लिए। हर JavaScript developer रोज़ console.log() use करता है।",
+    example: 'console.log("नमस्ते दुनिया!");\nconsole.log(42);\nconsole.log("मेरा नाम Pyra है");\nconsole.log(10 + 20);\nconsole.log("2 का square है:", 2 * 2);'
+  },
+  {
+    id: 3,
+    title: "Variables — let, const, var",
+    content: "JavaScript में variables बनाने के तीन तरीके हैं — let, const, और var. Variable एक डिब्बे की तरह है जिसमें हम data रखते हैं। let से वो variable बनाते हैं जिसकी value बाद में बदल सकती है। जैसे score जो game में बदलता रहता है। const से वो variable बनाते हैं जिसकी value कभी नहीं बदलती। जैसे PI की value हमेशा 3.14159 रहती है। var पुराना तरीका है और आजकल use नहीं करते। Variable का नाम हमेशा letter से शुरू होता है, numbers और underscore भी use हो सकते हैं। JavaScript में variable names case sensitive होते हैं — naam और Naam अलग-अलग हैं। हर statement के अंत में semicolon लगाते हैं।",
+    example: 'let naam = "Sharada";\nlet umar = 20;\nconst PI = 3.14159;\n\nconsole.log(naam);\nconsole.log(umar);\n\numar = 21;  // let की value बदल सकती है\nconsole.log(umar);\n\n// PI = 3;  // Error! const नहीं बदलती'
+  },
+  {
+    id: 4,
+    title: "Data Types",
+    content: "JavaScript में कई data types होते हैं। String मतलब text जो quotes के अंदर लिखते हैं। Number मतलब कोई भी संख्या चाहे पूरी हो या दशमलव। Boolean मतलब true या false। Null मतलब जानबूझकर खाली value। Undefined मतलब variable बनाया पर value नहीं दी। Object मतलब related data का collection। Array मतलब values की list। JavaScript dynamically typed language है यानी एक variable में पहले number रखो फिर string रखो — चलेगा। typeof operator से किसी भी variable का type check कर सकते हैं। Template literals backtick से बनते हैं और उसमें variable directly embed कर सकते हैं।",
+    example: 'let naam = "Pyra";          // String\nlet umar = 20;              // Number\nlet marks = 95.5;           // Number (decimal)\nlet isStudent = true;       // Boolean\nlet address = null;         // Null\nlet phone;                  // Undefined\n\nconsole.log(typeof naam);   // string\nconsole.log(typeof umar);   // number\n\n// Template literal\nconsole.log(`मेरा नाम ${naam} है और उम्र ${umar} है`);'
+  },
+  {
+    id: 5,
+    title: "If/Else Conditions",
+    content: "If/Else JavaScript में decision making के लिए use होता है। Python की तरह ही काम करता है लेकिन syntax थोड़ा अलग है। JavaScript में condition को round brackets के अंदर लिखते हैं और code block को curly braces के अंदर। अगर condition true है तो if block चलता है, नहीं तो else block चलता है। else if से multiple conditions check कर सकते हैं। Comparison operators हैं — equal to के लिए triple equal यानी === लिखते हैं। Triple equal === value और type दोनों check करता है जो better practice है। Double equal == सिर्फ value check करता है। Logical operators AND के लिए double ampersand && और OR के लिए double pipe || लिखते हैं।",
+    example: 'let umar = 18;\n\nif (umar >= 18) {\n  console.log("आप vote कर सकते हैं");\n} else {\n  console.log("आप vote नहीं कर सकते");\n}\n\nlet marks = 75;\nif (marks >= 90) {\n  console.log("Grade: A");\n} else if (marks >= 75) {\n  console.log("Grade: B");\n} else if (marks >= 60) {\n  console.log("Grade: C");\n} else {\n  console.log("Grade: F");\n}'
+  },
+  {
+    id: 6,
+    title: "For Loop",
+    content: "For loop से JavaScript में कोई काम बार बार करवाते हैं। JavaScript का for loop Python से अलग दिखता है लेकिन काम एक जैसा है। For loop में तीन parts होते हैं — initialization जहाँ variable बनाते हैं, condition जो true रहने तक loop चलता है, और update जो हर बार चलता है। तीनों को semicolon से अलग करते हैं। let i = 0 से शुरू करते हैं। i less than 5 तक चलाते हैं। i++ का मतलब है i = i + 1। For loop arrays के साथ भी use होता है। for...of loop से array के हर item पर directly काम कर सकते हैं जो बहुत आसान है।",
+    example: 'for (let i = 1; i <= 5; i++) {\n  console.log(i);\n}\n\n// 1 से 10 तक squares\nfor (let i = 1; i <= 10; i++) {\n  console.log(i + " का square है " + (i * i));\n}\n\n// Array के साथ for...of\nlet fruits = ["apple", "banana", "mango"];\nfor (let fruit of fruits) {\n  console.log(fruit);\n}'
+  },
+  {
+    id: 7,
+    title: "Functions",
+    content: "Functions JavaScript में reusable code blocks होते हैं। एक बार function बनाओ और बार बार use करो। JavaScript में functions बनाने के दो main तरीके हैं। पहला है function declaration जिसमें function keyword लिखते हैं। दूसरा है arrow function जो modern और shorter तरीका है। Function को call करने के लिए उसका नाम और brackets लिखते हैं। Parameters वो values हैं जो हम function को देते हैं। Return keyword से function एक value वापस दे सकता है। Functions से code organized और readable बनता है। Real projects में functions के बिना काम नहीं होता।",
+    example: '// Function declaration\nfunction greet(naam) {\n  console.log("नमस्ते " + naam + "!");\n}\n\n// Arrow function\nconst add = (a, b) => {\n  return a + b;\n};\n\n// Short arrow function\nconst multiply = (a, b) => a * b;\n\ngreet("Sharada");\ngreet("Pyra");\nconsole.log(add(5, 3));\nconsole.log(multiply(4, 6));'
+  },
+  {
+    id: 8,
+    title: "Arrays",
+    content: "Array एक list की तरह है जिसमें हम कई values एक साथ रखते हैं। JavaScript में arrays square brackets में बनाते हैं। Array का index 0 से शुरू होता है। length property से array की size पता चलती है। push() से नया item array के अंत में add होता है। pop() से last item हटता है। forEach() से array के हर item पर एक function चला सकते हैं। map() से array के हर item को transform करके नया array बनता है। filter() से condition के हिसाब से items filter होते हैं। find() से पहला matching item मिलता है। Arrays JavaScript में सबसे ज्यादा use होने वाला data structure है।",
+    example: 'let fruits = ["apple", "banana", "mango"];\n\nconsole.log(fruits[0]);       // apple\nconsole.log(fruits.length);   // 3\n\nfruits.push("orange");\nconsole.log(fruits);          // 4 items\n\nfruits.forEach(fruit => {\n  console.log(fruit);\n});\n\nlet numbers = [1, 2, 3, 4, 5];\nlet doubled = numbers.map(n => n * 2);\nconsole.log(doubled);  // [2, 4, 6, 8, 10]'
+  },
+  {
+    id: 9,
+    title: "Objects",
+    content: "Object में हम related data को एक साथ रखते हैं। जैसे एक student का नाम, उम्र, और marks — ये सब एक student object में रख सकते हैं। Object curly braces में बनता है। अंदर key और value pairs होते हैं। Key और value को colon से अलग करते हैं। अलग-अलग pairs को comma से अलग करते हैं। Object की properties तक पहुँचने के लिए dot notation use करते हैं। Object में functions भी रख सकते हैं जिन्हें methods कहते हैं। Object के अंदर कोई भी data type रख सकते हैं — string, number, array, दूसरा object भी। Real apps में data हमेशा objects की form में होता है।",
+    example: 'let student = {\n  naam: "Sharada",\n  umar: 20,\n  sheher: "Mumbai",\n  marks: [85, 90, 78],\n  greet: function() {\n    console.log("नमस्ते, मैं " + this.naam + " हूँ");\n  }\n};\n\nconsole.log(student.naam);\nconsole.log(student.umar);\nconsole.log(student.marks[0]);\nstudent.greet();'
+  },
+  {
+    id: 10,
+    title: "DOM Manipulation",
+    content: "DOM का मतलब है Document Object Model। DOM से हम JavaScript की मदद से webpage के elements को बदल सकते हैं। जैसे button click करने पर text बदलना, color बदलना, या नया element add करना। getElementById() से किसी element को उसके id से ढूंढते हैं। querySelector() से CSS selector की तरह element ढूंढते हैं। innerHTML से element का content बदलते हैं। style से element की CSS बदलते हैं। addEventListener से button click या keyboard press जैसे events सुनते हैं। DOM manipulation से ही websites interactive बनती हैं। यही JavaScript का सबसे powerful feature है।",
+    example: '// HTML में: <h1 id="title">पुराना Title</h1>\n// HTML में: <button id="btn">Click करें</button>\n\n// Title बदलें\ndocument.getElementById("title").innerHTML = "नया Title!";\n\n// Color बदलें\ndocument.getElementById("title").style.color = "blue";\n\n// Button click पर action\ndocument.getElementById("btn").addEventListener("click", function() {\n  alert("Button click हुआ!");\n});'
+  },
 ]
 
-
+// ─────────────────────────────────────────
+// JAVASCRIPT LESSONS — ENGLISH
+// ─────────────────────────────────────────
 const javascriptLessonsEnglish = [
-  { id: 1, title: "What is JavaScript?", content: "JavaScript is a programming language that makes websites interactive. Every website uses JavaScript. The browser understands it directly.", example: null },
-  { id: 2, title: "console.log()", content: "console.log() prints anything to the browser console.", example: 'console.log("Hello World!");' },
-  { id: 3, title: "Variables", content: "In JavaScript we use let, const, and var to create variables.", example: 'let name = "Sharada";\nconst age = 20;\nconsole.log(name);' },
-  { id: 4, title: "Data Types", content: "JavaScript has string, number, boolean, null, and undefined data types.", example: 'let name = "Pyra";\nlet age = 20;\nlet isStudent = true;' },
-  { id: 5, title: "If/Else", content: "If and Else are used to check conditions.", example: 'let age = 18;\nif (age >= 18) {\n  console.log("Can vote");\n} else {\n  console.log("Cannot vote");\n}' },
-  { id: 6, title: "For Loop", content: "A for loop repeats a task many times.", example: "for (let i = 1; i <= 5; i++) {\n  console.log(i);\n}" },
-  { id: 7, title: "Functions", content: "Functions help us reuse code.", example: 'function greet(name) {\n  console.log("Hello " + name);\n}\ngreet("Sharada");' },
-  { id: 8, title: "Arrays", content: "Arrays store many values together.", example: 'let fruits = ["apple", "banana", "mango"];\nconsole.log(fruits[0]);\nconsole.log(fruits.length);' },
-  { id: 9, title: "Objects", content: "Objects store related data together.", example: 'let student = {\n  name: "Sharada",\n  age: 20\n};\nconsole.log(student.name);' },
-  { id: 10, title: "DOM Manipulation", content: "DOM lets us change webpage elements using JavaScript.", example: 'document.getElementById("title")\n  .innerHTML = "Hello!";' },
+  {
+    id: 1,
+    title: "What is JavaScript?",
+    content: "JavaScript is a programming language that makes websites interactive and alive. When you click a button on a website and something happens, a menu opens, or an animation plays — all of that is because of JavaScript. JavaScript was created in 1995 by Brendan Eich. JavaScript is one of three things needed to build every website — HTML gives the structure, CSS gives the design, and JavaScript gives the behavior. JavaScript runs directly in the browser so no extra software needs to be installed. Today JavaScript runs not only in browsers but also on servers. JavaScript is the most popular programming language in the world and every web developer must learn it.",
+    example: null
+  },
+  {
+    id: 2,
+    title: "console.log()",
+    content: "console.log() is the first and most important function in JavaScript. It works just like print() in Python. console.log() prints anything to the browser's developer console. To open the developer console press F12 in your browser and go to the Console tab. We can pass text, numbers, variables, and calculations to console.log(). Text is written inside quotes — both single and double quotes work. console.log() is very useful for debugging which means checking what is happening in your program. Every JavaScript developer uses console.log() every single day.",
+    example: 'console.log("Hello World!");\nconsole.log(42);\nconsole.log("My name is Pyra");\nconsole.log(10 + 20);\nconsole.log("Square of 2 is:", 2 * 2);'
+  },
+  {
+    id: 3,
+    title: "Variables — let, const, var",
+    content: "There are three ways to create variables in JavaScript — let, const, and var. A variable is like a box where we store data. We use let for variables whose value can change later. For example a score in a game that keeps changing. We use const for variables whose value never changes. For example the value of PI which is always 3.14159. var is the old way and is no longer used in modern JavaScript. Variable names always start with a letter and can include numbers and underscores. JavaScript variable names are case sensitive — name and Name are different. We put a semicolon at the end of every statement.",
+    example: 'let name = "Sharada";\nlet age = 20;\nconst PI = 3.14159;\n\nconsole.log(name);\nconsole.log(age);\n\nage = 21;  // let value can change\nconsole.log(age);\n\n// PI = 3;  // Error! const cannot change'
+  },
+  {
+    id: 4,
+    title: "Data Types",
+    content: "JavaScript has several data types. String means text written inside quotes. Number means any numeric value whether whole or decimal. Boolean means true or false. Null means an intentionally empty value. Undefined means a variable was created but no value was given. Object means a collection of related data. Array means a list of values. JavaScript is a dynamically typed language which means you can store a number in a variable and later store a string in the same variable. The typeof operator lets us check the type of any variable. Template literals use backticks and allow us to embed variables directly inside a string.",
+    example: 'let name = "Pyra";           // String\nlet age = 20;                // Number\nlet marks = 95.5;            // Number (decimal)\nlet isStudent = true;        // Boolean\nlet address = null;          // Null\nlet phone;                   // Undefined\n\nconsole.log(typeof name);    // string\nconsole.log(typeof age);     // number\n\n// Template literal\nconsole.log(`My name is ${name} and I am ${age} years old`);'
+  },
+  {
+    id: 5,
+    title: "If/Else Conditions",
+    content: "If and Else are used for decision making in JavaScript. They work the same way as in Python but the syntax is a little different. In JavaScript the condition is written inside round brackets and the code block is written inside curly braces. If the condition is true the if block runs, otherwise the else block runs. We use else if to check multiple conditions. For comparison the triple equals operator === is used to check if two values are equal. Triple equals checks both value and type which is the better practice. Double equals == checks only value. The logical AND operator is written as double ampersand and OR is written as double pipe.",
+    example: 'let age = 18;\n\nif (age >= 18) {\n  console.log("You can vote");\n} else {\n  console.log("You cannot vote");\n}\n\nlet marks = 75;\nif (marks >= 90) {\n  console.log("Grade: A");\n} else if (marks >= 75) {\n  console.log("Grade: B");\n} else if (marks >= 60) {\n  console.log("Grade: C");\n} else {\n  console.log("Grade: F");\n}'
+  },
+  {
+    id: 6,
+    title: "For Loop",
+    content: "A for loop is used to repeat a task multiple times in JavaScript. The JavaScript for loop looks different from Python but works the same way. A for loop has three parts — initialization where we create a variable, a condition that keeps the loop running while true, and an update that runs after every iteration. All three parts are separated by semicolons. We start with let i = 0. We run until i is less than 5. The expression i++ means i = i + 1. For loops also work with arrays. The for...of loop lets us work directly with each item in an array which is very easy to use.",
+    example: 'for (let i = 1; i <= 5; i++) {\n  console.log(i);\n}\n\n// Squares from 1 to 10\nfor (let i = 1; i <= 10; i++) {\n  console.log(i + " squared is " + (i * i));\n}\n\n// for...of with array\nlet fruits = ["apple", "banana", "mango"];\nfor (let fruit of fruits) {\n  console.log(fruit);\n}'
+  },
+  {
+    id: 7,
+    title: "Functions",
+    content: "Functions are reusable code blocks in JavaScript. Write a function once and use it as many times as you want. There are two main ways to create functions in JavaScript. The first is a function declaration where we write the function keyword. The second is an arrow function which is the modern and shorter way. To call a function we write its name and brackets. Parameters are the values we pass to a function. The return keyword lets a function send back a value. Functions make code organized and readable. In real projects nothing works without functions.",
+    example: '// Function declaration\nfunction greet(name) {\n  console.log("Hello " + name + "!");\n}\n\n// Arrow function\nconst add = (a, b) => {\n  return a + b;\n};\n\n// Short arrow function\nconst multiply = (a, b) => a * b;\n\ngreet("Sharada");\ngreet("Pyra");\nconsole.log(add(5, 3));\nconsole.log(multiply(4, 6));'
+  },
+  {
+    id: 8,
+    title: "Arrays",
+    content: "An array is like a list where we store many values together. Arrays in JavaScript are created using square brackets. The index of an array starts from 0. The length property tells us the size of the array. push() adds a new item to the end of the array. pop() removes the last item. forEach() runs a function on every item in the array. map() transforms every item in the array and returns a new array. filter() filters items based on a condition. find() returns the first matching item. Arrays are the most frequently used data structure in JavaScript.",
+    example: 'let fruits = ["apple", "banana", "mango"];\n\nconsole.log(fruits[0]);       // apple\nconsole.log(fruits.length);   // 3\n\nfruits.push("orange");\nconsole.log(fruits);          // 4 items\n\nfruits.forEach(fruit => {\n  console.log(fruit);\n});\n\nlet numbers = [1, 2, 3, 4, 5];\nlet doubled = numbers.map(n => n * 2);\nconsole.log(doubled);  // [2, 4, 6, 8, 10]'
+  },
+  {
+    id: 9,
+    title: "Objects",
+    content: "Objects are used to store related data together. For example a student's name, age, and marks can all be stored in one student object. An object is created using curly braces. Inside it we have key and value pairs. The key and value are separated by a colon. Different pairs are separated by commas. We use dot notation to access the properties of an object. Objects can also store functions inside them which are called methods. Any data type can be stored inside an object — strings, numbers, arrays, and even other objects. In real apps data is almost always in the form of objects.",
+    example: 'let student = {\n  name: "Sharada",\n  age: 20,\n  city: "Mumbai",\n  marks: [85, 90, 78],\n  greet: function() {\n    console.log("Hello, I am " + this.name);\n  }\n};\n\nconsole.log(student.name);\nconsole.log(student.age);\nconsole.log(student.marks[0]);\nstudent.greet();'
+  },
+  {
+    id: 10,
+    title: "DOM Manipulation",
+    content: "DOM stands for Document Object Model. Using the DOM we can change webpage elements with JavaScript. For example changing text when a button is clicked, changing a color, or adding a new element. getElementById() finds an element by its id. querySelector() finds an element using a CSS selector. innerHTML changes the content of an element. style changes the CSS of an element. addEventListener listens for events like button clicks or keyboard presses. DOM manipulation is what makes websites interactive. This is the most powerful feature of JavaScript.",
+    example: '// In HTML: <h1 id="title">Old Title</h1>\n// In HTML: <button id="btn">Click Me</button>\n\n// Change the title\ndocument.getElementById("title").innerHTML = "New Title!";\n\n// Change the color\ndocument.getElementById("title").style.color = "blue";\n\n// Action on button click\ndocument.getElementById("btn").addEventListener("click", function() {\n  alert("Button was clicked!");\n});'
+  },
 ]
+
+// ─────────────────────────────────────────
+// JAVASCRIPT LESSONS — MARATHI (NEW)
+// ─────────────────────────────────────────
+const javascriptLessonsMarathi = [
+  {
+    id: 1,
+    title: "JavaScript म्हणजे काय?",
+    content: "JavaScript ही एक programming language आहे जी websites ला interactive आणि जिवंत बनवते. जेव्हा तुम्ही एखाद्या website वर button click करता आणि काहीतरी होते, menu उघडते, किंवा animation चालते — हे सर्व JavaScript मुळे होते. JavaScript 1995 साली Brendan Eich ने बनवली. JavaScript ही तीन गोष्टींपैकी एक आहे जी प्रत्येक website बनवण्यासाठी आवश्यक आहे — HTML structure देते, CSS design देते, आणि JavaScript behavior देते. JavaScript browser मध्ये directly चालते, कोणताही extra software install करण्याची गरज नाही. आज JavaScript फक्त browser मध्ये नाही तर server वर देखील चालते. JavaScript ही जगातील सर्वात popular programming language आहे आणि प्रत्येक web developer ला ती शिकणे आवश्यक आहे.",
+    example: null
+  },
+  {
+    id: 2,
+    title: "console.log()",
+    content: "console.log() हे JavaScript मधील सर्वात पहिले आणि सर्वात महत्त्वाचे function आहे. हे Python च्या print() सारखेच आहे. console.log() browser च्या developer console मध्ये काहीही print करते. Developer console पाहण्यासाठी browser मध्ये F12 press करा आणि Console tab वर जा. console.log() मध्ये आपण text, numbers, variables, आणि calculations — काहीही pass करू शकतो. Text quotes च्या आत लिहतो — single किंवा double दोन्ही चालतात. console.log() debugging साठी खूप उपयुक्त आहे म्हणजे program मध्ये काय होत आहे हे check करण्यासाठी. प्रत्येक JavaScript developer रोज console.log() वापरतो.",
+    example: 'console.log("नमस्कार जग!");\nconsole.log(42);\nconsole.log("माझे नाव Pyra आहे");\nconsole.log(10 + 20);\nconsole.log("2 चा square आहे:", 2 * 2);'
+  },
+  {
+    id: 3,
+    title: "Variables — let, const, var",
+    content: "JavaScript मध्ये variables बनवण्याचे तीन मार्ग आहेत — let, const, आणि var. Variable म्हणजे एक डबा जिथे आपण data ठेवतो. let ने असे variable बनवतो ज्याची value नंतर बदलू शकते. जसे game मधील score जो बदलत राहतो. const ने असे variable बनवतो ज्याची value कधीही बदलत नाही. जसे PI ची value नेहमी 3.14159 असते. var हा जुना मार्ग आहे आणि आजकाल वापरत नाही. Variable चे नाव नेहमी letter ने सुरू होते, numbers आणि underscore देखील वापरता येतात. JavaScript मध्ये variable names case sensitive असतात — naam आणि Naam वेगळे आहेत. प्रत्येक statement च्या शेवटी semicolon लावतो.",
+    example: 'let naam = "Sharada";\nlet vay = 20;\nconst PI = 3.14159;\n\nconsole.log(naam);\nconsole.log(vay);\n\nvay = 21;  // let ची value बदलू शकते\nconsole.log(vay);\n\n// PI = 3;  // Error! const बदलत नाही'
+  },
+  {
+    id: 4,
+    title: "Data Types",
+    content: "JavaScript मध्ये अनेक data types आहेत. String म्हणजे text जे quotes च्या आत लिहतो. Number म्हणजे कोणतीही संख्या मग ती पूर्ण असो किंवा दशांश. Boolean म्हणजे true किंवा false. Null म्हणजे जाणूनबुजून रिकामी value. Undefined म्हणजे variable बनवला पण value दिली नाही. Object म्हणजे related data चा collection. Array म्हणजे values ची list. JavaScript ही dynamically typed language आहे म्हणजे एका variable मध्ये आधी number ठेवा नंतर string ठेवा — चालेल. typeof operator ने कोणत्याही variable चा type check करता येतो. Template literals backtick ने बनतात आणि त्यात variable directly embed करता येतो.",
+    example: 'let naam = "Pyra";           // String\nlet vay = 20;                // Number\nlet marks = 95.5;            // Number (decimal)\nlet isStudent = true;        // Boolean\nlet address = null;          // Null\nlet phone;                   // Undefined\n\nconsole.log(typeof naam);    // string\nconsole.log(typeof vay);     // number\n\n// Template literal\nconsole.log(`माझे नाव ${naam} आहे आणि वय ${vay} आहे`);'
+  },
+  {
+    id: 5,
+    title: "If/Else Conditions",
+    content: "If आणि Else JavaScript मध्ये निर्णय घेण्यासाठी वापरतात. Python सारखेच काम करते पण syntax थोडे वेगळे आहे. JavaScript मध्ये condition round brackets च्या आत लिहतो आणि code block curly braces च्या आत लिहतो. जर condition true असेल तर if block चालतो, नाहीतर else block चालतो. else if ने multiple conditions check करता येतात. Comparison साठी triple equals operator === वापरतो. Triple equals value आणि type दोन्ही check करतो जे better practice आहे. Double equals == फक्त value check करतो. Logical AND साठी double ampersand && आणि OR साठी double pipe || लिहतो.",
+    example: 'let vay = 18;\n\nif (vay >= 18) {\n  console.log("तुम्ही मतदान करू शकता");\n} else {\n  console.log("तुम्ही मतदान करू शकत नाही");\n}\n\nlet marks = 75;\nif (marks >= 90) {\n  console.log("Grade: A");\n} else if (marks >= 75) {\n  console.log("Grade: B");\n} else if (marks >= 60) {\n  console.log("Grade: C");\n} else {\n  console.log("Grade: F");\n}'
+  },
+  {
+    id: 6,
+    title: "For Loop",
+    content: "For loop ने JavaScript मध्ये एखादे काम अनेक वेळा करवतो. JavaScript चा for loop Python पेक्षा वेगळा दिसतो पण काम तेच करतो. For loop मध्ये तीन parts असतात — initialization जिथे variable बनवतो, condition जी true राहेपर्यंत loop चालतो, आणि update जो प्रत्येक वेळी चालतो. तिन्ही parts semicolon ने वेगळे करतो. let i = 0 पासून सुरू करतो. i less than 5 पर्यंत चालवतो. i++ चा अर्थ आहे i = i + 1. For loop arrays सोबत देखील वापरतात. for...of loop ने array च्या प्रत्येक item वर directly काम करता येते जे खूप सोपे आहे.",
+    example: 'for (let i = 1; i <= 5; i++) {\n  console.log(i);\n}\n\n// 1 ते 10 चे squares\nfor (let i = 1; i <= 10; i++) {\n  console.log(i + " चा square आहे " + (i * i));\n}\n\n// Array सोबत for...of\nlet fruits = ["apple", "banana", "mango"];\nfor (let fruit of fruits) {\n  console.log(fruit);\n}'
+  },
+  {
+    id: 7,
+    title: "Functions",
+    content: "Functions म्हणजे JavaScript मधील reusable code blocks. एकदा function बनवा आणि अनेक वेळा वापरा. JavaScript मध्ये functions बनवण्याचे दोन main मार्ग आहेत. पहिला आहे function declaration ज्यात function keyword लिहतो. दुसरा आहे arrow function जो modern आणि shorter मार्ग आहे. Function call करण्यासाठी त्याचे नाव आणि brackets लिहतो. Parameters म्हणजे त्या values ज्या आपण function ला देतो. return keyword ने function एक value परत देऊ शकते. Functions मुळे code organized आणि readable होतो. Real projects मध्ये functions शिवाय काम होत नाही.",
+    example: '// Function declaration\nfunction namaskaar(naam) {\n  console.log("नमस्कार " + naam + "!");\n}\n\n// Arrow function\nconst add = (a, b) => {\n  return a + b;\n};\n\n// Short arrow function\nconst multiply = (a, b) => a * b;\n\nnamaskaar("Sharada");\nnamaskaar("Pyra");\nconsole.log(add(5, 3));\nconsole.log(multiply(4, 6));'
+  },
+  {
+    id: 8,
+    title: "Arrays",
+    content: "Array म्हणजे एक list जिथे आपण अनेक values एकत्र ठेवतो. JavaScript मध्ये arrays square brackets मध्ये बनवतात. Array चा index 0 पासून सुरू होतो. length property ने array ची size कळते. push() ने नवीन item array च्या शेवटी add होतो. pop() ने शेवटचा item हटतो. forEach() ने array च्या प्रत्येक item वर एक function चालवता येते. map() ने array च्या प्रत्येक item ला transform करून नवीन array बनतो. filter() ने condition नुसार items filter होतात. find() ने पहिला matching item मिळतो. Arrays हे JavaScript मधील सर्वाधिक वापरले जाणारे data structure आहे.",
+    example: 'let fruits = ["apple", "banana", "mango"];\n\nconsole.log(fruits[0]);       // apple\nconsole.log(fruits.length);   // 3\n\nfruits.push("orange");\nconsole.log(fruits);          // 4 items\n\nfruits.forEach(fruit => {\n  console.log(fruit);\n});\n\nlet numbers = [1, 2, 3, 4, 5];\nlet doubled = numbers.map(n => n * 2);\nconsole.log(doubled);  // [2, 4, 6, 8, 10]'
+  },
+  {
+    id: 9,
+    title: "Objects",
+    content: "Object मध्ये आपण related data एकत्र ठेवतो. उदाहरणार्थ एका student चे नाव, वय, आणि marks — हे सर्व एका student object मध्ये ठेवता येतात. Object curly braces मध्ये बनतो. आत key आणि value pairs असतात. Key आणि value colon ने वेगळे करतात. वेगवेगळ्या pairs comma ने वेगळ्या करतात. Object च्या properties पर्यंत पोहोचण्यासाठी dot notation वापरतो. Object मध्ये functions देखील ठेवता येतात ज्यांना methods म्हणतात. Object मध्ये कोणताही data type ठेवता येतो — string, number, array, दुसरा object देखील. Real apps मध्ये data नेहमी objects च्या form मध्ये असतो.",
+    example: 'let student = {\n  naam: "Sharada",\n  vay: 20,\n  shahar: "Pune",\n  marks: [85, 90, 78],\n  greet: function() {\n    console.log("नमस्कार, मी " + this.naam + " आहे");\n  }\n};\n\nconsole.log(student.naam);\nconsole.log(student.vay);\nconsole.log(student.marks[0]);\nstudent.greet();'
+  },
+  {
+    id: 10,
+    title: "DOM Manipulation",
+    content: "DOM चे पूर्ण नाव आहे Document Object Model. DOM ने आपण JavaScript च्या मदतीने webpage चे elements बदलू शकतो. उदाहरणार्थ button click केल्यावर text बदलणे, color बदलणे, किंवा नवीन element add करणे. getElementById() ने एखाद्या element ला त्याच्या id ने शोधतो. querySelector() ने CSS selector सारखा element शोधतो. innerHTML ने element चा content बदलतो. style ने element ची CSS बदलतो. addEventListener ने button click किंवा keyboard press सारखे events ऐकतो. DOM manipulation मुळेच websites interactive होतात. हे JavaScript चे सर्वात powerful feature आहे.",
+    example: '// HTML मध्ये: <h1 id="title">जुना Title</h1>\n// HTML मध्ये: <button id="btn">Click करा</button>\n\n// Title बदला\ndocument.getElementById("title").innerHTML = "नवीन Title!";\n\n// Color बदला\ndocument.getElementById("title").style.color = "blue";\n\n// Button click वर action\ndocument.getElementById("btn").addEventListener("click", function() {\n  alert("Button click झाला!");\n});'
+  },
+]
+
+
 
 
 
@@ -340,13 +484,13 @@ function LessonsPage() {
   const navigate = useNavigate()
   const name = location.state?.name || "दोस्त"
   const language = location.state?.language || "python"
-const instructionLang = location.state?.instructionLang || "hindi"  // ✅ moved up
-const lessons = instructionLang === "english"
+  const instructionLang = location.state?.instructionLang || "hindi"  // ✅ moved up
+  const lessons = instructionLang === "english"
   ? (language === "sql" ? sqlLessonsEnglish : language === "javascript" ? javascriptLessonsEnglish : pythonLessonsEnglish)
   : instructionLang === "marathi"
   ? (language === "sql" ? sqlLessonsMarathi : language === "javascript" ? javascriptLessonsMarathi : pythonLessonsMarathi)
   : (language === "sql" ? sqlLessons : language === "javascript" ? javascriptLessons : pythonLessons)
- const lang = t[instructionLang]
+  const lang = t[instructionLang]
   const [currentLesson, setCurrentLesson] = useState(0)
   const [step, setStep] = useState("intro")
   const [status, setStatus] = useState("")
