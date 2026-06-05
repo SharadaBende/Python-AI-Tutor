@@ -142,9 +142,9 @@ const pythonQuestionsMarathi = [
 ]
 
 
-
-
-
+// ─────────────────────────────────────────
+// SQL QUESTIONS — HINDI (40)
+// ─────────────────────────────────────────
 const sqlQuestions = [
   { id: 1, question: "SQL का full form क्या है?", options: ["Simple Query Language", "Structured Query Language", "System Query Language", "Standard Query Language"], answer: 1 },
   { id: 2, question: "Database से data निकालने के लिए कौन सा command use होता है?", options: ["INSERT", "UPDATE", "SELECT", "DELETE"], answer: 2 },
@@ -156,20 +156,132 @@ const sqlQuestions = [
   { id: 8, question: "नई table बनाने के लिए कौन सा command use होता है?", options: ["NEW TABLE", "CREATE TABLE", "MAKE TABLE", "ADD TABLE"], answer: 1 },
   { id: 9, question: "दो tables को जोड़ने के लिए कौन सा command use होता है?", options: ["MERGE", "COMBINE", "JOIN", "CONNECT"], answer: 2 },
   { id: 10, question: "SELECT * FROM students में * का मतलब क्या है?", options: ["कोई data नहीं", "सभी columns", "पहला column", "आखिरी column"], answer: 1 },
+  { id: 11, question: "Database से data हटाने के लिए कौन सा command use होता है?", options: ["REMOVE", "DELETE", "DROP", "CLEAR"], answer: 1 },
+  { id: 12, question: "ORDER BY DESC का मतलब क्या है?", options: ["छोटे से बड़े", "बड़े से छोटे", "Random order", "Alphabetical"], answer: 1 },
+  { id: 13, question: "SQL में text values को किसके अंदर लिखते हैं?", options: ["Double quotes", "Single quotes", "Brackets", "Stars"], answer: 1 },
+  { id: 14, question: "PRIMARY KEY क्या होती है?", options: ["सबसे बड़ी value", "हर row को uniquely identify करने वाला column", "पहला column", "Foreign key"], answer: 1 },
+  { id: 15, question: "AVG() function क्या करता है?", options: ["सबसे बड़ी value देता है", "सबसे छोटी value देता है", "Average निकालता है", "Count करता है"], answer: 2 },
+  { id: 16, question: "UPDATE command में WHERE क्यों जरूरी है?", options: ["Speed के लिए", "ताकि सिर्फ specific row update हो", "Syntax की वजह से", "जरूरी नहीं है"], answer: 1 },
+  { id: 17, question: "VARCHAR data type किसके लिए use होता है?", options: ["Numbers के लिए", "Text के लिए", "Dates के लिए", "Boolean के लिए"], answer: 1 },
+  { id: 18, question: "MAX() function क्या करता है?", options: ["Minimum value देता है", "Maximum value देता है", "Average देता है", "Count करता है"], answer: 1 },
+  { id: 19, question: "SQL में AND operator क्या करता है?", options: ["एक condition check करता है", "दोनों conditions सच होनी चाहिए", "कोई एक condition सच हो", "Condition नकारता है"], answer: 1 },
+  { id: 20, question: "INNER JOIN क्या दिखाता है?", options: ["सिर्फ पहली table के records", "दोनों tables में matching records", "सभी records", "Empty records"], answer: 1 },
+  { id: 21, question: "NOT NULL constraint का मतलब क्या है?", options: ["Column zero हो सकता है", "Column खाली नहीं रह सकता", "Column delete हो सकता है", "Column optional है"], answer: 1 },
+  { id: 22, question: "SUM() function क्या करता है?", options: ["Count करता है", "Average देता है", "सभी values का जोड़ देता है", "Maximum देता है"], answer: 2 },
+  { id: 23, question: "SQL में comment कैसे लिखते हैं?", options: ["# comment", "// comment", "-- comment", "/* comment only */"], answer: 2 },
+  { id: 24, question: "DROP TABLE command क्या करता है?", options: ["Table खाली करता है", "Table और उसका सारा data हटाता है", "Table rename करता है", "Table copy करता है"], answer: 1 },
+  { id: 25, question: "LIKE operator किसलिए use होता है?", options: ["Exact match के लिए", "Pattern matching के लिए", "Numbers compare के लिए", "Tables join के लिए"], answer: 1 },
+  { id: 26, question: "SQL में % wildcard का क्या मतलब है?", options: ["कोई एक character", "कोई भी characters", "Number", "Space"], answer: 1 },
+  { id: 27, question: "DISTINCT keyword क्या करता है?", options: ["Data sort करता है", "Duplicate values हटाता है", "Data filter करता है", "Tables join करता है"], answer: 1 },
+  { id: 28, question: "INT data type किसके लिए use होता है?", options: ["Text के लिए", "Decimal numbers के लिए", "Whole numbers के लिए", "Dates के लिए"], answer: 2 },
+  { id: 29, question: "DELETE और DROP में क्या अंतर है?", options: ["कोई अंतर नहीं", "DELETE rows हटाता है, DROP table हटाता है", "DROP rows हटाता है, DELETE table हटाता है", "दोनों same हैं"], answer: 1 },
+  { id: 30, question: "SQL में OR operator क्या करता है?", options: ["दोनों conditions सच होनी चाहिए", "कोई एक condition सच हो तो चलेगा", "Condition नकारता है", "Count करता है"], answer: 1 },
+  { id: 31, question: "BETWEEN operator किसलिए use होता है?", options: ["दो values के बीच range check करने के लिए", "Tables join करने के लिए", "Data delete करने के लिए", "Column बनाने के लिए"], answer: 0 },
+  { id: 32, question: "AS keyword SQL में क्या करता है?", options: ["Table delete करता है", "Column या result को alias नाम देता है", "Data sort करता है", "Table join करता है"], answer: 1 },
+  { id: 33, question: "MIN() function क्या करता है?", options: ["Maximum value देता है", "Minimum value देता है", "Average देता है", "Sum देता है"], answer: 1 },
+  { id: 34, question: "SQL में एक साथ कई rows INSERT करने के लिए क्या use होता है?", options: ["Multiple SELECT", "Multiple VALUES", "BULK INSERT only", "COPY command"], answer: 1 },
+  { id: 35, question: "WHERE clause में NOT का क्या काम है?", options: ["Condition को true बनाता है", "Condition को नकारता है", "Sort करता है", "Join करता है"], answer: 1 },
+  { id: 36, question: "FLOAT data type किसके लिए use होता है?", options: ["Text के लिए", "Whole numbers के लिए", "Decimal numbers के लिए", "Dates के लिए"], answer: 2 },
+  { id: 37, question: "SQL query के अंत में क्या लगाते हैं?", options: ["Comma", "Colon", "Semicolon", "Period"], answer: 2 },
+  { id: 38, question: "GROUP BY clause किसलिए use होता है?", options: ["Data filter करने के लिए", "Data को groups में बांटने के लिए", "Tables join करने के लिए", "Data delete करने के लिए"], answer: 1 },
+  { id: 39, question: "TRUNCATE command क्या करता है?", options: ["Table delete करता है", "Table की सभी rows हटाता है लेकिन structure रहता है", "Data insert करता है", "Table rename करता है"], answer: 1 },
+  { id: 40, question: "IN operator किसलिए use होता है?", options: ["Range check के लिए", "Multiple values में से match check करने के लिए", "Tables join करने के लिए", "Sort करने के लिए"], answer: 1 },
 ]
 
-const javascriptQuestions = [
-  { id: 1, question: "JavaScript किसलिए use होती है?", options: ["Database के लिए", "Websites को interactive बनाने के लिए", "Server बनाने के लिए", "Images बनाने के लिए"], answer: 1 },
-  { id: 2, question: "JavaScript में output दिखाने के लिए क्या use होता है?", options: ["print()", "echo()", "console.log()", "show()"], answer: 2 },
-  { id: 3, question: "JavaScript में variable बनाने के लिए कौन सा keyword use होता है?", options: ["var only", "let only", "const only", "let, const, var"], answer: 3 },
-  { id: 4, question: "JavaScript में array किसमें लिखी जाती है?", options: ["() brackets", "{} brackets", "[] brackets", "<> brackets"], answer: 2 },
-  { id: 5, question: "JavaScript में object किसमें लिखा जाता है?", options: ["() brackets", "{} brackets", "[] brackets", "<> brackets"], answer: 1 },
-  { id: 6, question: "JavaScript में function बनाने के लिए कौन सा keyword use होता है?", options: ["def", "func", "function", "method"], answer: 2 },
-  { id: 7, question: "DOM का full form क्या है?", options: ["Data Object Model", "Document Object Model", "Display Object Model", "Dynamic Object Model"], answer: 1 },
-  { id: 8, question: "JavaScript में for loop कैसे लिखते हैं?", options: ["for i in range()", "foreach()", "for (let i=0; i<5; i++)", "loop(5)"], answer: 2 },
-  { id: 9, question: "const से बनाया variable बाद में बदल सकते हैं?", options: ["हाँ", "नहीं", "कभी कभी", "पता नहीं"], answer: 1 },
-  { id: 10, question: "JavaScript में string जोड़ने के लिए कौन सा operator use होता है?", options: ["*", "-", "+", "/"], answer: 2 },
+// ─────────────────────────────────────────
+// SQL QUESTIONS — ENGLISH (40)
+// ─────────────────────────────────────────
+const sqlQuestionsEnglish = [
+  { id: 1, question: "What is the full form of SQL?", options: ["Simple Query Language", "Structured Query Language", "System Query Language", "Standard Query Language"], answer: 1 },
+  { id: 2, question: "Which command is used to retrieve data from a database?", options: ["INSERT", "UPDATE", "SELECT", "DELETE"], answer: 2 },
+  { id: 3, question: "What is the WHERE clause used for?", options: ["To sort data", "To filter data based on a condition", "To create a table", "To delete data"], answer: 1 },
+  { id: 4, question: "Which command is used to add new data into a database?", options: ["SELECT", "UPDATE", "DELETE", "INSERT"], answer: 3 },
+  { id: 5, question: "Which command is used to change existing data in a database?", options: ["INSERT", "UPDATE", "SELECT", "CREATE"], answer: 1 },
+  { id: 6, question: "Which clause is used to sort data in SQL?", options: ["WHERE", "GROUP BY", "ORDER BY", "HAVING"], answer: 2 },
+  { id: 7, question: "Which function is used to count the number of rows?", options: ["SUM()", "AVG()", "COUNT()", "MAX()"], answer: 2 },
+  { id: 8, question: "Which command is used to create a new table?", options: ["NEW TABLE", "CREATE TABLE", "MAKE TABLE", "ADD TABLE"], answer: 1 },
+  { id: 9, question: "Which command is used to combine data from two tables?", options: ["MERGE", "COMBINE", "JOIN", "CONNECT"], answer: 2 },
+  { id: 10, question: "What does * mean in SELECT * FROM students?", options: ["No data", "All columns", "First column", "Last column"], answer: 1 },
+  { id: 11, question: "Which command is used to remove data from a database?", options: ["REMOVE", "DELETE", "DROP", "CLEAR"], answer: 1 },
+  { id: 12, question: "What does ORDER BY DESC mean?", options: ["Smallest to largest", "Largest to smallest", "Random order", "Alphabetical"], answer: 1 },
+  { id: 13, question: "Inside what are text values written in SQL?", options: ["Double quotes", "Single quotes", "Brackets", "Stars"], answer: 1 },
+  { id: 14, question: "What is a PRIMARY KEY?", options: ["The largest value", "A column that uniquely identifies each row", "The first column", "A foreign key"], answer: 1 },
+  { id: 15, question: "What does the AVG() function do?", options: ["Returns the largest value", "Returns the smallest value", "Calculates the average", "Counts rows"], answer: 2 },
+  { id: 16, question: "Why is WHERE important in an UPDATE command?", options: ["For speed", "So only a specific row gets updated", "Because of syntax rules", "It is not important"], answer: 1 },
+  { id: 17, question: "What is the VARCHAR data type used for?", options: ["For numbers", "For text", "For dates", "For booleans"], answer: 1 },
+  { id: 18, question: "What does the MAX() function do?", options: ["Returns the minimum value", "Returns the maximum value", "Returns the average", "Counts rows"], answer: 1 },
+  { id: 19, question: "What does the AND operator do in SQL?", options: ["Checks one condition", "Both conditions must be true", "At least one condition must be true", "Negates a condition"], answer: 1 },
+  { id: 20, question: "What does INNER JOIN show?", options: ["Only records from the first table", "Only matching records from both tables", "All records", "Empty records"], answer: 1 },
+  { id: 21, question: "What does the NOT NULL constraint mean?", options: ["Column can be zero", "Column cannot be left empty", "Column can be deleted", "Column is optional"], answer: 1 },
+  { id: 22, question: "What does the SUM() function do?", options: ["Counts rows", "Returns the average", "Adds up all values in a column", "Returns the maximum"], answer: 2 },
+  { id: 23, question: "How do you write a comment in SQL?", options: ["# comment", "// comment", "-- comment", "/* comment only */"], answer: 2 },
+  { id: 24, question: "What does the DROP TABLE command do?", options: ["Empties the table", "Removes the table and all its data", "Renames the table", "Copies the table"], answer: 1 },
+  { id: 25, question: "What is the LIKE operator used for?", options: ["For exact matching", "For pattern matching", "For comparing numbers", "For joining tables"], answer: 1 },
+  { id: 26, question: "What does the % wildcard mean in SQL?", options: ["Any single character", "Any number of characters", "A number", "A space"], answer: 1 },
+  { id: 27, question: "What does the DISTINCT keyword do?", options: ["Sorts data", "Removes duplicate values", "Filters data", "Joins tables"], answer: 1 },
+  { id: 28, question: "What is the INT data type used for?", options: ["For text", "For decimal numbers", "For whole numbers", "For dates"], answer: 2 },
+  { id: 29, question: "What is the difference between DELETE and DROP?", options: ["No difference", "DELETE removes rows, DROP removes the table", "DROP removes rows, DELETE removes the table", "Both are the same"], answer: 1 },
+  { id: 30, question: "What does the OR operator do in SQL?", options: ["Both conditions must be true", "At least one condition must be true", "Negates a condition", "Counts rows"], answer: 1 },
+  { id: 31, question: "What is the BETWEEN operator used for?", options: ["To check a range between two values", "To join tables", "To delete data", "To create columns"], answer: 0 },
+  { id: 32, question: "What does the AS keyword do in SQL?", options: ["Deletes a table", "Gives a column or result an alias name", "Sorts data", "Joins tables"], answer: 1 },
+  { id: 33, question: "What does the MIN() function do?", options: ["Returns the maximum value", "Returns the minimum value", "Returns the average", "Returns the sum"], answer: 1 },
+  { id: 34, question: "How do you insert multiple rows at once in SQL?", options: ["Multiple SELECT", "Multiple VALUES", "BULK INSERT only", "COPY command"], answer: 1 },
+  { id: 35, question: "What does NOT do in a WHERE clause?", options: ["Makes a condition true", "Negates a condition", "Sorts data", "Joins tables"], answer: 1 },
+  { id: 36, question: "What is the FLOAT data type used for?", options: ["For text", "For whole numbers", "For decimal numbers", "For dates"], answer: 2 },
+  { id: 37, question: "What do you put at the end of a SQL query?", options: ["Comma", "Colon", "Semicolon", "Period"], answer: 2 },
+  { id: 38, question: "What is the GROUP BY clause used for?", options: ["To filter data", "To group data into categories", "To join tables", "To delete data"], answer: 1 },
+  { id: 39, question: "What does the TRUNCATE command do?", options: ["Deletes the table", "Removes all rows but keeps the table structure", "Inserts data", "Renames the table"], answer: 1 },
+  { id: 40, question: "What is the IN operator used for?", options: ["For range checking", "To check if a value matches any in a list", "To join tables", "To sort data"], answer: 1 },
 ]
+
+// ─────────────────────────────────────────
+// SQL QUESTIONS — MARATHI (40)
+// ─────────────────────────────────────────
+const sqlQuestionsMarathi = [
+  { id: 1, question: "SQL चे पूर्ण नाव काय आहे?", options: ["Simple Query Language", "Structured Query Language", "System Query Language", "Standard Query Language"], answer: 1 },
+  { id: 2, question: "Database मधून data काढण्यासाठी कोणता command वापरतात?", options: ["INSERT", "UPDATE", "SELECT", "DELETE"], answer: 2 },
+  { id: 3, question: "WHERE clause कशासाठी वापरतात?", options: ["Data sort करण्यासाठी", "Condition नुसार data filter करण्यासाठी", "Table बनवण्यासाठी", "Data delete करण्यासाठी"], answer: 1 },
+  { id: 4, question: "Database मध्ये नवीन data टाकण्यासाठी कोणता command वापरतात?", options: ["SELECT", "UPDATE", "DELETE", "INSERT"], answer: 3 },
+  { id: 5, question: "Database मधील जुना data बदलण्यासाठी कोणता command वापरतात?", options: ["INSERT", "UPDATE", "SELECT", "CREATE"], answer: 1 },
+  { id: 6, question: "SQL मध्ये data sort करण्यासाठी कोणता clause वापरतात?", options: ["WHERE", "GROUP BY", "ORDER BY", "HAVING"], answer: 2 },
+  { id: 7, question: "Rows ची संख्या काढण्यासाठी कोणते function वापरतात?", options: ["SUM()", "AVG()", "COUNT()", "MAX()"], answer: 2 },
+  { id: 8, question: "नवीन table बनवण्यासाठी कोणता command वापरतात?", options: ["NEW TABLE", "CREATE TABLE", "MAKE TABLE", "ADD TABLE"], answer: 1 },
+  { id: 9, question: "दोन tables चा data एकत्र काढण्यासाठी कोणता command वापरतात?", options: ["MERGE", "COMBINE", "JOIN", "CONNECT"], answer: 2 },
+  { id: 10, question: "SELECT * FROM students मध्ये * चा अर्थ काय आहे?", options: ["कोणताही data नाही", "सर्व columns", "पहिला column", "शेवटचा column"], answer: 1 },
+  { id: 11, question: "Database मधून data हटवण्यासाठी कोणता command वापरतात?", options: ["REMOVE", "DELETE", "DROP", "CLEAR"], answer: 1 },
+  { id: 12, question: "ORDER BY DESC चा अर्थ काय आहे?", options: ["लहानातून मोठ्याकडे", "मोठ्यातून लहानाकडे", "Random order", "Alphabetical"], answer: 1 },
+  { id: 13, question: "SQL मध्ये text values कोणत्या quotes मध्ये लिहतात?", options: ["Double quotes", "Single quotes", "Brackets", "Stars"], answer: 1 },
+  { id: 14, question: "PRIMARY KEY म्हणजे काय?", options: ["सर्वात मोठी value", "प्रत्येक row ला uniquely identify करणारा column", "पहिला column", "Foreign key"], answer: 1 },
+  { id: 15, question: "AVG() function काय करते?", options: ["सर्वात मोठी value देते", "सर्वात लहान value देते", "Average काढते", "Count करते"], answer: 2 },
+  { id: 16, question: "UPDATE command मध्ये WHERE का महत्त्वाचे आहे?", options: ["Speed साठी", "फक्त specific row update व्हावी म्हणून", "Syntax नियमामुळे", "महत्त्वाचे नाही"], answer: 1 },
+  { id: 17, question: "VARCHAR data type कशासाठी वापरतात?", options: ["Numbers साठी", "Text साठी", "Dates साठी", "Boolean साठी"], answer: 1 },
+  { id: 18, question: "MAX() function काय करते?", options: ["Minimum value देते", "Maximum value देते", "Average देते", "Count करते"], answer: 1 },
+  { id: 19, question: "SQL मध्ये AND operator काय करतो?", options: ["एक condition check करतो", "दोन्ही conditions बरोबर असाव्यात", "कोणतीही एक condition बरोबर असावी", "Condition नाकारतो"], answer: 1 },
+  { id: 20, question: "INNER JOIN काय दाखवतो?", options: ["फक्त पहिल्या table चे records", "दोन्ही tables मधील matching records", "सर्व records", "रिकामे records"], answer: 1 },
+  { id: 21, question: "NOT NULL constraint चा अर्थ काय आहे?", options: ["Column zero असू शकतो", "Column रिकामा राहू शकत नाही", "Column delete होऊ शकतो", "Column optional आहे"], answer: 1 },
+  { id: 22, question: "SUM() function काय करते?", options: ["Count करते", "Average देते", "सर्व values ची बेरीज देते", "Maximum देते"], answer: 2 },
+  { id: 23, question: "SQL मध्ये comment कसा लिहतात?", options: ["# comment", "// comment", "-- comment", "/* comment only */"], answer: 2 },
+  { id: 24, question: "DROP TABLE command काय करतो?", options: ["Table रिकामी करतो", "Table आणि त्यातील सर्व data हटवतो", "Table rename करतो", "Table copy करतो"], answer: 1 },
+  { id: 25, question: "LIKE operator कशासाठी वापरतात?", options: ["Exact match साठी", "Pattern matching साठी", "Numbers compare साठी", "Tables join साठी"], answer: 1 },
+  { id: 26, question: "SQL मध्ये % wildcard चा अर्थ काय आहे?", options: ["कोणताही एक character", "कोणतेही characters", "Number", "Space"], answer: 1 },
+  { id: 27, question: "DISTINCT keyword काय करतो?", options: ["Data sort करतो", "Duplicate values हटवतो", "Data filter करतो", "Tables join करतो"], answer: 1 },
+  { id: 28, question: "INT data type कशासाठी वापरतात?", options: ["Text साठी", "Decimal numbers साठी", "Whole numbers साठी", "Dates साठी"], answer: 2 },
+  { id: 29, question: "DELETE आणि DROP मध्ये काय फरक आहे?", options: ["काहीच फरक नाही", "DELETE rows हटवतो, DROP table हटवतो", "DROP rows हटवतो, DELETE table हटवतो", "दोन्ही सारखेच"], answer: 1 },
+  { id: 30, question: "SQL मध्ये OR operator काय करतो?", options: ["दोन्ही conditions बरोबर असाव्यात", "कोणतीही एक condition बरोबर असेल तरी चालेल", "Condition नाकारतो", "Count करतो"], answer: 1 },
+  { id: 31, question: "BETWEEN operator कशासाठी वापरतात?", options: ["दोन values मधील range check साठी", "Tables join साठी", "Data delete साठी", "Column बनवण्यासाठी"], answer: 0 },
+  { id: 32, question: "SQL मध्ये AS keyword काय करतो?", options: ["Table delete करतो", "Column किंवा result ला alias नाव देतो", "Data sort करतो", "Tables join करतो"], answer: 1 },
+  { id: 33, question: "MIN() function काय करते?", options: ["Maximum value देते", "Minimum value देते", "Average देते", "Sum देते"], answer: 1 },
+  { id: 34, question: "SQL मध्ये एकत्र अनेक rows INSERT करण्यासाठी काय वापरतात?", options: ["Multiple SELECT", "Multiple VALUES", "BULK INSERT only", "COPY command"], answer: 1 },
+  { id: 35, question: "WHERE clause मध्ये NOT काय करतो?", options: ["Condition true बनवतो", "Condition नाकारतो", "Sort करतो", "Join करतो"], answer: 1 },
+  { id: 36, question: "FLOAT data type कशासाठी वापरतात?", options: ["Text साठी", "Whole numbers साठी", "Decimal numbers साठी", "Dates साठी"], answer: 2 },
+  { id: 37, question: "SQL query च्या शेवटी काय लावतात?", options: ["Comma", "Colon", "Semicolon", "Period"], answer: 2 },
+  { id: 38, question: "GROUP BY clause कशासाठी वापरतात?", options: ["Data filter साठी", "Data groups मध्ये विभागण्यासाठी", "Tables join साठी", "Data delete साठी"], answer: 1 },
+  { id: 39, question: "TRUNCATE command काय करतो?", options: ["Table delete करतो", "सर्व rows हटवतो पण table structure ठेवतो", "Data insert करतो", "Table rename करतो"], answer: 1 },
+  { id: 40, question: "IN operator कशासाठी वापरतात?", options: ["Range check साठी", "List मधील कोणत्याही value शी match check साठी", "Tables join साठी", "Sort साठी"], answer: 1 },
+]
+
+
+
 
 
 function MCQPage() {
