@@ -221,7 +221,7 @@ function AgentPage() {
                 style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#f4a261", color: "#000", border: "none", cursor: "pointer", fontWeight: "bold" }}>
                 🔁 दोबारा<br /><span style={{ fontSize: "0.75rem" }}>(R)</span>
               </button>
-              <button onClick={() => navigate("/certificate", { state: { name, score: parseInt(localStorage.getItem("mcq_score") || "0") } })}
+              <button onClick={() => navigate("/certificate", { state: { name, score: parseInt(localStorage.getItem("mcq_score") || "0"), instructionLang } })}
   aria-label="F — Certificate लें"
   style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#a0a0ff", color: "#000", border: "none", cursor: "pointer", fontWeight: "bold" }}>
   🏆 Certificate<br /><span style={{ fontSize: "0.75rem" }}>(F)</span>

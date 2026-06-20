@@ -44,8 +44,37 @@ function CertificatePage() {
   const certId = "DRISHTI-" + language.toUpperCase() + "-" +
     Date.now().toString().slice(-6)
 
+  const voiceLangMap = { hindi: "hi-IN", english: "en-US", marathi: "hi-IN" }
+  const voiceLang = voiceLangMap[instructionLang]
+
   function speak(text, onEnd) {
-    speakUtil(text, onEnd, setLastMessage)
+    window.speechSynthesis.cancel()
+    setLastMessage(text)
+    const utterance = new SpeechSynthesisUtterance(text)
+    utterance.lang = voiceLang
+    utterance.rate = parseFloat(localStorage.getItem("speed") || "0.85")
+
+    const trySpeak = () => {
+      const voices = window.speechSynthesis.getVoices()
+      let preferred = null
+      if (voiceLang === "en-US") {
+        preferred = voices.find(v => v.name === "Microsoft Zira - English (United States)")
+      } else if (voiceLang === "hi-IN") {
+        preferred = voices.find(v => v.name === "Google हिन्दी")
+      }
+      if (!preferred) {
+        preferred = voices.find(v => v.lang === voiceLang)
+      }
+      if (preferred) utterance.voice = preferred
+      if (onEnd) utterance.onend = onEnd
+      window.speechSynthesis.speak(utterance)
+    }
+
+    if (window.speechSynthesis.getVoices().length === 0) {
+      window.speechSynthesis.onvoiceschanged = trySpeak
+    } else {
+      trySpeak()
+    }
   }
 
   useEffect(() => {
