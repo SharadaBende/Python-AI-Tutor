@@ -23,7 +23,7 @@ const languagesByInstructionLang = {
   ],
 }
 
-const voiceLangMap = { hindi: "hi-IN", english: "en-US", marathi: "mr-IN" }
+const voiceLangMap = { hindi: "hi-IN", english: "en-US", marathi: "hi-IN" }
 
 const uiText = {
   hindi: {

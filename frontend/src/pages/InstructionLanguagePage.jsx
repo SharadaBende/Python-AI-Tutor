@@ -42,7 +42,7 @@ function InstructionLanguagePage() {
     const messages = {
       hindi: { text: "हिंदी चुना! चलिए शुरू करते हैं।", voice: "hi-IN" },
       english: { text: "English selected! Let's get started.", voice: "en-US" },
-      marathi: { text: "मराठी निवडली! चला सुरू करूया।", voice: "mr-IN" },
+      marathi: { text: "मराठी निवडली! चला सुरू करूया।", voice: "hi-IN" },
     }
     const msg = messages[lang.id]
     speak(msg.text, msg.voice, () => {
