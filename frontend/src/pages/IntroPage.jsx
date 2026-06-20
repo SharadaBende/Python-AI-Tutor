@@ -74,7 +74,7 @@ function IntroPage() {
     }
     setStep("welcome")
     speak(
-      "नमस्ते " + name + "! Python की दुनिया में आपका बहुत स्वागत है! " +
+      "नमस्ते " + name + "! Coading की दुनिया में आपका बहुत स्वागत है! " +
       "अब दो options हैं। " +
       "H दबाएं — हाँ, lessons शुरू करने के लिए। " +
       "R दबाएं — दोबारा सुनने के लिए। " +
@@ -109,10 +109,9 @@ function IntroPage() {
   }
 
   function goToLessons() {
-    speak("बहुत अच्छा! चलिए Python सीखना शुरू करते हैं!")
-    setTimeout(() => {
+    speak("बहुत अच्छा! चलिए सीखना शुरू करते हैं!", () => {
       navigate("/instruction-language", { state: { name } })
-    }, 2500)
+    })
   }
 
   useEffect(() => {

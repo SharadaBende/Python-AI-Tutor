@@ -45,10 +45,9 @@ function InstructionLanguagePage() {
       marathi: { text: "मराठी निवडली! चला सुरू करूया।", voice: "mr-IN" },
     }
     const msg = messages[lang.id]
-    speak(msg.text, msg.voice)
-    setTimeout(() => {
+    speak(msg.text, msg.voice, () => {
       navigate("/language", { state: { name, instructionLang: lang.id } })
-    }, 1500)
+    })
   }
 
   useEffect(() => {

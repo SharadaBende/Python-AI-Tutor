@@ -94,10 +94,9 @@ function LanguagePage() {
       speak(ui.comingSoon)
       return
     }
-    speak(ui.selected(lang.label))
-    setTimeout(() => {
+    speak(ui.selected(lang.label), () => {
       navigate("/lessons", { state: { name, language: lang.id, instructionLang } })
-    }, 1500)
+    })
   }
 
   useEffect(() => {
