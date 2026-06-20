@@ -596,7 +596,7 @@ function LessonsPage() {
       if (key === "n" && step !== "done") nextLesson()
       if (key === "r") speak(lastMessage)
       if (key === "t") startListening()
-      if (key === "1") navigate("/lessons", { state: { name } })
+      if (key === "1") navigate("/lessons", { state: { name, language, instructionLang } })
       if (key === "2") navigate("/mcq", { state: { name, language } })
       if (key === "3") navigate("/agent", { state: { name } })
       if (key === "m") toggleTheme()
@@ -618,7 +618,7 @@ function LessonsPage() {
       fontFamily: "'Segoe UI', sans-serif", padding: "1rem" , fontSize: fontSize + "px"
     }}>
       <div style={{ width: "100%", maxWidth: "1100px" }}>
-  <Navbar name={name} theme={theme} toggleTheme={toggleTheme} fontSize={fontSize} setFontSize={setFontSize} speed={speed} setSpeed={setSpeed} language={language} />
+  <Navbar name={name} theme={theme} toggleTheme={toggleTheme} fontSize={fontSize} setFontSize={setFontSize} speed={speed} setSpeed={setSpeed} language={language} instructionLang={instructionLang} />
 
         <div style={{ display: "grid", gridTemplateColumns: "auto 1fr 300px", gap: "1.5rem", alignItems: "start" }}>
 
