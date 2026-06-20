@@ -17,7 +17,7 @@ function IntroPage() {
   function welcomeMessage() {
     speak(
       "नमस्ते! दृष्टि में आपका स्वागत है — जहाँ code बोलता है। " +
-      "यह website आपको Python programming सिखाएगी। " +
+      "यह website आपको coding सिखाएगी, चाहे वो Python हो, SQL हो, या JavaScript। " +
       "Keyboard shortcuts इस प्रकार हैं: " +
       "P दबाएं — Pyra का परिचय सुनने के लिए। " +
       "T दबाएं — अपना नाम बोलने के लिए। " +
@@ -30,8 +30,8 @@ function IntroPage() {
 
   function hearIntro() {
     speak(
-      "नमस्ते! मैं Pyra हूँ, आपकी Python tutor। " +
-      "मैं आपको Python programming सिखाऊँगी, बिल्कुल आसान तरीके से। " +
+      "नमस्ते! मैं Pyra हूँ, आपकी coding tutor। " +
+"मैं आपको coding सिखाऊँगी, बिल्कुल आसान तरीके से। " +
       "कृपया अपना नाम बताइए। " +
       "T दबाएं आवाज़ से नाम बोलने के लिए, " +
       "या नाम type करके N दबाएं।"
