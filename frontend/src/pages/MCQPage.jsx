@@ -517,8 +517,7 @@ function speak(text, onEnd) {
     setStep("answered")
   }
 
-
-  function nextQuestion() {
+function nextQuestion() {
     if (step !== "answered") {
       speak("पहले जवाब दीजिए। 1, 2, 3, या 4 दबाएं।")
       return
@@ -530,23 +529,25 @@ function speak(text, onEnd) {
       speak("अगला question तैयार है। Q दबाएं सुनने के लिए।")
       setStatus("Q = Question सुनें")
     } else {
-  localStorage.setItem("mcq_done", "true")
-  setStep("done")
-  const finalScore = score + (selected === questions[current].answer ? 1 : 0)
-  localStorage.setItem("mcq_score", finalScore.toString())
-  speak(
-    "बहुत शाबाश " + name + "! आपने सभी " + questions.length + " questions पूरे किए। " +
-    questions.length + " में से " + finalScore + " सही जवाब दिए। " +
-    "N दबाएं Code Agent पर जाने के लिए।"
-  )
-  setStatus("🎉 Quiz पूरा! Score: " + finalScore + "/" + questions.length + " | N = Code Agent")
- }
-}
+      localStorage.setItem("mcq_done", "true")
+      setStep("done")
+      const finalScore = score + (selected === questions[current].answer ? 1 : 0)
+      localStorage.setItem("mcq_score", finalScore.toString())
+      speak(
+        "बहुत शाबाश " + name + "! आपने सभी " + questions.length + " questions पूरे किए। " +
+        questions.length + " में से " + finalScore + " सही जवाब दिए। " +
+        "N दबाएं Code Agent पर जाने के लिए।"
+      )
+      setStatus("🎉 Quiz पूरा! Score: " + finalScore + "/" + questions.length + " | N = Code Agent")
+    }
+  }
+  
+
   function startListening() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!SpeechRecognition) return
     const recognition = new SpeechRecognition()
-    recognition.lang = "hi-IN"
+    recognition.lang = lang.voiceLang
     recognition.start()
     setListening(true)
     setStatus("सुन रही हूँ...")

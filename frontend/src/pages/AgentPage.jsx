@@ -72,7 +72,7 @@ function AgentPage() {
       return
     }
     const recognition = new SpeechRecognition()
-    recognition.lang = "hi-IN"
+    recognition.lang = lang.voiceLang
     recognition.start()
     setListening(true)
     setStatus("सुन रही हूँ... command बोलिए")
