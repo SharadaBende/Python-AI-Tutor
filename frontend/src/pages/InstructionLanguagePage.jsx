@@ -16,14 +16,30 @@ function InstructionLanguagePage() {
   const [lastMessage, setLastMessage] = useState("")
   const { theme, bg, cardBg, cardBorder, textColor, mutedColor } = useTheme()
 
-  function speak(text, lang, onEnd) {
+ function speak(text, lang, onEnd) {
     window.speechSynthesis.cancel()
     setLastMessage({ text, lang })
+    const targetLang = lang || "hi-IN"
     const utterance = new SpeechSynthesisUtterance(text)
-    utterance.lang = lang || "hi-IN"
+    utterance.lang = targetLang
     utterance.rate = parseFloat(localStorage.getItem("speed") || "0.85")
-    if (onEnd) utterance.onend = onEnd
-    window.speechSynthesis.speak(utterance)
+
+    const trySpeak = () => {
+      const voices = window.speechSynthesis.getVoices()
+      const preferred = voices.find(v =>
+        (targetLang === "en-US" && v.name === "Microsoft Zira - English (United States)") ||
+        (targetLang === "hi-IN" && v.name === "Google हिन्दी")
+      ) || voices.find(v => v.lang === targetLang)
+      if (preferred) utterance.voice = preferred
+      if (onEnd) utterance.onend = onEnd
+      window.speechSynthesis.speak(utterance)
+    }
+
+    if (window.speechSynthesis.getVoices().length === 0) {
+      window.speechSynthesis.onvoiceschanged = trySpeak
+    } else {
+      trySpeak()
+    }
   }
 
   useEffect(() => {

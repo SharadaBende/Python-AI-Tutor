@@ -79,8 +79,23 @@ function LanguagePage() {
     const utterance = new SpeechSynthesisUtterance(text)
     utterance.lang = voiceLang
     utterance.rate = parseFloat(localStorage.getItem("speed") || "0.85")
-    if (onEnd) utterance.onend = onEnd
-    window.speechSynthesis.speak(utterance)
+
+    const trySpeak = () => {
+      const voices = window.speechSynthesis.getVoices()
+      const preferred = voices.find(v =>
+        (voiceLang === "en-US" && v.name === "Microsoft Zira - English (United States)") ||
+        (voiceLang === "hi-IN" && v.name === "Google हिन्दी")
+      ) || voices.find(v => v.lang === voiceLang)
+      if (preferred) utterance.voice = preferred
+      if (onEnd) utterance.onend = onEnd
+      window.speechSynthesis.speak(utterance)
+    }
+
+    if (window.speechSynthesis.getVoices().length === 0) {
+      window.speechSynthesis.onvoiceschanged = trySpeak
+    } else {
+      trySpeak()
+    }
   }
 
   useEffect(() => {

@@ -509,11 +509,15 @@ function LessonsPage() {
 
    const trySpeak = () => {
       const voices = window.speechSynthesis.getVoices()
-      const preferred = voices.find(v =>
-        v.name === "Microsoft Zira - English (United States)" && lang.voiceLang === "en-US" ||
-        v.name === "Google हिन्दी" && lang.voiceLang === "hi-IN" ||
-        v.lang === lang.voiceLang
-      )
+      let preferred = null
+      if (lang.voiceLang === "en-US") {
+        preferred = voices.find(v => v.name === "Microsoft Zira - English (United States)")
+      } else if (lang.voiceLang === "hi-IN") {
+        preferred = voices.find(v => v.name === "Google हिन्दी")
+      }
+      if (!preferred) {
+        preferred = voices.find(v => v.lang === lang.voiceLang)
+      }
       if (preferred) utterance.voice = preferred
       if (onEnd) utterance.onend = onEnd
       window.speechSynthesis.speak(utterance)

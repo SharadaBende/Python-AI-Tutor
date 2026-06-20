@@ -33,11 +33,15 @@ function AgentPage() {
 
     const trySpeak = () => {
       const voices = window.speechSynthesis.getVoices()
-      const preferred = voices.find(v =>
-        v.name === "Microsoft Zira - English (United States)" && lang.voiceLang === "en-US" ||
-        v.name === "Google हिन्दी" && lang.voiceLang === "hi-IN" ||
-        v.lang === lang.voiceLang
-      )
+      let preferred = null
+      if (lang.voiceLang === "en-US") {
+        preferred = voices.find(v => v.name === "Microsoft Zira - English (United States)")
+      } else if (lang.voiceLang === "hi-IN") {
+        preferred = voices.find(v => v.name === "Google हिन्दी")
+      }
+      if (!preferred) {
+        preferred = voices.find(v => v.lang === lang.voiceLang)
+      }
       if (preferred) utterance.voice = preferred
       if (onEnd) utterance.onend = onEnd
       window.speechSynthesis.speak(utterance)
@@ -54,16 +58,15 @@ function AgentPage() {
     localStorage.setItem("agent_visited", "true")
     setTimeout(() => {
       speak(
-  lang.agentWelcome(name) + " " +
-  "T दबाएं — आवाज़ से command बोलने के लिए। " +
-  "C दबाएं — code बनाने के लिए। " +
-  "R दबाएं — दोबारा सुनने के लिए। " +
-  "F दबाएं — certificate लेने के लिए।"
-)
-      setStatus("T = Command बोलें | C = Code बनाएं | R = दोबारा | F = Certificate")
+        lang.agentWelcome(name) + " " +
+        lang.pressT + " " +
+        lang.pressC + " " +
+        lang.pressR + " " +
+        lang.pressF
+      )
+      setStatus(lang.pressT + " | " + lang.pressC + " | " + lang.pressR + " | " + lang.pressF)
     }, 1000)
-  },
-   [])
+  }, [])
 
   function startListening() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
