@@ -530,18 +530,18 @@ function speak(text, onEnd) {
       speak("अगला question तैयार है। Q दबाएं सुनने के लिए।")
       setStatus("Q = Question सुनें")
     } else {
-        localStorage.setItem("mcq_done", "true")
-      setStep("done")
-      const finalScore = score + (selected === questions[current].answer ? 1 : 0)
-      speak(
-        "बहुत शाबाश " + name + "! आपने सभी 20 questions पूरे किए। " +
-        "20 में से " + finalScore + " सही जवाब दिए। " +
-        "N दबाएं Code Agent पर जाने के लिए।"
-      )
-      setStatus("🎉 Quiz पूरा! Score: " + finalScore + "/20 | N = Code Agent")
-    }
-  }
-
+  localStorage.setItem("mcq_done", "true")
+  setStep("done")
+  const finalScore = score + (selected === questions[current].answer ? 1 : 0)
+  localStorage.setItem("mcq_score", finalScore.toString())
+  speak(
+    "बहुत शाबाश " + name + "! आपने सभी " + questions.length + " questions पूरे किए। " +
+    questions.length + " में से " + finalScore + " सही जवाब दिए। " +
+    "N दबाएं Code Agent पर जाने के लिए।"
+  )
+  setStatus("🎉 Quiz पूरा! Score: " + finalScore + "/" + questions.length + " | N = Code Agent")
+ }
+}
   function startListening() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!SpeechRecognition) return
