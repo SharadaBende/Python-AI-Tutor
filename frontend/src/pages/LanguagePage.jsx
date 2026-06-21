@@ -4,22 +4,22 @@ import { useTheme } from "../components/useTheme"
 
 const languagesByInstructionLang = {
   hindi: [
-    { id: "python", label: "🐍 Python", desc: "सबसे आसान programming language", key: "1" },
-    { id: "sql", label: "🗄️ SQL", desc: "Database की भाषा", key: "2" },
-    { id: "javascript", label: "🌐 JavaScript", desc: "Web के लिए language", key: "3" },
-    { id: "coming", label: "🔜 और भी जल्द", desc: "Java, C++, और भी आ रहे हैं", key: "4" },
+    { id: "python", label: "🐍 Python", name: "Python", desc: "सबसे आसान programming language", key: "1" },
+    { id: "sql", label: "🗄️ SQL", name: "SQL", desc: "Database की भाषा", key: "2" },
+    { id: "javascript", label: "🌐 JavaScript", name: "JavaScript", desc: "Web के लिए language", key: "3" },
+    { id: "coming", label: "🔜 और भी जल्द", name: "और भी जल्द", desc: "Java, C++, और भी आ रहे हैं", key: "4" },
   ],
   english: [
-    { id: "python", label: "🐍 Python", desc: "The easiest programming language", key: "1" },
-    { id: "sql", label: "🗄️ SQL", desc: "The language of databases", key: "2" },
-    { id: "javascript", label: "🌐 JavaScript", desc: "The language of the web", key: "3" },
-    { id: "coming", label: "🔜 Coming Soon", desc: "Java, C++, and more on the way", key: "4" },
+    { id: "python", label: "🐍 Python", name: "Python", desc: "The easiest programming language", key: "1" },
+    { id: "sql", label: "🗄️ SQL", name: "SQL", desc: "The language of databases", key: "2" },
+    { id: "javascript", label: "🌐 JavaScript", name: "JavaScript", desc: "The language of the web", key: "3" },
+    { id: "coming", label: "🔜 Coming Soon", name: "Coming Soon", desc: "Java, C++, and more on the way", key: "4" },
   ],
   marathi: [
-    { id: "python", label: "🐍 Python", desc: "सर्वात सोपी programming language", key: "1" },
-    { id: "sql", label: "🗄️ SQL", desc: "Database ची भाषा", key: "2" },
-    { id: "javascript", label: "🌐 JavaScript", desc: "Web साठी language", key: "3" },
-    { id: "coming", label: "🔜 लवकरच येत आहे", desc: "Java, C++, आणखी भाषा येत आहेत", key: "4" },
+    { id: "python", label: "🐍 Python", name: "Python", desc: "सर्वात सोपी programming language", key: "1" },
+    { id: "sql", label: "🗄️ SQL", name: "SQL", desc: "Database ची भाषा", key: "2" },
+    { id: "javascript", label: "🌐 JavaScript", name: "JavaScript", desc: "Web साठी language", key: "3" },
+    { id: "coming", label: "🔜 लवकरच येत आहे", name: "लवकरच येत आहे", desc: "Java, C++, आणखी भाषा येत आहेत", key: "4" },
   ],
 }
 
@@ -109,7 +109,7 @@ function LanguagePage() {
       speak(ui.comingSoon)
       return
     }
-    speak(ui.selected(lang.label), () => {
+    speak(ui.selected(lang.name), () => {
       navigate("/lessons", { state: { name, language: lang.id, instructionLang } })
     })
   }
