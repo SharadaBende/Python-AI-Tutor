@@ -228,17 +228,7 @@ function IntroPage() {
           </div>
         )}
 
-        <div style={{ marginTop: "2rem", background: "#1a1a2e", borderRadius: "12px", padding: "1rem" }}>
-          <p style={{ color: "#666", fontSize: "0.85rem", margin: "0 0 0.5rem", textAlign: "center" }}>Keyboard Shortcuts</p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.4rem" }}>
-            {[["P", "Pyra को सुनें"], ["T", "नाम बोलें"], ["N", "आगे बढ़ें"], ["R", "दोबारा सुनें"], ["H", "हाँ (अगले page पर)"]].map(([key, desc]) => (
-              <div key={key} style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-                <span style={{ background: "#2a2a5e", color: "#a0a0ff", padding: "0.2rem 0.6rem", borderRadius: "6px", fontWeight: "bold", fontSize: "0.9rem" }}>{key}</span>
-                <span style={{ color: "#aaa", fontSize: "0.85rem" }}>{desc}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        
 
       </div>
     </main>

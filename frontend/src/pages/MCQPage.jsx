@@ -674,17 +674,7 @@ function nextQuestion() {
               agent={localStorage.getItem("agent_visited") === "true"}
               theme={theme}
             />
-            <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "1rem" }}>
-              <p style={{ color: mutedColor, fontSize: "0.85rem", margin: "0 0 0.5rem", textAlign: "center" }}>Keyboard Shortcuts</p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-                {[["Q", "Question सुनें"], ["1-4", "जवाब चुनें"], ["R", "दोबारा सुनें"], ["T", "आवाज़ से जवाब"], ["N", "अगला question"], ["M", "Theme बदलें"], ["1", "Lessons page"], ["2", "MCQ page"], ["3", "Agent page"]].map(([key, desc]) => (
-                  <div key={key} style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-                    <span style={{ background: "#2a2a5e", color: "#a0a0ff", padding: "0.2rem 0.6rem", borderRadius: "6px", fontWeight: "bold", fontSize: "0.9rem", minWidth: "28px", textAlign: "center" }}>{key}</span>
-                    <span style={{ color: mutedColor, fontSize: "0.85rem" }}>{desc}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            
           </div>
 
         </div>
