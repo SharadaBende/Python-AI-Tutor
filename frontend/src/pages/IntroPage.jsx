@@ -74,7 +74,7 @@ function IntroPage() {
     }
     setStep("welcome")
     speak(
-      "नमस्ते " + name + "! Coading की दुनिया में आपका बहुत स्वागत है! " +
+      "नमस्ते " + name + "! Coding की दुनिया में आपका बहुत स्वागत है! " +
       "अब दो options हैं। " +
       "H दबाएं — हाँ, lessons शुरू करने के लिए। " +
       "R दबाएं — दोबारा सुनने के लिए। " +
@@ -168,7 +168,7 @@ function IntroPage() {
           {step === "welcome" && (
             <>
               <p style={{ fontSize: "1.3rem", color: "#fff" }}>नमस्ते <strong style={{ color: "#22c55e" }}>{name}</strong>! 🎉</p>
-              <p style={{ color: "#ccc" }}>Python की दुनिया में आपका स्वागत है!</p>
+              <p style={{ color: "#ccc" }}>Coading की दुनिया में आपका स्वागत है!</p>
               <p style={{ color: "#a0a0ff" }}>क्या आप lessons शुरू करना चाहते हैं?</p>
             </>
           )}
