@@ -604,12 +604,6 @@ function nextQuestion() {
 <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.5rem", alignItems: "start" }}>
 
           <div>
-            <ProgressBar
-              lessons={localStorage.getItem("lessons_done") === "true"}
-              mcq={localStorage.getItem("mcq_done") === "true"}
-              agent={localStorage.getItem("agent_visited") === "true"}
-              theme={theme}
-            />
             <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
 
                     <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>
@@ -617,6 +611,12 @@ function nextQuestion() {
 </h1>
               <p style={{ color: mutedColor, margin: "0.3rem 0 0" }}>नमस्ते {name}!</p>
             </div>
+            <ProgressBar
+              lessons={localStorage.getItem("lessons_done") === "true"}
+              mcq={localStorage.getItem("mcq_done") === "true"}
+              agent={localStorage.getItem("agent_visited") === "true"}
+              theme={theme}
+            />
 
             <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "0.8rem 1rem", marginBottom: "1rem" }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem" }}>
