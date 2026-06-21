@@ -153,13 +153,20 @@ function AgentPage() {
     }}>
       <div style={{ width: "100%", maxWidth: "1100px" }}>
         <Navbar name={name} theme={theme} toggleTheme={toggleTheme} fontSize={fontSize} setFontSize={setFontSize} speed={speed} setSpeed={setSpeed} language={language} instructionLang={instructionLang} />
-
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: "1.5rem", alignItems: "start" }}>
+<div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.5rem", alignItems: "start" }}>
 
           <div>
+            <ProgressBar
+              lessons={localStorage.getItem("lessons_done") === "true"}
+              mcq={localStorage.getItem("mcq_done") === "true"}
+              agent={localStorage.getItem("agent_visited") === "true"}
+              theme={theme}
+            />
             <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
               <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>🤖 Code Agent</h1>
-              <p style={{ color: mutedColor, margin: "0.3rem 0 0" }}>नमस्ते {name}! मुझे कोई भी program बनाने को कहें</p>
+
+
+                     <p style={{ color: mutedColor, margin: "0.3rem 0 0" }}>नमस्ते {name}! मुझे कोई भी program बनाने को कहें</p>
             </div>
 
             <div aria-live="polite" style={{ background: cardBg, border: "1px solid " + cardBorder, padding: "1.5rem", borderRadius: "16px", marginBottom: "1rem" }}>
@@ -227,16 +234,6 @@ function AgentPage() {
   🏆 Certificate<br /><span style={{ fontSize: "0.75rem" }}>(F)</span>
 </button>
             </div>
-          </div>
-
-          <div>
-            <ProgressBar
-              lessons={localStorage.getItem("lessons_done") === "true"}
-              mcq={localStorage.getItem("mcq_done") === "true"}
-              agent={localStorage.getItem("agent_visited") === "true"}
-              theme={theme}
-            />
-            
           </div>
 
         </div>

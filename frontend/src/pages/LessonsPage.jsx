@@ -624,7 +624,7 @@ function LessonsPage() {
       <div style={{ width: "100%", maxWidth: "1100px" }}>
   <Navbar name={name} theme={theme} toggleTheme={toggleTheme} fontSize={fontSize} setFontSize={setFontSize} speed={speed} setSpeed={setSpeed} language={language} instructionLang={instructionLang} />
 
-        <div style={{ display: "grid", gridTemplateColumns: "auto 1fr 300px", gap: "1.5rem", alignItems: "start" }}>
+       <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "1.5rem", alignItems: "start" }}>
 
           <LessonSidebar
   lessons={lessons}
@@ -639,6 +639,12 @@ function LessonsPage() {
 />
 
           <div>
+            <ProgressBar
+              lessons={localStorage.getItem("lessons_done") === "true"}
+              mcq={localStorage.getItem("mcq_done") === "true"}
+              agent={localStorage.getItem("agent_visited") === "true"}
+              theme={theme}
+            />
             <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
               <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>
   {language === "sql" ? "🗄️ SQL" : language === "javascript" ? "🌐 JavaScript" : "🐍 Python"} Lessons
@@ -687,16 +693,6 @@ function LessonsPage() {
                 {step === "done" ? "✅ MCQ" : "अगला →"}<br /><span style={{ fontSize: "0.75rem" }}>(N)</span>
               </button>
             </div>
-          </div>
-
-          <div>
-            <ProgressBar
-              lessons={localStorage.getItem("lessons_done") === "true"}
-              mcq={localStorage.getItem("mcq_done") === "true"}
-              agent={localStorage.getItem("agent_visited") === "true"}
-              theme={theme}
-            />
-            
           </div>
 
         </div>
