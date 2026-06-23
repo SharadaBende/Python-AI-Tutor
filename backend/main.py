@@ -6,6 +6,8 @@ from groq import Groq
 from dotenv import load_dotenv
 import os
 import subprocess
+from passlib.context import CryptContext
+from database import init_db, SessionLocal, User, Progress
 
 load_dotenv()
 
@@ -20,6 +22,18 @@ app.add_middleware(
 )
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+init_db()
+pwd_context = CryptContext(schemes=["sha256_crypt"], deprecated="auto")
+
+class RegisterRequest(BaseModel):
+    name: str
+    email: str
+    password: str
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
 
 class Message(BaseModel):
     message: str
@@ -91,3 +105,35 @@ End with one simple example code if needed."""},
         max_tokens=300,
     )
     return {"lesson": response.choices[0].message.content}
+
+
+
+@app.post("/register")
+def register(data: RegisterRequest):
+    db = SessionLocal()
+    existing = db.query(User).filter(User.email == data.email).first()
+    if existing:
+        db.close()
+        return {"success": False, "error": "इस email से पहले से account बना हुआ है"}
+
+    hashed = pwd_context.hash(data.password)
+    user = User(name=data.name, email=data.email, password_hash=hashed)
+    db.add(user)
+    db.commit()
+    user_id = user.id
+    db.close()
+    return {"success": True, "user_id": user_id, "name": data.name}
+
+
+@app.post("/login")
+def login(data: LoginRequest):
+    db = SessionLocal()
+    user = db.query(User).filter(User.email == data.email).first()
+    if not user or not pwd_context.verify(data.password, user.password_hash):
+        db.close()
+        return {"success": False, "error": "Email या password गलत है"}
+
+    user_id = user.id
+    name = user.name
+    db.close()
+    return {"success": True, "user_id": user_id, "name": name}
