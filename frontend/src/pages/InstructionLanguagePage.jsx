@@ -44,13 +44,22 @@ function InstructionLanguagePage() {
 
   useEffect(() => {
     setTimeout(() => {
-      speak(
-        "नमस्ते " + name + "! कृपया अपनी भाषा चुनिए। " +
-        "1 दबाएं हिंदी के लिए। " +
-        "2 दबाएं English के लिए। " +
-        "3 दबाएं मराठी के लिए।",
-        "hi-IN"
-      )
+      const u1 = new SpeechSynthesisUtterance("1 दबाएं हिंदी के लिए।")
+      u1.lang = "hi-IN"
+      u1.rate = parseFloat(localStorage.getItem("speed") || "0.85")
+
+      const u2 = new SpeechSynthesisUtterance("For English, press 2.")
+      u2.lang = "en-US"
+      u2.rate = parseFloat(localStorage.getItem("speed") || "0.85")
+
+      const u3 = new SpeechSynthesisUtterance("मराठीसाठी 3 दाबा.")
+      u3.lang = "hi-IN"
+      u3.rate = parseFloat(localStorage.getItem("speed") || "0.85")
+
+      window.speechSynthesis.cancel()
+      window.speechSynthesis.speak(u1)
+      window.speechSynthesis.speak(u2)
+      window.speechSynthesis.speak(u3)
     }, 500)
   }, [])
 
@@ -62,7 +71,7 @@ function InstructionLanguagePage() {
     }
     const msg = messages[lang.id]
     speak(msg.text, msg.voice, () => {
-      navigate("/language", { state: { name, instructionLang: lang.id } })
+      navigate("/login", { state: { instructionLang: lang.id } })
     })
   }
 
@@ -90,7 +99,7 @@ function InstructionLanguagePage() {
           <div style={{ fontSize: "3rem" }}>🗣️</div>
           <h1 style={{ color: "#a0a0ff", fontSize: "2rem", margin: "0.5rem 0 0" }}>Choose Your Language</h1>
           <p style={{ color: "#a0a0ff", margin: "0.3rem 0 0" }}>अपनी भाषा चुनें / Choose your language</p>
-          <p style={{ color: mutedColor, margin: "0.3rem 0 0", fontSize: "0.9rem" }}>नमस्ते {name}!</p>
+          <p style={{ color: mutedColor, margin: "0.3rem 0 0", fontSize: "0.9rem" }}>दृष्टि में आपका स्वागत है — Welcome to Drishti</p>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem", marginBottom: "2rem" }}>
