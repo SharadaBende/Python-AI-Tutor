@@ -126,7 +126,7 @@ function RegisterPage() {
     }}>
       <div style={{ width: "100%", maxWidth: "480px" }}>
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <div style={{ fontSize: "3rem" }}>👁️</div>
+          <div style={{ color: "#a0a0ff", fontSize: "2.2rem", fontWeight: "bold", letterSpacing: "0.02em" }}>दृष्टि</div>
           <h1 style={{ color: "#a0a0ff", fontSize: "2rem", margin: "0.5rem 0 0" }}>{t.title}</h1>
           <p style={{ color: mutedColor, fontSize: "0.9rem", margin: "0.3rem 0 0" }}>दृष्टि — जहाँ code बोलता है</p>
         </div>
@@ -175,51 +175,6 @@ function RegisterPage() {
 }
 
 export default RegisterPage
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
