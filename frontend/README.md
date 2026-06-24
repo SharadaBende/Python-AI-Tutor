@@ -121,12 +121,13 @@ Overall feel — dark + saffron, premium Indian ed-tech, less gaming purple
 Pages redesigned so far:
 
 ✅ InstructionLanguagePage.jsx
-
-Pages still to redesign (in order):
-
 ⬜ LoginPage.jsx
 ⬜ RegisterPage.jsx
 ⬜ IntroPage.jsx
+
+Pages still to redesign (in order):
+
+
 ⬜ LanguagePage.jsx
 ⬜ LessonsPage.jsx
 ⬜ MCQPage.jsx
