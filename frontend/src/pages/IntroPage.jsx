@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useTheme } from "../components/useTheme"
@@ -31,6 +32,12 @@ const translations = {
 
 const voiceLang = { hindi: "hi-IN", english: "en-US", marathi: "hi-IN" }
 
+// Dark + saffron brand palette — matches Login/Register/InstructionLanguagePage
+const ACCENT = "#f4a261"
+const ACCENT_SOFT = "rgba(244, 162, 97, 0.15)"
+const CREAM = "#f1ede4"
+const CREAM_MUTED = "rgba(241, 237, 228, 0.6)"
+
 function IntroPage() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -40,7 +47,7 @@ function IntroPage() {
   const t = translations[instructionLang]
   const lang = voiceLang[instructionLang]
   const [lastMessage, setLastMessage] = useState("")
-  const { bg, cardBg, cardBorder, mutedColor } = useTheme()
+  const { bg } = useTheme()
 
   function speak(text, onEnd) {
     window.speechSynthesis.cancel()
@@ -88,37 +95,57 @@ function IntroPage() {
   return (
     <main aria-label="Drishti Intro" style={{
       minHeight: "100vh",
-      background: "linear-gradient(135deg, #0f0f1a, #1a1a3e)",
+      background: bg || "radial-gradient(circle at 20% 20%, #1a1410 0%, #0d0d0d 60%)",
+      position: "relative", overflow: "hidden",
       display: "flex", alignItems: "center", justifyContent: "center",
       fontFamily: "'Segoe UI', sans-serif", padding: "1rem"
     }}>
-      <div style={{ width: "100%", maxWidth: "600px" }}>
+      {/* subtle saffron glow blobs, matches Login/Register/InstructionLanguagePage */}
+      <div style={{
+        position: "absolute", top: "-130px", left: "10%", width: "340px", height: "340px",
+        borderRadius: "50%", background: ACCENT, opacity: 0.08, filter: "blur(95px)"
+      }} />
+      <div style={{
+        position: "absolute", bottom: "-150px", right: "5%", width: "360px", height: "360px",
+        borderRadius: "50%", background: ACCENT, opacity: 0.06, filter: "blur(100px)"
+      }} />
+
+      <div style={{ width: "100%", maxWidth: "600px", position: "relative", zIndex: 1 }}>
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <div style={{ fontSize: "4rem" }}>🎓</div>
-          <h1 style={{ color: "#a0a0ff", fontSize: "2.5rem", margin: "0.5rem 0 0" }}>दृष्टि</h1>
-          <p style={{ color: "#a0a0ff", fontSize: "1rem", margin: "0.3rem 0 0", letterSpacing: "2px" }}>Drishti</p>
-          <p style={{ color: "#888", margin: "0.3rem 0 0" }}>जहाँ code बोलता है</p>
-          <p style={{ color: "#666", margin: "0.2rem 0 0", fontSize: "0.9rem" }}>{t.subtitle}</p>
+          <h1 style={{ color: CREAM, fontSize: "2.5rem", margin: "0", fontWeight: 600 }}>दृष्टि</h1>
+          <p style={{ color: ACCENT, fontSize: "1rem", margin: "0.3rem 0 0", letterSpacing: "2px" }}>DRISHTI</p>
+          <p style={{ color: CREAM_MUTED, margin: "0.4rem 0 0" }}>जहाँ code बोलता है</p>
+          <p style={{ color: CREAM_MUTED, margin: "0.2rem 0 0", fontSize: "0.85rem" }}>{t.subtitle}</p>
         </div>
 
         <div style={{
-          background: cardBg, border: "1px solid " + cardBorder,
+          background: "rgba(255,255,255,0.03)",
+          border: `1px solid ${ACCENT_SOFT}`,
+          backdropFilter: "blur(12px)",
           padding: "2rem", borderRadius: "16px", textAlign: "center", marginBottom: "1.5rem"
         }}>
-          <p style={{ fontSize: "1.3rem", color: "#fff", margin: "0 0 0.5rem" }}>
-            नमस्ते <strong style={{ color: "#22c55e" }}>{name}</strong>! 🎉
+          <p style={{ fontSize: "1.3rem", color: CREAM, margin: "0 0 0.5rem" }}>
+            नमस्ते <strong style={{ color: ACCENT }}>{name}</strong>!
           </p>
-          <p style={{ color: "#ccc", margin: "0 0 1rem" }}>{t.question}</p>
+          <p style={{ color: CREAM_MUTED, margin: 0 }}>{t.question}</p>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
           <button onClick={() => speak(lastMessage)} aria-label="R — Repeat"
-            style={{ padding: "1rem", borderRadius: "12px", background: "#f4a261", color: "#000", border: "none", cursor: "pointer", fontWeight: "bold", fontSize: "1rem" }}>
-            🔁 {t.repeat}<br /><span style={{ fontSize: "0.8rem" }}>(R)</span>
+            style={{
+              padding: "1rem", borderRadius: "12px", border: `1px solid ${ACCENT_SOFT}`,
+              background: "transparent", color: CREAM_MUTED, cursor: "pointer",
+              fontWeight: 600, fontSize: "1rem"
+            }}>
+            {t.repeat}<br /><span style={{ fontSize: "0.8rem", color: ACCENT }}>(R)</span>
           </button>
           <button onClick={goToLanguage} aria-label="H — Yes start"
-            style={{ padding: "1rem", borderRadius: "12px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold", fontSize: "1rem" }}>
-            ✅ {t.yes}<br /><span style={{ fontSize: "0.8rem" }}>(H)</span>
+            style={{
+              padding: "1rem", borderRadius: "12px", border: "none",
+              background: ACCENT, color: "#1a1410", cursor: "pointer",
+              fontWeight: 700, fontSize: "1rem"
+            }}>
+            {t.yes}<br /><span style={{ fontSize: "0.8rem" }}>(H)</span>
           </button>
         </div>
       </div>
@@ -127,10 +154,6 @@ function IntroPage() {
 }
 
 export default IntroPage
-
-
-
-
 
 
 
