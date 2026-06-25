@@ -1,11 +1,19 @@
+
 import { t } from "../components/translations"
 import Navbar from "../components/Navbar"
 import { useTheme } from "../components/useTheme"
 import { useState, useEffect } from "react"
 import ProgressBar from "../components/ProgressBar"
 import { useNavigate, useLocation } from "react-router-dom"
-import { speak as speakUtil } from "../components/speak"
 
+const ACCENT      = "#f4a261"
+const ACCENT_SOFT = "rgba(244, 162, 97, 0.15)"
+const ACCENT_DIM  = "rgba(244, 162, 97, 0.25)"
+const GREEN       = "#22c55e"
+const GREEN_SOFT  = "rgba(34, 197, 94, 0.15)"
+const RED         = "#ef4444"
+
+// ── all question arrays unchanged ──────────────────────────────────────────
 const pythonQuestions = [
   { id: 1, question: "Python किसने बनाया?", options: ["Bill Gates", "Guido van Rossum", "Steve Jobs", "Elon Musk"], answer: 1 },
   { id: 2, question: "Python कब बना?", options: ["1980", "1995", "1991", "2000"], answer: 2 },
@@ -49,9 +57,6 @@ const pythonQuestions = [
   { id: 40, question: "Python में dictionary किसमें लिखी जाती है?", options: ["[] brackets", "() brackets", "{} brackets", "<> brackets"], answer: 2 },
 
 ];
-// ─────────────────────────────────────────
-// PYTHON QUESTIONS — ENGLISH (all 40)
-// ─────────────────────────────────────────
 const pythonQuestionsEnglish = [
   { id: 1, question: "Who created Python?", options: ["Bill Gates", "Guido van Rossum", "Steve Jobs", "Elon Musk"], answer: 1 },
   { id: 2, question: "In which year was Python created?", options: ["1980", "1995", "1991", "2000"], answer: 2 },
@@ -95,9 +100,6 @@ const pythonQuestionsEnglish = [
   { id: 40, question: "Inside which brackets is a dictionary written in Python?", options: ["[] brackets", "() brackets", "{} brackets", "<> brackets"], answer: 2 },
 ];
 
-// ─────────────────────────────────────────
-// PYTHON QUESTIONS — MARATHI (all 40)
-// ─────────────────────────────────────────
 const pythonQuestionsMarathi = [
   { id: 1, question: "Python कोणी बनवली?", options: ["Bill Gates", "Guido van Rossum", "Steve Jobs", "Elon Musk"], answer: 1 },
   { id: 2, question: "Python कोणत्या वर्षी बनवली गेली?", options: ["1980", "1995", "1991", "2000"], answer: 2 },
@@ -140,11 +142,6 @@ const pythonQuestionsMarathi = [
   { id: 39, question: "Python मध्ये not operator काय करतो?", options: ["दोन values जोडतो", "Boolean value उलटी करतो", "Number negative बनवतो", "String reverse करतो"], answer: 1 },
   { id: 40, question: "Python मध्ये dictionary कोणत्या brackets मध्ये लिहतात?", options: ["[] brackets", "() brackets", "{} brackets", "<> brackets"], answer: 2 },
 ]
-
-
-// ─────────────────────────────────────────
-// SQL QUESTIONS — HINDI (40)
-// ─────────────────────────────────────────
 const sqlQuestions = [
   { id: 1, question: "SQL का full form क्या है?", options: ["Simple Query Language", "Structured Query Language", "System Query Language", "Standard Query Language"], answer: 1 },
   { id: 2, question: "Database से data निकालने के लिए कौन सा command use होता है?", options: ["INSERT", "UPDATE", "SELECT", "DELETE"], answer: 2 },
@@ -187,10 +184,6 @@ const sqlQuestions = [
   { id: 39, question: "TRUNCATE command क्या करता है?", options: ["Table delete करता है", "Table की सभी rows हटाता है लेकिन structure रहता है", "Data insert करता है", "Table rename करता है"], answer: 1 },
   { id: 40, question: "IN operator किसलिए use होता है?", options: ["Range check के लिए", "Multiple values में से match check करने के लिए", "Tables join करने के लिए", "Sort करने के लिए"], answer: 1 },
 ]
-
-// ─────────────────────────────────────────
-// SQL QUESTIONS — ENGLISH (40)
-// ─────────────────────────────────────────
 const sqlQuestionsEnglish = [
   { id: 1, question: "What is the full form of SQL?", options: ["Simple Query Language", "Structured Query Language", "System Query Language", "Standard Query Language"], answer: 1 },
   { id: 2, question: "Which command is used to retrieve data from a database?", options: ["INSERT", "UPDATE", "SELECT", "DELETE"], answer: 2 },
@@ -234,9 +227,6 @@ const sqlQuestionsEnglish = [
   { id: 40, question: "What is the IN operator used for?", options: ["For range checking", "To check if a value matches any in a list", "To join tables", "To sort data"], answer: 1 },
 ]
 
-// ─────────────────────────────────────────
-// SQL QUESTIONS — MARATHI (40)
-// ─────────────────────────────────────────
 const sqlQuestionsMarathi = [
   { id: 1, question: "SQL चे पूर्ण नाव काय आहे?", options: ["Simple Query Language", "Structured Query Language", "System Query Language", "Standard Query Language"], answer: 1 },
   { id: 2, question: "Database मधून data काढण्यासाठी कोणता command वापरतात?", options: ["INSERT", "UPDATE", "SELECT", "DELETE"], answer: 2 },
@@ -279,12 +269,6 @@ const sqlQuestionsMarathi = [
   { id: 39, question: "TRUNCATE command काय करतो?", options: ["Table delete करतो", "सर्व rows हटवतो पण table structure ठेवतो", "Data insert करतो", "Table rename करतो"], answer: 1 },
   { id: 40, question: "IN operator कशासाठी वापरतात?", options: ["Range check साठी", "List मधील कोणत्याही value शी match check साठी", "Tables join साठी", "Sort साठी"], answer: 1 },
 ]
-
-
-
-// ─────────────────────────────────────────
-// JAVASCRIPT QUESTIONS — HINDI (40)
-// ─────────────────────────────────────────
 const javascriptQuestions = [
   { id: 1, question: "JavaScript किसलिए use होती है?", options: ["Database के लिए", "Websites को interactive बनाने के लिए", "Server बनाने के लिए", "Images बनाने के लिए"], answer: 1 },
   { id: 2, question: "JavaScript में output दिखाने के लिए क्या use होता है?", options: ["print()", "echo()", "console.log()", "show()"], answer: 2 },
@@ -327,10 +311,6 @@ const javascriptQuestions = [
   { id: 39, question: "JavaScript में this keyword क्या refer करता है?", options: ["Global variable", "Current object", "Parent function", "Browser window always"], answer: 1 },
   { id: 40, question: "find() method क्या करता है?", options: ["सभी matching items देता है", "पहला matching item देता है", "Items delete करता है", "Array sort करता है"], answer: 1 },
 ]
-
-// ─────────────────────────────────────────
-// JAVASCRIPT QUESTIONS — ENGLISH (40)
-// ─────────────────────────────────────────
 const javascriptQuestionsEnglish = [
   { id: 1, question: "What is JavaScript used for?", options: ["For databases", "To make websites interactive", "To build servers", "To create images"], answer: 1 },
   { id: 2, question: "What is used to show output in JavaScript?", options: ["print()", "echo()", "console.log()", "show()"], answer: 2 },
@@ -373,10 +353,6 @@ const javascriptQuestionsEnglish = [
   { id: 39, question: "What does the this keyword refer to in JavaScript?", options: ["A global variable", "The current object", "The parent function", "The browser window always"], answer: 1 },
   { id: 40, question: "What does the find() method do?", options: ["Returns all matching items", "Returns the first matching item", "Deletes items", "Sorts the array"], answer: 1 },
 ]
-
-// ─────────────────────────────────────────
-// JAVASCRIPT QUESTIONS — MARATHI (40)
-// ─────────────────────────────────────────
 const javascriptQuestionsMarathi = [
   { id: 1, question: "JavaScript कशासाठी वापरतात?", options: ["Database साठी", "Websites interactive बनवण्यासाठी", "Server बनवण्यासाठी", "Images बनवण्यासाठी"], answer: 1 },
   { id: 2, question: "JavaScript मध्ये output दाखवण्यासाठी काय वापरतात?", options: ["print()", "echo()", "console.log()", "show()"], answer: 2 },
@@ -420,22 +396,26 @@ const javascriptQuestionsMarathi = [
   { id: 40, question: "find() method काय करते?", options: ["सर्व matching items देते", "पहिला matching item देते", "Items delete करते", "Array sort करते"], answer: 1 },
 ]
 
-
-
-
-
-
 function MCQPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const name = location.state?.name || "दोस्त"
   const language = location.state?.language || "python"
-  const instructionLang = location.state?.instructionLang || "hindi"  // ← define first
-  const questions = instructionLang === "english"                      // ← then use it
-  ? (language === "sql" ? sqlQuestionsEnglish : language === "javascript" ? javascriptQuestionsEnglish : pythonQuestionsEnglish)
-  : instructionLang === "marathi"
-  ? (language === "sql" ? sqlQuestionsMarathi : language === "javascript" ? javascriptQuestionsMarathi : pythonQuestionsMarathi)
-  : (language === "sql" ? sqlQuestions : language === "javascript" ? javascriptQuestions : pythonQuestions)
+  const instructionLang = location.state?.instructionLang || "hindi"
+
+  const questions =
+    instructionLang === "english"
+      ? language === "sql" ? sqlQuestionsEnglish
+        : language === "javascript" ? javascriptQuestionsEnglish
+        : pythonQuestionsEnglish
+      : instructionLang === "marathi"
+      ? language === "sql" ? sqlQuestionsMarathi
+        : language === "javascript" ? javascriptQuestionsMarathi
+        : pythonQuestionsMarathi
+      : language === "sql" ? sqlQuestions
+      : language === "javascript" ? javascriptQuestions
+      : pythonQuestions
+
   const lang = t[instructionLang]
   const [current, setCurrent] = useState(0)
   const [selected, setSelected] = useState(null)
@@ -444,9 +424,12 @@ function MCQPage() {
   const [status, setStatus] = useState("")
   const [lastMessage, setLastMessage] = useState("")
   const [listening, setListening] = useState(false)
-  const { theme, toggleTheme, bg, textColor, cardBg, cardBorder, mutedColor, codeBg, fontSize, setFontSize, speed, setSpeed } = useTheme()
+  const {
+    theme, toggleTheme, bg, textColor, cardBg, cardBorder,
+    mutedColor, fontSize, setFontSize, speed, setSpeed
+  } = useTheme()
 
-function speak(text, onEnd) {
+  function speak(text, onEnd) {
     window.speechSynthesis.cancel()
     setLastMessage(text)
     const utterance = new SpeechSynthesisUtterance(text)
@@ -458,27 +441,22 @@ function speak(text, onEnd) {
     const trySpeak = () => {
       const voices = window.speechSynthesis.getVoices()
       let preferred = null
-      if (lang.voiceLang === "en-US") {
+      if (lang.voiceLang === "en-US")
         preferred = voices.find(v => v.name === "Microsoft Zira - English (United States)")
-      } else if (lang.voiceLang === "hi-IN") {
+      else if (lang.voiceLang === "hi-IN")
         preferred = voices.find(v => v.name === "Google हिन्दी")
-      }
-      if (!preferred) {
-        preferred = voices.find(v => v.lang === lang.voiceLang)
-      }
+      if (!preferred) preferred = voices.find(v => v.lang === lang.voiceLang)
       if (preferred) utterance.voice = preferred
       if (onEnd) utterance.onend = onEnd
       window.speechSynthesis.speak(utterance)
     }
 
-    if (window.speechSynthesis.getVoices().length === 0) {
+    if (window.speechSynthesis.getVoices().length === 0)
       window.speechSynthesis.onvoiceschanged = trySpeak
-    } else {
-      trySpeak()
-    }
+    else trySpeak()
   }
 
- useEffect(() => {
+  useEffect(() => {
     setTimeout(() => {
       speak(
         lang.mcqWelcome(name) + " " +
@@ -511,7 +489,7 @@ function speak(text, onEnd) {
     const q = questions[current]
     const isCorrect = index === q.answer
     if (isCorrect) {
-      setScore((prev) => prev + 1)
+      setScore(prev => prev + 1)
       speak(lang.correct + " " + lang.nextQ)
       setStatus("✅ " + lang.correct)
     } else {
@@ -521,13 +499,13 @@ function speak(text, onEnd) {
     setStep("answered")
   }
 
-function nextQuestion() {
+  function nextQuestion() {
     if (step !== "answered") {
       speak("पहले जवाब दीजिए। 1, 2, 3, या 4 दबाएं।")
       return
     }
     if (current < questions.length - 1) {
-      setCurrent((prev) => prev + 1)
+      setCurrent(prev => prev + 1)
       setStep("ready")
       setSelected(null)
       speak("अगला question तैयार है। Q दबाएं सुनने के लिए।")
@@ -545,7 +523,6 @@ function nextQuestion() {
       setStatus("🎉 Quiz पूरा! Score: " + finalScore + "/" + questions.length + " | N = Code Agent")
     }
   }
-  
 
   function startListening() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -580,7 +557,8 @@ function nextQuestion() {
       if (key === "3") selectAnswer(2)
       if (key === "4") selectAnswer(3)
       if (key === "r") speak(lastMessage)
-      if (key === "n" && step === "done") navigate("/agent", { state: { name, language, instructionLang } })
+      if (key === "n" && step === "done")
+        navigate("/agent", { state: { name, language, instructionLang } })
       if (key === "n" && step !== "done") nextQuestion()
       if (key === "m") toggleTheme()
     }
@@ -591,26 +569,34 @@ function nextQuestion() {
   const q = questions[current]
   const progress = Math.round((current / questions.length) * 100)
 
+  const subjectLabel =
+    language === "sql" ? "SQL" : language === "javascript" ? "JavaScript" : "Python"
+
   return (
     <main aria-label="MCQ Practice पृष्ठ" style={{
-      minHeight: "100vh",
-      background: bg,
+      minHeight: "100vh", background: bg,
       display: "flex", alignItems: "flex-start", justifyContent: "center",
-      fontFamily: "'Segoe UI', sans-serif", padding: "1rem" , fontSize: fontSize + "px"
+      fontFamily: "'Segoe UI', sans-serif", padding: "1rem", fontSize: fontSize + "px"
     }}>
       <div style={{ width: "100%", maxWidth: "1100px" }}>
-        <Navbar name={name} theme={theme} toggleTheme={toggleTheme} fontSize={fontSize} setFontSize={setFontSize} speed={speed} setSpeed={setSpeed} language={language} instructionLang={instructionLang} />
+        <Navbar
+          name={name} theme={theme} toggleTheme={toggleTheme}
+          fontSize={fontSize} setFontSize={setFontSize}
+          speed={speed} setSpeed={setSpeed}
+          language={language} instructionLang={instructionLang}
+        />
 
-<div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.5rem", alignItems: "start" }}>
-
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.5rem", alignItems: "start" }}>
           <div>
-            <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
 
-                    <h1 style={{ color: "#a0a0ff", fontSize: "1.8rem", margin: "0" }}>
-  {language === "sql" ? "🗄️ SQL" : language === "javascript" ? "🌐 JavaScript" : "🐍 Python"} MCQ
-</h1>
+            {/* Header */}
+            <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+              <h1 style={{ color: ACCENT, fontSize: "1.8rem", margin: "0", fontWeight: "700" }}>
+                {subjectLabel} MCQ
+              </h1>
               <p style={{ color: mutedColor, margin: "0.3rem 0 0" }}>नमस्ते {name}!</p>
             </div>
+
             <ProgressBar
               lessons={localStorage.getItem("lessons_done") === "true"}
               mcq={localStorage.getItem("mcq_done") === "true"}
@@ -618,65 +604,178 @@ function nextQuestion() {
               theme={theme}
             />
 
-            <div style={{ background: cardBg, border: "1px solid " + cardBorder, borderRadius: "12px", padding: "0.8rem 1rem", marginBottom: "1rem" }}>
+            {/* Progress bar */}
+            <div style={{
+              background: cardBg, border: `1px solid ${cardBorder}`,
+              borderRadius: "12px", padding: "0.8rem 1rem", marginBottom: "1rem"
+            }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem" }}>
                 <span style={{ color: mutedColor, fontSize: "0.85rem" }}>Progress</span>
-                <span style={{ color: "#a0a0ff", fontSize: "0.85rem" }}>{current}/{questions.length} questions</span>
+                <span style={{ color: ACCENT, fontSize: "0.85rem", fontWeight: "600" }}>
+                  {current}/{questions.length} questions
+                </span>
               </div>
-              <div style={{ background: "#2a2a4e", borderRadius: "8px", height: "8px" }}>
-                <div style={{ background: "#22c55e", width: progress + "%", height: "8px", borderRadius: "8px", transition: "width 0.5s" }} />
+              <div style={{ background: "rgba(255,255,255,0.07)", borderRadius: "8px", height: "8px" }}>
+                <div style={{
+                  background: GREEN, width: progress + "%", height: "8px",
+                  borderRadius: "8px", transition: "width 0.5s"
+                }} />
               </div>
             </div>
 
-            <div aria-live="polite" style={{ background: cardBg, border: "1px solid " + cardBorder, padding: "1.5rem", borderRadius: "16px", marginBottom: "1rem" }}>
-              <p style={{ color: mutedColor, fontSize: "0.85rem", margin: "0 0 0.5rem" }}>Question {q.id} of {questions.length}</p>
-              <p style={{ color: textColor, fontSize: "1.1rem", fontWeight: "500", marginBottom: "1.2rem" }}>{q.question}</p>
+            {/* Question card */}
+            <div
+              aria-live="polite"
+              style={{
+                background: cardBg, border: `1px solid ${cardBorder}`,
+                padding: "1.5rem", borderRadius: "16px", marginBottom: "1rem"
+              }}
+            >
+              <p style={{ color: mutedColor, fontSize: "0.85rem", margin: "0 0 0.5rem" }}>
+                Question {q.id} of {questions.length}
+              </p>
+              <p style={{ color: textColor, fontSize: "1.1rem", fontWeight: "500", marginBottom: "1.2rem" }}>
+                {q.question}
+              </p>
+
               <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-                {q.options.map((opt, i) => (
-                  <button key={i} onClick={() => selectAnswer(i)}
-                    aria-label={(i + 1) + ". " + opt}
-                    style={{
-                      padding: "0.8rem 1rem", borderRadius: "10px", border: "1.5px solid",
-                      textAlign: "left", cursor: "pointer", fontSize: "1rem",
-                      background: selected === i ? (i === q.answer ? "#14532d" : "#450a0a") : cardBg,
-                      borderColor: selected === i ? (i === q.answer ? "#22c55e" : "#ef4444") : cardBorder,
-                      color: selected === i ? (i === q.answer ? "#22c55e" : "#ef4444") : textColor,
-                      transition: "all 0.2s"
-                    }}>
-                    <span style={{ fontWeight: "bold", marginRight: "0.5rem", color: "#a0a0ff" }}>{i + 1}.</span>
-                    {opt}
-                  </button>
-                ))}
+                {q.options.map((opt, i) => {
+                  const isSelected = selected === i
+                  const isCorrect = i === q.answer
+                  const showResult = isSelected
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => selectAnswer(i)}
+                      aria-label={(i + 1) + ". " + opt}
+                      style={{
+                        padding: "0.8rem 1rem", borderRadius: "10px",
+                        border: `1.5px solid ${
+                          showResult
+                            ? isCorrect ? GREEN : RED
+                            : cardBorder
+                        }`,
+                        textAlign: "left", cursor: "pointer", fontSize: "1rem",
+                        background: showResult
+                          ? isCorrect ? "rgba(34,197,94,0.12)" : "rgba(239,68,68,0.12)"
+                          : cardBg,
+                        color: showResult
+                          ? isCorrect ? GREEN : RED
+                          : textColor,
+                        transition: "all 0.2s"
+                      }}
+                      onMouseEnter={e => {
+                        if (!isSelected) e.currentTarget.style.background = ACCENT_SOFT
+                      }}
+                      onMouseLeave={e => {
+                        if (!isSelected) e.currentTarget.style.background = cardBg
+                      }}
+                    >
+                      <span style={{
+                        fontWeight: "700", marginRight: "0.5rem",
+                        color: isSelected ? "inherit" : ACCENT
+                      }}>
+                        {i + 1}.
+                      </span>
+                      {opt}
+                    </button>
+                  )
+                })}
               </div>
+
               {status !== "" && (
-                <p aria-live="assertive" style={{ marginTop: "1rem", color: "#f4a261", fontSize: "0.9rem", background: "#2a1a0e", padding: "0.5rem 1rem", borderRadius: "8px" }}>{status}</p>
+                <p
+                  aria-live="assertive"
+                  style={{
+                    marginTop: "1rem", color: ACCENT, fontSize: "0.9rem",
+                    background: ACCENT_SOFT, border: `1px solid ${ACCENT_DIM}`,
+                    padding: "0.5rem 1rem", borderRadius: "8px"
+                  }}
+                >
+                  {status}
+                </p>
               )}
             </div>
 
+            {/* Action buttons */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.8rem" }}>
-              <button onClick={playQuestion} aria-label="Q — Question सुनें"
-                style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#f4a261", color: "#000", border: "none", cursor: "pointer", fontWeight: "bold" }}>
-                🔊 सुनें<br /><span style={{ fontSize: "0.75rem" }}>(Q)</span>
+
+              {/* Q — Listen */}
+              <button
+                onClick={playQuestion}
+                aria-label="Q — Question सुनें"
+                style={{
+                  padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px",
+                  background: ACCENT, color: "#0d0d0d",
+                  border: "none", cursor: "pointer", fontWeight: "bold"
+                }}
+              >
+                🔊 सुनें<br /><span style={{ fontSize: "0.75rem", opacity: 0.7 }}>(Q)</span>
               </button>
-              <button onClick={() => speak(lastMessage)} aria-label="R — दोबारा सुनें"
-                style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#4a4af4", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
-                🔁 दोबारा<br /><span style={{ fontSize: "0.75rem" }}>(R)</span>
+
+              {/* R — Repeat */}
+              <button
+                onClick={() => speak(lastMessage)}
+                aria-label="R — दोबारा सुनें"
+                style={{
+                  padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px",
+                  background: ACCENT_SOFT, color: ACCENT,
+                  border: `1px solid ${ACCENT_DIM}`,
+                  cursor: "pointer", fontWeight: "bold", transition: "background 0.15s"
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = "rgba(244,162,97,0.25)"}
+                onMouseLeave={e => e.currentTarget.style.background = ACCENT_SOFT}
+              >
+                🔁 दोबारा<br /><span style={{ fontSize: "0.75rem", opacity: 0.7 }}>(R)</span>
               </button>
-              <button onClick={startListening} disabled={listening} aria-label="T — आवाज़ से जवाब दें"
-                style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: listening ? "#333" : "#6366f1", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
-                {listening ? "🎙️ सुन रही हूँ" : "🎤 बोलें"}<br /><span style={{ fontSize: "0.75rem" }}>(T)</span>
+
+              {/* T — Voice answer */}
+              <button
+                onClick={startListening}
+                disabled={listening}
+                aria-label="T — आवाज़ से जवाब दें"
+                style={{
+                  padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px",
+                  background: listening ? "rgba(255,255,255,0.06)" : ACCENT_SOFT,
+                  color: listening ? mutedColor : ACCENT,
+                  border: `1px solid ${listening ? cardBorder : ACCENT_DIM}`,
+                  cursor: listening ? "not-allowed" : "pointer",
+                  fontWeight: "bold", transition: "background 0.15s"
+                }}
+              >
+                {listening ? "🎙️ सुन रही हूँ" : "🎤 बोलें"}<br />
+                <span style={{ fontSize: "0.75rem", opacity: 0.7 }}>(T)</span>
               </button>
-              <button onClick={step === "done" ? () =>  navigate("/agent", { state: { name, language, instructionLang } }): nextQuestion}
+
+              {/* N — Next / Agent */}
+              <button
+                onClick={
+                  step === "done"
+                    ? () => navigate("/agent", { state: { name, language, instructionLang } })
+                    : nextQuestion
+                }
                 aria-label="N — अगला question"
-                style={{ padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px", background: "#22c55e", color: "#fff", border: "none", cursor: "pointer", fontWeight: "bold" }}>
-                {step === "done" ? "✅ Agent" : "अगला →"}<br /><span style={{ fontSize: "0.75rem" }}>(N)</span>
+                style={{
+                  padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px",
+                  background: step === "done" ? GREEN_SOFT : ACCENT_SOFT,
+                  color: step === "done" ? GREEN : ACCENT,
+                  border: `1px solid ${step === "done" ? "rgba(34,197,94,0.3)" : ACCENT_DIM}`,
+                  cursor: "pointer", fontWeight: "bold", transition: "background 0.15s"
+                }}
+                onMouseEnter={e => e.currentTarget.style.background =
+                  step === "done" ? "rgba(34,197,94,0.25)" : "rgba(244,162,97,0.25)"}
+                onMouseLeave={e => e.currentTarget.style.background =
+                  step === "done" ? GREEN_SOFT : ACCENT_SOFT}
+              >
+                {step === "done" ? "✅ Agent" : "अगला →"}<br />
+                <span style={{ fontSize: "0.75rem", opacity: 0.7 }}>(N)</span>
               </button>
+
             </div>
           </div>
-
         </div>
       </div>
-   </main>
+    </main>
   )
 }
 
