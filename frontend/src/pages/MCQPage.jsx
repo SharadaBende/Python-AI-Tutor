@@ -423,6 +423,8 @@ function MCQPage() {
   const [step, setStep] = useState("intro")
   const [status, setStatus] = useState("")
   const [lastMessage, setLastMessage] = useState("")
+  const userId = location.state?.user_id
+  const [progressData, setProgressData] = useState({ lessons_done: false, mcq_done: false, agent_done: false })
   const [listening, setListening] = useState(false)
   const {
     theme, toggleTheme, bg, textColor, cardBg, cardBorder,
@@ -455,6 +457,17 @@ function MCQPage() {
       window.speechSynthesis.onvoiceschanged = trySpeak
     else trySpeak()
   }
+
+  useEffect(() => {
+  if (!userId) return
+  fetch(`http://127.0.0.1:8000/progress/${userId}`)
+    .then(res => res.json())
+    .then(data => {
+      const match = data.progress?.find(p => p.language === language)
+      if (match) setProgressData(match)
+    })
+    .catch(() => {})
+}, [userId, language])
 
   useEffect(() => {
     setTimeout(() => {
@@ -511,10 +524,20 @@ function MCQPage() {
       speak("अगला question तैयार है। Q दबाएं सुनने के लिए।")
       setStatus("Q = Question सुनें")
     } else {
-      localStorage.setItem("mcq_done", "true")
-      setStep("done")
-      const finalScore = score + (selected === questions[current].answer ? 1 : 0)
-      localStorage.setItem("mcq_score", finalScore.toString())
+      // replace this block:
+localStorage.setItem("mcq_done", "true")
+localStorage.setItem("mcq_score", finalScore.toString())
+
+// with:
+const finalScore = score + (selected === questions[current].answer ? 1 : 0)
+setProgressData(prev => ({ ...prev, mcq_done: true, mcq_score: finalScore }))
+if (userId) {
+  fetch("http://127.0.0.1:8000/progress/update", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id: userId, language, mcq_done: true, mcq_score: finalScore }),
+  }).catch(() => {})
+}
       speak(
         "बहुत शाबाश " + name + "! आपने सभी " + questions.length + " questions पूरे किए। " +
         questions.length + " में से " + finalScore + " सही जवाब दिए। " +
@@ -580,11 +603,12 @@ function MCQPage() {
     }}>
       <div style={{ width: "100%", maxWidth: "1100px" }}>
         <Navbar
-          name={name} theme={theme} toggleTheme={toggleTheme}
-          fontSize={fontSize} setFontSize={setFontSize}
-          speed={speed} setSpeed={setSpeed}
-          language={language} instructionLang={instructionLang}
-        />
+  name={name} theme={theme} toggleTheme={toggleTheme}
+  fontSize={fontSize} setFontSize={setFontSize}
+  speed={speed} setSpeed={setSpeed}
+  language={language} instructionLang={instructionLang}
+  userId={userId}
+/>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.5rem", alignItems: "start" }}>
           <div>
@@ -598,11 +622,11 @@ function MCQPage() {
             </div>
 
             <ProgressBar
-              lessons={localStorage.getItem("lessons_done") === "true"}
-              mcq={localStorage.getItem("mcq_done") === "true"}
-              agent={localStorage.getItem("agent_visited") === "true"}
-              theme={theme}
-            />
+  lessons={progressData.lessons_done}
+  mcq={progressData.mcq_done}
+  agent={progressData.agent_done}
+  theme={theme}
+/>
 
             {/* Progress bar */}
             <div style={{
@@ -751,7 +775,7 @@ function MCQPage() {
               <button
                 onClick={
                   step === "done"
-                    ? () => navigate("/agent", { state: { name, language, instructionLang } })
+                    ? () => navigate("/agent", { state: { name, language, instructionLang, user_id: userId } })
                     : nextQuestion
                 }
                 aria-label="N — अगला question"

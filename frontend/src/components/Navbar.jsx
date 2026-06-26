@@ -1,5 +1,3 @@
-
-
 import { useNavigate, useLocation } from "react-router-dom"
 
 const ACCENT        = "#f4a261"
@@ -10,7 +8,7 @@ const BTN_BG        = "rgba(255, 255, 255, 0.05)"
 const MUTED         = "rgba(241, 237, 228, 0.5)"
 const CREAM         = "rgba(241, 237, 228, 0.85)"
 
-function Navbar({ name, theme, toggleTheme, fontSize, setFontSize, speed, setSpeed, language, instructionLang }) {
+function Navbar({ name, theme, toggleTheme, fontSize, setFontSize, speed, setSpeed, language, instructionLang, userId }) {
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -21,8 +19,8 @@ function Navbar({ name, theme, toggleTheme, fontSize, setFontSize, speed, setSpe
   ]
 
   function goTo(path) {
-    navigate(path, { state: { name, language, instructionLang } })
-  }
+  navigate(path, { state: { name, language, instructionLang, user_id: userId } })
+}
 
   function increaseFontSize() {
     const newSize = Math.min(fontSize + 2, 24)
