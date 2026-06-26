@@ -137,3 +137,67 @@ def login(data: LoginRequest):
     name = user.name
     db.close()
     return {"success": True, "user_id": user_id, "name": name}
+
+
+
+
+class ProgressUpdateRequest(BaseModel):
+    user_id: int
+    language: str
+    lessons_done: bool | None = None
+    mcq_done: bool | None = None
+    mcq_score: int | None = None
+    agent_done: bool | None = None
+
+
+@app.post("/progress/update")
+def update_progress(data: ProgressUpdateRequest):
+    db = SessionLocal()
+    record = (
+        db.query(Progress)
+        .filter(Progress.user_id == data.user_id, Progress.language == data.language)
+        .first()
+    )
+
+    if record is None:
+        record = Progress(user_id=data.user_id, language=data.language)
+        db.add(record)
+
+    if data.lessons_done is not None:
+        record.lessons_done = data.lessons_done
+    if data.mcq_done is not None:
+        record.mcq_done = data.mcq_done
+    if data.mcq_score is not None:
+        record.mcq_score = data.mcq_score
+    if data.agent_done is not None:
+        record.agent_done = data.agent_done
+
+    db.commit()
+    result = {
+        "user_id": record.user_id,
+        "language": record.language,
+        "lessons_done": record.lessons_done,
+        "mcq_done": record.mcq_done,
+        "mcq_score": record.mcq_score,
+        "agent_done": record.agent_done,
+    }
+    db.close()
+    return {"success": True, "progress": result}
+
+
+@app.get("/progress/{user_id}")
+def get_progress(user_id: int):
+    db = SessionLocal()
+    records = db.query(Progress).filter(Progress.user_id == user_id).all()
+    progress = [
+        {
+            "language": r.language,
+            "lessons_done": r.lessons_done,
+            "mcq_done": r.mcq_done,
+            "mcq_score": r.mcq_score,
+            "agent_done": r.agent_done,
+        }
+        for r in records
+    ]
+    db.close()
+    return {"success": True, "progress": progress}
