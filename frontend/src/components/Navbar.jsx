@@ -23,28 +23,21 @@ function Navbar({ name, theme, toggleTheme, fontSize, setFontSize, speed, setSpe
 }
 
   function increaseFontSize() {
-    const newSize = Math.min(fontSize + 2, 24)
-    setFontSize(newSize)
-    localStorage.setItem("fontSize", newSize)
-  }
+  setFontSize(Math.min(fontSize + 2, 24))
+}
 
-  function decreaseFontSize() {
-    const newSize = Math.max(fontSize - 2, 12)
-    setFontSize(newSize)
-    localStorage.setItem("fontSize", newSize)
-  }
+function decreaseFontSize() {
+  setFontSize(Math.max(fontSize - 2, 12))
+}
 
-  function increaseSpeed() {
-    const newSpeed = Math.min(parseFloat((speed + 0.1).toFixed(1)), 1.5)
-    setSpeed(newSpeed)
-    localStorage.setItem("speed", newSpeed)
-  }
+function increaseSpeed() {
+  setSpeed(Math.min(parseFloat((speed + 0.1).toFixed(1)), 1.5))
+}
 
-  function decreaseSpeed() {
-    const newSpeed = Math.max(parseFloat((speed - 0.1).toFixed(1)), 0.5)
-    setSpeed(newSpeed)
-    localStorage.setItem("speed", newSpeed)
-  }
+function decreaseSpeed() {
+  setSpeed(Math.max(parseFloat((speed - 0.1).toFixed(1)), 0.5))
+}
+ 
 
   const controlBtn = {
     padding: "0.28rem 0.55rem",

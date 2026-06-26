@@ -12,9 +12,16 @@ export function useTheme() {
   )
 
   useEffect(() => {
-    localStorage.setItem("theme", theme)
-  }, [theme])
+  localStorage.setItem("theme", theme)
+}, [theme])
 
+useEffect(() => {
+  localStorage.setItem("fontSize", fontSize)
+}, [fontSize])
+
+useEffect(() => {
+  localStorage.setItem("speed", speed)
+}, [speed])
   function toggleTheme() {
     setTheme((prev) => prev === "dark" ? "light" : "dark")
   }
