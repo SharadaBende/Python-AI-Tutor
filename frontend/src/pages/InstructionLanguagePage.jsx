@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import { speak as speakUtil } from "../components/speak"
 import { useTheme } from "../components/useTheme"
 
 const instructionLanguages = [
