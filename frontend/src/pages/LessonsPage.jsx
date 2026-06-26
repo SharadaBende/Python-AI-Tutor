@@ -1,7 +1,6 @@
 import { t } from "../components/translations"
 import { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import { speak as speakUtil } from "../components/speak"
 import ProgressBar from "../components/ProgressBar"
 import LessonSidebar from "../components/LessonSidebar"
 import Navbar from "../components/Navbar"
