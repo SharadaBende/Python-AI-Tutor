@@ -424,7 +424,7 @@ function MCQPage() {
   const [status, setStatus] = useState("")
   const [lastMessage, setLastMessage] = useState("")
   const userId = location.state?.user_id
-  const [progressData, setProgressData] = useState({ lessons_done: false, mcq_done: false, agent_done: false })
+  const [progressData, setProgressData] = useState({ lessons_done: false, mcq_done: false, agent_done: false, current_mcq_index: 0, mcq_score: 0 })
   const [listening, setListening] = useState(false)
   const {
     theme, toggleTheme, bg, textColor, cardBg, cardBorder,
@@ -464,7 +464,16 @@ function MCQPage() {
     .then(res => res.json())
     .then(data => {
       const match = data.progress?.find(p => p.language === language)
-      if (match) setProgressData(match)
+      if (match) {
+        setProgressData(match)
+        if (!match.mcq_done) {
+          const savedIndex = match.current_mcq_index || 0
+          if (savedIndex > 0 && savedIndex < questions.length) {
+            setCurrent(savedIndex)
+          }
+          setScore(match.mcq_score || 0)
+        }
+      }
     })
     .catch(() => {})
 }, [userId, language])
@@ -518,33 +527,40 @@ function MCQPage() {
       return
     }
     if (current < questions.length - 1) {
-      setCurrent(prev => prev + 1)
+      const newIndex = current + 1
+      setCurrent(newIndex)
       setStep("ready")
       setSelected(null)
       speak("अगला question तैयार है। Q दबाएं सुनने के लिए।")
       setStatus("Q = Question सुनें")
-    } else {
-      // replace this block:
-localStorage.setItem("mcq_done", "true")
-localStorage.setItem("mcq_score", finalScore.toString())
 
-// with:
-const finalScore = score + (selected === questions[current].answer ? 1 : 0)
-setProgressData(prev => ({ ...prev, mcq_done: true, mcq_score: finalScore }))
-if (userId) {
-  fetch("http://127.0.0.1:8000/progress/update", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ user_id: userId, language, mcq_done: true, mcq_score: finalScore }),
-  }).catch(() => {})
-}
+      setProgressData(prev => ({ ...prev, current_mcq_index: newIndex, mcq_score: score }))
+      if (userId) {
+        fetch("http://127.0.0.1:8000/progress/update", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id: userId, language, current_mcq_index: newIndex, mcq_score: score }),
+        }).catch(() => {})
+      }
+    } else {
+      const finalScore = score
+      setProgressData(prev => ({ ...prev, mcq_done: true, mcq_score: finalScore, current_mcq_index: 0 }))
+      if (userId) {
+        fetch("http://127.0.0.1:8000/progress/update", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id: userId, language, mcq_done: true, mcq_score: finalScore, current_mcq_index: 0 }),
+        }).catch(() => {})
+      }
       speak(
         "बहुत शाबाश " + name + "! आपने सभी " + questions.length + " questions पूरे किए। " +
         questions.length + " में से " + finalScore + " सही जवाब दिए। " +
         "N दबाएं Code Agent पर जाने के लिए।"
       )
       setStatus("🎉 Quiz पूरा! Score: " + finalScore + "/" + questions.length + " | N = Code Agent")
+      setStep("done")
     }
+  }
   }
 
   function startListening() {
@@ -581,7 +597,7 @@ if (userId) {
       if (key === "4") selectAnswer(3)
       if (key === "r") speak(lastMessage)
       if (key === "n" && step === "done")
-        navigate("/agent", { state: { name, language, instructionLang } })
+        navigate("/agent", { state: { name, language, instructionLang, user_id: userId } })
       if (key === "n" && step !== "done") nextQuestion()
       if (key === "m") toggleTheme()
     }
