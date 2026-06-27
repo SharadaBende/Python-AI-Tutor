@@ -12,29 +12,45 @@ export function useTheme() {
   )
 
   useEffect(() => {
-  localStorage.setItem("theme", theme)
-}, [theme])
+    localStorage.setItem("theme", theme)
+  }, [theme])
 
-useEffect(() => {
-  localStorage.setItem("fontSize", fontSize)
-}, [fontSize])
+  useEffect(() => {
+    localStorage.setItem("fontSize", fontSize)
+  }, [fontSize])
 
-useEffect(() => {
-  localStorage.setItem("speed", speed)
-}, [speed])
+  useEffect(() => {
+    localStorage.setItem("speed", speed)
+  }, [speed])
+
   function toggleTheme() {
-    setTheme((prev) => prev === "dark" ? "light" : "dark")
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"))
   }
 
-  const bg = theme === "dark"
-    ? "linear-gradient(135deg, #0f0f1a, #1a1a3e)"
-    : "linear-gradient(135deg, #f0f0ff, #e0e0ff)"
+  const isDark = theme === "dark"
 
-  const textColor = theme === "dark" ? "#fff" : "#111"
-  const cardBg = theme === "dark" ? "#1a1a2e" : "#fff"
-  const cardBorder = theme === "dark" ? "#2a2a5e" : "#c0c0ff"
-  const mutedColor = theme === "dark" ? "#888" : "#666"
-  const codeBg = theme === "dark" ? "#0f0f1a" : "#f5f5ff"
+  const bg = isDark ? "#05080f" : "#f5f7fa"
+  const cardBg = isDark ? "#0d1117" : "#ffffff"
+  const cardBorder = isDark ? "#4da6ff" : "#0b5394"
+  const borderWidth = "3px"
+  const textColor = isDark ? "#ffffff" : "#111111"
+  const mutedColor = isDark ? "#cfcfcf" : "#3a3a3a"
+  const codeBg = isDark ? "#081420" : "#eaf2fb"
+  const codeText = isDark ? "#9ed2ff" : "#0b3d66"
+  const accent = isDark ? "#4da6ff" : "#0b5394"
+  const accentText = isDark ? "#06141f" : "#ffffff"
+  const accentSoft = isDark ? "#13283d" : "#e8f1fb"
+  const success = isDark ? "#22c55e" : "#15803d"
+  const danger = isDark ? "#f87171" : "#b91c1c"
 
-  return { theme, toggleTheme, bg, textColor, cardBg, cardBorder, mutedColor, codeBg, fontSize, setFontSize, speed, setSpeed }
+  return {
+    theme, toggleTheme,
+    bg, cardBg, cardBorder, borderWidth,
+    textColor, mutedColor,
+    codeBg, codeText,
+    accent, accentText, accentSoft,
+    success, danger,
+    fontSize, setFontSize,
+    speed, setSpeed,
+  }
 }
