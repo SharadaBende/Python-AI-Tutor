@@ -5,7 +5,7 @@ const ACCENT = "#f4a261"
 const ACCENT_SOFT = "rgba(244, 162, 97, 0.15)"
 const CREAM_MUTED = "rgba(241, 237, 228, 0.6)"
 
-function LessonSidebar({ lessons, currentLesson, setCurrentLesson, setStep, cardBg, cardBorder, mutedColor, speak }) {
+function LessonSidebar({ lessons, currentLesson, setCurrentLesson, setStep, cardBg, cardBorder, mutedColor, speak, theme }) {
   const [open, setOpen] = useState(true)
 
   return (
@@ -65,7 +65,7 @@ function LessonSidebar({ lessons, currentLesson, setCurrentLesson, setStep, card
                     cursor: "pointer", fontSize: "0.82rem",
                     display: "flex", alignItems: "center", gap: "10px",
                     background: isActive ? ACCENT_SOFT : "transparent",
-                    color: isActive ? ACCENT : isDone ? mutedColor : CREAM_MUTED,
+                    color: isActive ? ACCENT : isDone ? mutedColor : (theme === "dark" ? CREAM_MUTED : "rgba(20, 20, 20, 0.55)"),
                     fontWeight: isActive ? "bold" : "normal",
                     transition: "background 0.12s"
                   }}

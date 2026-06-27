@@ -495,7 +495,7 @@ function LessonsPage() {
   ? (language === "sql" ? sqlLessonsMarathi : language === "javascript" ? javascriptLessonsMarathi : pythonLessonsMarathi)
   : (language === "sql" ? sqlLessons : language === "javascript" ? javascriptLessons : pythonLessons)
   const lang = t[instructionLang]
-  const [progressData, setProgressData] = useState({ lessons_done: false, mcq_done: false, agent_done: false })
+  const [progressData, setProgressData] = useState({ lessons_done: false, mcq_done: false, agent_done: false, current_lesson_index: 0 })
   const [currentLesson, setCurrentLesson] = useState(0)
   const [step, setStep] = useState("intro")
   const [status, setStatus] = useState("")
@@ -536,15 +536,21 @@ function LessonsPage() {
   }
 
   useEffect(() => {
-    if (!userId) return
-    fetch(`http://127.0.0.1:8000/progress/${userId}`)
-      .then(res => res.json())
-      .then(data => {
-        const match = data.progress?.find(p => p.language === language)
-        if (match) setProgressData(match)
-      })
-      .catch(() => {})
-  }, [userId, language])
+  if (!userId) return
+  fetch(`http://127.0.0.1:8000/progress/${userId}`)
+    .then(res => res.json())
+    .then(data => {
+      const match = data.progress?.find(p => p.language === language)
+      if (match) {
+        setProgressData(match)
+        const savedIndex = match.current_lesson_index || 0
+        if (savedIndex > 0 && savedIndex < lessons.length) {
+          setCurrentLesson(savedIndex)
+        }
+      }
+    })
+    .catch(() => {})
+}, [userId, language])
 
   
   useEffect(() => {
@@ -583,19 +589,23 @@ function LessonsPage() {
     }).catch(() => {})
   }
 
-  function nextLesson() {
-    if (currentLesson < lessons.length - 1) {
-      setCurrentLesson((prev) => prev + 1)
-      setStep("ready")
-      speak(lang.excellent + " " + lang.pressL)
-      setStatus(lang.pressL)
-    }  else {
-      updateProgress({ lessons_done: true })
-      speak(lang.allDone(name))
-      setStep("done")
-      setStatus(lang.allDone(name))
+ function nextLesson() {
+  if (currentLesson < lessons.length - 1) {
+    const newIndex = currentLesson + 1
+    setCurrentLesson(newIndex)
+    setStep("ready")
+    speak(lang.excellent + " " + lang.pressL)
+    setStatus(lang.pressL)
+    if (newIndex > (progressData.current_lesson_index || 0)) {
+      updateProgress({ current_lesson_index: newIndex })
     }
+  } else {
+    updateProgress({ lessons_done: true, current_lesson_index: lessons.length - 1 })
+    speak(lang.allDone(name))
+    setStep("done")
+    setStatus(lang.allDone(name))
   }
+}
 
   function startListening() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
