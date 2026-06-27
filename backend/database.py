@@ -24,10 +24,10 @@ class Progress(Base):
     user_id = Column(Integer, index=True, nullable=False)
     language = Column(String, nullable=False)
     lessons_done = Column(Boolean, default=False)
+    current_lesson_index = Column(Integer, default=0)
     mcq_done = Column(Boolean, default=False)
     mcq_score = Column(Integer, default=0)
     agent_done = Column(Boolean, default=False)
-
 
 def init_db():
     Base.metadata.create_all(bind=engine)
