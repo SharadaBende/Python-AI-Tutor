@@ -1,17 +1,9 @@
-
 import { t } from "../components/translations"
 import Navbar from "../components/Navbar"
 import { useTheme } from "../components/useTheme"
 import { useState, useEffect } from "react"
 import ProgressBar from "../components/ProgressBar"
 import { useNavigate, useLocation } from "react-router-dom"
-
-const ACCENT      = "#f4a261"
-const ACCENT_SOFT = "rgba(244, 162, 97, 0.15)"
-const ACCENT_DIM  = "rgba(244, 162, 97, 0.25)"
-const GREEN       = "#22c55e"
-const GREEN_SOFT  = "rgba(34, 197, 94, 0.15)"
-const RED         = "#ef4444"
 
 // ── all question arrays unchanged ──────────────────────────────────────────
 const pythonQuestions = [
@@ -55,8 +47,7 @@ const pythonQuestions = [
   { id: 38, question: "import keyword किसलिए use होता है?", options: ["Variable बनाने के लिए", "Module को program में लाने के लिए", "Function बनाने के लिए", "Loop के लिए"], answer: 1 },
   { id: 39, question: "Python में not operator क्या करता है?", options: ["दो values जोड़ता है", "Boolean value को उल्टा कर देता है", "Number को negative बनाता है", "String को reverse करता है"], answer: 1 },
   { id: 40, question: "Python में dictionary किसमें लिखी जाती है?", options: ["[] brackets", "() brackets", "{} brackets", "<> brackets"], answer: 2 },
-
-];
+]
 const pythonQuestionsEnglish = [
   { id: 1, question: "Who created Python?", options: ["Bill Gates", "Guido van Rossum", "Steve Jobs", "Elon Musk"], answer: 1 },
   { id: 2, question: "In which year was Python created?", options: ["1980", "1995", "1991", "2000"], answer: 2 },
@@ -98,8 +89,7 @@ const pythonQuestionsEnglish = [
   { id: 38, question: "What is the import keyword used for?", options: ["To create a variable", "To bring a module into the program", "To create a function", "For a loop"], answer: 1 },
   { id: 39, question: "What does the not operator do in Python?", options: ["Adds two values", "Reverses a Boolean value", "Makes a number negative", "Reverses a string"], answer: 1 },
   { id: 40, question: "Inside which brackets is a dictionary written in Python?", options: ["[] brackets", "() brackets", "{} brackets", "<> brackets"], answer: 2 },
-];
-
+]
 const pythonQuestionsMarathi = [
   { id: 1, question: "Python कोणी बनवली?", options: ["Bill Gates", "Guido van Rossum", "Steve Jobs", "Elon Musk"], answer: 1 },
   { id: 2, question: "Python कोणत्या वर्षी बनवली गेली?", options: ["1980", "1995", "1991", "2000"], answer: 2 },
@@ -226,7 +216,6 @@ const sqlQuestionsEnglish = [
   { id: 39, question: "What does the TRUNCATE command do?", options: ["Deletes the table", "Removes all rows but keeps the table structure", "Inserts data", "Renames the table"], answer: 1 },
   { id: 40, question: "What is the IN operator used for?", options: ["For range checking", "To check if a value matches any in a list", "To join tables", "To sort data"], answer: 1 },
 ]
-
 const sqlQuestionsMarathi = [
   { id: 1, question: "SQL चे पूर्ण नाव काय आहे?", options: ["Simple Query Language", "Structured Query Language", "System Query Language", "Standard Query Language"], answer: 1 },
   { id: 2, question: "Database मधून data काढण्यासाठी कोणता command वापरतात?", options: ["INSERT", "UPDATE", "SELECT", "DELETE"], answer: 2 },
@@ -396,6 +385,83 @@ const javascriptQuestionsMarathi = [
   { id: 40, question: "find() method काय करते?", options: ["सर्व matching items देते", "पहिला matching item देते", "Items delete करते", "Array sort करते"], answer: 1 },
 ]
 
+/* ── Pyra mascot (shared, compact) ──────────────────────────────── */
+function PyraMascot({ mood }) {
+  // mood: "idle" | "correct" | "wrong"
+  const eyeColor = mood === "correct" ? "#58cc02" : mood === "wrong" ? "#ff4b4b" : "#0b5394"
+  const bodyColor = mood === "correct" ? "#58cc02" : mood === "wrong" ? "#ff4b4b" : "#1cb0f6"
+  return (
+    <svg width="52" height="64" viewBox="0 0 72 88" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ display: "block", flexShrink: 0 }}>
+      <style>{`
+        @keyframes antBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+        @keyframes blinkE  { 0%,90%,100%{transform:scaleY(1)} 95%{transform:scaleY(0.08)} }
+        @keyframes floatB  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+        .pant { animation: antBob 2s ease-in-out infinite; transform-origin: bottom center; }
+        .peye { animation: blinkE 3.5s ease-in-out infinite; transform-origin: center; }
+        .pbody{ animation: floatB 3s ease-in-out infinite; }
+      `}</style>
+      <g className="pant">
+        <line x1="36" y1="10" x2="36" y2="22" stroke={bodyColor} strokeWidth="2.5" strokeLinecap="round"/>
+        <circle cx="36" cy="8" r="4" fill={bodyColor}/>
+      </g>
+      <g className="pbody">
+        <rect x="14" y="20" width="44" height="36" rx="12" fill={bodyColor}/>
+        <rect x="19" y="26" width="34" height="24" rx="8" fill="white" opacity="0.15"/>
+        <g className="peye"><rect x="22" y="32" width="10" height="10" rx="3" fill="white"/><circle cx="27" cy="37" r="3.5" fill={eyeColor}/></g>
+        <g className="peye" style={{animationDelay:"0.15s"}}><rect x="40" y="32" width="10" height="10" rx="3" fill="white"/><circle cx="45" cy="37" r="3.5" fill={eyeColor}/></g>
+        {mood === "correct"
+          ? <path d="M28 49 Q36 55 44 49" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+          : mood === "wrong"
+          ? <path d="M28 53 Q36 48 44 53" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+          : <rect x="29" y="47" width="14" height="3" rx="1.5" fill="white" opacity="0.7"/>
+        }
+        <rect x="30" y="56" width="12" height="6" rx="3" fill={bodyColor}/>
+        <rect x="18" y="62" width="36" height="22" rx="10" fill={bodyColor}/>
+        <circle cx="36" cy="73" r="5" fill="white" opacity="0.2"/>
+        <circle cx="36" cy="73" r="3" fill="white" opacity="0.8"/>
+        <rect x="6"  y="64" width="12" height="6" rx="3" fill={bodyColor}/>
+        <rect x="54" y="64" width="12" height="6" rx="3" fill={bodyColor}/>
+      </g>
+    </svg>
+  )
+}
+
+/* ── 3D press button ─────────────────────────────────────────────── */
+function PressButton({ onClick, disabled, ariaLabel, bg, shadow, color, children, style = {} }) {
+  const [pressed, setPressed] = useState(false)
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={ariaLabel}
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      onMouseLeave={() => setPressed(false)}
+      onTouchStart={() => setPressed(true)}
+      onTouchEnd={() => setPressed(false)}
+      style={{
+        padding: "0.9rem 0.4rem",
+        fontSize: "0.9rem",
+        borderRadius: "12px",
+        background: disabled ? "#e5e5e5" : bg,
+        color: disabled ? "#aaa" : color,
+        border: "none",
+        cursor: disabled ? "not-allowed" : "pointer",
+        fontWeight: "700",
+        boxShadow: (disabled || pressed) ? "none" : `0 4px 0 0 ${shadow}`,
+        transform: (disabled || pressed) ? "translateY(4px)" : "translateY(0)",
+        transition: "transform 0.08s, box-shadow 0.08s",
+        lineHeight: 1.4,
+        textAlign: "center",
+        ...style,
+      }}
+    >
+      {children}
+    </button>
+  )
+}
+
+/* ── Main page ───────────────────────────────────────────────────── */
 function MCQPage() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -426,10 +492,20 @@ function MCQPage() {
   const userId = location.state?.user_id
   const [progressData, setProgressData] = useState({ lessons_done: false, mcq_done: false, agent_done: false, current_mcq_index: 0, mcq_score: 0 })
   const [listening, setListening] = useState(false)
+  // "idle" | "correct" | "wrong"
+  const [pyraMood, setPyraMood] = useState("idle")
+  // per-option animation: null | "correct" | "wrong"
+  const [optionAnim, setOptionAnim] = useState([null, null, null, null])
+
+  const theme = useTheme()
   const {
-    theme, toggleTheme, bg, textColor, cardBg, cardBorder,
-    mutedColor, fontSize, setFontSize, speed, setSpeed
-  } = useTheme()
+    theme: themeMode, toggleTheme, bg, textColor, cardBg, cardBorder, borderWidth,
+    mutedColor, codeBg, accent, accentText, accentSoft, accentShadow,
+    success, successShadow, successText, successSoft,
+    danger, dangerSoft, dangerText,
+    gold, goldShadow, goldText,
+    fontSize, setFontSize, speed, setSpeed,
+  } = theme
 
   function speak(text, onEnd) {
     window.speechSynthesis.cancel()
@@ -439,7 +515,6 @@ function MCQPage() {
     utterance.rate = parseFloat(localStorage.getItem("speed") || "0.85")
     utterance.pitch = 1.0
     utterance.volume = 1
-
     const trySpeak = () => {
       const voices = window.speechSynthesis.getVoices()
       let preferred = null
@@ -452,31 +527,28 @@ function MCQPage() {
       if (onEnd) utterance.onend = onEnd
       window.speechSynthesis.speak(utterance)
     }
-
     if (window.speechSynthesis.getVoices().length === 0)
       window.speechSynthesis.onvoiceschanged = trySpeak
     else trySpeak()
   }
 
   useEffect(() => {
-  if (!userId) return
-  fetch(`http://127.0.0.1:8000/progress/${userId}`)
-    .then(res => res.json())
-    .then(data => {
-      const match = data.progress?.find(p => p.language === language)
-      if (match) {
-        setProgressData(match)
-        if (!match.mcq_done) {
-          const savedIndex = match.current_mcq_index || 0
-          if (savedIndex > 0 && savedIndex < questions.length) {
-            setCurrent(savedIndex)
+    if (!userId) return
+    fetch(`http://127.0.0.1:8000/progress/${userId}`)
+      .then(res => res.json())
+      .then(data => {
+        const match = data.progress?.find(p => p.language === language)
+        if (match) {
+          setProgressData(match)
+          if (!match.mcq_done) {
+            const savedIndex = match.current_mcq_index || 0
+            if (savedIndex > 0 && savedIndex < questions.length) setCurrent(savedIndex)
+            setScore(match.mcq_score || 0)
           }
-          setScore(match.mcq_score || 0)
         }
-      }
-    })
-    .catch(() => {})
-}, [userId, language])
+      })
+      .catch(() => {})
+  }, [userId, language])
 
   useEffect(() => {
     setTimeout(() => {
@@ -499,6 +571,8 @@ function MCQPage() {
     speak(text)
     setStep("playing")
     setSelected(null)
+    setOptionAnim([null, null, null, null])
+    setPyraMood("idle")
     setStatus("सुनिए... 1, 2, 3, 4 = जवाब चुनें")
   }
 
@@ -510,11 +584,22 @@ function MCQPage() {
     setSelected(index)
     const q = questions[current]
     const isCorrect = index === q.answer
+
+    // Build per-option animation array
+    const anim = q.options.map((_, i) => {
+      if (i === index) return isCorrect ? "correct" : "wrong"
+      if (!isCorrect && i === q.answer) return "reveal"
+      return null
+    })
+    setOptionAnim(anim)
+
     if (isCorrect) {
       setScore(prev => prev + 1)
+      setPyraMood("correct")
       speak(lang.correct + " " + lang.nextQ)
       setStatus("✅ " + lang.correct)
     } else {
+      setPyraMood("wrong")
       speak(lang.wrong(q.options[q.answer]) + " " + lang.nextQ)
       setStatus("❌ " + lang.wrong(q.options[q.answer]))
     }
@@ -531,9 +616,10 @@ function MCQPage() {
       setCurrent(newIndex)
       setStep("ready")
       setSelected(null)
+      setOptionAnim([null, null, null, null])
+      setPyraMood("idle")
       speak("अगला question तैयार है। Q दबाएं सुनने के लिए।")
       setStatus("Q = Question सुनें")
-
       setProgressData(prev => ({ ...prev, current_mcq_index: newIndex, mcq_score: score }))
       if (userId) {
         fetch("http://127.0.0.1:8000/progress/update", {
@@ -544,6 +630,7 @@ function MCQPage() {
       }
     } else {
       const finalScore = score
+      setPyraMood("correct")
       setProgressData(prev => ({ ...prev, mcq_done: true, mcq_score: finalScore, current_mcq_index: 0 }))
       if (userId) {
         fetch("http://127.0.0.1:8000/progress/update", {
@@ -560,7 +647,6 @@ function MCQPage() {
       setStatus("🎉 Quiz पूरा! Score: " + finalScore + "/" + questions.length + " | N = Code Agent")
       setStep("done")
     }
-  }
   }
 
   function startListening() {
@@ -606,10 +692,8 @@ function MCQPage() {
   }, [current, step, lastMessage, score, selected])
 
   const q = questions[current]
-  const progress = Math.round((current / questions.length) * 100)
-
-  const subjectLabel =
-    language === "sql" ? "SQL" : language === "javascript" ? "JavaScript" : "Python"
+  const progressPct = Math.round((current / questions.length) * 100)
+  const subjectLabel = language === "sql" ? "SQL" : language === "javascript" ? "JavaScript" : "Python"
 
   return (
     <main aria-label="MCQ Practice पृष्ठ" style={{
@@ -617,107 +701,191 @@ function MCQPage() {
       display: "flex", alignItems: "flex-start", justifyContent: "center",
       fontFamily: "'Segoe UI', sans-serif", padding: "1rem", fontSize: fontSize + "px"
     }}>
+      <style>{`
+        @keyframes popIn {
+          0%   { transform: scale(1); }
+          40%  { transform: scale(1.06); }
+          100% { transform: scale(1); }
+        }
+        @keyframes shake {
+          0%,100% { transform: translateX(0); }
+          20%     { transform: translateX(-6px); }
+          40%     { transform: translateX(6px); }
+          60%     { transform: translateX(-4px); }
+          80%     { transform: translateX(4px); }
+        }
+        @keyframes progressFill {
+          from { width: 0%; }
+        }
+        @keyframes micPulse {
+          0%   { box-shadow: 0 0 0 0 rgba(28,176,246,0.5), 0 4px 0 0 #0b8fd4; }
+          70%  { box-shadow: 0 0 0 12px rgba(28,176,246,0), 0 4px 0 0 #0b8fd4; }
+          100% { box-shadow: 0 0 0 0 rgba(28,176,246,0), 0 4px 0 0 #0b8fd4; }
+        }
+      `}</style>
+
       <div style={{ width: "100%", maxWidth: "1100px" }}>
         <Navbar
-  name={name} theme={theme} toggleTheme={toggleTheme}
-  fontSize={fontSize} setFontSize={setFontSize}
-  speed={speed} setSpeed={setSpeed}
-  language={language} instructionLang={instructionLang}
-  userId={userId}
-/>
+          {...theme}
+          name={name}
+          language={language}
+          instructionLang={instructionLang}
+          userId={userId}
+        />
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.5rem", alignItems: "start" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.25rem", alignItems: "start" }}>
           <div>
 
-            {/* Header */}
-            <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-              <h1 style={{ color: ACCENT, fontSize: "1.8rem", margin: "0", fontWeight: "700" }}>
-                {subjectLabel} MCQ
-              </h1>
-              <p style={{ color: mutedColor, margin: "0.3rem 0 0" }}>नमस्ते {name}!</p>
+            {/* ── Pyra greeting card ── */}
+            <div style={{
+              display: "flex", alignItems: "center", gap: "1rem",
+              background: cardBg,
+              border: `${borderWidth} solid ${cardBorder}`,
+              boxShadow: `0 2px 0 0 ${cardBorder}`,
+              borderRadius: "20px",
+              padding: "1rem 1.25rem",
+              marginBottom: "1rem",
+            }}>
+              <PyraMascot mood={pyraMood} />
+              <div style={{ flex: 1 }}>
+                <p style={{ margin: 0, fontWeight: "700", fontSize: "1rem", color: textColor }}>
+                  {subjectLabel} Quiz — नमस्ते {name}!
+                </p>
+                <p style={{ margin: "0.2rem 0 0", color: mutedColor, fontSize: "0.88rem" }}>
+                  {step === "done"
+                    ? `🎉 शाबाश! Score: ${score}/${questions.length}`
+                    : pyraMood === "correct"
+                    ? "वाह! बिल्कुल सही! ✅"
+                    : pyraMood === "wrong"
+                    ? "कोई बात नहीं, अगली बार! 💪"
+                    : `Question ${current + 1} of ${questions.length} — Q दबाएं सुनने के लिए`
+                  }
+                </p>
+              </div>
+              {/* Score badge */}
+              <div style={{
+                background: accentSoft,
+                border: `${borderWidth} solid ${cardBorder}`,
+                borderRadius: "10px",
+                padding: "0.4rem 0.8rem",
+                textAlign: "center",
+                flexShrink: 0,
+              }}>
+                <div style={{ fontSize: "1.2rem", fontWeight: "800", color: accent }}>{score}</div>
+                <div style={{ fontSize: "0.7rem", color: mutedColor }}>Score</div>
+              </div>
             </div>
 
             <ProgressBar
-  lessons={progressData.lessons_done}
-  mcq={progressData.mcq_done}
-  agent={progressData.agent_done}
-  theme={theme}
-/>
+              lessons={progressData.lessons_done}
+              mcq={progressData.mcq_done}
+              agent={progressData.agent_done}
+              theme={themeMode}
+            />
 
-            {/* Progress bar */}
+            {/* ── Quiz progress bar ── */}
             <div style={{
-              background: cardBg, border: `1px solid ${cardBorder}`,
-              borderRadius: "12px", padding: "0.8rem 1rem", marginBottom: "1rem"
+              background: cardBg,
+              border: `${borderWidth} solid ${cardBorder}`,
+              boxShadow: `0 2px 0 0 ${cardBorder}`,
+              borderRadius: "12px", padding: "0.8rem 1rem", marginBottom: "1rem",
             }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem" }}>
                 <span style={{ color: mutedColor, fontSize: "0.85rem" }}>Progress</span>
-                <span style={{ color: ACCENT, fontSize: "0.85rem", fontWeight: "600" }}>
+                <span style={{ color: success, fontSize: "0.85rem", fontWeight: "700" }}>
                   {current}/{questions.length} questions
                 </span>
               </div>
-              <div style={{ background: "rgba(255,255,255,0.07)", borderRadius: "8px", height: "8px" }}>
+              <div style={{ background: successSoft || "#e8f9e0", borderRadius: "8px", height: "10px", overflow: "hidden" }}>
                 <div style={{
-                  background: GREEN, width: progress + "%", height: "8px",
-                  borderRadius: "8px", transition: "width 0.5s"
+                  background: success,
+                  width: progressPct + "%",
+                  height: "10px",
+                  borderRadius: "8px",
+                  transition: "width 0.5s cubic-bezier(.4,0,.2,1)",
                 }} />
               </div>
             </div>
 
-            {/* Question card */}
+            {/* ── Question card ── */}
             <div
               aria-live="polite"
               style={{
-                background: cardBg, border: `1px solid ${cardBorder}`,
-                padding: "1.5rem", borderRadius: "16px", marginBottom: "1rem"
+                background: cardBg,
+                border: `${borderWidth} solid ${cardBorder}`,
+                boxShadow: `0 2px 0 0 ${cardBorder}`,
+                padding: "1.5rem", borderRadius: "16px", marginBottom: "1rem",
               }}
             >
               <p style={{ color: mutedColor, fontSize: "0.85rem", margin: "0 0 0.5rem" }}>
                 Question {q.id} of {questions.length}
               </p>
-              <p style={{ color: textColor, fontSize: "1.1rem", fontWeight: "500", marginBottom: "1.2rem" }}>
+              <p style={{ color: textColor, fontSize: "1.1rem", fontWeight: "600", marginBottom: "1.2rem", lineHeight: 1.5 }}>
                 {q.question}
               </p>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
                 {q.options.map((opt, i) => {
-                  const isSelected = selected === i
-                  const isCorrect = i === q.answer
-                  const showResult = isSelected
+                  const anim = optionAnim[i]
+                  const isChosen = selected === i
+                  const isCorrectOpt = i === q.answer
+
+                  // Color logic
+                  let borderColor = cardBorder
+                  let bgColor = cardBg
+                  let textCol = textColor
+                  if (anim === "correct") {
+                    borderColor = success
+                    bgColor = successSoft || "rgba(88,204,2,0.12)"
+                    textCol = successText || success
+                  } else if (anim === "wrong") {
+                    borderColor = danger
+                    bgColor = dangerSoft || "rgba(255,75,75,0.12)"
+                    textCol = dangerText || danger
+                  } else if (anim === "reveal") {
+                    borderColor = success
+                    bgColor = successSoft || "rgba(88,204,2,0.08)"
+                    textCol = successText || success
+                  }
+
                   return (
                     <button
                       key={i}
                       onClick={() => selectAnswer(i)}
                       aria-label={(i + 1) + ". " + opt}
                       style={{
-                        padding: "0.8rem 1rem", borderRadius: "10px",
-                        border: `1.5px solid ${
-                          showResult
-                            ? isCorrect ? GREEN : RED
-                            : cardBorder
-                        }`,
-                        textAlign: "left", cursor: "pointer", fontSize: "1rem",
-                        background: showResult
-                          ? isCorrect ? "rgba(34,197,94,0.12)" : "rgba(239,68,68,0.12)"
-                          : cardBg,
-                        color: showResult
-                          ? isCorrect ? GREEN : RED
-                          : textColor,
-                        transition: "all 0.2s"
+                        padding: "0.85rem 1rem", borderRadius: "12px",
+                        border: `1.5px solid ${borderColor}`,
+                        textAlign: "left", cursor: step === "answered" ? "default" : "pointer",
+                        fontSize: "1rem", fontWeight: "500",
+                        background: bgColor,
+                        color: textCol,
+                        boxShadow: anim === "correct" ? `0 2px 0 0 ${successShadow || "#3a9a00"}` : "none",
+                        animation: anim === "correct"
+                          ? "popIn 0.35s ease-out"
+                          : anim === "wrong"
+                          ? "shake 0.4s ease-out"
+                          : "none",
+                        transition: "background 0.15s, border-color 0.15s",
+                        pointerEvents: step === "answered" ? "none" : "auto",
                       }}
                       onMouseEnter={e => {
-                        if (!isSelected) e.currentTarget.style.background = ACCENT_SOFT
+                        if (step !== "answered") e.currentTarget.style.background = accentSoft
                       }}
                       onMouseLeave={e => {
-                        if (!isSelected) e.currentTarget.style.background = cardBg
+                        if (step !== "answered" && !anim) e.currentTarget.style.background = cardBg
                       }}
                     >
                       <span style={{
-                        fontWeight: "700", marginRight: "0.5rem",
-                        color: isSelected ? "inherit" : ACCENT
+                        fontWeight: "800", marginRight: "0.5rem",
+                        color: anim ? "inherit" : accent,
                       }}>
                         {i + 1}.
                       </span>
                       {opt}
+                      {anim === "correct" && " ✅"}
+                      {anim === "wrong" && " ❌"}
+                      {anim === "reveal" && " ← सही जवाब"}
                     </button>
                   )
                 })}
@@ -727,9 +895,12 @@ function MCQPage() {
                 <p
                   aria-live="assertive"
                   style={{
-                    marginTop: "1rem", color: ACCENT, fontSize: "0.9rem",
-                    background: ACCENT_SOFT, border: `1px solid ${ACCENT_DIM}`,
-                    padding: "0.5rem 1rem", borderRadius: "8px"
+                    marginTop: "1rem",
+                    color: pyraMood === "correct" ? success : pyraMood === "wrong" ? danger : accent,
+                    fontSize: "0.9rem",
+                    background: pyraMood === "correct" ? (successSoft || "rgba(88,204,2,0.1)") : pyraMood === "wrong" ? (dangerSoft || "rgba(255,75,75,0.1)") : accentSoft,
+                    border: `${borderWidth} solid ${cardBorder}`,
+                    padding: "0.5rem 1rem", borderRadius: "8px", margin: "1rem 0 0",
                   }}
                 >
                   {status}
@@ -737,79 +908,71 @@ function MCQPage() {
               )}
             </div>
 
-            {/* Action buttons */}
+            {/* ── Action buttons ── */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.8rem" }}>
 
               {/* Q — Listen */}
-              <button
+              <PressButton
                 onClick={playQuestion}
-                aria-label="Q — Question सुनें"
-                style={{
-                  padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px",
-                  background: ACCENT, color: "#0d0d0d",
-                  border: "none", cursor: "pointer", fontWeight: "bold"
-                }}
+                ariaLabel="Q — Question सुनें"
+                bg={accent}
+                shadow={accentShadow || "#0b8fd4"}
+                color={accentText}
               >
-                🔊 सुनें<br /><span style={{ fontSize: "0.75rem", opacity: 0.7 }}>(Q)</span>
-              </button>
+                🔊 सुनें<br /><span style={{ fontSize: "0.75rem", opacity: 0.8 }}>(Q)</span>
+              </PressButton>
 
               {/* R — Repeat */}
-              <button
+              <PressButton
                 onClick={() => speak(lastMessage)}
-                aria-label="R — दोबारा सुनें"
-                style={{
-                  padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px",
-                  background: ACCENT_SOFT, color: ACCENT,
-                  border: `1px solid ${ACCENT_DIM}`,
-                  cursor: "pointer", fontWeight: "bold", transition: "background 0.15s"
-                }}
-                onMouseEnter={e => e.currentTarget.style.background = "rgba(244,162,97,0.25)"}
-                onMouseLeave={e => e.currentTarget.style.background = ACCENT_SOFT}
+                ariaLabel="R — दोबारा सुनें"
+                bg={accentSoft}
+                shadow={accentShadow || "#0b8fd4"}
+                color={accent}
               >
-                🔁 दोबारा<br /><span style={{ fontSize: "0.75rem", opacity: 0.7 }}>(R)</span>
-              </button>
+                🔁 दोबारा<br /><span style={{ fontSize: "0.75rem", opacity: 0.8 }}>(R)</span>
+              </PressButton>
 
-              {/* T — Voice answer */}
+              {/* T — Voice answer (mic with pulse) */}
               <button
                 onClick={startListening}
                 disabled={listening}
                 aria-label="T — आवाज़ से जवाब दें"
                 style={{
-                  padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px",
-                  background: listening ? "rgba(255,255,255,0.06)" : ACCENT_SOFT,
-                  color: listening ? mutedColor : ACCENT,
-                  border: `1px solid ${listening ? cardBorder : ACCENT_DIM}`,
+                  padding: "0.9rem 0.4rem",
+                  fontSize: "0.9rem",
+                  borderRadius: "12px",
+                  background: listening ? accentSoft : accent,
+                  color: listening ? accent : accentText,
+                  border: "none",
                   cursor: listening ? "not-allowed" : "pointer",
-                  fontWeight: "bold", transition: "background 0.15s"
+                  fontWeight: "700",
+                  lineHeight: 1.4,
+                  textAlign: "center",
+                  animation: listening ? "micPulse 1.2s ease-out infinite" : "none",
+                  boxShadow: `0 4px 0 0 ${accentShadow || "#0b8fd4"}`,
+                  transition: "background 0.15s",
                 }}
               >
                 {listening ? "🎙️ सुन रही हूँ" : "🎤 बोलें"}<br />
-                <span style={{ fontSize: "0.75rem", opacity: 0.7 }}>(T)</span>
+                <span style={{ fontSize: "0.75rem", opacity: 0.8 }}>(T)</span>
               </button>
 
               {/* N — Next / Agent */}
-              <button
+              <PressButton
                 onClick={
                   step === "done"
                     ? () => navigate("/agent", { state: { name, language, instructionLang, user_id: userId } })
                     : nextQuestion
                 }
-                aria-label="N — अगला question"
-                style={{
-                  padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px",
-                  background: step === "done" ? GREEN_SOFT : ACCENT_SOFT,
-                  color: step === "done" ? GREEN : ACCENT,
-                  border: `1px solid ${step === "done" ? "rgba(34,197,94,0.3)" : ACCENT_DIM}`,
-                  cursor: "pointer", fontWeight: "bold", transition: "background 0.15s"
-                }}
-                onMouseEnter={e => e.currentTarget.style.background =
-                  step === "done" ? "rgba(34,197,94,0.25)" : "rgba(244,162,97,0.25)"}
-                onMouseLeave={e => e.currentTarget.style.background =
-                  step === "done" ? GREEN_SOFT : ACCENT_SOFT}
+                ariaLabel="N — अगला question"
+                bg={step === "done" ? gold : success}
+                shadow={step === "done" ? (goldShadow || "#c49a00") : (successShadow || "#3a9a00")}
+                color={step === "done" ? (goldText || "#fff") : (successText || "#fff")}
               >
-                {step === "done" ? "✅ Agent" : "अगला →"}<br />
-                <span style={{ fontSize: "0.75rem", opacity: 0.7 }}>(N)</span>
-              </button>
+                {step === "done" ? "🏆 Agent" : "अगला →"}<br />
+                <span style={{ fontSize: "0.75rem", opacity: 0.8 }}>(N)</span>
+              </PressButton>
 
             </div>
           </div>
