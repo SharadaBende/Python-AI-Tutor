@@ -147,9 +147,9 @@ class ProgressUpdateRequest(BaseModel):
     lessons_done: bool | None = None
     current_lesson_index: int | None = None
     mcq_done: bool | None = None
+    current_mcq_index: int | None = None
     mcq_score: int | None = None
     agent_done: bool | None = None
-
 
 @app.post("/progress/update")
 def update_progress(data: ProgressUpdateRequest):
@@ -170,6 +170,8 @@ def update_progress(data: ProgressUpdateRequest):
             record.current_lesson_index = data.current_lesson_index
         if data.mcq_done is not None:
             record.mcq_done = data.mcq_done
+        if data.current_mcq_index is not None:
+            record.current_mcq_index = data.current_mcq_index
         if data.mcq_score is not None:
             record.mcq_score = data.mcq_score
         if data.agent_done is not None:
@@ -181,6 +183,7 @@ def update_progress(data: ProgressUpdateRequest):
             "lessons_done": record.lessons_done,
             "current_lesson_index": record.current_lesson_index,
             "mcq_done": record.mcq_done,
+            "current_mcq_index": record.current_mcq_index,
             "mcq_score": record.mcq_score,
             "agent_done": record.agent_done,
         }
@@ -199,6 +202,7 @@ def get_progress(user_id: int):
             "lessons_done": r.lessons_done,
             "current_lesson_index": r.current_lesson_index,
             "mcq_done": r.mcq_done,
+            "current_mcq_index": r.current_mcq_index,
             "mcq_score": r.mcq_score,
             "agent_done": r.agent_done,
         }

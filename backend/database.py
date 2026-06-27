@@ -26,8 +26,9 @@ class Progress(Base):
     lessons_done = Column(Boolean, default=False)
     current_lesson_index = Column(Integer, default=0)
     mcq_done = Column(Boolean, default=False)
+    current_mcq_index = Column(Integer, default=0)
     mcq_score = Column(Integer, default=0)
     agent_done = Column(Boolean, default=False)
-
+    
 def init_db():
     Base.metadata.create_all(bind=engine)
