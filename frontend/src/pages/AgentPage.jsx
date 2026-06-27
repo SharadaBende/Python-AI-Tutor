@@ -1,4 +1,3 @@
-
 import { t } from "../components/translations"
 import { useState, useEffect } from "react"
 import ProgressBar from "../components/ProgressBar"
@@ -6,12 +5,137 @@ import { useLocation, useNavigate } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import { useTheme } from "../components/useTheme"
 
-const ACCENT       = "#f4a261"
-const ACCENT_SOFT  = "rgba(244, 162, 97, 0.15)"
-const ACCENT_DIM   = "rgba(244, 162, 97, 0.25)"
-const GREEN        = "#22c55e"
-const GREEN_SOFT   = "rgba(34, 197, 94, 0.15)"
+/* ── Pyra SVG mascot ─────────────────────────────────────────── */
+function PyraMascot({ speaking }) {
+  return (
+    <svg
+      width="72" height="88" viewBox="0 0 72 88"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      style={{ display: "block", flexShrink: 0 }}
+    >
+      <style>{`
+        @keyframes antennaBob {
+          0%,100% { transform: translateY(0); }
+          50%      { transform: translateY(-3px); }
+        }
+        @keyframes blink {
+          0%,90%,100% { transform: scaleY(1); }
+          95%          { transform: scaleY(0.08); }
+        }
+        @keyframes float {
+          0%,100% { transform: translateY(0); }
+          50%      { transform: translateY(-4px); }
+        }
+        .pyra-body  { animation: float 3s ease-in-out infinite; }
+        .pyra-eye   { animation: blink 3.5s ease-in-out infinite; transform-origin: center; }
+        .pyra-ant   { animation: antennaBob 2s ease-in-out infinite; transform-origin: bottom center; }
+      `}</style>
 
+      {/* Antenna */}
+      <g className="pyra-ant">
+        <line x1="36" y1="10" x2="36" y2="22" stroke="#1cb0f6" strokeWidth="2.5" strokeLinecap="round"/>
+        <circle cx="36" cy="8" r="4" fill="#1cb0f6"/>
+        {speaking && <circle cx="36" cy="8" r="7" fill="#1cb0f6" opacity="0.25"/>}
+      </g>
+
+      {/* Body group */}
+      <g className="pyra-body">
+        {/* Head */}
+        <rect x="14" y="20" width="44" height="36" rx="12" fill="#1cb0f6"/>
+        {/* Face plate */}
+        <rect x="19" y="26" width="34" height="24" rx="8" fill="white" opacity="0.15"/>
+        {/* Eyes */}
+        <g className="pyra-eye">
+          <rect x="22" y="32" width="10" height="10" rx="3" fill="white"/>
+          <circle cx="27" cy="37" r="3.5" fill="#0b5394"/>
+          <circle cx="28.5" cy="35.5" r="1" fill="white"/>
+        </g>
+        <g className="pyra-eye" style={{ animationDelay: "0.15s" }}>
+          <rect x="40" y="32" width="10" height="10" rx="3" fill="white"/>
+          <circle cx="45" cy="37" r="3.5" fill="#0b5394"/>
+          <circle cx="46.5" cy="35.5" r="1" fill="white"/>
+        </g>
+        {/* Mouth */}
+        {speaking
+          ? <ellipse cx="36" cy="49" rx="6" ry="3" fill="white" opacity="0.9"/>
+          : <rect x="29" y="47" width="14" height="3" rx="1.5" fill="white" opacity="0.7"/>
+        }
+
+        {/* Neck */}
+        <rect x="30" y="56" width="12" height="6" rx="3" fill="#1cb0f6"/>
+
+        {/* Body */}
+        <rect x="18" y="62" width="36" height="22" rx="10" fill="#1cb0f6"/>
+        {/* Chest light */}
+        <circle cx="36" cy="73" r="5" fill="white" opacity="0.2"/>
+        <circle cx="36" cy="73" r="3" fill={speaking ? "#58cc02" : "white"} opacity="0.8"/>
+
+        {/* Arms */}
+        <rect x="6"  y="64" width="12" height="6" rx="3" fill="#1cb0f6"/>
+        <rect x="54" y="64" width="12" height="6" rx="3" fill="#1cb0f6"/>
+      </g>
+    </svg>
+  )
+}
+
+/* ── Bouncing dots loader ─────────────────────────────────────── */
+function BouncingDots({ color }) {
+  return (
+    <span aria-hidden="true" style={{ display: "inline-flex", gap: "4px", alignItems: "center" }}>
+      <style>{`
+        @keyframes bounce {
+          0%,80%,100% { transform: translateY(0); }
+          40%          { transform: translateY(-6px); }
+        }
+      `}</style>
+      {[0, 1, 2].map(i => (
+        <span key={i} style={{
+          width: 7, height: 7, borderRadius: "50%",
+          background: color,
+          display: "inline-block",
+          animation: `bounce 1.1s ease-in-out ${i * 0.18}s infinite`
+        }}/>
+      ))}
+    </span>
+  )
+}
+
+/* ── 3D press button ─────────────────────────────────────────── */
+function PressButton({ onClick, disabled, ariaLabel, bg, shadow, color, children }) {
+  const [pressed, setPressed] = useState(false)
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={ariaLabel}
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      onMouseLeave={() => setPressed(false)}
+      onTouchStart={() => setPressed(true)}
+      onTouchEnd={() => setPressed(false)}
+      style={{
+        padding: "0.9rem 0.4rem",
+        fontSize: "0.9rem",
+        borderRadius: "12px",
+        background: disabled ? "#e5e5e5" : bg,
+        color: disabled ? "#aaa" : color,
+        border: "none",
+        cursor: disabled ? "not-allowed" : "pointer",
+        fontWeight: "700",
+        boxShadow: (disabled || pressed) ? "none" : `0 4px 0 0 ${shadow}`,
+        transform: (disabled || pressed) ? "translateY(4px)" : "translateY(0)",
+        transition: "transform 0.08s, box-shadow 0.08s",
+        lineHeight: 1.4,
+        textAlign: "center",
+      }}
+    >
+      {children}
+    </button>
+  )
+}
+
+/* ── Main page ───────────────────────────────────────────────── */
 function AgentPage() {
   const location = useLocation()
   const name = location.state?.name || "दोस्त"
@@ -27,17 +151,32 @@ function AgentPage() {
   const [listening, setListening] = useState(false)
   const [status, setStatus] = useState("")
   const [lastMessage, setLastMessage] = useState("")
-  const { theme, toggleTheme, bg, textColor, cardBg, cardBorder, mutedColor, codeBg, fontSize, setFontSize, speed, setSpeed } = useTheme()
+  const [pyraSpeaking, setPyraSpeaking] = useState(false)
+  const theme = useTheme()
+  const {
+    theme: themeMode, toggleTheme, bg, textColor, cardBg, cardBorder, borderWidth,
+    mutedColor, codeBg, accent, accentText, accentSoft, accentShadow,
+    success, successShadow, successText,
+    danger, gold, goldShadow, goldText,
+    fontSize, setFontSize, speed, setSpeed,
+  } = theme
   const navigate = useNavigate()
 
   function speak(text, onEnd) {
     window.speechSynthesis.cancel()
     setLastMessage(text)
+    setPyraSpeaking(true)
     const utterance = new SpeechSynthesisUtterance(text)
     utterance.lang = lang.voiceLang
     utterance.rate = parseFloat(localStorage.getItem("speed") || "0.85")
     utterance.pitch = 1.0
     utterance.volume = 1
+
+    utterance.onend = () => {
+      setPyraSpeaking(false)
+      if (onEnd) onEnd()
+    }
+    utterance.onerror = () => setPyraSpeaking(false)
 
     const trySpeak = () => {
       const voices = window.speechSynthesis.getVoices()
@@ -49,7 +188,6 @@ function AgentPage() {
       }
       if (!preferred) preferred = voices.find(v => v.lang === lang.voiceLang)
       if (preferred) utterance.voice = preferred
-      if (onEnd) utterance.onend = onEnd
       window.speechSynthesis.speak(utterance)
     }
 
@@ -61,12 +199,12 @@ function AgentPage() {
   }
 
   useEffect(() => {
-  if (!userId) return
-  fetch(`http://127.0.0.1:8000/progress/${userId}`)
-    .then(res => res.json())
-    .then(data => setProgress(data))
-    .catch(() => {})
-}, [userId])
+    if (!userId) return
+    fetch(`http://127.0.0.1:8000/progress/${userId}`)
+      .then(res => res.json())
+      .then(data => setProgress(data))
+      .catch(() => {})
+  }, [userId])
 
   useEffect(() => {
     setTimeout(() => {
@@ -129,13 +267,13 @@ function AgentPage() {
       setOutput(data.output)
       setLoading(false)
       setProgress(prev => ({ ...prev, agent_visited: true }))
-if (userId) {
-  fetch("http://127.0.0.1:8000/progress/update", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ user_id: userId, agent_visited: true }),
-  }).catch(() => {})
-}
+      if (userId) {
+        fetch("http://127.0.0.1:8000/progress/update", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id: userId, agent_visited: true }),
+        }).catch(() => {})
+      }
       setStatus("Code तैयार है! R दबाएं सुनने के लिए।")
       speak(
         "Code तैयार है। " +
@@ -157,10 +295,10 @@ if (userId) {
       if (key === "r") speak(lastMessage)
       if (key === "m") toggleTheme()
       if (key === "1") navigate("/lessons", { state: { name, language, instructionLang, user_id: userId } })
-if (key === "2") navigate("/mcq", { state: { name, language, instructionLang, user_id: userId } })
-if (key === "3") navigate("/agent", { state: { name, language, instructionLang, user_id: userId } })
-if (key === "f") navigate("/certificate", { state: { name, score: progress.mcq_score, instructionLang, user_id: userId } })
-}
+      if (key === "2") navigate("/mcq", { state: { name, language, instructionLang, user_id: userId } })
+      if (key === "3") navigate("/agent", { state: { name, language, instructionLang, user_id: userId } })
+      if (key === "f") navigate("/certificate", { state: { name, score: progress.mcq_score, instructionLang, user_id: userId } })
+    }
     window.addEventListener("keydown", handleKey)
     return () => window.removeEventListener("keydown", handleKey)
   }, [command, lastMessage, progress, userId])
@@ -172,44 +310,81 @@ if (key === "f") navigate("/certificate", { state: { name, score: progress.mcq_s
       display: "flex", alignItems: "flex-start", justifyContent: "center",
       fontFamily: "'Segoe UI', sans-serif", padding: "1rem", fontSize: fontSize + "px"
     }}>
+      {/* Pulsing mic ring keyframe */}
+      <style>{`
+        @keyframes micPulse {
+          0%   { box-shadow: 0 0 0 0 rgba(28,176,246,0.5), 0 4px 0 0 #0b8fd4; }
+          70%  { box-shadow: 0 0 0 14px rgba(28,176,246,0), 0 4px 0 0 #0b8fd4; }
+          100% { box-shadow: 0 0 0 0 rgba(28,176,246,0), 0 4px 0 0 #0b8fd4; }
+        }
+      `}</style>
+
       <div style={{ width: "100%", maxWidth: "1100px" }}>
         <Navbar
-  name={name} theme={theme} toggleTheme={toggleTheme}
-  fontSize={fontSize} setFontSize={setFontSize}
-  speed={speed} setSpeed={setSpeed}
-  language={language} instructionLang={instructionLang}
-  userId={userId}
-/>
+          {...theme}
+          name={name}
+          language={language}
+          instructionLang={instructionLang}
+          userId={userId}
+        />
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.5rem", alignItems: "start" }}>
           <div>
 
-            {/* Header */}
-            <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-              <h1 style={{ color: ACCENT, fontSize: "1.8rem", margin: "0", fontWeight: "700" }}>
-                Code Agent
-              </h1>
-              <p style={{ color: mutedColor, margin: "0.3rem 0 0" }}>
-                नमस्ते {name}! मुझे कोई भी program बनाने को कहें
-              </p>
+            {/* ── Pyra greeting card ── */}
+            <div style={{
+              display: "flex", alignItems: "center", gap: "1.2rem",
+              background: cardBg,
+              border: `${borderWidth} solid ${cardBorder}`,
+              boxShadow: `0 2px 0 0 ${cardBorder}`,
+              borderRadius: "20px",
+              padding: "1.2rem 1.5rem",
+              marginBottom: "1.25rem",
+            }}>
+              <PyraMascot speaking={pyraSpeaking || listening} />
+
+              <div style={{ flex: 1 }}>
+                <p style={{
+                  margin: 0,
+                  fontWeight: "700",
+                  fontSize: "1.05rem",
+                  color: textColor,
+                }}>
+                  नमस्ते {name}! 👋
+                </p>
+                <p style={{
+                  margin: "0.3rem 0 0",
+                  color: mutedColor,
+                  fontSize: "0.9rem",
+                  lineHeight: 1.5,
+                }}>
+                  {listening
+                    ? <><BouncingDots color={accent} />{" "}Pyra सुन रही है...</>
+                    : loading
+                    ? <><BouncingDots color={success} />{" "}Code बन रही है...</>
+                    : "मुझे कोई भी program बनाने को कहें — बोलकर या लिखकर।"
+                  }
+                </p>
+              </div>
             </div>
 
             <ProgressBar
-  lessons={progress.lessons_done}
-  mcq={progress.mcq_done}
-  agent={progress.agent_visited}
-  theme={theme}
-/>
+              lessons={progress.lessons_done}
+              mcq={progress.mcq_done}
+              agent={progress.agent_visited}
+              theme={themeMode}
+            />
 
-            {/* Command input card */}
+            {/* ── Command input card ── */}
             <div
               aria-live="polite"
               style={{
                 background: cardBg,
-                border: `1px solid ${cardBorder}`,
+                border: `${borderWidth} solid ${cardBorder}`,
+                boxShadow: `0 2px 0 0 ${cardBorder}`,
                 padding: "1.5rem",
                 borderRadius: "16px",
-                marginBottom: "1rem"
+                marginBottom: "1rem",
               }}
             >
               <label
@@ -228,22 +403,22 @@ if (key === "f") navigate("/certificate", { state: { name, score: progress.mcq_s
                 aria-label="Python command लिखें"
                 style={{
                   width: "100%", padding: "1rem", fontSize: "1rem", borderRadius: "12px",
-                  border: `2px solid ${ACCENT_DIM}`,
+                  border: `${borderWidth} solid ${cardBorder}`,
                   background: codeBg, color: textColor,
                   outline: "none", boxSizing: "border-box", marginBottom: "0.5rem",
-                  transition: "border-color 0.2s"
+                  transition: "border-color 0.2s",
                 }}
-                onFocus={e => e.currentTarget.style.borderColor = ACCENT}
-                onBlur={e => e.currentTarget.style.borderColor = ACCENT_DIM}
+                onFocus={e => e.currentTarget.style.borderColor = accent}
+                onBlur={e => e.currentTarget.style.borderColor = cardBorder}
               />
               {status !== "" && (
                 <p
                   aria-live="assertive"
                   style={{
-                    color: ACCENT, fontSize: "0.9rem",
-                    background: "rgba(244, 162, 97, 0.08)",
-                    border: `1px solid ${ACCENT_DIM}`,
-                    padding: "0.5rem 1rem", borderRadius: "8px", margin: "0"
+                    color: accent, fontSize: "0.9rem",
+                    background: accentSoft,
+                    border: `${borderWidth} solid ${cardBorder}`,
+                    padding: "0.5rem 1rem", borderRadius: "8px", margin: "0",
                   }}
                 >
                   {status}
@@ -251,18 +426,19 @@ if (key === "f") navigate("/certificate", { state: { name, score: progress.mcq_s
               )}
             </div>
 
-            {/* Code + output card */}
+            {/* ── Code + output card ── */}
             {code !== "" && (
               <div style={{
                 background: cardBg,
-                border: `1px solid ${cardBorder}`,
-                borderRadius: "16px", padding: "1.5rem", marginBottom: "1rem"
+                border: `${borderWidth} solid ${cardBorder}`,
+                boxShadow: `0 2px 0 0 ${cardBorder}`,
+                borderRadius: "16px", padding: "1.5rem", marginBottom: "1rem",
               }}>
                 <p style={{ color: mutedColor, fontSize: "0.85rem", margin: "0 0 0.5rem" }}>Generated Code:</p>
                 <pre style={{
-                  color: GREEN, margin: "0 0 1rem", fontSize: "0.95rem",
+                  color: successText || success, margin: "0 0 1rem", fontSize: "0.95rem",
                   fontFamily: "monospace", whiteSpace: "pre-wrap",
-                  background: codeBg, padding: "1rem", borderRadius: "8px"
+                  background: codeBg, padding: "1rem", borderRadius: "8px",
                 }}>
                   {code}
                 </pre>
@@ -270,9 +446,9 @@ if (key === "f") navigate("/certificate", { state: { name, score: progress.mcq_s
                   <>
                     <p style={{ color: mutedColor, fontSize: "0.85rem", margin: "0 0 0.5rem" }}>Output:</p>
                     <pre style={{
-                      color: ACCENT, margin: "0", fontSize: "0.95rem",
+                      color: accent, margin: "0", fontSize: "0.95rem",
                       fontFamily: "monospace", whiteSpace: "pre-wrap",
-                      background: codeBg, padding: "1rem", borderRadius: "8px"
+                      background: codeBg, padding: "1rem", borderRadius: "8px",
                     }}>
                       {output}
                     </pre>
@@ -281,88 +457,73 @@ if (key === "f") navigate("/certificate", { state: { name, score: progress.mcq_s
               </div>
             )}
 
-            {/* Loading state */}
-            {loading && (
-              <div style={{
-                textAlign: "center", padding: "1rem",
-                color: ACCENT, fontSize: "0.95rem"
-              }}>
-                ⏳ Code बन रहा है...
-              </div>
-            )}
-
-            {/* Action buttons */}
+            {/* ── Action buttons ── */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "0.8rem" }}>
 
-              {/* T — Listen */}
+              {/* T — Listen (mic) */}
               <button
                 onClick={startListening}
                 disabled={listening}
                 aria-label="T — आवाज़ से command बोलें"
                 style={{
-                  padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px",
-                  background: listening ? "rgba(255,255,255,0.06)" : ACCENT_SOFT,
-                  color: listening ? mutedColor : ACCENT,
-                  border: `1px solid ${listening ? cardBorder : ACCENT_DIM}`,
-                  cursor: listening ? "not-allowed" : "pointer", fontWeight: "bold",
-                  transition: "background 0.15s"
+                  padding: "0.9rem 0.4rem",
+                  fontSize: "0.9rem",
+                  borderRadius: "12px",
+                  background: listening ? accentSoft : accent,
+                  color: listening ? accent : accentText,
+                  border: "none",
+                  cursor: listening ? "not-allowed" : "pointer",
+                  fontWeight: "700",
+                  lineHeight: 1.4,
+                  textAlign: "center",
+                  animation: listening ? "micPulse 1.2s ease-out infinite" : "none",
+                  boxShadow: listening ? `0 0 0 0 rgba(28,176,246,0.5), 0 4px 0 0 ${accentShadow || "#0b8fd4"}` : `0 4px 0 0 ${accentShadow || "#0b8fd4"}`,
+                  transform: listening ? "translateY(0)" : "translateY(0)",
+                  transition: "background 0.15s",
                 }}
               >
                 {listening ? "🎙️ सुन रही हूँ" : "🎤 बोलें"}<br />
-                <span style={{ fontSize: "0.75rem", opacity: 0.7 }}>(T)</span>
+                <span style={{ fontSize: "0.75rem", opacity: 0.8 }}>(T)</span>
               </button>
 
               {/* C — Generate */}
-              <button
+              <PressButton
                 onClick={generateCode}
                 disabled={loading}
-                aria-label="C — Code बनाएं"
-                style={{
-                  padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px",
-                  background: loading ? "rgba(255,255,255,0.06)" : GREEN_SOFT,
-                  color: loading ? mutedColor : GREEN,
-                  border: `1px solid ${loading ? cardBorder : "rgba(34,197,94,0.3)"}`,
-                  cursor: loading ? "not-allowed" : "pointer", fontWeight: "bold",
-                  transition: "background 0.15s"
-                }}
+                ariaLabel="C — Code बनाएं"
+                bg={success}
+                shadow={successShadow || "#3a9a00"}
+                color={successText || "#fff"}
               >
-                {loading ? "⏳ बन रहा है" : "⚡ Code बनाएं"}<br />
-                <span style={{ fontSize: "0.75rem", opacity: 0.7 }}>(C)</span>
-              </button>
+                {loading ? <><BouncingDots color="#fff" /></> : "⚡ Code बनाएं"}<br />
+                <span style={{ fontSize: "0.75rem", opacity: 0.8 }}>(C)</span>
+              </PressButton>
 
               {/* R — Repeat */}
-              <button
+              <PressButton
                 onClick={() => speak(lastMessage)}
-                aria-label="R — दोबारा सुनें"
-                style={{
-                  padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px",
-                  background: ACCENT, color: "#0d0d0d",
-                  border: "none", cursor: "pointer", fontWeight: "bold"
-                }}
+                ariaLabel="R — दोबारा सुनें"
+                bg={accent}
+                shadow={accentShadow || "#0b8fd4"}
+                color={accentText}
               >
                 🔁 दोबारा<br />
-                <span style={{ fontSize: "0.75rem", opacity: 0.7 }}>(R)</span>
-              </button>
+                <span style={{ fontSize: "0.75rem", opacity: 0.8 }}>(R)</span>
+              </PressButton>
 
               {/* F — Certificate */}
-              <button
+              <PressButton
                 onClick={() => navigate("/certificate", {
-  state: { name, score: progress.mcq_score, instructionLang, user_id: userId }
-})}
-                aria-label="F — Certificate लें"
-                style={{
-                  padding: "1rem 0.5rem", fontSize: "0.9rem", borderRadius: "12px",
-                  background: ACCENT_SOFT, color: ACCENT,
-                  border: `1px solid ${ACCENT_DIM}`,
-                  cursor: "pointer", fontWeight: "bold",
-                  transition: "background 0.15s"
-                }}
-                onMouseEnter={e => e.currentTarget.style.background = "rgba(244,162,97,0.25)"}
-                onMouseLeave={e => e.currentTarget.style.background = ACCENT_SOFT}
+                  state: { name, score: progress.mcq_score, instructionLang, user_id: userId }
+                })}
+                ariaLabel="F — Certificate लें"
+                bg={gold}
+                shadow={goldShadow || "#c49a00"}
+                color={goldText || "#fff"}
               >
                 🏆 Certificate<br />
-                <span style={{ fontSize: "0.75rem", opacity: 0.7 }}>(F)</span>
-              </button>
+                <span style={{ fontSize: "0.75rem", opacity: 0.8 }}>(F)</span>
+              </PressButton>
 
             </div>
           </div>
