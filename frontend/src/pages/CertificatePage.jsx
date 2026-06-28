@@ -30,7 +30,7 @@ function CertificatePage() {
   const [lastMessage, setLastMessage] = useState("")
 
   const totalQuestions = 40
-  const totalLessons   = language === "python" ? 15 : 10
+  const totalLessons = language === "python" || language === "java" || language === "cpp" ? 15 : 10
   const percentage     = Math.round((score / totalQuestions) * 100)
 
   const languageLabel = language === "sql"

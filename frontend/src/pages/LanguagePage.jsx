@@ -4,22 +4,37 @@ import { useTheme } from "../components/useTheme"
 
 const languagesByInstructionLang = {
   hindi: [
-    { id: "python", label: "🐍 Python", name: "Python", desc: "सबसे आसान programming language", key: "1" },
-    { id: "sql", label: "🗄️ SQL", name: "SQL", desc: "Database की भाषा", key: "2" },
-    { id: "javascript", label: "🌐 JavaScript", name: "JavaScript", desc: "Web के लिए language", key: "3" },
-    { id: "coming", label: "🔜 और भी जल्द", name: "और भी जल्द", desc: "Java, C++, और भी आ रहे हैं", key: "4" },
+    { id: "python",     label: "🐍 Python",      name: "Python",      desc: "सबसे आसान programming language", key: "1" },
+    { id: "sql",        label: "🗄️ SQL",          name: "SQL",         desc: "Database की भाषा",               key: "2" },
+    { id: "javascript", label: "🌐 JavaScript",   name: "JavaScript",  desc: "Web के लिए language",             key: "3" },
+    { id: "java",       label: "☕ Java",          name: "Java",        desc: "Enterprise की भाषा",             key: "4" },
+    { id: "cpp",        label: "⚡ C++",           name: "C++",         desc: "Speed और power की language",     key: "5" },
+    { id: "html",       label: "🌸 HTML",          name: "HTML",        desc: "Web pages की structure",         key: "6" },
+    { id: "css",        label: "🎨 CSS",           name: "CSS",         desc: "Web pages का design",            key: "7" },
+    { id: "tailwind",   label: "💨 Tailwind CSS",  name: "Tailwind",    desc: "Utility-first CSS framework",    key: "8" },
+    { id: "typescript", label: "🔷 TypeScript",    name: "TypeScript",  desc: "JavaScript का upgraded version", key: "9" },
   ],
   english: [
-    { id: "python", label: "🐍 Python", name: "Python", desc: "The easiest programming language", key: "1" },
-    { id: "sql", label: "🗄️ SQL", name: "SQL", desc: "The language of databases", key: "2" },
-    { id: "javascript", label: "🌐 JavaScript", name: "JavaScript", desc: "The language of the web", key: "3" },
-    { id: "coming", label: "🔜 Coming Soon", name: "Coming Soon", desc: "Java, C++, and more on the way", key: "4" },
+    { id: "python",     label: "🐍 Python",      name: "Python",      desc: "The easiest programming language", key: "1" },
+    { id: "sql",        label: "🗄️ SQL",          name: "SQL",         desc: "The language of databases",        key: "2" },
+    { id: "javascript", label: "🌐 JavaScript",   name: "JavaScript",  desc: "The language of the web",          key: "3" },
+    { id: "java",       label: "☕ Java",          name: "Java",        desc: "The language of enterprise",       key: "4" },
+    { id: "cpp",        label: "⚡ C++",           name: "C++",         desc: "Language of speed and power",      key: "5" },
+    { id: "html",       label: "🌸 HTML",          name: "HTML",        desc: "Structure of web pages",           key: "6" },
+    { id: "css",        label: "🎨 CSS",           name: "CSS",         desc: "Design of web pages",              key: "7" },
+    { id: "tailwind",   label: "💨 Tailwind CSS",  name: "Tailwind",    desc: "Utility-first CSS framework",      key: "8" },
+    { id: "typescript", label: "🔷 TypeScript",    name: "TypeScript",  desc: "Upgraded version of JavaScript",   key: "9" },
   ],
   marathi: [
-    { id: "python", label: "🐍 Python", name: "Python", desc: "सर्वात सोपी programming language", key: "1" },
-    { id: "sql", label: "🗄️ SQL", name: "SQL", desc: "Database ची भाषा", key: "2" },
-    { id: "javascript", label: "🌐 JavaScript", name: "JavaScript", desc: "Web साठी language", key: "3" },
-    { id: "coming", label: "🔜 लवकरच येत आहे", name: "लवकरच येत आहे", desc: "Java, C++, आणखी भाषा येत आहेत", key: "4" },
+    { id: "python",     label: "🐍 Python",      name: "Python",      desc: "सर्वात सोपी programming language", key: "1" },
+    { id: "sql",        label: "🗄️ SQL",          name: "SQL",         desc: "Database ची भाषा",                key: "2" },
+    { id: "javascript", label: "🌐 JavaScript",   name: "JavaScript",  desc: "Web साठी language",               key: "3" },
+    { id: "java",       label: "☕ Java",          name: "Java",        desc: "Enterprise ची भाषा",              key: "4" },
+    { id: "cpp",        label: "⚡ C++",           name: "C++",         desc: "Speed आणि power ची language",     key: "5" },
+    { id: "html",       label: "🌸 HTML",          name: "HTML",        desc: "Web pages ची structure",          key: "6" },
+    { id: "css",        label: "🎨 CSS",           name: "CSS",         desc: "Web pages चे design",             key: "7" },
+    { id: "tailwind",   label: "💨 Tailwind CSS",  name: "Tailwind",    desc: "Utility-first CSS framework",     key: "8" },
+    { id: "typescript", label: "🔷 TypeScript",    name: "TypeScript",  desc: "JavaScript चे upgraded version",  key: "9" },
   ],
 }
 
@@ -31,7 +46,7 @@ const uiText = {
     sub: (name) => `नमस्ते ${name}! आप क्या सीखना चाहते हैं?`,
     welcome: (name) =>
       "नमस्ते " + name + "! अब आप कौन सी language सीखना चाहते हैं? " +
-      "1 दबाएं Python के लिए। 2 दबाएं SQL के लिए। 3 दबाएं JavaScript के लिए। R दबाएं दोबारा सुनने के लिए।",
+      "1 दबाएं Python के लिए। 2 दबाएं SQL के लिए। 3 दबाएं JavaScript के लिए। 4 दबाएं Java के लिए। 5 दबाएं C plus plus के लिए। 6 दबाएं HTML के लिए। 7 दबाएं CSS के लिए। 8 दबाएं Tailwind CSS के लिए। 9 दबाएं TypeScripts के लिए। R दबाएं दोबारा सुनने के लिए।",
     comingSoon: "यह language जल्द आ रही है! अभी Python चुनें।",
     selected: (label) => label + " चुना! Lessons शुरू हो रहे हैं।",
     shortcuts: "Keyboard Shortcuts",
@@ -42,7 +57,7 @@ const uiText = {
     sub: (name) => `Hello ${name}! What would you like to learn?`,
     welcome: (name) =>
       "Hello " + name + "! Which language would you like to learn? " +
-      "Press 1 for Python. Press 2 for SQL. Press 3 for JavaScript. Press R to hear this again.",
+      "Press 1 for Python. Press 2 for SQL. Press 3 for JavaScript. Press 4 for Java. Press 5 for C++. Press 6 for HTML. Press 7 for CSS. Press 8 for Tailwind css. Press 9 for TypeScripts. Press R to hear this again.",
     comingSoon: "This language is coming soon! Please choose Python for now.",
     selected: (label) => label + " selected! Starting lessons.",
     shortcuts: "Keyboard Shortcuts",
@@ -53,7 +68,7 @@ const uiText = {
     sub: (name) => `नमस्कार ${name}! तुम्हाला काय शिकायचे आहे?`,
     welcome: (name) =>
       "नमस्कार " + name + "! तुम्हाला कोणती language शिकायची आहे? " +
-      "1 दाबा Python साठी। 2 दाबा SQL साठी। 3 दाबा JavaScript साठी। R दाबा पुन्हा ऐकण्यासाठी।",
+      "1 दाबा Python साठी। 2 दाबा SQL साठी। 3 दाबा JavaScript साठी। 4 दाबा Java साठी। 5 दाबा C++ साठी। 6 दाबा HTML साठी। 7 दाबा CSS साठी। 8 दाबा Tailwind css साठी। 9 दाबा TypeScripts साठी। R दाबा पुन्हा ऐकण्यासाठी।",
     comingSoon: "ही language लवकरच येत आहे! आता Python निवडा.",
     selected: (label) => label + " निवडली! Lessons सुरू होत आहेत.",
     shortcuts: "Keyboard Shortcuts",
@@ -171,7 +186,7 @@ function LanguagePage() {
         </div>
 
         {/* Language cards — 3D press on click */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
           {languages.map((lang) => {
             const isComing  = lang.id === "coming"
             const isHovered = hoveredId === lang.id && !isComing
