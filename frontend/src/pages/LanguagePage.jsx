@@ -61,11 +61,14 @@ const uiText = {
   },
 }
 
-// Drishti brand tokens — dark navy + saffron, no purple
-const SAFFRON = "#f4a261"
-const SAFFRON_DIM = "#f4a26180"
-const SAFFRON_BG = "rgba(244, 162, 97, 0.08)"
-const SAFFRON_BG_HOVER = "rgba(244, 162, 97, 0.14)"
+// Design tokens
+const ACCENT        = "#1cb0f6"
+const ACCENT_SOFT   = "rgba(28,176,246,0.10)"
+const ACCENT_HOVER  = "rgba(28,176,246,0.18)"
+const ACCENT_BORDER = "rgba(28,176,246,0.28)"
+const ACCENT_SHADOW = "#0a8fd4"
+const CREAM         = "#f1f5f9"
+const MUTED         = "#94a3b8"
 
 function LanguagePage() {
   const location = useLocation()
@@ -75,7 +78,7 @@ function LanguagePage() {
   const userId = location.state?.user_id
   const [lastMessage, setLastMessage] = useState("")
   const [hoveredId, setHoveredId] = useState(null)
-  const { mutedColor } = useTheme()
+  const [pressedId, setPressedId] = useState(null)
 
   const languages = languagesByInstructionLang[instructionLang]
   const ui = uiText[instructionLang]
@@ -87,7 +90,6 @@ function LanguagePage() {
     const utterance = new SpeechSynthesisUtterance(text)
     utterance.lang = voiceLang
     utterance.rate = parseFloat(localStorage.getItem("speed") || "0.85")
-
     const trySpeak = () => {
       const voices = window.speechSynthesis.getVoices()
       const preferred = voices.find(v =>
@@ -98,7 +100,6 @@ function LanguagePage() {
       if (onEnd) utterance.onend = onEnd
       window.speechSynthesis.speak(utterance)
     }
-
     if (window.speechSynthesis.getVoices().length === 0) {
       window.speechSynthesis.onvoiceschanged = trySpeak
     } else {
@@ -107,16 +108,11 @@ function LanguagePage() {
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      speak(ui.welcome(name))
-    }, 500)
+    setTimeout(() => speak(ui.welcome(name)), 500)
   }, [])
 
   function selectLanguage(lang) {
-    if (lang.id === "coming") {
-      speak(ui.comingSoon)
-      return
-    }
+    if (lang.id === "coming") { speak(ui.comingSoon); return }
     speak(ui.selected(lang.name), () => {
       navigate("/lessons", { state: { name, language: lang.id, instructionLang, user_id: userId } })
     })
@@ -124,9 +120,12 @@ function LanguagePage() {
 
   useEffect(() => {
     function handleKey(e) {
-      const key = e.key
-      const lang = languages.find(l => l.key === key)
-      if (lang) selectLanguage(lang)
+      const lang = languages.find(l => l.key === e.key)
+      if (lang) {
+        setPressedId(lang.id)
+        setTimeout(() => setPressedId(null), 150)
+        selectLanguage(lang)
+      }
       if (e.key.toLowerCase() === "r") speak(lastMessage)
     }
     window.addEventListener("keydown", handleKey)
@@ -138,67 +137,109 @@ function LanguagePage() {
       minHeight: "100vh",
       position: "relative",
       overflow: "hidden",
-      background: "linear-gradient(160deg, #0d0d0d 0%, #111827 100%)",
-      display: "flex", alignItems: "center", justifyContent: "center",
-      fontFamily: "'Segoe UI', sans-serif", padding: "2rem"
+      background: "linear-gradient(160deg, #0d1b2a 0%, #0a0a0a 100%)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "'Segoe UI', sans-serif",
+      padding: "2rem",
     }}>
-      {/* ambient glow blobs */}
+
+      {/* Glow blobs — blue */}
       <div style={{
-        position: "absolute", top: "-10%", left: "-10%", width: "420px", height: "420px",
-        background: "radial-gradient(circle, rgba(244,162,97,0.18) 0%, transparent 70%)",
-        filter: "blur(40px)", pointerEvents: "none"
+        position: "absolute", top: "-10%", left: "-10%",
+        width: "420px", height: "420px", borderRadius: "50%",
+        background: ACCENT, opacity: 0.07, filter: "blur(80px)",
+        pointerEvents: "none",
       }} />
       <div style={{
-        position: "absolute", bottom: "-15%", right: "-10%", width: "480px", height: "480px",
-        background: "radial-gradient(circle, rgba(244,162,97,0.10) 0%, transparent 70%)",
-        filter: "blur(50px)", pointerEvents: "none"
+        position: "absolute", bottom: "-15%", right: "-10%",
+        width: "480px", height: "480px", borderRadius: "50%",
+        background: ACCENT, opacity: 0.05, filter: "blur(90px)",
+        pointerEvents: "none",
       }} />
 
-      <div style={{ width: "100%", maxWidth: "700px", position: "relative", zIndex: 1 }}>
+      <div style={{ width: "100%", maxWidth: "680px", position: "relative", zIndex: 1 }}>
+
+        {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <div style={{ fontSize: "3rem" }}>🌍</div>
-          <h1 style={{ color: "#f5f0e8", fontSize: "2rem", margin: "0.5rem 0 0", fontWeight: 700 }}>
+          <div style={{ fontSize: "2.8rem", marginBottom: "0.25rem" }}>🌍</div>
+          <h1 style={{ color: CREAM, fontSize: "2rem", margin: "0.4rem 0 0", fontWeight: 700 }}>
             {ui.title}
           </h1>
-          <p style={{ color: "#a8a8a0", margin: "0.3rem 0 0" }}>{ui.sub(name)}</p>
+          <p style={{ color: MUTED, margin: "0.3rem 0 0" }}>{ui.sub(name)}</p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "2rem" }}>
+        {/* Language cards — 3D press on click */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
           {languages.map((lang) => {
-            const isComing = lang.id === "coming"
-            const isHovered = hoveredId === lang.id
+            const isComing  = lang.id === "coming"
+            const isHovered = hoveredId === lang.id && !isComing
+            const isPressed = pressedId === lang.id
+
+            const cardBorder = isComing
+              ? "rgba(255,255,255,0.06)"
+              : isHovered ? ACCENT : ACCENT_BORDER
+
+            const cardBg = isComing
+              ? "rgba(255,255,255,0.02)"
+              : isHovered ? ACCENT_HOVER : ACCENT_SOFT
+
+            const cardShadow = isPressed
+              ? "0 0px 0 0 transparent"
+              : isHovered && !isComing
+              ? `0 6px 0 0 ${ACCENT_SHADOW}`
+              : `0 3px 0 0 rgba(28,176,246,0.2)`
+
+            const cardTranslate = isPressed
+              ? "translateY(6px)"
+              : isHovered && !isComing
+              ? "translateY(-2px)"
+              : "translateY(0)"
+
             return (
               <button
                 key={lang.id}
                 onClick={() => selectLanguage(lang)}
-                onMouseEnter={() => setHoveredId(lang.id)}
+                onMouseEnter={() => !isComing && setHoveredId(lang.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                aria-label={lang.label + " — " + lang.key}
+                onMouseDown={() => !isComing && setPressedId(lang.id)}
+                onMouseUp={() => setPressedId(null)}
+                aria-label={`${lang.label} — press ${lang.key}`}
                 style={{
-                  padding: "2rem",
+                  padding: "1.75rem",
                   borderRadius: "16px",
-                  border: "1px solid " + (isComing ? "rgba(255,255,255,0.06)" : (isHovered ? SAFFRON : "rgba(244,162,97,0.25)")),
+                  border: `1px solid ${cardBorder}`,
                   cursor: isComing ? "not-allowed" : "pointer",
                   textAlign: "center",
                   fontFamily: "'Segoe UI', sans-serif",
-                  background: isComing
-                    ? "rgba(255,255,255,0.02)"
-                    : (isHovered ? SAFFRON_BG_HOVER : SAFFRON_BG),
+                  background: cardBg,
                   backdropFilter: "blur(10px)",
-                  opacity: isComing ? 0.45 : 1,
-                  transform: isHovered && !isComing ? "translateY(-4px)" : "translateY(0)",
-                  boxShadow: isHovered && !isComing ? "0 12px 24px rgba(244,162,97,0.15)" : "none",
-                  transition: "all 0.2s ease"
-                }}>
-                <div style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>{lang.label.split(" ")[0]}</div>
+                  opacity: isComing ? 0.4 : 1,
+                  transform: cardTranslate,
+                  boxShadow: cardShadow,
+                  transition: "transform 0.1s, box-shadow 0.1s, border-color 0.15s, background 0.15s",
+                }}
+              >
+                <div style={{ fontSize: "2.2rem", marginBottom: "0.4rem" }}>
+                  {lang.label.split(" ")[0]}
+                </div>
                 <div style={{
-                  color: isComing ? "#8a8a82" : SAFFRON,
-                  fontWeight: "bold", fontSize: "1.1rem", marginBottom: "0.3rem"
+                  color: isComing ? MUTED : ACCENT,
+                  fontWeight: 700,
+                  fontSize: "1.05rem",
+                  marginBottom: "0.25rem",
                 }}>
                   {lang.label.split(" ").slice(1).join(" ")}
                 </div>
-                <div style={{ color: "#a8a8a0", fontSize: "0.85rem" }}>{lang.desc}</div>
-                <div style={{ color: isComing ? "#6b6b64" : SAFFRON_DIM, fontSize: "0.75rem", marginTop: "0.5rem" }}>
+                <div style={{ color: MUTED, fontSize: "0.83rem", marginBottom: "0.4rem" }}>
+                  {lang.desc}
+                </div>
+                <div style={{
+                  color: isComing ? "#555" : "rgba(28,176,246,0.55)",
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
+                }}>
                   ({lang.key})
                 </div>
               </button>
@@ -206,38 +247,54 @@ function LanguagePage() {
           })}
         </div>
 
+        {/* Keyboard shortcuts bar */}
         <div style={{
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid rgba(244,162,97,0.15)",
+          background: "rgba(28,176,246,0.05)",
+          border: `1px solid ${ACCENT_BORDER}`,
           borderRadius: "12px",
           padding: "1rem",
           textAlign: "center",
-          backdropFilter: "blur(10px)"
+          backdropFilter: "blur(10px)",
         }}>
-          <p style={{ color: "#a8a8a0", fontSize: "0.85rem", margin: "0 0 0.5rem" }}>{ui.shortcuts}</p>
-          <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+          <p style={{ color: MUTED, fontSize: "0.8rem", margin: "0 0 0.6rem", fontWeight: 500 }}>
+            {ui.shortcuts}
+          </p>
+          <div style={{ display: "flex", justifyContent: "center", gap: "0.75rem", flexWrap: "wrap" }}>
             {languages.map(lang => (
-              <div key={lang.key} style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+              <div key={lang.key} style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}>
                 <span style={{
-                  background: "rgba(244,162,97,0.15)", color: SAFFRON,
-                  padding: "0.2rem 0.6rem", borderRadius: "6px", fontWeight: "bold"
+                  background: ACCENT_SOFT,
+                  color: ACCENT,
+                  padding: "0.2rem 0.55rem",
+                  borderRadius: "6px",
+                  fontWeight: 700,
+                  fontSize: "0.85rem",
+                  border: `1px solid ${ACCENT_BORDER}`,
                 }}>
                   {lang.key}
                 </span>
-                <span style={{ color: "#a8a8a0", fontSize: "0.85rem" }}>{lang.label.split(" ").slice(1).join(" ")}</span>
+                <span style={{ color: MUTED, fontSize: "0.82rem" }}>
+                  {lang.label.split(" ").slice(1).join(" ")}
+                </span>
               </div>
             ))}
-            <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+            <div style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}>
               <span style={{
-                background: "rgba(244,162,97,0.15)", color: SAFFRON,
-                padding: "0.2rem 0.6rem", borderRadius: "6px", fontWeight: "bold"
+                background: ACCENT_SOFT,
+                color: ACCENT,
+                padding: "0.2rem 0.55rem",
+                borderRadius: "6px",
+                fontWeight: 700,
+                fontSize: "0.85rem",
+                border: `1px solid ${ACCENT_BORDER}`,
               }}>
                 R
               </span>
-              <span style={{ color: "#a8a8a0", fontSize: "0.85rem" }}>{ui.repeat}</span>
+              <span style={{ color: MUTED, fontSize: "0.82rem" }}>{ui.repeat}</span>
             </div>
           </div>
         </div>
+
       </div>
     </main>
   )
