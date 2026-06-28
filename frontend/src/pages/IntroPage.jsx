@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useTheme } from "../components/useTheme"
@@ -32,11 +31,54 @@ const translations = {
 
 const voiceLang = { hindi: "hi-IN", english: "en-US", marathi: "hi-IN" }
 
-// Dark + saffron brand palette — matches Login/Register/InstructionLanguagePage
-const ACCENT = "#f4a261"
-const ACCENT_SOFT = "rgba(244, 162, 97, 0.15)"
-const CREAM = "#f1ede4"
-const CREAM_MUTED = "rgba(241, 237, 228, 0.6)"
+const ACCENT        = "#1cb0f6"
+const ACCENT_SOFT   = "rgba(28,176,246,0.12)"
+const ACCENT_BORDER = "rgba(28,176,246,0.28)"
+const ACCENT_SHADOW = "#0a8fd4"
+const CREAM         = "#f1f5f9"
+const CREAM_MUTED   = "rgba(241,245,249,0.55)"
+
+// Full Pyra mascot — larger, used as the hero on the intro screen
+function PyraHero({ speaking }) {
+  return (
+    <svg width="90" height="90" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <style>{`
+        @keyframes introAntBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+        @keyframes introEyeBlink { 0%,88%,100%{transform:scaleY(1)} 94%{transform:scaleY(0.1)} }
+        @keyframes introFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+        @keyframes introMouth { 0%,100%{opacity:0.7} 50%{opacity:1} }
+        .iAnt { animation: introAntBob 2s ease-in-out infinite; transform-origin: 28px 10px; }
+        .iEye { animation: introEyeBlink 3.5s ease-in-out infinite; transform-origin: center; }
+        .iBody { animation: introFloat 3s ease-in-out infinite; }
+        .iMouth { animation: introMouth 0.5s ease-in-out infinite; }
+      `}</style>
+      <g className="iBody">
+        <g className="iAnt">
+          <line x1="28" y1="10" x2="28" y2="3" stroke={ACCENT} strokeWidth="2.5" strokeLinecap="round"/>
+          <circle cx="28" cy="2" r="3" fill={ACCENT}/>
+        </g>
+        <rect x="10" y="12" width="36" height="30" rx="8" fill={ACCENT}/>
+        <rect x="14" y="16" width="28" height="20" rx="5" fill="#0a8fd4"/>
+        <ellipse className="iEye" cx="21" cy="24" rx="3.5" ry="3.5" fill="white"/>
+        <ellipse className="iEye" cx="35" cy="24" rx="3.5" ry="3.5" fill="white"/>
+        <circle cx="21" cy="24" r="1.5" fill="#003d6b"/>
+        <circle cx="35" cy="24" r="1.5" fill="#003d6b"/>
+        {/* Shine dots on eyes */}
+        <circle cx="22" cy="23" r="0.7" fill="white" opacity="0.8"/>
+        <circle cx="36" cy="23" r="0.7" fill="white" opacity="0.8"/>
+        {speaking ? (
+          <rect className="iMouth" x="18" y="30" width="20" height="3" rx="1.5" fill="#58cc02"/>
+        ) : (
+          <path d="M19 31 Q28 36 37 31" stroke="white" strokeWidth="2" strokeLinecap="round" fill="none"/>
+        )}
+        <rect x="6" y="20" width="4" height="8" rx="2" fill="#0a8fd4"/>
+        <rect x="46" y="20" width="4" height="8" rx="2" fill="#0a8fd4"/>
+        <rect x="17" y="42" width="8" height="7" rx="3" fill="#0a8fd4"/>
+        <rect x="31" y="42" width="8" height="7" rx="3" fill="#0a8fd4"/>
+      </g>
+    </svg>
+  )
+}
 
 function IntroPage() {
   const location = useLocation()
@@ -47,11 +89,13 @@ function IntroPage() {
   const t = translations[instructionLang]
   const lang = voiceLang[instructionLang]
   const [lastMessage, setLastMessage] = useState("")
+  const [speaking, setSpeaking] = useState(false)
   const { bg } = useTheme()
 
   function speak(text, onEnd) {
     window.speechSynthesis.cancel()
     setLastMessage(text)
+    setSpeaking(true)
     const utterance = new SpeechSynthesisUtterance(text)
     utterance.lang = lang
     utterance.rate = parseFloat(localStorage.getItem("speed") || "0.85")
@@ -62,7 +106,8 @@ function IntroPage() {
         (lang === "hi-IN" && v.name === "Google हिन्दी")
       ) || voices.find(v => v.lang === lang)
       if (preferred) utterance.voice = preferred
-      if (onEnd) utterance.onend = onEnd
+      utterance.onend = () => { setSpeaking(false); if (onEnd) onEnd() }
+      utterance.onerror = () => setSpeaking(false)
       window.speechSynthesis.speak(utterance)
     }
     if (window.speechSynthesis.getVoices().length === 0) {
@@ -93,63 +138,113 @@ function IntroPage() {
   }, [lastMessage])
 
   return (
-    <main aria-label="Drishti Intro" style={{
-      minHeight: "100vh",
-      background: bg || "radial-gradient(circle at 20% 20%, #1a1410 0%, #0d0d0d 60%)",
-      position: "relative", overflow: "hidden",
-      display: "flex", alignItems: "center", justifyContent: "center",
-      fontFamily: "'Segoe UI', sans-serif", padding: "1rem"
-    }}>
-      {/* subtle saffron glow blobs, matches Login/Register/InstructionLanguagePage */}
-      <div style={{
-        position: "absolute", top: "-130px", left: "10%", width: "340px", height: "340px",
-        borderRadius: "50%", background: ACCENT, opacity: 0.08, filter: "blur(95px)"
-      }} />
-      <div style={{
-        position: "absolute", bottom: "-150px", right: "5%", width: "360px", height: "360px",
-        borderRadius: "50%", background: ACCENT, opacity: 0.06, filter: "blur(100px)"
-      }} />
+    <>
+      <style>{`
+        .intro-yes-btn {
+          padding: 1rem; border-radius: 12px; border: none;
+          background: ${ACCENT}; color: #fff;
+          cursor: pointer; font-weight: 700; font-size: 1rem;
+          box-shadow: 0 4px 0 0 ${ACCENT_SHADOW};
+          transition: box-shadow 0.1s, transform 0.1s;
+        }
+        .intro-yes-btn:active {
+          box-shadow: 0 0px 0 0 transparent;
+          transform: translateY(4px);
+        }
+        .intro-repeat-btn {
+          padding: 1rem; border-radius: 12px;
+          border: 1px solid ${ACCENT_BORDER};
+          background: transparent; color: ${CREAM_MUTED};
+          cursor: pointer; font-weight: 600; font-size: 1rem;
+          transition: background 0.15s, color 0.15s;
+        }
+        .intro-repeat-btn:hover { background: ${ACCENT_SOFT}; color: ${CREAM}; }
+      `}</style>
 
-      <div style={{ width: "100%", maxWidth: "600px", position: "relative", zIndex: 1 }}>
-        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <h1 style={{ color: CREAM, fontSize: "2.5rem", margin: "0", fontWeight: 600 }}>दृष्टि</h1>
-          <p style={{ color: ACCENT, fontSize: "1rem", margin: "0.3rem 0 0", letterSpacing: "2px" }}>DRISHTI</p>
-          <p style={{ color: CREAM_MUTED, margin: "0.4rem 0 0" }}>जहाँ code बोलता है</p>
-          <p style={{ color: CREAM_MUTED, margin: "0.2rem 0 0", fontSize: "0.85rem" }}>{t.subtitle}</p>
-        </div>
+      <main aria-label="Drishti Intro" style={{
+        minHeight: "100vh",
+        background: "radial-gradient(circle at 50% 20%, #0d1b2a 0%, #0a0a0a 70%)",
+        position: "relative",
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "'Segoe UI', sans-serif",
+        padding: "1rem",
+      }}>
 
+        {/* Glow blobs */}
         <div style={{
-          background: "rgba(255,255,255,0.03)",
-          border: `1px solid ${ACCENT_SOFT}`,
-          backdropFilter: "blur(12px)",
-          padding: "2rem", borderRadius: "16px", textAlign: "center", marginBottom: "1.5rem"
-        }}>
-          <p style={{ fontSize: "1.3rem", color: CREAM, margin: "0 0 0.5rem" }}>
-            नमस्ते <strong style={{ color: ACCENT }}>{name}</strong>!
-          </p>
-          <p style={{ color: CREAM_MUTED, margin: 0 }}>{t.question}</p>
-        </div>
+          position: "absolute", top: "-130px", left: "10%",
+          width: "340px", height: "340px", borderRadius: "50%",
+          background: ACCENT, opacity: 0.07, filter: "blur(95px)",
+          pointerEvents: "none",
+        }} />
+        <div style={{
+          position: "absolute", bottom: "-150px", right: "5%",
+          width: "360px", height: "360px", borderRadius: "50%",
+          background: ACCENT, opacity: 0.05, filter: "blur(100px)",
+          pointerEvents: "none",
+        }} />
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-          <button onClick={() => speak(lastMessage)} aria-label="R — Repeat"
-            style={{
-              padding: "1rem", borderRadius: "12px", border: `1px solid ${ACCENT_SOFT}`,
-              background: "transparent", color: CREAM_MUTED, cursor: "pointer",
-              fontWeight: 600, fontSize: "1rem"
-            }}>
-            {t.repeat}<br /><span style={{ fontSize: "0.8rem", color: ACCENT }}>(R)</span>
-          </button>
-          <button onClick={goToLanguage} aria-label="H — Yes start"
-            style={{
-              padding: "1rem", borderRadius: "12px", border: "none",
-              background: ACCENT, color: "#1a1410", cursor: "pointer",
-              fontWeight: 700, fontSize: "1rem"
-            }}>
-            {t.yes}<br /><span style={{ fontSize: "0.8rem" }}>(H)</span>
-          </button>
+        <div style={{ width: "100%", maxWidth: "560px", position: "relative", zIndex: 1 }}>
+
+          {/* Hero — Pyra + brand name */}
+          <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
+              <PyraHero speaking={speaking} />
+            </div>
+            <h1 style={{ color: CREAM, fontSize: "2.4rem", margin: 0, fontWeight: 700 }}>दृष्टि</h1>
+            <p style={{ color: ACCENT, fontSize: "0.9rem", margin: "0.2rem 0 0", letterSpacing: "3px", textTransform: "uppercase" }}>
+              Drishti
+            </p>
+            <p style={{ color: CREAM_MUTED, margin: "0.35rem 0 0", fontSize: "0.88rem" }}>
+              जहाँ code बोलता है
+            </p>
+            <p style={{ color: CREAM_MUTED, margin: "0.2rem 0 0", fontSize: "0.8rem" }}>
+              {t.subtitle}
+            </p>
+          </div>
+
+          {/* Speech bubble card */}
+          <div style={{
+            background: "rgba(28,176,246,0.06)",
+            border: `1px solid ${ACCENT_BORDER}`,
+            backdropFilter: "blur(12px)",
+            padding: "1.75rem 2rem",
+            borderRadius: "16px",
+            textAlign: "center",
+            marginBottom: "1.5rem",
+            boxShadow: `0 2px 0 0 rgba(28,176,246,0.15)`,
+          }}>
+            <p style={{ fontSize: "1.25rem", color: CREAM, margin: "0 0 0.5rem", fontWeight: 500 }}>
+              नमस्ते <strong style={{ color: ACCENT }}>{name}</strong>!
+            </p>
+            <p style={{ color: CREAM_MUTED, margin: 0, lineHeight: 1.6 }}>
+              {t.question}
+            </p>
+            {speaking && (
+              <p style={{ color: ACCENT, fontSize: "0.8rem", margin: "0.75rem 0 0", opacity: 0.8 }}>
+                🔊 Pyra बोल रही है...
+              </p>
+            )}
+          </div>
+
+          {/* Action buttons */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+            <button className="intro-repeat-btn" onClick={() => speak(lastMessage)} aria-label="R — Repeat">
+              {t.repeat}<br />
+              <span style={{ fontSize: "0.78rem", color: ACCENT }}>(R)</span>
+            </button>
+            <button className="intro-yes-btn" onClick={goToLanguage} aria-label="H — Yes, start">
+              {t.yes}<br />
+              <span style={{ fontSize: "0.78rem", opacity: 0.85 }}>(H)</span>
+            </button>
+          </div>
+
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   )
 }
 
