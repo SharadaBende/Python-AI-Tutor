@@ -514,6 +514,146 @@ const javaQuestionsMarathi = [
   { id: 40, question: "यापैकी Java चा primitive data type कोणता नाही?", options: ["int", "boolean", "String", "char"], answer: 2 },
 ]
 
+javascript
+
+// ─────────────────────────────────────────
+// C++ MCQ — HINDI (paste after javaQuestionsMarathi)
+// ─────────────────────────────────────────
+const cppQuestions = [
+  { id: 1, question: "C++ किसने बनाया?", options: ["James Gosling", "Dennis Ritchie", "Bjarne Stroustrup", "Guido van Rossum"], answer: 2 },
+  { id: 2, question: "C++ कब बना?", options: ["1972", "1979", "1991", "1995"], answer: 1 },
+  { id: 3, question: "C++ में output के लिए क्या use होता है?", options: ["print()", "System.out.println()", "cout", "console.log()"], answer: 2 },
+  { id: 4, question: "C++ में input के लिए क्या use होता है?", options: ["scanf()", "cin", "input()", "readline()"], answer: 1 },
+  { id: 5, question: "C++ में iostream header किसलिए use होता है?", options: ["Math के लिए", "Input/Output के लिए", "String के लिए", "Memory के लिए"], answer: 1 },
+  { id: 6, question: "C++ में new keyword किसलिए use होता है?", options: ["Variable बनाने के लिए", "Dynamic memory allocate करने के लिए", "Function बनाने के लिए", "Class बनाने के लिए"], answer: 1 },
+  { id: 7, question: "C++ में memory free करने के लिए क्या use होता है?", options: ["free()", "remove()", "delete", "clear()"], answer: 2 },
+  { id: 8, question: "C++ में pointer किसके लिए होता है?", options: ["Value store करने के लिए", "Memory address store करने के लिए", "Function call करने के लिए", "Array बनाने के लिए"], answer: 1 },
+  { id: 9, question: "C++ में & operator क्या देता है?", options: ["Value", "Memory address", "Size", "Type"], answer: 1 },
+  { id: 10, question: "C++ में * operator pointer के साथ क्या करता है?", options: ["Address देता है", "Value access करता है (dereference)", "Multiply करता है", "Delete करता है"], answer: 1 },
+  { id: 11, question: "C++ में class के default access specifier क्या होता है?", options: ["public", "protected", "private", "static"], answer: 2 },
+  { id: 12, question: "C++ में struct के default access specifier क्या होता है?", options: ["private", "protected", "public", "static"], answer: 2 },
+  { id: 13, question: "C++ में destructor का नाम कैसा होता है?", options: ["~ClassName", "delete_ClassName", "ClassName_destroy", "free_ClassName"], answer: 0 },
+  { id: 14, question: "C++ में inheritance के लिए कौन सा keyword use होता है?", options: ["extends", "inherits", ":", "->"], answer: 2 },
+  { id: 15, question: "C++ में virtual function किसलिए use होता है?", options: ["Static binding के लिए", "Runtime polymorphism के लिए", "Memory save करने के लिए", "Speed बढ़ाने के लिए"], answer: 1 },
+  { id: 16, question: "STL का full form क्या है?", options: ["Standard Type Library", "Standard Template Library", "Static Template Library", "System Template Library"], answer: 1 },
+  { id: 17, question: "C++ में vector किस प्रकार का data structure है?", options: ["Fixed size array", "Dynamic array", "Linked list", "Tree"], answer: 1 },
+  { id: 18, question: "C++ में vector में element add करने के लिए क्या use होता है?", options: ["add()", "insert()", "push_back()", "append()"], answer: 2 },
+  { id: 19, question: "C++ में map किस प्रकार का data store करता है?", options: ["Single values", "Key-value pairs", "Only integers", "Only strings"], answer: 1 },
+  { id: 20, question: "C++ में template किसलिए use होता है?", options: ["HTML बनाने के लिए", "Generic programming के लिए", "File read करने के लिए", "Memory delete करने के लिए"], answer: 1 },
+  { id: 21, question: "C++ में ofstream किसलिए use होता है?", options: ["File read करने के लिए", "File write करने के लिए", "File delete करने के लिए", "File copy करने के लिए"], answer: 1 },
+  { id: 22, question: "C++ में ifstream किसलिए use होता है?", options: ["File write करने के लिए", "File read करने के लिए", "File create करने के लिए", "File rename करने के लिए"], answer: 1 },
+  { id: 23, question: "C++ में endl क्या करता है?", options: ["Program बंद करता है", "नई line पर जाता है", "Error देता है", "Input लेता है"], answer: 1 },
+  { id: 24, question: "C++ में do-while loop कम से कम कितनी बार चलता है?", options: ["0 बार", "1 बार", "2 बार", "5 बार"], answer: 1 },
+  { id: 25, question: "C++ में pure virtual function कैसे declare होता है?", options: ["virtual void func()", "void func() = 0", "virtual void func() = 0", "abstract void func()"], answer: 2 },
+  { id: 26, question: "C++ में const keyword क्या करता है?", options: ["Variable को delete करता है", "Variable की value fix करता है", "Variable को public बनाता है", "Variable को fast बनाता है"], answer: 1 },
+  { id: 27, question: "C++ में using namespace std क्यों लिखते हैं?", options: ["Program fast होता है", "हर बार std:: नहीं लिखना पड़ता", "Memory बचती है", "Errors कम होती हैं"], answer: 1 },
+  { id: 28, question: "C++ में range-based for loop कब आया?", options: ["C++98", "C++03", "C++11", "C++17"], answer: 2 },
+  { id: 29, question: "C++ में method overriding में कौन सा keyword use होता है?", options: ["@Override", "override", "virtual", "super"], answer: 1 },
+  { id: 30, question: "C++ में getline() किसलिए use होता है?", options: ["Integer read करने के लिए", "पूरी line read करने के लिए", "File open करने के लिए", "Output देने के लिए"], answer: 1 },
+  { id: 31, question: "C++ में return 0 का मतलब क्या है?", options: ["Program fail हुआ", "Program successfully खत्म हुआ", "कुछ नहीं return होता", "Program restart होता है"], answer: 1 },
+  { id: 32, question: "C++ में multiple inheritance क्या है?", options: ["एक class से कई बार inherit करना", "एक class का कई classes से inherit करना", "Class copy करना", "Method override करना"], answer: 1 },
+  { id: 33, question: "C++ में sort() function किस header में होता है?", options: ["iostream", "string", "algorithm", "vector"], answer: 2 },
+  { id: 34, question: "C++ में this pointer किसको refer करता है?", options: ["Parent class को", "Current object को", "Static variable को", "Main function को"], answer: 1 },
+  { id: 35, question: "C++ में abstract class का object बन सकता है?", options: ["हाँ", "नहीं", "कभी-कभी", "Depends करता है"], answer: 1 },
+  { id: 36, question: "C++ में float के बाद f क्यों लिखते हैं?", options: ["Fast execution के लिए", "Float literal को double से अलग करने के लिए", "File के लिए", "Function के लिए"], answer: 1 },
+  { id: 37, question: "C++ में vector का size कैसे पता चलता है?", options: [".length()", ".count()", ".size()", ".len()"], answer: 2 },
+  { id: 38, question: "C++ में auto keyword क्या करता है?", options: ["Variable automatically delete होता है", "Compiler automatically type detect करता है", "Variable automatic increment होता है", "Function automatically call होता है"], answer: 1 },
+  { id: 39, question: "C++ में pass by reference कैसे होता है?", options: ["Function में value copy जाती है", "Function में & से original variable जाता है", "Function में pointer जाता है", "Function में array जाता है"], answer: 1 },
+  { id: 40, question: "C++ में compiled language का क्या मतलब है?", options: ["Code browser में चलता है", "Code पहले machine code में convert होता है फिर run होता है", "Code interpret होता है line by line", "Code automatically fix होता है"], answer: 1 },
+]
+
+// ─────────────────────────────────────────
+// C++ MCQ — ENGLISH (paste after cppQuestions)
+// ─────────────────────────────────────────
+const cppQuestionsEnglish = [
+  { id: 1, question: "Who created C++?", options: ["James Gosling", "Dennis Ritchie", "Bjarne Stroustrup", "Guido van Rossum"], answer: 2 },
+  { id: 2, question: "In which year was C++ created?", options: ["1972", "1979", "1991", "1995"], answer: 1 },
+  { id: 3, question: "Which statement is used for output in C++?", options: ["print()", "System.out.println()", "cout", "console.log()"], answer: 2 },
+  { id: 4, question: "Which statement is used for input in C++?", options: ["scanf()", "cin", "input()", "readline()"], answer: 1 },
+  { id: 5, question: "What is the iostream header used for in C++?", options: ["For math", "For input and output", "For strings", "For memory"], answer: 1 },
+  { id: 6, question: "What is the new keyword used for in C++?", options: ["To create a variable", "To allocate dynamic memory", "To create a function", "To create a class"], answer: 1 },
+  { id: 7, question: "Which keyword is used to free memory in C++?", options: ["free()", "remove()", "delete", "clear()"], answer: 2 },
+  { id: 8, question: "What does a pointer store in C++?", options: ["A value", "A memory address", "A function call", "An array"], answer: 1 },
+  { id: 9, question: "What does the & operator return in C++?", options: ["Value", "Memory address", "Size", "Type"], answer: 1 },
+  { id: 10, question: "What does the * operator do with a pointer in C++?", options: ["Returns the address", "Accesses the value (dereferences)", "Multiplies", "Deletes"], answer: 1 },
+  { id: 11, question: "What is the default access specifier of a class in C++?", options: ["public", "protected", "private", "static"], answer: 2 },
+  { id: 12, question: "What is the default access specifier of a struct in C++?", options: ["private", "protected", "public", "static"], answer: 2 },
+  { id: 13, question: "What is the naming convention for a destructor in C++?", options: ["~ClassName", "delete_ClassName", "ClassName_destroy", "free_ClassName"], answer: 0 },
+  { id: 14, question: "Which syntax is used for inheritance in C++?", options: ["extends", "inherits", "colon :", "->"], answer: 2 },
+  { id: 15, question: "What is a virtual function used for in C++?", options: ["Static binding", "Runtime polymorphism", "Saving memory", "Increasing speed"], answer: 1 },
+  { id: 16, question: "What does STL stand for in C++?", options: ["Standard Type Library", "Standard Template Library", "Static Template Library", "System Template Library"], answer: 1 },
+  { id: 17, question: "What type of data structure is a vector in C++?", options: ["Fixed size array", "Dynamic array", "Linked list", "Tree"], answer: 1 },
+  { id: 18, question: "Which method adds an element to a vector in C++?", options: ["add()", "insert()", "push_back()", "append()"], answer: 2 },
+  { id: 19, question: "What type of data does a map store in C++?", options: ["Single values", "Key-value pairs", "Only integers", "Only strings"], answer: 1 },
+  { id: 20, question: "What are templates used for in C++?", options: ["Creating HTML", "Generic programming", "Reading files", "Deleting memory"], answer: 1 },
+  { id: 21, question: "What is ofstream used for in C++?", options: ["Reading a file", "Writing to a file", "Deleting a file", "Copying a file"], answer: 1 },
+  { id: 22, question: "What is ifstream used for in C++?", options: ["Writing to a file", "Reading from a file", "Creating a file", "Renaming a file"], answer: 1 },
+  { id: 23, question: "What does endl do in C++?", options: ["Ends the program", "Moves to a new line", "Causes an error", "Takes input"], answer: 1 },
+  { id: 24, question: "How many times does a do-while loop run at minimum in C++?", options: ["0 times", "1 time", "2 times", "5 times"], answer: 1 },
+  { id: 25, question: "How is a pure virtual function declared in C++?", options: ["virtual void func()", "void func() = 0", "virtual void func() = 0", "abstract void func()"], answer: 2 },
+  { id: 26, question: "What does the const keyword do in C++?", options: ["Deletes the variable", "Fixes the variable value so it cannot change", "Makes the variable public", "Makes the variable faster"], answer: 1 },
+  { id: 27, question: "Why do we write using namespace std in C++?", options: ["Makes the program faster", "Avoids writing std:: before every command", "Saves memory", "Reduces errors"], answer: 1 },
+  { id: 28, question: "In which version was the range-based for loop introduced in C++?", options: ["C++98", "C++03", "C++11", "C++17"], answer: 2 },
+  { id: 29, question: "Which keyword is used when overriding a method in C++?", options: ["@Override", "override", "virtual", "super"], answer: 1 },
+  { id: 30, question: "What is getline() used for in C++?", options: ["Reading an integer", "Reading a full line of text", "Opening a file", "Printing output"], answer: 1 },
+  { id: 31, question: "What does return 0 mean at the end of main() in C++?", options: ["Program failed", "Program ended successfully", "Nothing is returned", "Program restarts"], answer: 1 },
+  { id: 32, question: "What is multiple inheritance in C++?", options: ["Inheriting from the same class multiple times", "One class inheriting from more than one class", "Copying a class", "Overriding a method"], answer: 1 },
+  { id: 33, question: "Which header file contains the sort() function in C++?", options: ["iostream", "string", "algorithm", "vector"], answer: 2 },
+  { id: 34, question: "What does the this pointer refer to in C++?", options: ["The parent class", "The current object", "A static variable", "The main function"], answer: 1 },
+  { id: 35, question: "Can you create an object of an abstract class in C++?", options: ["Yes", "No", "Sometimes", "Depends"], answer: 1 },
+  { id: 36, question: "Why do we write f after a float literal in C++?", options: ["For fast execution", "To distinguish float from double", "For file operations", "For functions"], answer: 1 },
+  { id: 37, question: "How do you find the size of a vector in C++?", options: [".length()", ".count()", ".size()", ".len()"], answer: 2 },
+  { id: 38, question: "What does the auto keyword do in C++?", options: ["Variable is deleted automatically", "Compiler automatically detects the type", "Variable auto-increments", "Function is called automatically"], answer: 1 },
+  { id: 39, question: "How does pass by reference work in C++?", options: ["A copy of the value is passed", "The original variable is passed using &", "A pointer is passed", "An array is passed"], answer: 1 },
+  { id: 40, question: "What does compiled language mean in the context of C++?", options: ["Code runs in the browser", "Code is converted to machine code before running", "Code is interpreted line by line", "Code fixes itself automatically"], answer: 1 },
+]
+
+// ─────────────────────────────────────────
+// C++ MCQ — MARATHI (paste after cppQuestionsEnglish)
+// ─────────────────────────────────────────
+const cppQuestionsMarathi = [
+  { id: 1, question: "C++ कोणी बनवली?", options: ["James Gosling", "Dennis Ritchie", "Bjarne Stroustrup", "Guido van Rossum"], answer: 2 },
+  { id: 2, question: "C++ कोणत्या वर्षी बनवली गेली?", options: ["1972", "1979", "1991", "1995"], answer: 1 },
+  { id: 3, question: "C++ मध्ये output साठी काय वापरतात?", options: ["print()", "System.out.println()", "cout", "console.log()"], answer: 2 },
+  { id: 4, question: "C++ मध्ये input साठी काय वापरतात?", options: ["scanf()", "cin", "input()", "readline()"], answer: 1 },
+  { id: 5, question: "C++ मध्ये iostream header कशासाठी वापरतात?", options: ["Math साठी", "Input/Output साठी", "String साठी", "Memory साठी"], answer: 1 },
+  { id: 6, question: "C++ मध्ये new keyword कशासाठी वापरतात?", options: ["Variable बनवण्यासाठी", "Dynamic memory allocate करण्यासाठी", "Function बनवण्यासाठी", "Class बनवण्यासाठी"], answer: 1 },
+  { id: 7, question: "C++ मध्ये memory free करण्यासाठी काय वापरतात?", options: ["free()", "remove()", "delete", "clear()"], answer: 2 },
+  { id: 8, question: "C++ मध्ये pointer कशासाठी असतो?", options: ["Value store करण्यासाठी", "Memory address store करण्यासाठी", "Function call करण्यासाठी", "Array बनवण्यासाठी"], answer: 1 },
+  { id: 9, question: "C++ मध्ये & operator काय देतो?", options: ["Value", "Memory address", "Size", "Type"], answer: 1 },
+  { id: 10, question: "C++ मध्ये pointer सोबत * operator काय करतो?", options: ["Address देतो", "Value access करतो (dereference)", "Multiply करतो", "Delete करतो"], answer: 1 },
+  { id: 11, question: "C++ मध्ये class चा default access specifier कोणता असतो?", options: ["public", "protected", "private", "static"], answer: 2 },
+  { id: 12, question: "C++ मध्ये struct चा default access specifier कोणता असतो?", options: ["private", "protected", "public", "static"], answer: 2 },
+  { id: 13, question: "C++ मध्ये destructor चे नाव कसे असते?", options: ["~ClassName", "delete_ClassName", "ClassName_destroy", "free_ClassName"], answer: 0 },
+  { id: 14, question: "C++ मध्ये inheritance साठी कोणता syntax वापरतात?", options: ["extends", "inherits", "colon :", "->"], answer: 2 },
+  { id: 15, question: "C++ मध्ये virtual function कशासाठी वापरतात?", options: ["Static binding साठी", "Runtime polymorphism साठी", "Memory save करण्यासाठी", "Speed वाढवण्यासाठी"], answer: 1 },
+  { id: 16, question: "STL चे पूर्ण नाव काय आहे?", options: ["Standard Type Library", "Standard Template Library", "Static Template Library", "System Template Library"], answer: 1 },
+  { id: 17, question: "C++ मध्ये vector कोणत्या प्रकारचे data structure आहे?", options: ["Fixed size array", "Dynamic array", "Linked list", "Tree"], answer: 1 },
+  { id: 18, question: "C++ मध्ये vector मध्ये element add करण्यासाठी काय वापरतात?", options: ["add()", "insert()", "push_back()", "append()"], answer: 2 },
+  { id: 19, question: "C++ मध्ये map कोणत्या प्रकारचा data store करतो?", options: ["Single values", "Key-value pairs", "फक्त integers", "फक्त strings"], answer: 1 },
+  { id: 20, question: "C++ मध्ये template कशासाठी वापरतात?", options: ["HTML बनवण्यासाठी", "Generic programming साठी", "File read करण्यासाठी", "Memory delete करण्यासाठी"], answer: 1 },
+  { id: 21, question: "C++ मध्ये ofstream कशासाठी वापरतात?", options: ["File read करण्यासाठी", "File write करण्यासाठी", "File delete करण्यासाठी", "File copy करण्यासाठी"], answer: 1 },
+  { id: 22, question: "C++ मध्ये ifstream कशासाठी वापरतात?", options: ["File write करण्यासाठी", "File read करण्यासाठी", "File create करण्यासाठी", "File rename करण्यासाठी"], answer: 1 },
+  { id: 23, question: "C++ मध्ये endl काय करते?", options: ["Program बंद करते", "नवीन ओळीवर जाते", "Error देते", "Input घेते"], answer: 1 },
+  { id: 24, question: "C++ मध्ये do-while loop किमान किती वेळा चालतो?", options: ["0 वेळा", "1 वेळा", "2 वेळा", "5 वेळा"], answer: 1 },
+  { id: 25, question: "C++ मध्ये pure virtual function कसे declare होते?", options: ["virtual void func()", "void func() = 0", "virtual void func() = 0", "abstract void func()"], answer: 2 },
+  { id: 26, question: "C++ मध्ये const keyword काय करतो?", options: ["Variable delete करतो", "Variable ची value fix करतो", "Variable ला public बनवतो", "Variable ला fast बनवतो"], answer: 1 },
+  { id: 27, question: "C++ मध्ये using namespace std का लिहतो?", options: ["Program fast होतो", "प्रत्येक वेळी std:: लिहण्याची गरज नाही", "Memory वाचते", "Errors कमी होतात"], answer: 1 },
+  { id: 28, question: "C++ मध्ये range-based for loop कोणत्या version मध्ये आला?", options: ["C++98", "C++03", "C++11", "C++17"], answer: 2 },
+  { id: 29, question: "C++ मध्ये method override करताना कोणता keyword वापरतात?", options: ["@Override", "override", "virtual", "super"], answer: 1 },
+  { id: 30, question: "C++ मध्ये getline() कशासाठी वापरतात?", options: ["Integer read करण्यासाठी", "पूर्ण line read करण्यासाठी", "File open करण्यासाठी", "Output देण्यासाठी"], answer: 1 },
+  { id: 31, question: "C++ मध्ये return 0 चा अर्थ काय आहे?", options: ["Program fail झाला", "Program यशस्वीरित्या संपला", "काही return होत नाही", "Program restart होतो"], answer: 1 },
+  { id: 32, question: "C++ मध्ये multiple inheritance म्हणजे काय?", options: ["एकाच class मधून अनेक वेळा inherit करणे", "एक class अनेक classes मधून inherit करतो", "Class copy करणे", "Method override करणे"], answer: 1 },
+  { id: 33, question: "C++ मध्ये sort() function कोणत्या header मध्ये आहे?", options: ["iostream", "string", "algorithm", "vector"], answer: 2 },
+  { id: 34, question: "C++ मध्ये this pointer कशाला refer करतो?", options: ["Parent class ला", "Current object ला", "Static variable ला", "Main function ला"], answer: 1 },
+  { id: 35, question: "C++ मध्ये abstract class चा object बनू शकतो का?", options: ["हो", "नाही", "कधीकधी", "Depends करतो"], answer: 1 },
+  { id: 36, question: "C++ मध्ये float literal नंतर f का लिहतात?", options: ["Fast execution साठी", "Float ला double पासून वेगळे करण्यासाठी", "File साठी", "Function साठी"], answer: 1 },
+  { id: 37, question: "C++ मध्ये vector ची size कशी कळते?", options: [".length()", ".count()", ".size()", ".len()"], answer: 2 },
+  { id: 38, question: "C++ मध्ये auto keyword काय करतो?", options: ["Variable आपोआप delete होतो", "Compiler आपोआप type detect करतो", "Variable auto-increment होतो", "Function आपोआप call होतो"], answer: 1 },
+  { id: 39, question: "C++ मध्ये pass by reference कसे होते?", options: ["Value ची copy जाते", "& ने original variable जातो", "Pointer जातो", "Array जातो"], answer: 1 },
+  { id: 40, question: "C++ compiled language असणे म्हणजे काय?", options: ["Code browser मध्ये चालतो", "Code आधी machine code मध्ये convert होतो मग run होतो", "Code line by line interpret होतो", "Code स्वतः fix होतो"], answer: 1 },
+]
+
 
 
 /* ── Pyra mascot (shared, compact) ──────────────────────────────── */
@@ -604,15 +744,18 @@ function MCQPage() {
   ? (language === "sql" ? sqlQuestionsEnglish
     : language === "javascript" ? javascriptQuestionsEnglish
     : language === "java" ? javaQuestionsEnglish
+    : language === "cpp" ? cppQuestionsEnglish
     : pythonQuestionsEnglish)
   : instructionLang === "marathi"
   ? (language === "sql" ? sqlQuestionsMarathi
     : language === "javascript" ? javascriptQuestionsMarathi
     : language === "java" ? javaQuestionsMarathi
+    : language === "cpp" ? cppQuestionsMarathi
     : pythonQuestionsMarathi)
   : (language === "sql" ? sqlQuestions
     : language === "javascript" ? javascriptQuestions
     : language === "java" ? javaQuestions
+    : language === "cpp" ? cppQuestions
     : pythonQuestions)
 
   const lang = t[instructionLang]
