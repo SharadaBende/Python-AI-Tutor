@@ -385,6 +385,137 @@ const javascriptQuestionsMarathi = [
   { id: 40, question: "find() method काय करते?", options: ["सर्व matching items देते", "पहिला matching item देते", "Items delete करते", "Array sort करते"], answer: 1 },
 ]
 
+const javaQuestions = [
+  { id: 1, question: "Java किसने बनाया?", options: ["Dennis Ritchie", "James Gosling", "Guido van Rossum", "Bjarne Stroustrup"], answer: 1 },
+  { id: 2, question: "Java कब बना?", options: ["1985", "1991", "1995", "2000"], answer: 2 },
+  { id: 3, question: "Java का full form क्या है?", options: ["Just Another Virtual Application", "Java कोई abbreviation नहीं है", "Java Advanced Virtual Architecture", "Joint Application Virtual Adapter"], answer: 1 },
+  { id: 4, question: "JVM का full form क्या है?", options: ["Java Virtual Memory", "Java Virtual Machine", "Java Variable Method", "Java Visual Model"], answer: 1 },
+  { id: 5, question: "Java का principle क्या है?", options: ["Write Once Debug Everywhere", "Write Once Run Anywhere", "Write Many Run Once", "Write Fast Run Slow"], answer: 1 },
+  { id: 6, question: "Java में screen पर print करने के लिए क्या use होता है?", options: ["console.log()", "print()", "System.out.println()", "echo()"], answer: 2 },
+  { id: 7, question: "Java में पूरी संख्या store करने के लिए कौन सा data type use होता है?", options: ["float", "double", "int", "char"], answer: 2 },
+  { id: 8, question: "Java में text store करने के लिए कौन सा data type use होता है?", options: ["text", "str", "String", "char"], answer: 2 },
+  { id: 9, question: "Java में user से input लेने के लिए कौन सी class use होती है?", options: ["Input", "Reader", "Scanner", "BufferedReader only"], answer: 2 },
+  { id: 10, question: "Java में हर statement के अंत में क्या लगाते हैं?", options: [".", ":", ";", ","], answer: 2 },
+  { id: 11, question: "Java में class बनाने के लिए कौन सा keyword use होता है?", options: ["object", "class", "struct", "type"], answer: 1 },
+  { id: 12, question: "Java में object बनाने के लिए कौन सा keyword use होता है?", options: ["create", "make", "new", "build"], answer: 2 },
+  { id: 13, question: "Java में method बनाने के लिए कौन सा keyword जरूरी नहीं है?", options: ["public", "static", "void", "def"], answer: 3 },
+  { id: 14, question: "Java में inheritance के लिए कौन सा keyword use होता है?", options: ["inherit", "extends", "implements", "super"], answer: 1 },
+  { id: 15, question: "Java में array का index किससे शुरू होता है?", options: ["1", "0", "-1", "2"], answer: 1 },
+  { id: 16, question: "Java में String compare करने के लिए क्या use करते हैं?", options: ["==", "===", ".equals()", ".compare()"], answer: 2 },
+  { id: 17, question: "Java में exception handle करने के लिए क्या use होता है?", options: ["if/else", "try/catch", "for/while", "do/while"], answer: 1 },
+  { id: 18, question: "ArrayList किस package में होता है?", options: ["java.lang", "java.io", "java.util", "java.net"], answer: 2 },
+  { id: 19, question: "Java में method override करते समय कौन सा annotation use होता है?", options: ["@Overload", "@Override", "@Extend", "@Super"], answer: 1 },
+  { id: 20, question: "Java में constructor का नाम क्या होता है?", options: ["Constructor", "Init", "Class के नाम जैसा", "Main"], answer: 2 },
+  { id: 21, question: "Java में private field को बाहर से access करने के लिए क्या use होता है?", options: ["Direct access", "Getter/Setter methods", "Static methods", "Public field"], answer: 1 },
+  { id: 22, question: "Java में ArrayList में element add करने के लिए कौन सा method use होता है?", options: ["insert()", "push()", "add()", "append()"], answer: 2 },
+  { id: 23, question: "Java में for-each loop का syntax क्या है?", options: ["for (int i = 0; i < n; i++)", "for (Type item : collection)", "foreach (item in list)", "loop (item : list)"], answer: 1 },
+  { id: 24, question: "Java में zero से divide करने पर कौन सी exception आती है?", options: ["NullPointerException", "NumberFormatException", "ArithmeticException", "ClassCastException"], answer: 2 },
+  { id: 25, question: "Java में String की length निकालने के लिए क्या use होता है?", options: [".size()", ".count()", ".length()", ".len()"], answer: 2 },
+  { id: 26, question: "Java में super keyword किसके लिए use होता है?", options: ["Child class refer करने के लिए", "Parent class refer करने के लिए", "Static method call करने के लिए", "Array बनाने के लिए"], answer: 1 },
+  { id: 27, question: "Java में boolean data type की values क्या होती हैं?", options: ["0 और 1", "yes और no", "true और false", "on और off"], answer: 2 },
+  { id: 28, question: "Java में Scanner से पूरी line read करने के लिए कौन सा method use होता है?", options: ["next()", "nextLine()", "read()", "readline()"], answer: 1 },
+  { id: 29, question: "Java में finally block कब चलता है?", options: ["सिर्फ exception आने पर", "सिर्फ exception न आने पर", "हमेशा, exception आए या न आए", "कभी नहीं"], answer: 2 },
+  { id: 30, question: "Java में char data type किसमें लिखते हैं?", options: ["Double quotes में", "Single quotes में", "Backticks में", "Square brackets में"], answer: 1 },
+  { id: 31, question: "Java में method overloading क्या है?", options: ["Same method को दोबारा लिखना", "Same name के methods लेकिन different parameters", "Method delete करना", "Method rename करना"], answer: 1 },
+  { id: 32, question: "Java में encapsulation का मतलब क्या है?", options: ["Code को copy करना", "Data को hide और protect करना", "Method को override करना", "Class को extend करना"], answer: 1 },
+  { id: 33, question: "Java में static keyword का मतलब क्या है?", options: ["Method हमेशा run होगा", "Object बिना method call हो सकता है", "Method को delete नहीं कर सकते", "Variable का value fixed है"], answer: 1 },
+  { id: 34, question: "Java में String को uppercase करने के लिए क्या use होता है?", options: [".upper()", ".toUpperCase()", ".UP()", ".capitalize()"], answer: 1 },
+  { id: 35, question: "Java में Array की size कैसे पता चलती है?", options: [".size()", ".count()", ".length", ".len()"], answer: 2 },
+  { id: 36, question: "Java में child class को और किस नाम से जानते हैं?", options: ["Parent class", "Superclass", "Subclass", "Base class"], answer: 2 },
+  { id: 37, question: "Java में void का मतलब क्या है?", options: ["Method कुछ return करता है", "Method कुछ return नहीं करता", "Method private है", "Method static है"], answer: 1 },
+  { id: 38, question: "Java में this keyword किसको refer करता है?", options: ["Parent class को", "Current object को", "Static method को", "Main method को"], answer: 1 },
+  { id: 39, question: "Java में Collections.sort() किससे ArrayList sort करता है?", options: ["Descending order में", "Random order में", "Ascending order में", "Insertion order में"], answer: 2 },
+  { id: 40, question: "Java में String.split() method क्या करता है?", options: ["String delete करता है", "String को parts में तोड़ता है", "String को reverse करता है", "String को uppercase करता है"], answer: 1 },
+]
+
+const javaQuestionsEnglish = [
+  { id: 1, question: "Who created Java?", options: ["Dennis Ritchie", "James Gosling", "Guido van Rossum", "Bjarne Stroustrup"], answer: 1 },
+  { id: 2, question: "In which year was Java created?", options: ["1985", "1991", "1995", "2000"], answer: 2 },
+  { id: 3, question: "What does JVM stand for?", options: ["Java Virtual Memory", "Java Virtual Machine", "Java Variable Method", "Java Visual Model"], answer: 1 },
+  { id: 4, question: "What is the main principle of Java?", options: ["Write Once Debug Everywhere", "Write Once Run Anywhere", "Write Many Run Once", "Write Fast Run Slow"], answer: 1 },
+  { id: 5, question: "Which statement is used to print output in Java?", options: ["console.log()", "print()", "System.out.println()", "echo()"], answer: 2 },
+  { id: 6, question: "Which data type stores whole numbers in Java?", options: ["float", "double", "int", "char"], answer: 2 },
+  { id: 7, question: "Which data type stores text in Java?", options: ["text", "str", "String", "char"], answer: 2 },
+  { id: 8, question: "Which class is used to take user input in Java?", options: ["Input", "Reader", "Scanner", "Keyboard"], answer: 2 },
+  { id: 9, question: "What must be placed at the end of every statement in Java?", options: [".", ":", ";", ","], answer: 2 },
+  { id: 10, question: "Which keyword is used to create a class in Java?", options: ["object", "class", "struct", "type"], answer: 1 },
+  { id: 11, question: "Which keyword is used to create an object in Java?", options: ["create", "make", "new", "build"], answer: 2 },
+  { id: 12, question: "Which keyword is used for inheritance in Java?", options: ["inherit", "extends", "implements", "super"], answer: 1 },
+  { id: 13, question: "What index does a Java array start from?", options: ["1", "0", "-1", "2"], answer: 1 },
+  { id: 14, question: "How do you correctly compare two Strings in Java?", options: ["==", "===", ".equals()", ".compare()"], answer: 2 },
+  { id: 15, question: "Which block is used to handle exceptions in Java?", options: ["if/else", "try/catch", "for/while", "do/while"], answer: 1 },
+  { id: 16, question: "Which package contains ArrayList?", options: ["java.lang", "java.io", "java.util", "java.net"], answer: 2 },
+  { id: 17, question: "Which annotation is used when overriding a method in Java?", options: ["@Overload", "@Override", "@Extend", "@Super"], answer: 1 },
+  { id: 18, question: "What is the name of a constructor in Java?", options: ["Constructor", "Init", "Same as the class name", "Main"], answer: 2 },
+  { id: 19, question: "How do you access a private field from outside a class in Java?", options: ["Direct access", "Getter and Setter methods", "Static methods only", "Make it public"], answer: 1 },
+  { id: 20, question: "Which method adds an element to an ArrayList in Java?", options: ["insert()", "push()", "add()", "append()"], answer: 2 },
+  { id: 21, question: "What is the correct syntax for a for-each loop in Java?", options: ["for (int i = 0; i < n; i++)", "for (Type item : collection)", "foreach (item in list)", "loop (item : list)"], answer: 1 },
+  { id: 22, question: "Which exception is thrown when dividing by zero in Java?", options: ["NullPointerException", "NumberFormatException", "ArithmeticException", "ClassCastException"], answer: 2 },
+  { id: 23, question: "Which method returns the length of a String in Java?", options: [".size()", ".count()", ".length()", ".len()"], answer: 2 },
+  { id: 24, question: "What is the super keyword used for in Java?", options: ["To refer to the child class", "To refer to the parent class", "To call a static method", "To create an array"], answer: 1 },
+  { id: 25, question: "What are the two possible values of the boolean data type in Java?", options: ["0 and 1", "yes and no", "true and false", "on and off"], answer: 2 },
+  { id: 26, question: "Which Scanner method reads a full line of input in Java?", options: ["next()", "nextLine()", "read()", "readline()"], answer: 1 },
+  { id: 27, question: "When does the finally block run in Java?", options: ["Only when an exception occurs", "Only when no exception occurs", "Always, whether or not an exception occurs", "Never"], answer: 2 },
+  { id: 28, question: "Inside which quotes is a char value written in Java?", options: ["Double quotes", "Single quotes", "Backticks", "Square brackets"], answer: 1 },
+  { id: 29, question: "What is method overloading in Java?", options: ["Writing the same method twice", "Multiple methods with the same name but different parameters", "Deleting a method", "Renaming a method"], answer: 1 },
+  { id: 30, question: "What does encapsulation mean in Java?", options: ["Copying code", "Hiding and protecting data", "Overriding a method", "Extending a class"], answer: 1 },
+  { id: 31, question: "What does the static keyword mean in Java?", options: ["Method always runs", "Method can be called without creating an object", "Method cannot be deleted", "Variable value is fixed"], answer: 1 },
+  { id: 32, question: "Which method converts a String to uppercase in Java?", options: [".upper()", ".toUpperCase()", ".UP()", ".capitalize()"], answer: 1 },
+  { id: 33, question: "How do you find the size of an array in Java?", options: [".size()", ".count()", ".length", ".len()"], answer: 2 },
+  { id: 34, question: "What is another name for a child class in Java?", options: ["Parent class", "Superclass", "Subclass", "Base class"], answer: 2 },
+  { id: 35, question: "What does void mean in Java?", options: ["The method returns something", "The method returns nothing", "The method is private", "The method is static"], answer: 1 },
+  { id: 36, question: "What does the this keyword refer to in Java?", options: ["The parent class", "The current object", "A static method", "The main method"], answer: 1 },
+  { id: 37, question: "In which order does Collections.sort() sort an ArrayList?", options: ["Descending", "Random", "Ascending", "Insertion"], answer: 2 },
+  { id: 38, question: "What does the String.split() method do in Java?", options: ["Deletes the string", "Breaks the string into parts", "Reverses the string", "Converts the string to uppercase"], answer: 1 },
+  { id: 39, question: "What does the new keyword do in Java?", options: ["Creates a new variable", "Creates a new object in memory", "Creates a new method", "Creates a new class"], answer: 1 },
+  { id: 40, question: "Which of these is NOT a Java primitive data type?", options: ["int", "boolean", "String", "char"], answer: 2 },
+]
+
+const javaQuestionsMarathi = [
+  { id: 1, question: "Java कोणी बनवली?", options: ["Dennis Ritchie", "James Gosling", "Guido van Rossum", "Bjarne Stroustrup"], answer: 1 },
+  { id: 2, question: "Java कोणत्या वर्षी बनवली गेली?", options: ["1985", "1991", "1995", "2000"], answer: 2 },
+  { id: 3, question: "JVM चे पूर्ण नाव काय आहे?", options: ["Java Virtual Memory", "Java Virtual Machine", "Java Variable Method", "Java Visual Model"], answer: 1 },
+  { id: 4, question: "Java चे मुख्य principle काय आहे?", options: ["Write Once Debug Everywhere", "Write Once Run Anywhere", "Write Many Run Once", "Write Fast Run Slow"], answer: 1 },
+  { id: 5, question: "Java मध्ये screen वर print करण्यासाठी काय वापरतात?", options: ["console.log()", "print()", "System.out.println()", "echo()"], answer: 2 },
+  { id: 6, question: "Java मध्ये पूर्ण संख्या store करण्यासाठी कोणता data type वापरतात?", options: ["float", "double", "int", "char"], answer: 2 },
+  { id: 7, question: "Java मध्ये text store करण्यासाठी कोणता data type वापरतात?", options: ["text", "str", "String", "char"], answer: 2 },
+  { id: 8, question: "Java मध्ये user कडून input घेण्यासाठी कोणती class वापरतात?", options: ["Input", "Reader", "Scanner", "Keyboard"], answer: 2 },
+  { id: 9, question: "Java मध्ये प्रत्येक statement च्या शेवटी काय लावतात?", options: [".", ":", ";", ","], answer: 2 },
+  { id: 10, question: "Java मध्ये class बनवण्यासाठी कोणता keyword वापरतात?", options: ["object", "class", "struct", "type"], answer: 1 },
+  { id: 11, question: "Java मध्ये object बनवण्यासाठी कोणता keyword वापरतात?", options: ["create", "make", "new", "build"], answer: 2 },
+  { id: 12, question: "Java मध्ये inheritance साठी कोणता keyword वापरतात?", options: ["inherit", "extends", "implements", "super"], answer: 1 },
+  { id: 13, question: "Java मध्ये array चा index कोणत्या आकड्यापासून सुरू होतो?", options: ["1", "0", "-1", "2"], answer: 1 },
+  { id: 14, question: "Java मध्ये दोन Strings compare करण्यासाठी काय वापरतात?", options: ["==", "===", ".equals()", ".compare()"], answer: 2 },
+  { id: 15, question: "Java मध्ये exception handle करण्यासाठी काय वापरतात?", options: ["if/else", "try/catch", "for/while", "do/while"], answer: 1 },
+  { id: 16, question: "ArrayList कोणत्या package मध्ये आहे?", options: ["java.lang", "java.io", "java.util", "java.net"], answer: 2 },
+  { id: 17, question: "Java मध्ये method override करताना कोणता annotation वापरतात?", options: ["@Overload", "@Override", "@Extend", "@Super"], answer: 1 },
+  { id: 18, question: "Java मध्ये constructor चे नाव काय असते?", options: ["Constructor", "Init", "Class च्या नावासारखे", "Main"], answer: 2 },
+  { id: 19, question: "Java मध्ये private field ला बाहेरून access करण्यासाठी काय वापरतात?", options: ["Direct access", "Getter आणि Setter methods", "फक्त Static methods", "Public करणे"], answer: 1 },
+  { id: 20, question: "Java मध्ये ArrayList मध्ये element add करण्यासाठी कोणती method वापरतात?", options: ["insert()", "push()", "add()", "append()"], answer: 2 },
+  { id: 21, question: "Java मध्ये for-each loop चा योग्य syntax कोणता आहे?", options: ["for (int i = 0; i < n; i++)", "for (Type item : collection)", "foreach (item in list)", "loop (item : list)"], answer: 1 },
+  { id: 22, question: "Java मध्ये zero ने divide केल्यावर कोणती exception येते?", options: ["NullPointerException", "NumberFormatException", "ArithmeticException", "ClassCastException"], answer: 2 },
+  { id: 23, question: "Java मध्ये String ची length कशी काढतात?", options: [".size()", ".count()", ".length()", ".len()"], answer: 2 },
+  { id: 24, question: "Java मध्ये super keyword कशासाठी वापरतात?", options: ["Child class refer करण्यासाठी", "Parent class refer करण्यासाठी", "Static method call करण्यासाठी", "Array बनवण्यासाठी"], answer: 1 },
+  { id: 25, question: "Java मध्ये boolean data type च्या values कोणत्या आहेत?", options: ["0 आणि 1", "yes आणि no", "true आणि false", "on आणि off"], answer: 2 },
+  { id: 26, question: "Java मध्ये Scanner ने पूर्ण line read करण्यासाठी कोणती method वापरतात?", options: ["next()", "nextLine()", "read()", "readline()"], answer: 1 },
+  { id: 27, question: "Java मध्ये finally block कधी चालतो?", options: ["फक्त exception आल्यावर", "फक्त exception न आल्यावर", "नेहमी, exception असो किंवा नसो", "कधीही नाही"], answer: 2 },
+  { id: 28, question: "Java मध्ये char value कोणत्या quotes मध्ये लिहतात?", options: ["Double quotes मध्ये", "Single quotes मध्ये", "Backticks मध्ये", "Square brackets मध्ये"], answer: 1 },
+  { id: 29, question: "Java मध्ये method overloading म्हणजे काय?", options: ["Same method दोनदा लिहणे", "Same नावाचे methods पण वेगळे parameters", "Method delete करणे", "Method rename करणे"], answer: 1 },
+  { id: 30, question: "Java मध्ये encapsulation चा अर्थ काय आहे?", options: ["Code copy करणे", "Data hide आणि protect करणे", "Method override करणे", "Class extend करणे"], answer: 1 },
+  { id: 31, question: "Java मध्ये static keyword चा अर्थ काय आहे?", options: ["Method नेहमी run होतो", "Object न बनवता method call करता येतो", "Method delete करता येत नाही", "Variable ची value fixed आहे"], answer: 1 },
+  { id: 32, question: "Java मध्ये String uppercase करण्यासाठी काय वापरतात?", options: [".upper()", ".toUpperCase()", ".UP()", ".capitalize()"], answer: 1 },
+  { id: 33, question: "Java मध्ये array ची size कशी कळते?", options: [".size()", ".count()", ".length", ".len()"], answer: 2 },
+  { id: 34, question: "Java मध्ये child class ला दुसऱ्या कोणत्या नावाने ओळखतात?", options: ["Parent class", "Superclass", "Subclass", "Base class"], answer: 2 },
+  { id: 35, question: "Java मध्ये void चा अर्थ काय आहे?", options: ["Method काहीतरी return करतो", "Method काही return करत नाही", "Method private आहे", "Method static आहे"], answer: 1 },
+  { id: 36, question: "Java मध्ये this keyword कशाला refer करतो?", options: ["Parent class ला", "Current object ला", "Static method ला", "Main method ला"], answer: 1 },
+  { id: 37, question: "Collections.sort() ArrayList कोणत्या order मध्ये sort करतो?", options: ["Descending order मध्ये", "Random order मध्ये", "Ascending order मध्ये", "Insertion order मध्ये"], answer: 2 },
+  { id: 38, question: "Java मध्ये String.split() method काय करते?", options: ["String delete करते", "String चे parts करते", "String reverse करते", "String uppercase करते"], answer: 1 },
+  { id: 39, question: "Java मध्ये new keyword काय करतो?", options: ["नवीन variable बनवतो", "Memory मध्ये नवीन object बनवतो", "नवीन method बनवतो", "नवीन class बनवतो"], answer: 1 },
+  { id: 40, question: "यापैकी Java चा primitive data type कोणता नाही?", options: ["int", "boolean", "String", "char"], answer: 2 },
+]
+
+
+
 /* ── Pyra mascot (shared, compact) ──────────────────────────────── */
 function PyraMascot({ mood }) {
   // mood: "idle" | "correct" | "wrong"
@@ -469,18 +600,20 @@ function MCQPage() {
   const language = location.state?.language || "python"
   const instructionLang = location.state?.instructionLang || "hindi"
 
-  const questions =
-    instructionLang === "english"
-      ? language === "sql" ? sqlQuestionsEnglish
-        : language === "javascript" ? javascriptQuestionsEnglish
-        : pythonQuestionsEnglish
-      : instructionLang === "marathi"
-      ? language === "sql" ? sqlQuestionsMarathi
-        : language === "javascript" ? javascriptQuestionsMarathi
-        : pythonQuestionsMarathi
-      : language === "sql" ? sqlQuestions
-      : language === "javascript" ? javascriptQuestions
-      : pythonQuestions
+  const questions = instructionLang === "english"
+  ? (language === "sql" ? sqlQuestionsEnglish
+    : language === "javascript" ? javascriptQuestionsEnglish
+    : language === "java" ? javaQuestionsEnglish
+    : pythonQuestionsEnglish)
+  : instructionLang === "marathi"
+  ? (language === "sql" ? sqlQuestionsMarathi
+    : language === "javascript" ? javascriptQuestionsMarathi
+    : language === "java" ? javaQuestionsMarathi
+    : pythonQuestionsMarathi)
+  : (language === "sql" ? sqlQuestions
+    : language === "javascript" ? javascriptQuestions
+    : language === "java" ? javaQuestions
+    : pythonQuestions)
 
   const lang = t[instructionLang]
   const [current, setCurrent] = useState(0)
