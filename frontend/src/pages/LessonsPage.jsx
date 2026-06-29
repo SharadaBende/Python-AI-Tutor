@@ -257,9 +257,7 @@ const javascriptLessonsMarathi = [
     title: "DOM Manipulation", 
     content: "DOM चे पूर्ण नाव आहे Document Object Model. DOM ने आपण JavaScript च्या मदतीने webpage चे elements बदलू शकतो. उदाहरणार्थ button click केल्यावर text बदलणे, color बदलणे, किंवा नवीन element add करणे. getElementById() ने element ला त्याच्या id ने शोधतो. innerHTML ने element चा content बदलतो. addEventListener ने events ऐकतो. DOM manipulation मुळेच websites interactive होतात.", example: '// HTML मध्ये: <h1 id="title">जुना Title</h1>\n\ndocument.getElementById("title").innerHTML = "नवीन Title!";\ndocument.getElementById("title").style.color = "blue";\n\ndocument.getElementById("btn").addEventListener("click", function() {\n  alert("Button click झाला!");\n});' },
 ]
-// ─────────────────────────────────────────
-// JAVA LESSONS — HINDI (paste after javascriptLessonsMarathi)
-// ─────────────────────────────────────────
+
 const javaLessons = [
   {
     id: 1,
@@ -353,9 +351,7 @@ const javaLessons = [
   },
 ]
 
-// ─────────────────────────────────────────
-// JAVA LESSONS — ENGLISH
-// ─────────────────────────────────────────
+
 const javaLessonsEnglish = [
   {
     id: 1,
@@ -449,9 +445,7 @@ const javaLessonsEnglish = [
   },
 ]
 
-// ─────────────────────────────────────────
-// JAVA LESSONS — MARATHI
-// ─────────────────────────────────────────
+
 const javaLessonsMarathi = [
   {
     id: 1,
@@ -545,6 +539,287 @@ const javaLessonsMarathi = [
   },
 ]
 
+const cppLessons = [
+  {
+    id: 1,
+    title: "C++ क्या है?",
+    content: "C++ एक powerful, general-purpose programming language है जिसे 1979 में Bjarne Stroustrup ने Bell Labs में बनाया था। C++ को C language का extension माना जाता है। C++ का नाम इसलिए रखा गया क्योंकि C में ++ operator होता है जिसका मतलब है एक बढ़ाना — यानी C++ का मतलब है C से बेहतर। C++ एक compiled language है जो बहुत fast होती है। इसीलिए game engines जैसे Unreal Engine, operating systems, browsers, और high-performance software C++ में बने होते हैं। C++ object-oriented programming को support करती है साथ ही procedural programming भी। C++ में memory management manual होती है जिससे programmer को पूरा control मिलता है। यह industry में बहुत demand में है खासकर game development, embedded systems, और competitive programming में।",
+    example: null
+  },
+  {
+    id: 2,
+    title: "C++ का पहला Program",
+    content: "C++ में program लिखने के लिए सबसे पहले header files include करते हैं। iostream header file input और output के लिए जरूरी है। #include<iostream> से iostream library को program में लाते हैं। using namespace std; लिखने से हर बार std:: लिखने की जरूरत नहीं पड़ती। main() function वो जगह है जहाँ से program execution शुरू होती है। int main() इसलिए लिखते हैं क्योंकि main function एक integer return करता है। cout से output देते हैं — cout का मतलब है console output। << operator से cout को data देते हैं। endl से नई line जाते हैं। return 0 से program सफलतापूर्वक खत्म होने का signal मिलता है। हर statement के अंत में semicolon जरूरी है।",
+    example: '#include<iostream>\nusing namespace std;\n\nint main() {\n    cout << "नमस्ते दुनिया!" << endl;\n    cout << "मेरा पहला C++ program" << endl;\n    cout << 2024 << endl;\n    return 0;\n}'
+  },
+  {
+    id: 3,
+    title: "Variables और Data Types",
+    content: "C++ में variables declare करते समय data type लिखना जरूरी है। int से पूरी संख्या store होती है जैसे 5, -10, 100। float से दशमलव संख्या store होती है जैसे 3.14। double से और ज्यादा accurate दशमलव संख्या store होती है। char से एक character store होता है जो single quotes में लिखते हैं। bool से true या false store होता है। string से text store होता है — इसके लिए string header या iostream जरूरी है। long long से बहुत बड़ी संख्या store होती है। unsigned int से सिर्फ positive numbers store होते हैं। C++ में variable declare करके बाद में value assign कर सकते हैं या declaration के साथ भी। const keyword से constant variable बनाते हैं जिसकी value बदल नहीं सकती।",
+    example: '#include<iostream>\n#include<string>\nusing namespace std;\n\nint main() {\n    int umar = 20;\n    float height = 5.9f;\n    double pi = 3.14159;\n    char grade = \'A\';\n    bool isStudent = true;\n    string naam = "Sharada";\n    const int MAX = 100;\n    \n    cout << "नाम: " << naam << endl;\n    cout << "उम्र: " << umar << endl;\n    cout << "Height: " << height << endl;\n    cout << "Grade: " << grade << endl;\n    cout << "Student: " << isStudent << endl;\n    return 0;\n}'
+  },
+  {
+    id: 4,
+    title: "User से Input लेना — cin",
+    content: "C++ में user से input लेने के लिए cin use करते हैं। cin का मतलब है console input। >> operator से cin को variable देते हैं। cin से integer, float, double, char — सभी types का input ले सकते हैं। string input लेने के लिए getline() function use करते हैं क्योंकि cin >> string सिर्फ पहला word लेता है। getline(cin, variable) से पूरी line लेते हैं। Input लेने से पहले user को message दिखाते हैं cout से। Multiple values एक साथ भी cin से ले सकते हैं। cin.ignore() से newline character को ignore करते हैं — यह getline से पहले जरूरी होता है जब पहले cin >> use हुआ हो। C++ में input/output बहुत fast होता है जो competitive programming में फायदेमंद है।",
+    example: '#include<iostream>\n#include<string>\nusing namespace std;\n\nint main() {\n    string naam;\n    int umar;\n    float marks;\n    \n    cout << "आपका नाम क्या है? ";\n    getline(cin, naam);\n    \n    cout << "आपकी उम्र क्या है? ";\n    cin >> umar;\n    \n    cout << "आपके marks क्या हैं? ";\n    cin >> marks;\n    \n    cout << "नमस्ते " << naam << "!" << endl;\n    cout << "उम्र: " << umar << endl;\n    cout << "Marks: " << marks << endl;\n    \n    return 0;\n}'
+  },
+  {
+    id: 5,
+    title: "If/Else Conditions",
+    content: "C++ में if/else से decision making होती है। Syntax Java जैसा ही है — condition round brackets में और code block curly braces में। अगर condition true है तो if block चलता है नहीं तो else block। else if से multiple conditions check कर सकते हैं। Comparison operators: == equal, != not equal, > greater than, < less than, >= greater than or equal, <= less than or equal। Logical operators: && AND, || OR, ! NOT। Ternary operator एक shorthand है — condition ? value_if_true : value_if_false। Switch statement से multiple cases efficiently handle होते हैं। Switch में हर case के बाद break लगाना जरूरी है नहीं तो fall-through होगा यानी सभी cases चलते रहेंगे। Default case वो होता है जब कोई case match न हो।",
+    example: '#include<iostream>\nusing namespace std;\n\nint main() {\n    int umar = 18;\n    \n    if (umar >= 18) {\n        cout << "आप vote कर सकते हैं" << endl;\n    } else {\n        cout << "आप vote नहीं कर सकते" << endl;\n    }\n    \n    int marks = 85;\n    if (marks >= 90) {\n        cout << "Grade: A+" << endl;\n    } else if (marks >= 75) {\n        cout << "Grade: A" << endl;\n    } else if (marks >= 60) {\n        cout << "Grade: B" << endl;\n    } else {\n        cout << "Grade: C" << endl;\n    }\n    \n    // Ternary operator\n    string result = (marks >= 60) ? "Pass" : "Fail";\n    cout << "Result: " << result << endl;\n    \n    return 0;\n}'
+  },
+  {
+    id: 6,
+    title: "Loops — For, While, Do-While",
+    content: "C++ में तीन प्रकार के loops होते हैं। For loop तब use करते हैं जब पता हो कितनी बार loop चलेगा। For loop में initialization, condition, और update तीनों parts होते हैं। While loop तब use करते हैं जब condition पर depend करना हो। Do-while loop कम से कम एक बार जरूर चलता है। Range-based for loop C++11 से आया जो arrays और containers को easily iterate करता है। break statement से loop तुरंत बंद होता है। continue statement से current iteration skip होती है। Nested loops से 2D patterns बनाते हैं। C++ में loops बहुत fast होते हैं क्योंकि directly machine code में compile होते हैं।",
+    example: '#include<iostream>\nusing namespace std;\n\nint main() {\n    // For loop\n    for (int i = 1; i <= 5; i++) {\n        cout << "Count: " << i << endl;\n    }\n    \n    // While loop\n    int count = 1;\n    while (count <= 3) {\n        cout << "While: " << count << endl;\n        count++;\n    }\n    \n    // Do-while loop\n    int n = 1;\n    do {\n        cout << "Do-While: " << n << endl;\n        n++;\n    } while (n <= 3);\n    \n    // 1 से 10 तक squares\n    for (int i = 1; i <= 10; i++) {\n        cout << i << " का square: " << i*i << endl;\n    }\n    \n    return 0;\n}'
+  },
+  {
+    id: 7,
+    title: "Functions",
+    content: "C++ में functions reusable code blocks होते हैं। Function को use करने से पहले declare या define करना जरूरी है। Function declaration में return type, name, और parameters होते हैं। void return type का मतलब है function कुछ return नहीं करता। Return keyword से value वापस मिलती है। Function overloading में same name के multiple functions हो सकते हैं different parameters के साथ। Default parameters से function call करते समय कुछ arguments skip कर सकते हैं। Inline functions small functions के लिए use होते हैं जो fast execution देते हैं। Recursive functions खुद को call करते हैं जैसे factorial निकालना। Pass by value में function को copy मिलती है। Pass by reference में actual variable मिलता है।",
+    example: '#include<iostream>\nusing namespace std;\n\n// Function declaration\nvoid greet(string naam);\nint add(int a, int b);\nint factorial(int n);\n\nint main() {\n    greet("Sharada");\n    cout << "5 + 3 = " << add(5, 3) << endl;\n    cout << "5! = " << factorial(5) << endl;\n    return 0;\n}\n\nvoid greet(string naam) {\n    cout << "नमस्ते " << naam << "!" << endl;\n}\n\nint add(int a, int b) {\n    return a + b;\n}\n\n// Recursive function\nint factorial(int n) {\n    if (n <= 1) return 1;\n    return n * factorial(n - 1);\n}'
+  },
+  {
+    id: 8,
+    title: "Arrays",
+    content: "C++ में array एक fixed-size container है जिसमें same type के multiple values store होते हैं। Array declare करते समय size specify करना जरूरी है। Index 0 से शुरू होता है। Array का size बाद में change नहीं होता। sizeof() operator से array का size bytes में मिलता है। 2D array से matrix बनाते हैं। Array को functions में pass कर सकते हैं। C++ में array bounds check नहीं होती यानी गलत index access करने पर undefined behavior होता है — यह एक common bug है। String actually characters का array होता है C style में। Modern C++ में array के बजाय vector use करना बेहतर है क्योंकि vector dynamic size का होता है। Array sorting के लिए sort() algorithm use होता है।",
+    example: '#include<iostream>\n#include<algorithm>\nusing namespace std;\n\nint main() {\n    // 1D Array\n    int numbers[5] = {10, 20, 30, 40, 50};\n    \n    cout << "पहला element: " << numbers[0] << endl;\n    cout << "Array size: " << 5 << endl;\n    \n    // Array iterate करें\n    for (int i = 0; i < 5; i++) {\n        cout << numbers[i] << " ";\n    }\n    cout << endl;\n    \n    // Sort करें\n    int scores[] = {85, 42, 91, 67, 78};\n    sort(scores, scores + 5);\n    \n    cout << "Sorted: ";\n    for (int i = 0; i < 5; i++) {\n        cout << scores[i] << " ";\n    }\n    cout << endl;\n    \n    return 0;\n}'
+  },
+  {
+    id: 9,
+    title: "Pointers — C++ की Special Feature",
+    content: "Pointer C++ की सबसे unique और powerful feature है जो इसे दूसरी languages से अलग बनाती है। Pointer एक variable है जो किसी दूसरे variable का memory address store करता है। & operator से किसी variable का address मिलता है। * operator से pointer को declare करते हैं और pointer की value access करते हैं इसे dereferencing कहते हैं। Pointers से directly memory को access और manipulate कर सकते हैं। Dynamic memory allocation में pointers का use होता है — new से memory allocate करते हैं और delete से free करते हैं। Array का नाम actually first element का pointer होता है। Functions में pointers pass करके original value change कर सकते हैं। Null pointer वो pointer है जो कहीं point नहीं करता। Dangling pointer वो pointer है जिसकी memory free हो चुकी है।",
+    example: '#include<iostream>\nusing namespace std;\n\nint main() {\n    int x = 42;\n    int* ptr = &x;  // ptr stores address of x\n    \n    cout << "x की value: " << x << endl;\n    cout << "x का address: " << &x << endl;\n    cout << "ptr में address: " << ptr << endl;\n    cout << "ptr से value: " << *ptr << endl;\n    \n    // Pointer से value change करें\n    *ptr = 100;\n    cout << "बाद में x: " << x << endl;\n    \n    // Dynamic memory\n    int* dynArr = new int[3];\n    dynArr[0] = 10;\n    dynArr[1] = 20;\n    dynArr[2] = 30;\n    \n    for (int i = 0; i < 3; i++) {\n        cout << dynArr[i] << " ";\n    }\n    \n    delete[] dynArr;  // Memory free करें\n    return 0;\n}'
+  },
+  {
+    id: 10,
+    title: "Classes और Objects — OOP",
+    content: "C++ में object-oriented programming के लिए classes use होती हैं। Class एक blueprint है और object उसका instance है। Class में data members यानी variables और member functions यानी methods होते हैं। Access specifiers तीन होते हैं — public जो सबके लिए accessible है, private जो सिर्फ class के अंदर accessible है, और protected जो child classes के लिए accessible है। Constructor class के नाम जैसा होता है और object बनाते समय automatically call होता है। Destructor का नाम ~ के साथ class name होता है और object destroy होने पर call होता है — यह memory cleanup करता है। this pointer current object को refer करता है। Struct और class में फर्क यह है कि struct के members default public होते हैं।",
+    example: '#include<iostream>\n#include<string>\nusing namespace std;\n\nclass Student {\nprivate:\n    string naam;\n    int umar;\n    double marks;\n    \npublic:\n    // Constructor\n    Student(string n, int u, double m) {\n        naam = n;\n        umar = u;\n        marks = m;\n    }\n    \n    // Destructor\n    ~Student() {\n        cout << naam << " का object delete हुआ" << endl;\n    }\n    \n    void displayInfo() {\n        cout << "नाम: " << naam << endl;\n        cout << "उम्र: " << umar << endl;\n        cout << "Marks: " << marks << endl;\n    }\n    \n    double getMarks() { return marks; }\n};\n\nint main() {\n    Student s1("Sharada", 20, 92.5);\n    Student s2("Rahul", 22, 87.0);\n    \n    s1.displayInfo();\n    cout << "---" << endl;\n    s2.displayInfo();\n    \n    return 0;\n}'
+  },
+  {
+    id: 11,
+    title: "Inheritance और Polymorphism",
+    content: "C++ में inheritance से एक class दूसरी class के features inherit कर सकती है। Syntax में class ChildClass : access_specifier ParentClass लिखते हैं। public inheritance सबसे common है। Child class parent के public और protected members use कर सकती है। Method overriding में child class parent के method को redefine करती है। Polymorphism का मतलब है एक ही interface से multiple behaviors। Virtual functions से runtime polymorphism होती है। virtual keyword से function को virtual बनाते हैं। Override keyword C++11 से आया। Pure virtual functions abstract class बनाते हैं जिसे = 0 से define करते हैं। Abstract class का object नहीं बन सकता। Multiple inheritance C++ में possible है — एक class एक से ज्यादा classes से inherit कर सकती है।",
+    example: '#include<iostream>\n#include<string>\nusing namespace std;\n\nclass Animal {\npublic:\n    string naam;\n    \n    Animal(string n) : naam(n) {}\n    \n    virtual void sound() {\n        cout << naam << " कुछ आवाज़ करता है" << endl;\n    }\n};\n\nclass Dog : public Animal {\npublic:\n    Dog(string n) : Animal(n) {}\n    \n    void sound() override {\n        cout << naam << " भौंकता है: Woof!" << endl;\n    }\n    \n    void fetch() {\n        cout << naam << " ball लाता है!" << endl;\n    }\n};\n\nclass Cat : public Animal {\npublic:\n    Cat(string n) : Animal(n) {}\n    \n    void sound() override {\n        cout << naam << " म्याऊ करती है: Meow!" << endl;\n    }\n};\n\nint main() {\n    Animal* a1 = new Dog("Tommy");\n    Animal* a2 = new Cat("Kitty");\n    \n    a1->sound();  // Polymorphism\n    a2->sound();\n    \n    delete a1;\n    delete a2;\n    return 0;\n}'
+  },
+  {
+    id: 12,
+    title: "STL — Vector और Map",
+    content: "STL यानी Standard Template Library C++ की बहुत powerful feature है। STL में ready-made data structures और algorithms होते हैं। Vector dynamic array है जो automatically size बढ़ाता है। push_back() से element add होता है। pop_back() से last element remove होता है। size() से size पता चलती है। at() या [] से element access होता है। Map key-value pairs store करता है जहाँ keys automatically sorted रहती हैं। Map में insert करने के लिए [] operator use होता है। find() से key search होती है। Set unique values store करता है। Queue और Stack भी STL में होते हैं। sort() algorithm से vector sort होता है। STL use करने से code छोटा और efficient बनता है।",
+    example: '#include<iostream>\n#include<vector>\n#include<map>\n#include<algorithm>\nusing namespace std;\n\nint main() {\n    // Vector\n    vector<int> nums = {5, 2, 8, 1, 9};\n    nums.push_back(4);\n    \n    sort(nums.begin(), nums.end());\n    \n    cout << "Sorted vector: ";\n    for (int n : nums) {\n        cout << n << " ";\n    }\n    cout << endl;\n    \n    // Map\n    map<string, int> marks;\n    marks["Sharada"] = 92;\n    marks["Rahul"] = 87;\n    marks["Priya"] = 95;\n    \n    cout << "\\nMarks:" << endl;\n    for (auto& pair : marks) {\n        cout << pair.first << ": " << pair.second << endl;\n    }\n    \n    return 0;\n}'
+  },
+  {
+    id: 13,
+    title: "File Handling",
+    content: "C++ में files read और write करने के लिए fstream library use होती है। fstream header file include करनी पड़ती है। ofstream से file में write करते हैं — o का मतलब output। ifstream से file से read करते हैं — i का मतलब input। fstream से दोनों read और write कर सकते हैं। File open करने के लिए object बनाते हैं और file name देते हैं। is_open() से check करते हैं कि file successfully open हुई या नहीं। << operator से file में write होता है जैसे cout में। >> या getline() से file से read होता है। close() से file बंद करते हैं — यह जरूरी है। ios::app mode से file के अंत में data add होता है बिना पुराना data delete किए। Binary mode में files को binary format में read/write करते हैं।",
+    example: '#include<iostream>\n#include<fstream>\n#include<string>\nusing namespace std;\n\nint main() {\n    // File में write करें\n    ofstream outFile("students.txt");\n    \n    if (outFile.is_open()) {\n        outFile << "Sharada,92" << endl;\n        outFile << "Rahul,87" << endl;\n        outFile << "Priya,95" << endl;\n        outFile.close();\n        cout << "File successfully लिखी!" << endl;\n    }\n    \n    // File से read करें\n    ifstream inFile("students.txt");\n    string line;\n    \n    cout << "\\nFile का content:" << endl;\n    if (inFile.is_open()) {\n        while (getline(inFile, line)) {\n            cout << line << endl;\n        }\n        inFile.close();\n    }\n    \n    return 0;\n}'
+  },
+  {
+    id: 14,
+    title: "Templates और Generic Programming",
+    content: "Templates C++ की एक advanced feature है जो generic programming enable करती है। Template से ऐसे functions और classes बना सकते हैं जो किसी भी data type के साथ काम करें। Function template में template<typename T> लिखते हैं जहाँ T एक placeholder है किसी भी type के लिए। जब function call होता है तो compiler automatically T को actual type से replace करता है। Class templates से generic data structures बनाते हैं। STL के vector, map जैसी सभी containers templates ही हैं। Template specialization से specific type के लिए अलग implementation दे सकते हैं। Variadic templates से variable number of arguments handle होते हैं। Templates compile time पर resolve होते हैं इसलिए runtime overhead नहीं होता। यह feature C++ को बहुत flexible और reusable बनाती है।",
+    example: '#include<iostream>\nusing namespace std;\n\n// Function template\ntemplate<typename T>\nT maximum(T a, T b) {\n    return (a > b) ? a : b;\n}\n\n// Class template\ntemplate<typename T>\nclass Box {\nprivate:\n    T value;\npublic:\n    Box(T v) : value(v) {}\n    T getValue() { return value; }\n    void display() {\n        cout << "Box में है: " << value << endl;\n    }\n};\n\nint main() {\n    // Function template use करें\n    cout << "Max(5, 3): " << maximum(5, 3) << endl;\n    cout << "Max(3.14, 2.71): " << maximum(3.14, 2.71) << endl;\n    cout << "Max(\'z\', \'a\'): " << maximum(\'z\', \'a\') << endl;\n    \n    // Class template use करें\n    Box<int> intBox(42);\n    Box<string> strBox("Hello");\n    Box<double> dblBox(3.14);\n    \n    intBox.display();\n    strBox.display();\n    dblBox.display();\n    \n    return 0;\n}'
+  },
+  {
+    id: 15,
+    title: "Mini Project — Student Grade Calculator",
+    content: "शाबाश! आपने C++ के सभी important concepts सीख लिए। अब हम एक Student Grade Calculator बनाएंगे जो C++ की OOP, STL, और file handling features use करेगा। इस project में Student class होगी, students को vector में store करेंगे, grades calculate करेंगे, और results file में save करेंगे। यह project real-world C++ programming जैसा है। इसमें classes, objects, constructors, vectors, file I/O, और sorting सब कुछ use होगा। इस project के बाद आप confidently कह सकते हैं कि आपने C++ में एक complete project बनाया है। C++ की speed और power को इस project में महसूस करेंगे।",
+    example: '#include<iostream>\n#include<vector>\n#include<string>\n#include<algorithm>\nusing namespace std;\n\nclass Student {\npublic:\n    string naam;\n    double marks;\n    string grade;\n    \n    Student(string n, double m) : naam(n), marks(m) {\n        if (m >= 90) grade = "A+";\n        else if (m >= 75) grade = "A";\n        else if (m >= 60) grade = "B";\n        else grade = "C";\n    }\n    \n    void display() {\n        cout << naam << " | Marks: " << marks << " | Grade: " << grade << endl;\n    }\n};\n\nbool compareMarks(Student& a, Student& b) {\n    return a.marks > b.marks;\n}\n\nint main() {\n    vector<Student> students;\n    \n    students.push_back(Student("Sharada", 92.5));\n    students.push_back(Student("Rahul", 87.0));\n    students.push_back(Student("Priya", 95.5));\n    students.push_back(Student("Amit", 65.0));\n    \n    // Marks के हिसाब से sort करें\n    sort(students.begin(), students.end(), compareMarks);\n    \n    cout << "=== Student Results (Rank wise) ===" << endl;\n    for (int i = 0; i < students.size(); i++) {\n        cout << "Rank " << i+1 << ": ";\n        students[i].display();\n    }\n    \n    // Average निकालें\n    double total = 0;\n    for (auto& s : students) total += s.marks;\n    cout << "\\nClass Average: " << total/students.size() << endl;\n    \n    return 0;\n}'
+  },
+]
+
+const cppLessonsEnglish = [
+  {
+    id: 1,
+    title: "What is C++?",
+    content: "C++ is a powerful, general-purpose programming language created by Bjarne Stroustrup at Bell Labs in 1979. C++ is considered an extension of the C language. The name C++ comes from the ++ operator in C which means increment by one, so C++ means one better than C. C++ is a compiled language which means it runs very fast. This is why game engines like Unreal Engine, operating systems, browsers, and high-performance software are all built in C++. C++ supports both object-oriented programming and procedural programming. Memory management in C++ is manual which gives the programmer complete control. C++ is in high demand in the industry especially in game development, embedded systems, and competitive programming.",
+    example: null
+  },
+  {
+    id: 2,
+    title: "First C++ Program",
+    content: "To write a C++ program we first include the required header files. The iostream header file is needed for input and output operations. We write #include iostream to bring the iostream library into the program. Writing using namespace std means we do not have to write std before every command. The main() function is where program execution begins. We write int main() because the main function returns an integer. We use cout to display output on the screen. The name cout stands for console output. We use the << operator to pass data to cout. The endl keyword moves the cursor to a new line. The statement return 0 signals that the program ended successfully. Every statement must end with a semicolon.",
+    example: '#include<iostream>\nusing namespace std;\n\nint main() {\n    cout << "Hello World!" << endl;\n    cout << "My first C++ program" << endl;\n    cout << 2024 << endl;\n    return 0;\n}'
+  },
+  {
+    id: 3,
+    title: "Variables and Data Types",
+    content: "In C++ you must write the data type when declaring a variable. The int type stores whole numbers like 5, -10, or 100. The float type stores decimal numbers like 3.14. The double type stores more precise decimal numbers than float. The char type stores a single character written inside single quotes. The bool type stores either true or false. The string type stores text and requires the string header or iostream. The long long type stores very large numbers. The unsigned int type stores only positive numbers. In C++ you can declare a variable first and assign a value later, or do both together. The const keyword creates a constant variable whose value cannot be changed.",
+    example: '#include<iostream>\n#include<string>\nusing namespace std;\n\nint main() {\n    int age = 20;\n    float height = 5.9f;\n    double pi = 3.14159;\n    char grade = \'A\';\n    bool isStudent = true;\n    string name = "Sharada";\n    const int MAX = 100;\n    \n    cout << "Name: " << name << endl;\n    cout << "Age: " << age << endl;\n    cout << "Height: " << height << endl;\n    cout << "Grade: " << grade << endl;\n    cout << "Student: " << isStudent << endl;\n    return 0;\n}'
+  },
+  {
+    id: 4,
+    title: "Taking Input from User — cin",
+    content: "In C++ we use cin to take input from the user. The name cin stands for console input. We use the >> operator to read data into a variable. We can use cin to read integers, floats, doubles, and characters. To read a full line of text including spaces we use the getline() function because cin >> only reads up to the first space. We write getline(cin, variable) to read the entire line. Before taking input we display a prompt to the user using cout. We can also read multiple values in one line using cin. The cin.ignore() function is used to ignore the newline character and is important to use before getline when cin >> has been used before it. Input and output in C++ is very fast which is an advantage in competitive programming.",
+    example: '#include<iostream>\n#include<string>\nusing namespace std;\n\nint main() {\n    string name;\n    int age;\n    float marks;\n    \n    cout << "What is your name? ";\n    getline(cin, name);\n    \n    cout << "What is your age? ";\n    cin >> age;\n    \n    cout << "What are your marks? ";\n    cin >> marks;\n    \n    cout << "Hello " << name << "!" << endl;\n    cout << "Age: " << age << endl;\n    cout << "Marks: " << marks << endl;\n    \n    return 0;\n}'
+  },
+  {
+    id: 5,
+    title: "If/Else Conditions",
+    content: "In C++ we use if and else for decision making. The syntax is similar to Java with the condition inside round brackets and the code block inside curly braces. If the condition is true the if block runs otherwise the else block runs. We use else if to check multiple conditions. The comparison operators are == for equal, != for not equal, > for greater than, < for less than, >= for greater than or equal, and <= for less than or equal. The logical operators are && for AND, || for OR, and ! for NOT. The ternary operator is a shorthand for if/else written as condition ? value_if_true : value_if_false. The switch statement handles multiple cases efficiently. A break statement is needed after each case otherwise fall-through occurs and all remaining cases execute. The default case handles all values that do not match any case.",
+    example: '#include<iostream>\nusing namespace std;\n\nint main() {\n    int age = 18;\n    \n    if (age >= 18) {\n        cout << "You can vote" << endl;\n    } else {\n        cout << "You cannot vote" << endl;\n    }\n    \n    int marks = 85;\n    if (marks >= 90) {\n        cout << "Grade: A+" << endl;\n    } else if (marks >= 75) {\n        cout << "Grade: A" << endl;\n    } else if (marks >= 60) {\n        cout << "Grade: B" << endl;\n    } else {\n        cout << "Grade: C" << endl;\n    }\n    \n    string result = (marks >= 60) ? "Pass" : "Fail";\n    cout << "Result: " << result << endl;\n    \n    return 0;\n}'
+  },
+  {
+    id: 6,
+    title: "Loops — For, While, Do-While",
+    content: "C++ has three types of loops. We use a for loop when we know how many times the loop should run. A for loop has three parts: initialization, condition, and update. We use a while loop when the number of iterations depends on a condition. A do-while loop always runs at least once because the condition is checked after the first execution. The range-based for loop introduced in C++11 makes it easy to iterate over arrays and containers. The break statement immediately exits the loop. The continue statement skips the current iteration and moves to the next. Nested loops are loops inside loops and are used to create 2D patterns. Loops in C++ run very fast because they compile directly to machine code.",
+    example: '#include<iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 1; i <= 5; i++) {\n        cout << "Count: " << i << endl;\n    }\n    \n    int count = 1;\n    while (count <= 3) {\n        cout << "While: " << count << endl;\n        count++;\n    }\n    \n    int n = 1;\n    do {\n        cout << "Do-While: " << n << endl;\n        n++;\n    } while (n <= 3);\n    \n    for (int i = 1; i <= 10; i++) {\n        cout << i << " squared: " << i*i << endl;\n    }\n    \n    return 0;\n}'
+  },
+  {
+    id: 7,
+    title: "Functions",
+    content: "In C++ functions are reusable code blocks. A function must be declared or defined before it is used. A function declaration includes the return type, the name, and the parameters. The void return type means the function does not return any value. The return keyword sends a value back to the caller. Function overloading allows multiple functions with the same name but different parameters. Default parameters let you skip certain arguments when calling a function. Inline functions are used for small functions to improve execution speed. Recursive functions call themselves and are useful for problems like calculating factorials. Pass by value gives the function a copy of the variable. Pass by reference gives the function the actual variable so changes affect the original.",
+    example: '#include<iostream>\nusing namespace std;\n\nvoid greet(string name);\nint add(int a, int b);\nint factorial(int n);\n\nint main() {\n    greet("Sharada");\n    cout << "5 + 3 = " << add(5, 3) << endl;\n    cout << "5! = " << factorial(5) << endl;\n    return 0;\n}\n\nvoid greet(string name) {\n    cout << "Hello " << name << "!" << endl;\n}\n\nint add(int a, int b) {\n    return a + b;\n}\n\nint factorial(int n) {\n    if (n <= 1) return 1;\n    return n * factorial(n - 1);\n}'
+  },
+  {
+    id: 8,
+    title: "Arrays",
+    content: "In C++ an array is a fixed-size container that stores multiple values of the same type. You must specify the size when declaring an array. The index starts from 0. The size of an array cannot change after declaration. The sizeof() operator returns the size of the array in bytes. A 2D array is used to represent a matrix. Arrays can be passed to functions. C++ does not check array bounds which means accessing an invalid index causes undefined behavior — this is a common bug to watch out for. A string in C style is actually an array of characters. In modern C++ it is better to use vector instead of array because vector has a dynamic size. The sort() algorithm from the algorithm header can sort an array.",
+    example: '#include<iostream>\n#include<algorithm>\nusing namespace std;\n\nint main() {\n    int numbers[5] = {10, 20, 30, 40, 50};\n    \n    cout << "First element: " << numbers[0] << endl;\n    \n    for (int i = 0; i < 5; i++) {\n        cout << numbers[i] << " ";\n    }\n    cout << endl;\n    \n    int scores[] = {85, 42, 91, 67, 78};\n    sort(scores, scores + 5);\n    \n    cout << "Sorted: ";\n    for (int i = 0; i < 5; i++) {\n        cout << scores[i] << " ";\n    }\n    cout << endl;\n    \n    return 0;\n}'
+  },
+  {
+    id: 9,
+    title: "Pointers — C++ Special Feature",
+    content: "A pointer is one of the most unique and powerful features of C++ and it is what sets it apart from other languages. A pointer is a variable that stores the memory address of another variable. The & operator gives us the address of a variable. The * operator is used to declare a pointer and also to access the value stored at the address the pointer points to, which is called dereferencing. With pointers we can directly access and manipulate memory. Pointers are used in dynamic memory allocation where we use new to allocate memory and delete to free it. The name of an array is actually a pointer to its first element. Passing a pointer to a function allows the function to change the original variable. A null pointer does not point to anything. A dangling pointer points to memory that has already been freed.",
+    example: '#include<iostream>\nusing namespace std;\n\nint main() {\n    int x = 42;\n    int* ptr = &x;\n    \n    cout << "Value of x: " << x << endl;\n    cout << "Address of x: " << &x << endl;\n    cout << "Address in ptr: " << ptr << endl;\n    cout << "Value via ptr: " << *ptr << endl;\n    \n    *ptr = 100;\n    cout << "x after change: " << x << endl;\n    \n    int* dynArr = new int[3];\n    dynArr[0] = 10;\n    dynArr[1] = 20;\n    dynArr[2] = 30;\n    \n    for (int i = 0; i < 3; i++) {\n        cout << dynArr[i] << " ";\n    }\n    \n    delete[] dynArr;\n    return 0;\n}'
+  },
+  {
+    id: 10,
+    title: "Classes and Objects — OOP",
+    content: "In C++ we use classes for object-oriented programming. A class is a blueprint and an object is an instance of that class. A class contains data members which are variables and member functions which are methods. There are three access specifiers: public which is accessible to everyone, private which is only accessible inside the class, and protected which is accessible to child classes. A constructor has the same name as the class and is automatically called when an object is created. A destructor has the class name prefixed with ~ and is called when an object is destroyed. It is used for memory cleanup. The this pointer refers to the current object. The difference between a struct and a class in C++ is that struct members are public by default.",
+    example: '#include<iostream>\n#include<string>\nusing namespace std;\n\nclass Student {\nprivate:\n    string name;\n    int age;\n    double marks;\n    \npublic:\n    Student(string n, int a, double m) {\n        name = n;\n        age = a;\n        marks = m;\n    }\n    \n    ~Student() {\n        cout << name << " object deleted" << endl;\n    }\n    \n    void displayInfo() {\n        cout << "Name: " << name << endl;\n        cout << "Age: " << age << endl;\n        cout << "Marks: " << marks << endl;\n    }\n    \n    double getMarks() { return marks; }\n};\n\nint main() {\n    Student s1("Sharada", 20, 92.5);\n    Student s2("Rahul", 22, 87.0);\n    \n    s1.displayInfo();\n    cout << "---" << endl;\n    s2.displayInfo();\n    \n    return 0;\n}'
+  },
+  {
+    id: 11,
+    title: "Inheritance and Polymorphism",
+    content: "In C++ one class can inherit features from another class using inheritance. The syntax is class ChildClass colon access_specifier ParentClass. Public inheritance is the most common type. The child class can use the public and protected members of the parent class. Method overriding is when the child class redefines a method from the parent class. Polymorphism means one interface with multiple behaviors. Virtual functions enable runtime polymorphism. We use the virtual keyword to make a function virtual. The override keyword was introduced in C++11 to explicitly mark overridden functions. Pure virtual functions are declared with = 0 and create abstract classes. An abstract class cannot be instantiated. Multiple inheritance is possible in C++ meaning one class can inherit from more than one class.",
+    example: '#include<iostream>\n#include<string>\nusing namespace std;\n\nclass Animal {\npublic:\n    string name;\n    Animal(string n) : name(n) {}\n    virtual void sound() {\n        cout << name << " makes a sound" << endl;\n    }\n};\n\nclass Dog : public Animal {\npublic:\n    Dog(string n) : Animal(n) {}\n    void sound() override {\n        cout << name << " barks: Woof!" << endl;\n    }\n    void fetch() {\n        cout << name << " fetches the ball!" << endl;\n    }\n};\n\nclass Cat : public Animal {\npublic:\n    Cat(string n) : Animal(n) {}\n    void sound() override {\n        cout << name << " meows: Meow!" << endl;\n    }\n};\n\nint main() {\n    Animal* a1 = new Dog("Tommy");\n    Animal* a2 = new Cat("Kitty");\n    a1->sound();\n    a2->sound();\n    delete a1;\n    delete a2;\n    return 0;\n}'
+  },
+  {
+    id: 12,
+    title: "STL — Vector and Map",
+    content: "STL which stands for Standard Template Library is one of the most powerful features of C++. STL provides ready-made data structures and algorithms. Vector is a dynamic array that automatically grows in size. We use push_back() to add an element, pop_back() to remove the last element, size() to get the size, and [] or at() to access elements. Map stores key-value pairs where the keys are automatically sorted. We use the [] operator to insert into a map. The find() method searches for a key. Set stores only unique values. Queue and Stack are also available in STL. The sort() algorithm sorts a vector. Using STL makes code shorter and more efficient and it is used in almost every professional C++ project.",
+    example: '#include<iostream>\n#include<vector>\n#include<map>\n#include<algorithm>\nusing namespace std;\n\nint main() {\n    vector<int> nums = {5, 2, 8, 1, 9};\n    nums.push_back(4);\n    sort(nums.begin(), nums.end());\n    \n    cout << "Sorted vector: ";\n    for (int n : nums) {\n        cout << n << " ";\n    }\n    cout << endl;\n    \n    map<string, int> marks;\n    marks["Sharada"] = 92;\n    marks["Rahul"] = 87;\n    marks["Priya"] = 95;\n    \n    cout << "\\nMarks:" << endl;\n    for (auto& pair : marks) {\n        cout << pair.first << ": " << pair.second << endl;\n    }\n    \n    return 0;\n}'
+  },
+  {
+    id: 13,
+    title: "File Handling",
+    content: "In C++ we use the fstream library to read from and write to files. We must include the fstream header file. The ofstream class is used to write to a file where o stands for output. The ifstream class is used to read from a file where i stands for input. The fstream class can do both reading and writing. To open a file we create an object and pass the file name. We use is_open() to check whether the file opened successfully. We use the << operator to write to a file just like with cout. We use >> or getline() to read from a file. We must call close() when we are done with the file. The ios::app mode appends data to the end of a file without deleting existing content. Binary mode is used to read and write files in binary format.",
+    example: '#include<iostream>\n#include<fstream>\n#include<string>\nusing namespace std;\n\nint main() {\n    ofstream outFile("students.txt");\n    \n    if (outFile.is_open()) {\n        outFile << "Sharada,92" << endl;\n        outFile << "Rahul,87" << endl;\n        outFile << "Priya,95" << endl;\n        outFile.close();\n        cout << "File written successfully!" << endl;\n    }\n    \n    ifstream inFile("students.txt");\n    string line;\n    \n    cout << "\\nFile contents:" << endl;\n    if (inFile.is_open()) {\n        while (getline(inFile, line)) {\n            cout << line << endl;\n        }\n        inFile.close();\n    }\n    \n    return 0;\n}'
+  },
+  {
+    id: 14,
+    title: "Templates and Generic Programming",
+    content: "Templates are an advanced feature of C++ that enable generic programming. With templates we can write functions and classes that work with any data type. In a function template we write template typename T where T is a placeholder for any type. When the function is called the compiler automatically replaces T with the actual type being used. Class templates let us create generic data structures. All the containers in STL like vector and map are templates. Template specialization allows a different implementation for a specific type. Variadic templates handle a variable number of arguments. Templates are resolved at compile time so there is no runtime overhead. This feature makes C++ extremely flexible and reusable.",
+    example: '#include<iostream>\nusing namespace std;\n\ntemplate<typename T>\nT maximum(T a, T b) {\n    return (a > b) ? a : b;\n}\n\ntemplate<typename T>\nclass Box {\nprivate:\n    T value;\npublic:\n    Box(T v) : value(v) {}\n    T getValue() { return value; }\n    void display() {\n        cout << "Box contains: " << value << endl;\n    }\n};\n\nint main() {\n    cout << "Max(5, 3): " << maximum(5, 3) << endl;\n    cout << "Max(3.14, 2.71): " << maximum(3.14, 2.71) << endl;\n    cout << "Max(\'z\', \'a\'): " << maximum(\'z\', \'a\') << endl;\n    \n    Box<int> intBox(42);\n    Box<string> strBox("Hello");\n    Box<double> dblBox(3.14);\n    \n    intBox.display();\n    strBox.display();\n    dblBox.display();\n    \n    return 0;\n}'
+  },
+  {
+    id: 15,
+    title: "Mini Project — Student Grade Calculator",
+    content: "Congratulations! You have learned all the important concepts of C++. Now we will build a Student Grade Calculator that uses C++ features including OOP, STL, and file handling. The project has a Student class, stores students in a vector, calculates grades, and saves results. This is a real-world style C++ project. It uses classes, objects, constructors, vectors, file I/O, and sorting all together. After building this you can confidently say that you have built a complete project in C++. You will feel the speed and power of C++ through this project.",
+    example: '#include<iostream>\n#include<vector>\n#include<string>\n#include<algorithm>\nusing namespace std;\n\nclass Student {\npublic:\n    string name;\n    double marks;\n    string grade;\n    \n    Student(string n, double m) : name(n), marks(m) {\n        if (m >= 90) grade = "A+";\n        else if (m >= 75) grade = "A";\n        else if (m >= 60) grade = "B";\n        else grade = "C";\n    }\n    \n    void display() {\n        cout << name << " | Marks: " << marks << " | Grade: " << grade << endl;\n    }\n};\n\nbool compareMarks(Student& a, Student& b) {\n    return a.marks > b.marks;\n}\n\nint main() {\n    vector<Student> students;\n    students.push_back(Student("Sharada", 92.5));\n    students.push_back(Student("Rahul", 87.0));\n    students.push_back(Student("Priya", 95.5));\n    students.push_back(Student("Amit", 65.0));\n    \n    sort(students.begin(), students.end(), compareMarks);\n    \n    cout << "=== Results (Rank wise) ===" << endl;\n    for (int i = 0; i < students.size(); i++) {\n        cout << "Rank " << i+1 << ": ";\n        students[i].display();\n    }\n    \n    double total = 0;\n    for (auto& s : students) total += s.marks;\n    cout << "\\nClass Average: " << total/students.size() << endl;\n    \n    return 0;\n}'
+  },
+]
+
+const cppLessonsMarathi = [
+  {
+    id: 1,
+    title: "C++ म्हणजे काय?",
+    content: "C++ ही एक powerful, general-purpose programming language आहे जी 1979 साली Bjarne Stroustrup यांनी Bell Labs मध्ये बनवली. C++ ला C language चा extension मानले जाते. C++ चे नाव C मधील ++ operator वरून आले — ++ म्हणजे एक वाढवणे, म्हणजे C++ म्हणजे C पेक्षा चांगले. C++ ही compiled language आहे जी खूप fast चालते. म्हणूनच Unreal Engine सारखे game engines, operating systems, browsers, आणि high-performance software C++ मध्ये बनलेले आहेत. C++ object-oriented programming सोबत procedural programming देखील support करते. C++ मध्ये memory management manual असते ज्यामुळे programmer ला पूर्ण control मिळतो. हे industry मध्ये खूप demand मध्ये आहे खासकरून game development, embedded systems, आणि competitive programming मध्ये.",
+    example: null
+  },
+  {
+    id: 2,
+    title: "C++ चा पहिला Program",
+    content: "C++ मध्ये program लिहण्यासाठी आधी header files include करतो. iostream header file input आणि output साठी आवश्यक आहे. #include iostream लिहून iostream library program मध्ये आणतो. using namespace std; लिहिल्याने प्रत्येक वेळी std:: लिहण्याची गरज नाही. main() function ही अशी जागा आहे जिथून program execution सुरू होते. int main() म्हणून लिहतो कारण main function एक integer return करतो. cout ने output देतो — cout म्हणजे console output. << operator ने cout ला data देतो. endl ने नवीन ओळीवर जातो. return 0 ने program यशस्वीरित्या संपल्याचे signal मिळते. प्रत्येक statement च्या शेवटी semicolon आवश्यक आहे.",
+    example: '#include<iostream>\nusing namespace std;\n\nint main() {\n    cout << "नमस्कार जग!" << endl;\n    cout << "माझा पहिला C++ program" << endl;\n    cout << 2024 << endl;\n    return 0;\n}'
+  },
+  {
+    id: 3,
+    title: "Variables आणि Data Types",
+    content: "C++ मध्ये variables declare करताना data type लिहणे आवश्यक आहे. int ने पूर्ण संख्या store होते जसे 5, -10, 100. float ने दशांश संख्या store होते जसे 3.14. double ने float पेक्षा जास्त accurate दशांश संख्या store होते. char ने एक character store होतो जो single quotes मध्ये लिहतो. bool ने true किंवा false store होते. string ने text store होतो — यासाठी string header किंवा iostream आवश्यक आहे. long long ने खूप मोठ्या संख्या store होतात. unsigned int ने फक्त positive numbers store होतात. C++ मध्ये variable declare करून नंतर value assign करता येते किंवा declaration सोबत देखील. const keyword ने constant variable बनवतो ज्याची value बदलत नाही.",
+    example: '#include<iostream>\n#include<string>\nusing namespace std;\n\nint main() {\n    int vay = 20;\n    float unchaai = 5.9f;\n    double pi = 3.14159;\n    char grade = \'A\';\n    bool isStudent = true;\n    string naam = "Sharada";\n    const int MAX = 100;\n    \n    cout << "नाव: " << naam << endl;\n    cout << "वय: " << vay << endl;\n    cout << "उंची: " << unchaai << endl;\n    cout << "Grade: " << grade << endl;\n    cout << "Student: " << isStudent << endl;\n    return 0;\n}'
+  },
+  {
+    id: 4,
+    title: "User कडून Input घेणे — cin",
+    content: "C++ मध्ये user कडून input घेण्यासाठी cin वापरतो. cin म्हणजे console input. >> operator ने cin ला variable देतो. cin ने integer, float, double, char — सर्व types चा input घेता येतो. String input घेण्यासाठी getline() function वापरतो कारण cin >> string फक्त पहिला word घेतो. getline(cin, variable) ने पूर्ण line घेतो. Input घेण्यापूर्वी user ला message दाखवतो cout ने. Multiple values एकत्र देखील cin ने घेता येतात. cin.ignore() ने newline character ignore होतो — हे getline आधी वापरणे आवश्यक असते जेव्हा आधी cin >> वापरले असेल. C++ मध्ये input/output खूप fast असते जे competitive programming मध्ये फायदेशीर आहे.",
+    example: '#include<iostream>\n#include<string>\nusing namespace std;\n\nint main() {\n    string naam;\n    int vay;\n    float marks;\n    \n    cout << "तुमचे नाव काय आहे? ";\n    getline(cin, naam);\n    \n    cout << "तुमचे वय किती आहे? ";\n    cin >> vay;\n    \n    cout << "तुमचे marks किती आहेत? ";\n    cin >> marks;\n    \n    cout << "नमस्कार " << naam << "!" << endl;\n    cout << "वय: " << vay << endl;\n    cout << "Marks: " << marks << endl;\n    \n    return 0;\n}'
+  },
+  {
+    id: 5,
+    title: "If/Else Conditions",
+    content: "C++ मध्ये if/else ने decision making होते. Syntax Java सारखाच आहे — condition round brackets मध्ये आणि code block curly braces मध्ये. जर condition true असेल तर if block चालतो नाहीतर else block. else if ने multiple conditions check करता येतात. Comparison operators: == equal, != not equal, > greater than, < less than, >= greater than or equal, <= less than or equal. Logical operators: && AND, || OR, ! NOT. Ternary operator एक shorthand आहे — condition ? value_if_true : value_if_false. Switch statement ने multiple cases efficiently handle होतात. Switch मध्ये प्रत्येक case नंतर break लावणे आवश्यक आहे नाहीतर fall-through होतो म्हणजे सर्व cases चालत राहतात. Default case तेव्हा चालतो जेव्हा कोणताही case match होत नाही.",
+    example: '#include<iostream>\nusing namespace std;\n\nint main() {\n    int vay = 18;\n    \n    if (vay >= 18) {\n        cout << "तुम्ही मतदान करू शकता" << endl;\n    } else {\n        cout << "तुम्ही मतदान करू शकत नाही" << endl;\n    }\n    \n    int marks = 85;\n    if (marks >= 90) {\n        cout << "Grade: A+" << endl;\n    } else if (marks >= 75) {\n        cout << "Grade: A" << endl;\n    } else if (marks >= 60) {\n        cout << "Grade: B" << endl;\n    } else {\n        cout << "Grade: C" << endl;\n    }\n    \n    string result = (marks >= 60) ? "Pass" : "Fail";\n    cout << "Result: " << result << endl;\n    \n    return 0;\n}'
+  },
+  {
+    id: 6,
+    title: "Loops — For, While, Do-While",
+    content: "C++ मध्ये तीन प्रकारचे loops असतात. For loop तेव्हा वापरतो जेव्हा आपल्याला माहीत असते की loop किती वेळा चालेल. For loop मध्ये initialization, condition, आणि update तीन्ही parts असतात. While loop तेव्हा वापरतो जेव्हा iterations condition वर अवलंबून असतात. Do-while loop किमान एकदा नक्की चालतो. Range-based for loop C++11 पासून आला जो arrays आणि containers सहज iterate करतो. break statement ने loop लगेच बंद होतो. continue statement ने current iteration skip होते. Nested loops ने 2D patterns बनवतात. C++ मध्ये loops खूप fast असतात कारण directly machine code मध्ये compile होतात.",
+    example: '#include<iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 1; i <= 5; i++) {\n        cout << "Count: " << i << endl;\n    }\n    \n    int count = 1;\n    while (count <= 3) {\n        cout << "While: " << count << endl;\n        count++;\n    }\n    \n    int n = 1;\n    do {\n        cout << "Do-While: " << n << endl;\n        n++;\n    } while (n <= 3);\n    \n    for (int i = 1; i <= 10; i++) {\n        cout << i << " चा square: " << i*i << endl;\n    }\n    \n    return 0;\n}'
+  },
+  {
+    id: 7,
+    title: "Functions",
+    content: "C++ मध्ये functions reusable code blocks असतात. Function वापरण्यापूर्वी declare किंवा define करणे आवश्यक आहे. Function declaration मध्ये return type, name, आणि parameters असतात. void return type म्हणजे function काही return करत नाही. return keyword ने value परत मिळते. Function overloading मध्ये same नावाचे multiple functions different parameters सह असू शकतात. Default parameters मुळे function call करताना काही arguments skip करता येतात. Inline functions लहान functions साठी वापरतात जे fast execution देतात. Recursive functions स्वतःला call करतात जसे factorial काढणे. Pass by value मध्ये function ला copy मिळते. Pass by reference मध्ये actual variable मिळतो.",
+    example: '#include<iostream>\nusing namespace std;\n\nvoid namaskaar(string naam);\nint add(int a, int b);\nint factorial(int n);\n\nint main() {\n    namaskaar("Sharada");\n    cout << "5 + 3 = " << add(5, 3) << endl;\n    cout << "5! = " << factorial(5) << endl;\n    return 0;\n}\n\nvoid namaskaar(string naam) {\n    cout << "नमस्कार " << naam << "!" << endl;\n}\n\nint add(int a, int b) {\n    return a + b;\n}\n\nint factorial(int n) {\n    if (n <= 1) return 1;\n    return n * factorial(n - 1);\n}'
+  },
+  {
+    id: 8,
+    title: "Arrays",
+    content: "C++ मध्ये array म्हणजे एक fixed-size container जिथे same type च्या multiple values store होतात. Array declare करताना size specify करणे आवश्यक आहे. Index 0 पासून सुरू होतो. Array चा size नंतर बदलता येत नाही. sizeof() operator ने array चा size bytes मध्ये मिळतो. 2D array ने matrix बनवतात. Arrays functions ला pass करता येतात. C++ मध्ये array bounds check होत नाही म्हणजे चुकीचा index access केल्यावर undefined behavior होतो — हा एक common bug आहे. C style मध्ये string हे characters चे array असते. Modern C++ मध्ये array ऐवजी vector वापरणे चांगले आहे कारण vector चा size dynamic असतो. sort() algorithm ने array sort करता येतो.",
+    example: '#include<iostream>\n#include<algorithm>\nusing namespace std;\n\nint main() {\n    int numbers[5] = {10, 20, 30, 40, 50};\n    \n    cout << "पहिला element: " << numbers[0] << endl;\n    \n    for (int i = 0; i < 5; i++) {\n        cout << numbers[i] << " ";\n    }\n    cout << endl;\n    \n    int scores[] = {85, 42, 91, 67, 78};\n    sort(scores, scores + 5);\n    \n    cout << "Sorted: ";\n    for (int i = 0; i < 5; i++) {\n        cout << scores[i] << " ";\n    }\n    cout << endl;\n    \n    return 0;\n}'
+  },
+  {
+    id: 9,
+    title: "Pointers — C++ ची Special Feature",
+    content: "Pointer हे C++ चे सर्वात unique आणि powerful feature आहे जे त्याला इतर languages पेक्षा वेगळे बनवते. Pointer म्हणजे एक variable जो दुसऱ्या variable चा memory address store करतो. & operator ने variable चा address मिळतो. * operator ने pointer declare करतो आणि pointer ची value access करतो — याला dereferencing म्हणतात. Pointers ने directly memory access आणि manipulate करता येते. Dynamic memory allocation मध्ये pointers वापरतात — new ने memory allocate करतो आणि delete ने free करतो. Array चे नाव actually first element चा pointer असतो. Functions मध्ये pointers pass करून original value बदलता येते. Null pointer कुठेही point करत नाही. Dangling pointer तो pointer आहे ज्याची memory free झाली आहे.",
+    example: '#include<iostream>\nusing namespace std;\n\nint main() {\n    int x = 42;\n    int* ptr = &x;\n    \n    cout << "x ची value: " << x << endl;\n    cout << "x चा address: " << &x << endl;\n    cout << "ptr मधील address: " << ptr << endl;\n    cout << "ptr ने value: " << *ptr << endl;\n    \n    *ptr = 100;\n    cout << "बदलल्यावर x: " << x << endl;\n    \n    int* dynArr = new int[3];\n    dynArr[0] = 10;\n    dynArr[1] = 20;\n    dynArr[2] = 30;\n    \n    for (int i = 0; i < 3; i++) {\n        cout << dynArr[i] << " ";\n    }\n    \n    delete[] dynArr;\n    return 0;\n}'
+  },
+  {
+    id: 10,
+    title: "Classes आणि Objects — OOP",
+    content: "C++ मध्ये object-oriented programming साठी classes वापरतात. Class म्हणजे blueprint आणि object म्हणजे त्याचा instance. Class मध्ये data members म्हणजे variables आणि member functions म्हणजे methods असतात. Access specifiers तीन आहेत — public म्हणजे सर्वांसाठी accessible, private म्हणजे फक्त class च्या आत accessible, आणि protected म्हणजे child classes साठी accessible. Constructor चे नाव class च्या नावासारखे असते आणि object बनवताना automatically call होतो. Destructor चे नाव ~ सह class name असते आणि object destroy होताना call होतो — हे memory cleanup करते. this pointer current object ला refer करतो. Struct आणि class मधील फरक म्हणजे struct चे members default public असतात.",
+    example: '#include<iostream>\n#include<string>\nusing namespace std;\n\nclass Student {\nprivate:\n    string naam;\n    int vay;\n    double marks;\n    \npublic:\n    Student(string n, int v, double m) {\n        naam = n;\n        vay = v;\n        marks = m;\n    }\n    \n    ~Student() {\n        cout << naam << " चा object delete झाला" << endl;\n    }\n    \n    void displayInfo() {\n        cout << "नाव: " << naam << endl;\n        cout << "वय: " << vay << endl;\n        cout << "Marks: " << marks << endl;\n    }\n    \n    double getMarks() { return marks; }\n};\n\nint main() {\n    Student s1("Sharada", 20, 92.5);\n    Student s2("Rahul", 22, 87.0);\n    \n    s1.displayInfo();\n    cout << "---" << endl;\n    s2.displayInfo();\n    \n    return 0;\n}'
+  },
+  {
+    id: 11,
+    title: "Inheritance आणि Polymorphism",
+    content: "C++ मध्ये inheritance ने एक class दुसऱ्या class चे features inherit करू शकते. Syntax मध्ये class ChildClass : access_specifier ParentClass लिहतो. Public inheritance सर्वात common आहे. Child class parent चे public आणि protected members वापरू शकते. Method overriding मध्ये child class parent च्या method ला redefine करते. Polymorphism म्हणजे एकाच interface ने multiple behaviors. Virtual functions ने runtime polymorphism होते. virtual keyword ने function ला virtual बनवतो. override keyword C++11 पासून आला. Pure virtual functions = 0 ने define होतात आणि abstract class बनवतात. Abstract class चा object बनत नाही. Multiple inheritance C++ मध्ये शक्य आहे — एक class एकापेक्षा जास्त classes मधून inherit करू शकते.",
+    example: '#include<iostream>\n#include<string>\nusing namespace std;\n\nclass Animal {\npublic:\n    string naam;\n    Animal(string n) : naam(n) {}\n    virtual void sound() {\n        cout << naam << " काहीतरी आवाज करतो" << endl;\n    }\n};\n\nclass Dog : public Animal {\npublic:\n    Dog(string n) : Animal(n) {}\n    void sound() override {\n        cout << naam << " भुंकतो: Woof!" << endl;\n    }\n    void fetch() {\n        cout << naam << " ball आणतो!" << endl;\n    }\n};\n\nclass Cat : public Animal {\npublic:\n    Cat(string n) : Animal(n) {}\n    void sound() override {\n        cout << naam << " म्याऊ करते: Meow!" << endl;\n    }\n};\n\nint main() {\n    Animal* a1 = new Dog("Tommy");\n    Animal* a2 = new Cat("Kitty");\n    a1->sound();\n    a2->sound();\n    delete a1;\n    delete a2;\n    return 0;\n}'
+  },
+  {
+    id: 12,
+    title: "STL — Vector आणि Map",
+    content: "STL म्हणजे Standard Template Library हे C++ चे खूप powerful feature आहे. STL मध्ये ready-made data structures आणि algorithms असतात. Vector म्हणजे dynamic array जो automatically size वाढवतो. push_back() ने element add होतो. pop_back() ने last element remove होतो. size() ने size कळते. at() किंवा [] ने element access होतो. Map key-value pairs store करतो जिथे keys automatically sorted राहतात. Map मध्ये insert करण्यासाठी [] operator वापरतो. find() ने key search होते. Set unique values store करते. Queue आणि Stack देखील STL मध्ये आहेत. sort() algorithm ने vector sort होतो. STL वापरल्याने code छोटा आणि efficient होतो.",
+    example: '#include<iostream>\n#include<vector>\n#include<map>\n#include<algorithm>\nusing namespace std;\n\nint main() {\n    vector<int> nums = {5, 2, 8, 1, 9};\n    nums.push_back(4);\n    sort(nums.begin(), nums.end());\n    \n    cout << "Sorted vector: ";\n    for (int n : nums) {\n        cout << n << " ";\n    }\n    cout << endl;\n    \n    map<string, int> marks;\n    marks["Sharada"] = 92;\n    marks["Rahul"] = 87;\n    marks["Priya"] = 95;\n    \n    cout << "\\nMarks:" << endl;\n    for (auto& pair : marks) {\n        cout << pair.first << ": " << pair.second << endl;\n    }\n    \n    return 0;\n}'
+  },
+  {
+    id: 13,
+    title: "File Handling",
+    content: "C++ मध्ये files read आणि write करण्यासाठी fstream library वापरतो. fstream header file include करावी लागते. ofstream ने file मध्ये write करतो — o म्हणजे output. ifstream ने file मधून read करतो — i म्हणजे input. fstream ने दोन्ही read आणि write करता येते. File open करण्यासाठी object बनवतो आणि file name देतो. is_open() ने check करतो की file successfully open झाली का. << operator ने file मध्ये write होते जसे cout मध्ये. >> किंवा getline() ने file मधून read होते. close() ने file बंद करतो — हे आवश्यक आहे. ios::app mode ने file च्या शेवटी data add होतो जुना data delete न करता. Binary mode मध्ये files binary format मध्ये read/write होतात.",
+    example: '#include<iostream>\n#include<fstream>\n#include<string>\nusing namespace std;\n\nint main() {\n    ofstream outFile("students.txt");\n    \n    if (outFile.is_open()) {\n        outFile << "Sharada,92" << endl;\n        outFile << "Rahul,87" << endl;\n        outFile << "Priya,95" << endl;\n        outFile.close();\n        cout << "File यशस्वीरित्या लिहली!" << endl;\n    }\n    \n    ifstream inFile("students.txt");\n    string line;\n    \n    cout << "\\nFile चा content:" << endl;\n    if (inFile.is_open()) {\n        while (getline(inFile, line)) {\n            cout << line << endl;\n        }\n        inFile.close();\n    }\n    \n    return 0;\n}'
+  },
+  {
+    id: 14,
+    title: "Templates आणि Generic Programming",
+    content: "Templates हे C++ चे एक advanced feature आहे जे generic programming enable करते. Templates ने असे functions आणि classes बनवता येतात जे कोणत्याही data type सोबत काम करतात. Function template मध्ये template typename T लिहतो जिथे T म्हणजे कोणत्याही type साठी placeholder. Function call होताना compiler आपोआप T ला actual type ने replace करतो. Class templates ने generic data structures बनवतात. STL चे vector, map सारखे सर्व containers templates आहेत. Template specialization ने specific type साठी वेगळी implementation देता येते. Variadic templates ने variable number of arguments handle होतात. Templates compile time वर resolve होतात म्हणून runtime overhead नाही. हे feature C++ ला खूप flexible आणि reusable बनवते.",
+    example: '#include<iostream>\nusing namespace std;\n\ntemplate<typename T>\nT maximum(T a, T b) {\n    return (a > b) ? a : b;\n}\n\ntemplate<typename T>\nclass Box {\nprivate:\n    T value;\npublic:\n    Box(T v) : value(v) {}\n    T getValue() { return value; }\n    void display() {\n        cout << "Box मध्ये आहे: " << value << endl;\n    }\n};\n\nint main() {\n    cout << "Max(5, 3): " << maximum(5, 3) << endl;\n    cout << "Max(3.14, 2.71): " << maximum(3.14, 2.71) << endl;\n    cout << "Max(\'z\', \'a\'): " << maximum(\'z\', \'a\') << endl;\n    \n    Box<int> intBox(42);\n    Box<string> strBox("Hello");\n    Box<double> dblBox(3.14);\n    \n    intBox.display();\n    strBox.display();\n    dblBox.display();\n    \n    return 0;\n}'
+  },
+  {
+    id: 15,
+    title: "Mini Project — Student Grade Calculator",
+    content: "शाब्बास! तुम्ही C++ चे सर्व महत्त्वाचे concepts शिकलात. आता आपण एक Student Grade Calculator बनवूया जो C++ च्या OOP, STL, आणि file handling features वापरेल. या project मध्ये Student class असेल, students ला vector मध्ये store करू, grades calculate करू, आणि results file मध्ये save करू. हे एक real-world C++ project आहे. यात classes, objects, constructors, vectors, file I/O, आणि sorting सर्व काही वापरले जाईल. हे project बनवल्यावर तुम्ही confidently म्हणू शकता की तुम्ही C++ मध्ये एक complete project बनवला आहे.",
+    example: '#include<iostream>\n#include<vector>\n#include<string>\n#include<algorithm>\nusing namespace std;\n\nclass Student {\npublic:\n    string naam;\n    double marks;\n    string grade;\n    \n    Student(string n, double m) : naam(n), marks(m) {\n        if (m >= 90) grade = "A+";\n        else if (m >= 75) grade = "A";\n        else if (m >= 60) grade = "B";\n        else grade = "C";\n    }\n    \n    void display() {\n        cout << naam << " | Marks: " << marks << " | Grade: " << grade << endl;\n    }\n};\n\nbool compareMarks(Student& a, Student& b) {\n    return a.marks > b.marks;\n}\n\nint main() {\n    vector<Student> students;\n    students.push_back(Student("Sharada", 92.5));\n    students.push_back(Student("Rahul", 87.0));\n    students.push_back(Student("Priya", 95.5));\n    students.push_back(Student("Amit", 65.0));\n    \n    sort(students.begin(), students.end(), compareMarks);\n    \n    cout << "=== Results (Rank wise) ===" << endl;\n    for (int i = 0; i < students.size(); i++) {\n        cout << "Rank " << i+1 << ": ";\n        students[i].display();\n    }\n    \n    double total = 0;\n    for (auto& s : students) total += s.marks;\n    cout << "\\nClass Average: " << total/students.size() << endl;\n    \n    return 0;\n}'
+  },
+]
+
+
+
 // ─── Pyra SVG Mascot ───────────────────────────────────────────────────────────
 function PyraMascot({ size = 56, speaking = false }) {
   return (
@@ -619,15 +894,18 @@ function LessonsPage() {
   ? (language === "sql" ? sqlLessonsEnglish
     : language === "javascript" ? javascriptLessonsEnglish
     : language === "java" ? javaLessonsEnglish
+    : language === "cpp" ? cppLessonsEnglish
     : pythonLessonsEnglish)
   : instructionLang === "marathi"
   ? (language === "sql" ? sqlLessonsMarathi
     : language === "javascript" ? javascriptLessonsMarathi
     : language === "java" ? javaLessonsMarathi
+    : language === "cpp" ? cppLessonsMarathi
     : pythonLessonsMarathi)
   : (language === "sql" ? sqlLessons
     : language === "javascript" ? javascriptLessons
     : language === "java" ? javaLessons
+    : language === "cpp" ? cppLessons
     : pythonLessons)
   const lang = t[instructionLang]
 
