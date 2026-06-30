@@ -1721,12 +1721,11 @@ function LessonsPage() {
   const [listening, setListening] = useState(false)
   const [speaking, setSpeaking] = useState(false)
 
-  const {
-    theme, toggleTheme,
-    bg, textColor, cardBg, cardBorder, mutedColor, codeBg, accent, accentHover,
-    accentShadow, success, successShadow, gold, goldShadow,
-    fontSize, setFontSize, speed, setSpeed
-  } = useTheme()
+  const { theme, toggleTheme, bg, textColor, cardBg, cardBorder, mutedColor, codeBg,
+  accent, accentText, accentSoft, accentHover, accentShadow,
+  success, successShadow, gold, goldShadow,
+  fontSize, setFontSize, speed, setSpeed
+} = useTheme()
 
   const isDark = theme === "dark"
 
@@ -1940,12 +1939,15 @@ function LessonsPage() {
         <div style={{ width: "100%", maxWidth: "1100px", margin: "0 auto" }}>
 
           <Navbar
-            name={name} theme={theme} toggleTheme={toggleTheme}
-            fontSize={fontSize} setFontSize={setFontSize}
-            speed={speed} setSpeed={setSpeed}
-            language={language} instructionLang={instructionLang}
-            userId={userId}
-          />
+  name={name} theme={theme} toggleTheme={toggleTheme}
+  fontSize={fontSize} setFontSize={setFontSize}
+  speed={speed} setSpeed={setSpeed}
+  language={language} instructionLang={instructionLang}
+  userId={userId}
+  cardBg={cardBg} cardBorder={cardBorder} mutedColor={mutedColor}
+  accent={accent} accentText={accentText} accentSoft={accentSoft}
+  borderWidth={"1px"}
+/>
 
           <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "1.5rem", alignItems: "start" }}>
 
