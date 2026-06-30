@@ -1016,6 +1016,204 @@ const htmlLessonsMarathi = [
   },
 ]
 
+// ─────────────────────────────────────────
+// CSS LESSONS — HINDI (paste after htmlLessonsMarathi)
+// ─────────────────────────────────────────
+const cssLessons = [
+  {
+    id: 1,
+    title: "CSS क्या है?",
+    content: "CSS का पूरा नाम है Cascading Style Sheets। CSS से हम HTML elements को design देते हैं — colors, fonts, spacing, layout सब कुछ CSS से control होता है। अगर HTML एक घर की structure है तो CSS उसका interior design है — वही दीवारों का रंग, furniture की arrangement, और सब कुछ सुंदर बनाने का काम करता है। CSS rules में एक selector होता है जो बताता है किस element को style करना है, और उसके अंदर properties होती हैं जो बताती हैं कैसे style करना है। CSS को तीन तरीकों से HTML में add कर सकते हैं — inline, internal, और external। External CSS सबसे अच्छी practice है क्योंकि code organized रहता है। Cascading का मतलब है कि अगर एक element पर कई rules apply हों, तो कौन सा rule जीतेगा यह specific नियमों से तय होता है।",
+    example: null
+  },
+  {
+    id: 2,
+    title: "CSS कैसे Add करें — Inline, Internal, External",
+    content: "CSS को HTML में जोड़ने के तीन तरीके हैं। Inline CSS किसी एक specific element पर style attribute से लगाते हैं — यह सबसे direct है लेकिन maintain करना मुश्किल होता है। Internal CSS <style> tag के अंदर लिखते हैं जो <head> section में होता है — यह एक पूरे page के लिए होता है। External CSS एक अलग .css file में लिखते हैं और उसे <link> tag से HTML से जोड़ते हैं — यह सबसे best practice है क्योंकि एक CSS file को कई HTML pages share कर सकते हैं और code organized रहता है। Real projects में हमेशा external CSS use करते हैं। rel='stylesheet' attribute बताता है कि linked file एक stylesheet है।",
+    example: '<!-- Inline CSS -->\n<p style="color: blue; font-size: 18px;">यह paragraph inline style में है</p>\n\n<!-- Internal CSS -->\n<style>\n    p {\n        color: green;\n    }\n</style>\n\n<!-- External CSS -->\n<link rel="stylesheet" href="style.css">\n\n/* style.css file में: */\np {\n    color: red;\n    font-family: Arial;\n}'
+  },
+  {
+    id: 3,
+    title: "Selectors — Elements को Target करना",
+    content: "CSS selectors बताते हैं कि कौन से HTML elements को style करना है। Element selector सीधे tag का नाम use करता है जैसे p या h1 — इससे सभी matching elements style होते हैं। Class selector dot से शुरू होता है जैसे .highlight — यह उन सभी elements को style करता है जिनकी class उस नाम की हो। एक class को कई elements पर use कर सकते हैं। ID selector hash से शुरू होता है जैसे #header — यह सिर्फ एक unique element को target करता है क्योंकि एक page में एक id सिर्फ एक बार use होनी चाहिए। Universal selector star से लिखते हैं जो सभी elements को select करता है। Group selector से comma लगाकर कई selectors एक साथ same style दे सकते हैं। Descendant selector space से लिखते हैं जो किसी element के अंदर के elements को target करता है।",
+    example: '/* Element selector */\np {\n    color: black;\n}\n\n/* Class selector */\n.highlight {\n    background-color: yellow;\n}\n\n/* ID selector */\n#header {\n    font-size: 24px;\n}\n\n/* Group selector */\nh1, h2, h3 {\n    font-family: Arial;\n}\n\n/* Descendant selector */\ndiv p {\n    color: gray;\n}'
+  },
+  {
+    id: 4,
+    title: "Colors और Backgrounds",
+    content: "CSS में colors कई तरीकों से लिख सकते हैं। Named colors जैसे red, blue, green सबसे simple हैं। Hex codes # के साथ लिखते हैं जैसे #ff0000 जो लाल रंग है — पहले दो digits red के लिए, अगले दो green के लिए, आखिरी दो blue के लिए। RGB function से rgb(255, 0, 0) लिखते हैं जो भी लाल रंग है। RGBA से transparency भी add कर सकते हैं जैसे rgba(255, 0, 0, 0.5) जहाँ आखिरी value opacity है 0 से 1 के बीच। color property text के रंग के लिए होती है। background-color property background के रंग के लिए होती है। background-image से image background लगाते हैं। background-size से उस image का size control होता है जैसे cover पूरा area भर देता है।",
+    example: 'h1 {\n    color: #ff6347;\n}\n\np {\n    color: rgb(50, 50, 50);\n}\n\n.box {\n    background-color: #f0f0f0;\n}\n\n.overlay {\n    background-color: rgba(0, 0, 0, 0.5);\n}\n\n.hero {\n    background-image: url("background.jpg");\n    background-size: cover;\n}'
+  },
+  {
+    id: 5,
+    title: "Box Model — Margin, Padding, Border",
+    content: "CSS Box Model सबसे important concept है। हर HTML element एक box होता है जिसमें चार layers होती हैं। Content सबसे अंदर होता है — actual text या image। Padding content के चारों ओर की space होती है, यानी content और border के बीच का gap। Border padding के बाहर होता है — एक line जो element को घेरती है। Margin border के बाहर की space होती है यानी एक element और दूसरे element के बीच का gap। padding और margin दोनों में top, right, bottom, left अलग-अलग set कर सकते हैं या shorthand से एक साथ। border-radius से corners को round किया जा सकता है। box-sizing: border-box से padding और border total width में count होते हैं जो layout बनाना आसान बनाता है।",
+    example: '.box {\n    width: 300px;\n    padding: 20px;\n    border: 2px solid black;\n    margin: 10px;\n    border-radius: 12px;\n}\n\n/* अलग-अलग sides के लिए */\n.box2 {\n    padding-top: 10px;\n    padding-right: 20px;\n    padding-bottom: 10px;\n    padding-left: 20px;\n}\n\n/* box-sizing से सही width calculation */\n* {\n    box-sizing: border-box;\n}'
+  },
+  {
+    id: 6,
+    title: "Text और Font Styling",
+    content: "CSS से text को बहुत तरीकों से style कर सकते हैं। font-family से font का नाम set करते हैं — अगर पहला font available नहीं है तो browser अगला try करता है। font-size से text का size set होता है, px, em, या rem में लिख सकते हैं। font-weight से bold या normal set होता है, numbers में भी लिख सकते हैं जैसे 700 जो bold होता है। font-style से italic लगता है। text-align से text center, left, right, या justify हो सकता है। text-decoration से underline, line-through, या none लगता है। line-height से lines के बीच की spacing control होती है जो readability के लिए जरूरी है। letter-spacing से letters के बीच की spacing बढ़ती-घटती है। text-transform से text uppercase, lowercase, या capitalize हो सकता है।",
+    example: 'h1 {\n    font-family: \'Segoe UI\', sans-serif;\n    font-size: 32px;\n    font-weight: bold;\n    text-align: center;\n}\n\np {\n    font-size: 16px;\n    line-height: 1.6;\n    color: #333;\n}\n\na {\n    text-decoration: none;\n    color: blue;\n}\n\n.uppercase-text {\n    text-transform: uppercase;\n    letter-spacing: 2px;\n}'
+  },
+  {
+    id: 7,
+    title: "Flexbox — Modern Layout",
+    content: "Flexbox CSS का सबसे powerful layout system है जो elements को easily align और distribute करता है। Parent element पर display: flex लगाने से वो flex container बन जाता है और उसके सभी children flex items बन जाते हैं। flex-direction से बताते हैं items row में जाएं या column में। justify-content से items को horizontal axis पर align करते हैं — center, space-between, space-around जैसी values होती हैं। align-items से items को vertical axis पर align करते हैं। flex-wrap से items नई line में wrap हो सकते हैं अगर जगह कम हो। gap से items के बीच spacing देते हैं बिना margin use किए। flex-grow से बताते हैं कि कौन सा item extra space ले। Flexbox से centering करना बहुत आसान हो जाता है जो पहले मुश्किल काम था।",
+    example: '.container {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    gap: 20px;\n}\n\n.center-everything {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n}\n\n.column-layout {\n    display: flex;\n    flex-direction: column;\n}\n\n.item {\n    flex-grow: 1;\n}'
+  },
+  {
+    id: 8,
+    title: "CSS Grid — 2D Layout System",
+    content: "CSS Grid एक powerful 2D layout system है जो rows और columns दोनों को एक साथ control करता है। display: grid लगाने से element grid container बन जाता है। grid-template-columns से columns की संख्या और size set करते हैं — fr unit fraction के लिए होता है जो available space को बराबर बांटता है। grid-template-rows से rows define करते हैं। gap property से grid items के बीच spacing देते हैं। grid-column और grid-row से किसी item को कई columns या rows में span करा सकते हैं। Grid layouts के लिए perfect है जैसे image galleries, dashboards, या complex page layouts। repeat() function से बार-बार same size के columns/rows बनाना आसान होता है। Flexbox 1D layout के लिए है जबकि Grid 2D layout के लिए — दोनों साथ भी use हो सकते हैं।",
+    example: '.gallery {\n    display: grid;\n    grid-template-columns: repeat(3, 1fr);\n    gap: 15px;\n}\n\n.dashboard {\n    display: grid;\n    grid-template-columns: 200px 1fr;\n    grid-template-rows: 60px 1fr;\n}\n\n.featured-item {\n    grid-column: span 2;\n}\n\n.full-width {\n    grid-column: 1 / -1;\n}'
+  },
+  {
+    id: 9,
+    title: "Responsive Design — Media Queries",
+    content: "Responsive design से website हर screen size पर अच्छी दिखती है — चाहे mobile हो, tablet हो, या desktop हो। Media queries CSS की feature है जो screen size के हिसाब से अलग styles apply करती है। @media (max-width: 768px) का मतलब है यह styles तभी apply होंगी जब screen width 768px या उससे कम हो। Mobile-first approach में पहले mobile के लिए style लिखते हैं फिर बड़ी screens के लिए min-width media queries लिखते हैं। viewport meta tag <meta name='viewport' content='width=device-width, initial-scale=1'> हर responsive website में जरूरी है। Flexible units जैसे %, vw, vh, em, rem fixed px से बेहतर हैं responsive design के लिए। Breakpoints common screen sizes होते हैं जहाँ layout बदलता है — आमतौर पर 480px, 768px, 1024px पर।",
+    example: '/* Mobile-first base styles */\n.container {\n    width: 100%;\n    padding: 10px;\n}\n\n/* Tablet — 768px और बड़ा */\n@media (min-width: 768px) {\n    .container {\n        width: 750px;\n        margin: 0 auto;\n    }\n}\n\n/* Desktop — 1024px और बड़ा */\n@media (min-width: 1024px) {\n    .container {\n        width: 1000px;\n    }\n    \n    .sidebar {\n        display: block;\n    }\n}\n\n/* Mobile पर sidebar hide करें */\n.sidebar {\n    display: none;\n}'
+  },
+  {
+    id: 10,
+    title: "CSS Transitions और Mini Project",
+    content: "शाबाश! आपने CSS के सभी important concepts सीख लिए। Transitions से CSS properties smoothly बदलती हैं instead of तुरंत jump करने के। transition property में बताते हैं कौन सी property animate होगी, कितनी देर में, और कैसे। hover pseudo-class से किसी element पर mouse आने पर style बदलती है। यह बहुत common है buttons और links के लिए। transform property से elements को move, rotate, scale, या skew कर सकते हैं transition के साथ मिलकर। अब हम सब कुछ मिलाकर एक responsive card component बनाएंगे जिसमें box model, flexbox, hover effects, और transitions सब use होंगे। यह project आपको दिखाएगा कि real websites में CSS कैसे काम आता है।",
+    example: '.card {\n    width: 280px;\n    padding: 20px;\n    border-radius: 12px;\n    box-shadow: 0 2px 8px rgba(0,0,0,0.1);\n    transition: transform 0.3s ease, box-shadow 0.3s ease;\n}\n\n.card:hover {\n    transform: translateY(-8px);\n    box-shadow: 0 8px 20px rgba(0,0,0,0.2);\n}\n\n.card-button {\n    background-color: #1cb0f6;\n    color: white;\n    padding: 10px 20px;\n    border: none;\n    border-radius: 8px;\n    cursor: pointer;\n    transition: background-color 0.2s ease;\n}\n\n.card-button:hover {\n    background-color: #0a8fd4;\n}\n\n@media (max-width: 480px) {\n    .card {\n        width: 100%;\n    }\n}'
+  },
+]
+
+// ─────────────────────────────────────────
+// CSS LESSONS — ENGLISH
+// ─────────────────────────────────────────
+const cssLessonsEnglish = [
+  {
+    id: 1,
+    title: "What is CSS?",
+    content: "CSS stands for Cascading Style Sheets. CSS is used to style HTML elements — colors, fonts, spacing, layout, everything is controlled by CSS. If HTML is the structure of a house then CSS is its interior design — the wall colors, furniture arrangement, and everything that makes it look beautiful. A CSS rule has a selector that says which element to style, and inside it has properties that say how to style it. There are three ways to add CSS to HTML — inline, internal, and external. External CSS is the best practice because it keeps code organized. Cascading means that if multiple rules apply to the same element, a specific set of rules decides which one wins.",
+    example: null
+  },
+  {
+    id: 2,
+    title: "How to Add CSS — Inline, Internal, External",
+    content: "There are three ways to add CSS to HTML. Inline CSS is added directly to a specific element using the style attribute — it is the most direct but hard to maintain. Internal CSS is written inside a style tag placed in the head section — it applies to the whole page. External CSS is written in a separate .css file and linked to the HTML using the link tag — this is the best practice because one CSS file can be shared across many HTML pages and the code stays organized. Real projects almost always use external CSS. The rel equals stylesheet attribute tells the browser that the linked file is a stylesheet.",
+    example: '<!-- Inline CSS -->\n<p style="color: blue; font-size: 18px;">This paragraph is styled inline</p>\n\n<!-- Internal CSS -->\n<style>\n    p {\n        color: green;\n    }\n</style>\n\n<!-- External CSS -->\n<link rel="stylesheet" href="style.css">\n\n/* In style.css: */\np {\n    color: red;\n    font-family: Arial;\n}'
+  },
+  {
+    id: 3,
+    title: "Selectors — Targeting Elements",
+    content: "CSS selectors tell the browser which HTML elements to style. An element selector uses the tag name directly, like p or h1, and applies to every matching element. A class selector starts with a dot, like .highlight, and applies to every element that has that class. A single class can be applied to many elements. An ID selector starts with a hash, like #header, and targets only one unique element, since an id should only be used once per page. The universal selector is written as an asterisk and selects every element. A group selector uses commas to apply the same style to several selectors at once. A descendant selector is written with a space and targets elements that live inside another element.",
+    example: '/* Element selector */\np {\n    color: black;\n}\n\n/* Class selector */\n.highlight {\n    background-color: yellow;\n}\n\n/* ID selector */\n#header {\n    font-size: 24px;\n}\n\n/* Group selector */\nh1, h2, h3 {\n    font-family: Arial;\n}\n\n/* Descendant selector */\ndiv p {\n    color: gray;\n}'
+  },
+  {
+    id: 4,
+    title: "Colors and Backgrounds",
+    content: "CSS colors can be written in several ways. Named colors like red, blue, or green are the simplest. Hex codes start with a hash and look like #ff0000 for red — the first two digits are red, the next two are green, and the last two are blue. The rgb function lets you write rgb(255, 0, 0) which is also red. The rgba function adds transparency, for example rgba(255, 0, 0, 0.5), where the last value is opacity between 0 and 1. The color property controls text color. The background-color property controls the background color of an element. background-image places an image as a background. background-size controls how that image is sized, for example cover fills the entire area.",
+    example: 'h1 {\n    color: #ff6347;\n}\n\np {\n    color: rgb(50, 50, 50);\n}\n\n.box {\n    background-color: #f0f0f0;\n}\n\n.overlay {\n    background-color: rgba(0, 0, 0, 0.5);\n}\n\n.hero {\n    background-image: url("background.jpg");\n    background-size: cover;\n}'
+  },
+  {
+    id: 5,
+    title: "Box Model — Margin, Padding, Border",
+    content: "The CSS Box Model is one of the most important concepts. Every HTML element is a box made up of four layers. Content is innermost — the actual text or image. Padding is the space around the content, the gap between the content and the border. Border sits outside the padding — a line that surrounds the element. Margin is the space outside the border, the gap between this element and the next one. Both padding and margin can be set separately for top, right, bottom, and left, or all at once using shorthand. border-radius rounds the corners of an element. Setting box-sizing to border-box makes padding and border count inside the total width, which makes building layouts much easier.",
+    example: '.box {\n    width: 300px;\n    padding: 20px;\n    border: 2px solid black;\n    margin: 10px;\n    border-radius: 12px;\n}\n\n.box2 {\n    padding-top: 10px;\n    padding-right: 20px;\n    padding-bottom: 10px;\n    padding-left: 20px;\n}\n\n* {\n    box-sizing: border-box;\n}'
+  },
+  {
+    id: 6,
+    title: "Text and Font Styling",
+    content: "CSS can style text in many ways. font-family sets the font name — if the first font isn't available, the browser falls back to the next one in the list. font-size sets the size of text and can be written in px, em, or rem. font-weight sets bold or normal, and can also be a number like 700 for bold. font-style is used for italics. text-align can center, left, right, or justify text. text-decoration adds underline, line-through, or none. line-height controls the spacing between lines, which is important for readability. letter-spacing increases or decreases the space between letters. text-transform can make text uppercase, lowercase, or capitalize the first letter of each word.",
+    example: 'h1 {\n    font-family: \'Segoe UI\', sans-serif;\n    font-size: 32px;\n    font-weight: bold;\n    text-align: center;\n}\n\np {\n    font-size: 16px;\n    line-height: 1.6;\n    color: #333;\n}\n\na {\n    text-decoration: none;\n    color: blue;\n}\n\n.uppercase-text {\n    text-transform: uppercase;\n    letter-spacing: 2px;\n}'
+  },
+  {
+    id: 7,
+    title: "Flexbox — Modern Layout",
+    content: "Flexbox is the most powerful CSS layout system for easily aligning and distributing elements. Setting display flex on a parent turns it into a flex container and all its children become flex items. flex-direction decides whether items flow in a row or a column. justify-content aligns items along the horizontal axis, with values like center, space-between, and space-around. align-items aligns items along the vertical axis. flex-wrap allows items to wrap onto a new line if there isn't enough space. gap adds spacing between items without using margin. flex-grow decides which item takes up extra available space. Flexbox makes centering elements, which used to be tricky, extremely easy.",
+    example: '.container {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    gap: 20px;\n}\n\n.center-everything {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n}\n\n.column-layout {\n    display: flex;\n    flex-direction: column;\n}\n\n.item {\n    flex-grow: 1;\n}'
+  },
+  {
+    id: 8,
+    title: "CSS Grid — 2D Layout System",
+    content: "CSS Grid is a powerful 2D layout system that controls both rows and columns at the same time. Setting display grid on an element turns it into a grid container. grid-template-columns sets the number and size of columns — the fr unit stands for fraction and divides available space evenly. grid-template-rows defines rows. The gap property adds spacing between grid items. grid-column and grid-row let an item span across multiple columns or rows. Grid is perfect for layouts like image galleries, dashboards, or complex page structures. The repeat() function makes it easy to create many columns or rows of the same size. Flexbox is for 1D layout while Grid is for 2D layout — they can also be used together.",
+    example: '.gallery {\n    display: grid;\n    grid-template-columns: repeat(3, 1fr);\n    gap: 15px;\n}\n\n.dashboard {\n    display: grid;\n    grid-template-columns: 200px 1fr;\n    grid-template-rows: 60px 1fr;\n}\n\n.featured-item {\n    grid-column: span 2;\n}\n\n.full-width {\n    grid-column: 1 / -1;\n}'
+  },
+  {
+    id: 9,
+    title: "Responsive Design — Media Queries",
+    content: "Responsive design makes a website look good on every screen size, whether mobile, tablet, or desktop. Media queries are a CSS feature that applies different styles based on screen size. Writing @media (max-width: 768px) means these styles only apply when the screen width is 768px or less. A mobile-first approach means writing styles for mobile first and then using min-width media queries for larger screens. The viewport meta tag is essential for every responsive website. Flexible units like %, vw, vh, em, and rem work better for responsive design than fixed pixel values. Breakpoints are common screen sizes where the layout changes, typically around 480px, 768px, and 1024px.",
+    example: '/* Mobile-first base styles */\n.container {\n    width: 100%;\n    padding: 10px;\n}\n\n/* Tablet — 768px and up */\n@media (min-width: 768px) {\n    .container {\n        width: 750px;\n        margin: 0 auto;\n    }\n}\n\n/* Desktop — 1024px and up */\n@media (min-width: 1024px) {\n    .container {\n        width: 1000px;\n    }\n    \n    .sidebar {\n        display: block;\n    }\n}\n\n/* Hide sidebar on mobile */\n.sidebar {\n    display: none;\n}'
+  },
+  {
+    id: 10,
+    title: "CSS Transitions and Mini Project",
+    content: "Congratulations! You have learned all the important concepts of CSS. Transitions make CSS properties change smoothly instead of jumping instantly. The transition property specifies which property to animate, how long it takes, and how it eases. The hover pseudo-class changes the style of an element when the mouse moves over it, very commonly used for buttons and links. The transform property lets elements move, rotate, scale, or skew, and works especially well combined with transitions. Now we will combine everything to build a responsive card component using the box model, flexbox, hover effects, and transitions all together. This project shows you how CSS is used in real websites.",
+    example: '.card {\n    width: 280px;\n    padding: 20px;\n    border-radius: 12px;\n    box-shadow: 0 2px 8px rgba(0,0,0,0.1);\n    transition: transform 0.3s ease, box-shadow 0.3s ease;\n}\n\n.card:hover {\n    transform: translateY(-8px);\n    box-shadow: 0 8px 20px rgba(0,0,0,0.2);\n}\n\n.card-button {\n    background-color: #1cb0f6;\n    color: white;\n    padding: 10px 20px;\n    border: none;\n    border-radius: 8px;\n    cursor: pointer;\n    transition: background-color 0.2s ease;\n}\n\n.card-button:hover {\n    background-color: #0a8fd4;\n}\n\n@media (max-width: 480px) {\n    .card {\n        width: 100%;\n    }\n}'
+  },
+]
+
+// ─────────────────────────────────────────
+// CSS LESSONS — MARATHI
+// ─────────────────────────────────────────
+const cssLessonsMarathi = [
+  {
+    id: 1,
+    title: "CSS म्हणजे काय?",
+    content: "CSS चे पूर्ण नाव आहे Cascading Style Sheets. CSS ने आपण HTML elements ला design देतो — colors, fonts, spacing, layout सर्व काही CSS ने control होते. जर HTML हे घराचे structure असेल तर CSS त्याचे interior design आहे — तीच भिंतींचा रंग, furniture ची arrangement, आणि सर्व काही सुंदर बनवण्याचे काम करते. CSS rule मध्ये एक selector असतो जो सांगतो कोणत्या element ला style करायचे, आणि त्याच्या आत properties असतात ज्या सांगतात कसे style करायचे. CSS ला तीन प्रकारे HTML मध्ये add करता येते — inline, internal, आणि external. External CSS सर्वात चांगली practice आहे कारण code organized राहतो. Cascading म्हणजे जर एका element वर अनेक rules apply होत असतील, तर कोणता rule जिंकेल हे specific नियमांनी ठरते.",
+    example: null
+  },
+  {
+    id: 2,
+    title: "CSS कसे Add करावे — Inline, Internal, External",
+    content: "CSS ला HTML मध्ये जोडण्याचे तीन मार्ग आहेत. Inline CSS एखाद्या specific element वर style attribute ने लावतात — हे सर्वात direct आहे पण maintain करणे कठीण आहे. Internal CSS style tag च्या आत लिहतात जो head section मध्ये असतो — हे संपूर्ण page साठी असते. External CSS एका वेगळ्या .css file मध्ये लिहतात आणि link tag ने HTML शी जोडतात — ही सर्वात best practice आहे कारण एक CSS file अनेक HTML pages share करू शकतात आणि code organized राहतो. Real projects मध्ये नेहमी external CSS वापरतात. rel='stylesheet' attribute सांगतो की linked file एक stylesheet आहे.",
+    example: '<!-- Inline CSS -->\n<p style="color: blue; font-size: 18px;">हा paragraph inline style मध्ये आहे</p>\n\n<!-- Internal CSS -->\n<style>\n    p {\n        color: green;\n    }\n</style>\n\n<!-- External CSS -->\n<link rel="stylesheet" href="style.css">\n\n/* style.css file मध्ये: */\np {\n    color: red;\n    font-family: Arial;\n}'
+  },
+  {
+    id: 3,
+    title: "Selectors — Elements ला Target करणे",
+    content: "CSS selectors सांगतात कोणत्या HTML elements ला style करायचे. Element selector थेट tag चे नाव वापरतो जसे p किंवा h1 — यामुळे सर्व matching elements style होतात. Class selector dot ने सुरू होतो जसे .highlight — हा त्या सर्व elements ला style करतो ज्यांची class त्या नावाची आहे. एक class अनेक elements वर वापरता येतो. ID selector hash ने सुरू होतो जसे #header — हा फक्त एका unique element ला target करतो कारण एका page मध्ये एक id फक्त एकदाच वापरायला हवी. Universal selector star ने लिहतात जो सर्व elements select करतो. Group selector ने comma लावून अनेक selectors ला एकत्र same style देता येतो. Descendant selector space ने लिहतात जो एखाद्या element च्या आतील elements ला target करतो.",
+    example: '/* Element selector */\np {\n    color: black;\n}\n\n/* Class selector */\n.highlight {\n    background-color: yellow;\n}\n\n/* ID selector */\n#header {\n    font-size: 24px;\n}\n\n/* Group selector */\nh1, h2, h3 {\n    font-family: Arial;\n}\n\n/* Descendant selector */\ndiv p {\n    color: gray;\n}'
+  },
+  {
+    id: 4,
+    title: "Colors आणि Backgrounds",
+    content: "CSS मध्ये colors अनेक प्रकारे लिहता येतात. Named colors जसे red, blue, green सर्वात simple आहेत. Hex codes # सोबत लिहतात जसे #ff0000 जो लाल रंग आहे — पहिले दोन digits red साठी, पुढचे दोन green साठी, शेवटचे दोन blue साठी. RGB function ने rgb(255, 0, 0) लिहतात जो देखील लाल रंग आहे. RGBA ने transparency देखील add करता येते जसे rgba(255, 0, 0, 0.5) जिथे शेवटची value opacity आहे 0 ते 1 च्या मध्ये. color property text च्या रंगासाठी असते. background-color property background च्या रंगासाठी असते. background-image ने image background लावतात. background-size ने त्या image चा size control होतो जसे cover पूर्ण area भरते.",
+    example: 'h1 {\n    color: #ff6347;\n}\n\np {\n    color: rgb(50, 50, 50);\n}\n\n.box {\n    background-color: #f0f0f0;\n}\n\n.overlay {\n    background-color: rgba(0, 0, 0, 0.5);\n}\n\n.hero {\n    background-image: url("background.jpg");\n    background-size: cover;\n}'
+  },
+  {
+    id: 5,
+    title: "Box Model — Margin, Padding, Border",
+    content: "CSS Box Model हा सर्वात महत्त्वाचा concept आहे. प्रत्येक HTML element एक box असतो ज्यात चार layers असतात. Content सर्वात आत असतो — actual text किंवा image. Padding content च्या भोवतालची space असते, म्हणजे content आणि border च्या मधील gap. Border padding च्या बाहेर असतो — एक line जी element ला घेरते. Margin border च्या बाहेरची space असते म्हणजे एका element आणि दुसऱ्या element मधील gap. padding आणि margin दोन्हीमध्ये top, right, bottom, left वेगवेगळे set करता येतात किंवा shorthand ने एकत्र. border-radius ने corners round करता येतात. box-sizing: border-box ने padding आणि border total width मध्ये count होतात जे layout बनवणे सोपे करते.",
+    example: '.box {\n    width: 300px;\n    padding: 20px;\n    border: 2px solid black;\n    margin: 10px;\n    border-radius: 12px;\n}\n\n.box2 {\n    padding-top: 10px;\n    padding-right: 20px;\n    padding-bottom: 10px;\n    padding-left: 20px;\n}\n\n* {\n    box-sizing: border-box;\n}'
+  },
+  {
+    id: 6,
+    title: "Text आणि Font Styling",
+    content: "CSS ने text ला अनेक प्रकारे style करता येते. font-family ने font चे नाव set करतात — जर पहिला font available नसेल तर browser पुढचा try करतो. font-size ने text चा size set होतो, px, em, किंवा rem मध्ये लिहता येते. font-weight ने bold किंवा normal set होते, numbers मध्ये देखील लिहता येते जसे 700 जो bold आहे. font-style ने italic लागते. text-align ने text center, left, right, किंवा justify होऊ शकतो. text-decoration ने underline, line-through, किंवा none लागते. line-height ने lines च्या मधील spacing control होते जे readability साठी आवश्यक आहे. letter-spacing ने letters च्या मधील spacing वाढते-कमी होते. text-transform ने text uppercase, lowercase, किंवा capitalize होऊ शकतो.",
+    example: 'h1 {\n    font-family: \'Segoe UI\', sans-serif;\n    font-size: 32px;\n    font-weight: bold;\n    text-align: center;\n}\n\np {\n    font-size: 16px;\n    line-height: 1.6;\n    color: #333;\n}\n\na {\n    text-decoration: none;\n    color: blue;\n}\n\n.uppercase-text {\n    text-transform: uppercase;\n    letter-spacing: 2px;\n}'
+  },
+  {
+    id: 7,
+    title: "Flexbox — Modern Layout",
+    content: "Flexbox हे CSS चे सर्वात powerful layout system आहे जे elements ला सहज align आणि distribute करते. Parent element वर display: flex लावल्याने तो flex container बनतो आणि त्याचे सर्व children flex items बनतात. flex-direction ने सांगतात items row मध्ये जातील की column मध्ये. justify-content ने items ला horizontal axis वर align करतात — center, space-between, space-around सारख्या values असतात. align-items ने items ला vertical axis वर align करतात. flex-wrap ने items नवीन line मध्ये wrap होऊ शकतात जर जागा कमी असेल. gap ने items च्या मधील spacing देतात margin न वापरता. flex-grow ने सांगतात कोणता item extra space घेईल. Flexbox मुळे centering करणे खूप सोपे होते जे आधी कठीण काम होते.",
+    example: '.container {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    gap: 20px;\n}\n\n.center-everything {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n}\n\n.column-layout {\n    display: flex;\n    flex-direction: column;\n}\n\n.item {\n    flex-grow: 1;\n}'
+  },
+  {
+    id: 8,
+    title: "CSS Grid — 2D Layout System",
+    content: "CSS Grid हे एक powerful 2D layout system आहे जे rows आणि columns दोन्ही एकत्र control करते. display: grid लावल्याने element grid container बनतो. grid-template-columns ने columns ची संख्या आणि size set करतात — fr unit fraction साठी असतो जो available space समान वाटतो. grid-template-rows ने rows define करतात. gap property ने grid items च्या मधील spacing देतात. grid-column आणि grid-row ने एखाद्या item ला अनेक columns किंवा rows मध्ये span करता येते. Grid layouts साठी perfect आहे जसे image galleries, dashboards, किंवा complex page layouts. repeat() function ने वारंवार same size च्या columns/rows बनवणे सोपे होते. Flexbox 1D layout साठी आहे तर Grid 2D layout साठी — दोन्ही एकत्र देखील वापरता येतात.",
+    example: '.gallery {\n    display: grid;\n    grid-template-columns: repeat(3, 1fr);\n    gap: 15px;\n}\n\n.dashboard {\n    display: grid;\n    grid-template-columns: 200px 1fr;\n    grid-template-rows: 60px 1fr;\n}\n\n.featured-item {\n    grid-column: span 2;\n}\n\n.full-width {\n    grid-column: 1 / -1;\n}'
+  },
+  {
+    id: 9,
+    title: "Responsive Design — Media Queries",
+    content: "Responsive design मुळे website प्रत्येक screen size वर चांगली दिसते — मग ते mobile असो, tablet असो, किंवा desktop असो. Media queries ही CSS ची feature आहे जी screen size नुसार वेगवेगळे styles apply करते. @media (max-width: 768px) म्हणजे हे styles तेव्हाच apply होतील जेव्हा screen width 768px किंवा त्यापेक्षा कमी असेल. Mobile-first approach मध्ये आधी mobile साठी style लिहतात मग मोठ्या screens साठी min-width media queries लिहतात. viewport meta tag प्रत्येक responsive website साठी आवश्यक आहे. Flexible units जसे %, vw, vh, em, rem fixed px पेक्षा चांगले आहेत responsive design साठी. Breakpoints म्हणजे common screen sizes जिथे layout बदलतो — साधारणपणे 480px, 768px, 1024px वर.",
+    example: '/* Mobile-first base styles */\n.container {\n    width: 100%;\n    padding: 10px;\n}\n\n/* Tablet — 768px आणि मोठे */\n@media (min-width: 768px) {\n    .container {\n        width: 750px;\n        margin: 0 auto;\n    }\n}\n\n/* Desktop — 1024px आणि मोठे */\n@media (min-width: 1024px) {\n    .container {\n        width: 1000px;\n    }\n    \n    .sidebar {\n        display: block;\n    }\n}\n\n/* Mobile वर sidebar hide करा */\n.sidebar {\n    display: none;\n}'
+  },
+  {
+    id: 10,
+    title: "CSS Transitions आणि Mini Project",
+    content: "शाब्बास! तुम्ही CSS चे सर्व महत्त्वाचे concepts शिकलात. Transitions मुळे CSS properties smoothly बदलतात instead of लगेच jump करण्याऐवजी. transition property मध्ये सांगतात कोणती property animate होईल, किती वेळात, आणि कशी. hover pseudo-class ने एखाद्या element वर mouse आल्यावर style बदलते. हे खूप common आहे buttons आणि links साठी. transform property ने elements ला move, rotate, scale, किंवा skew करता येते transition सोबत मिळून. आता आपण सर्व एकत्र करून एक responsive card component बनवूया ज्यात box model, flexbox, hover effects, आणि transitions सर्व वापरले जातील. हे project तुम्हाला दाखवेल की real websites मध्ये CSS कसे उपयोगी पडते.",
+    example: '.card {\n    width: 280px;\n    padding: 20px;\n    border-radius: 12px;\n    box-shadow: 0 2px 8px rgba(0,0,0,0.1);\n    transition: transform 0.3s ease, box-shadow 0.3s ease;\n}\n\n.card:hover {\n    transform: translateY(-8px);\n    box-shadow: 0 8px 20px rgba(0,0,0,0.2);\n}\n\n.card-button {\n    background-color: #1cb0f6;\n    color: white;\n    padding: 10px 20px;\n    border: none;\n    border-radius: 8px;\n    cursor: pointer;\n    transition: background-color 0.2s ease;\n}\n\n.card-button:hover {\n    background-color: #0a8fd4;\n}\n\n@media (max-width: 480px) {\n    .card {\n        width: 100%;\n    }\n}'
+  },
+]
+
 
 
 // ─── Pyra SVG Mascot ───────────────────────────────────────────────────────────
@@ -1094,6 +1292,7 @@ function LessonsPage() {
     : language === "java" ? javaLessonsEnglish
     : language === "cpp" ? cppLessonsEnglish
     : language === "html" ? htmlLessonsEnglish
+    : language === "css" ? cssLessonsEnglish
     : pythonLessonsEnglish)
   : instructionLang === "marathi"
   ? (language === "sql" ? sqlLessonsMarathi
@@ -1101,12 +1300,14 @@ function LessonsPage() {
     : language === "java" ? javaLessonsMarathi
     : language === "cpp" ? cppLessonsMarathi
     : language === "html" ? htmlLessonsMarathi
+    : language === "css" ? cssLessonsMarathi
     : pythonLessonsMarathi)
   : (language === "sql" ? sqlLessons
     : language === "javascript" ? javascriptLessons
     : language === "java" ? javaLessons
     : language === "cpp" ? cppLessons
     : language === "html" ? htmlLessons
+    : language === "css" ? cssLessons
     : pythonLessons)
   const lang = t[instructionLang]
 

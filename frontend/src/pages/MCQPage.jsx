@@ -781,6 +781,144 @@ const htmlQuestionsMarathi = [
   { id: 40, question: "label tag कशासाठी वापरतात?", options: ["Image चा size सांगण्यासाठी", "Form input describe करण्यासाठी", "Table बनवण्यासाठी", "List बनवण्यासाठी"], answer: 1 },
 ]
 
+// ─────────────────────────────────────────
+// CSS MCQ — HINDI (paste after htmlQuestionsMarathi)
+// ─────────────────────────────────────────
+const cssQuestions = [
+  { id: 1, question: "CSS का full form क्या है?", options: ["Cascading Style Sheets", "Computer Style Sheets", "Creative Style System", "Colorful Style Sheets"], answer: 0 },
+  { id: 2, question: "External CSS file को HTML से जोड़ने के लिए कौन सा tag use होता है?", options: ["<style>", "<css>", "<link>", "<script>"], answer: 2 },
+  { id: 3, question: "Internal CSS किस tag के अंदर लिखते हैं?", options: ["<css>", "<style>", "<link>", "<head-style>"], answer: 1 },
+  { id: 4, question: "Class selector किस symbol से शुरू होता है?", options: ["#", ".", "*", "&"], answer: 1 },
+  { id: 5, question: "ID selector किस symbol से शुरू होता है?", options: [".", "#", "@", "%"], answer: 1 },
+  { id: 6, question: "Universal selector कौन सा symbol है?", options: ["#", ".", "*", "$"], answer: 2 },
+  { id: 7, question: "Text का रंग set करने के लिए कौन सी property use होती है?", options: ["text-color", "font-color", "color", "fg-color"], answer: 2 },
+  { id: 8, question: "Background का रंग set करने के लिए कौन सी property use होती है?", options: ["background-color", "bg-color", "color-bg", "back-color"], answer: 0 },
+  { id: 9, question: "Hex code में #ff0000 किस रंग को दिखाता है?", options: ["हरा", "नीला", "लाल", "पीला"], answer: 2 },
+  { id: 10, question: "Box model में content के सबसे करीब कौन सा layer होता है?", options: ["Margin", "Border", "Padding", "Outline"], answer: 2 },
+  { id: 11, question: "Box model में margin कहाँ होता है?", options: ["Content के सबसे अंदर", "Padding और border के बीच", "Border के सबसे बाहर", "Border के अंदर"], answer: 2 },
+  { id: 12, question: "Corners को round करने के लिए कौन सी property use होती है?", options: ["corner-radius", "round-corner", "border-radius", "box-radius"], answer: 2 },
+  { id: 13, question: "Font का size set करने के लिए कौन सी property use होती है?", options: ["text-size", "font-size", "size", "font-weight"], answer: 1 },
+  { id: 14, question: "Text को bold बनाने के लिए कौन सी property use होती है?", options: ["font-bold", "text-weight", "font-weight", "bold"], answer: 2 },
+  { id: 15, question: "Text को center करने के लिए कौन सी property use होती है?", options: ["align", "text-center", "text-align", "center"], answer: 2 },
+  { id: 16, question: "Underline हटाने के लिए text-decoration की value क्या होगी?", options: ["remove", "no-underline", "none", "off"], answer: 2 },
+  { id: 17, question: "Element को flex container बनाने के लिए क्या लिखते हैं?", options: ["display: flexbox", "display: flex", "position: flex", "type: flex"], answer: 1 },
+  { id: 18, question: "Flexbox में horizontal alignment किस property से होती है?", options: ["align-items", "justify-content", "flex-direction", "text-align"], answer: 1 },
+  { id: 19, question: "Flexbox में vertical alignment किस property से होती है?", options: ["justify-content", "align-items", "flex-wrap", "direction"], answer: 1 },
+  { id: 20, question: "Flex items के बीच spacing देने के लिए कौन सी property use होती है?", options: ["space", "margin-all", "gap", "spacing"], answer: 2 },
+  { id: 21, question: "Element को grid container बनाने के लिए क्या लिखते हैं?", options: ["display: grid", "display: gridbox", "position: grid", "layout: grid"], answer: 0 },
+  { id: 22, question: "Grid में fr unit किसके लिए होता है?", options: ["Fixed pixel", "Fraction of available space", "Font ratio", "Frame"], answer: 1 },
+  { id: 23, question: "Media query किसलिए use होती है?", options: ["Colors बदलने के लिए", "Screen size के हिसाब से style बदलने के लिए", "Font बदलने के लिए", "Animation बनाने के लिए"], answer: 1 },
+  { id: 24, question: "@media (max-width: 768px) का क्या मतलब है?", options: ["Screen हमेशा 768px होगी", "Style तभी apply होगी जब screen 768px या उससे कम हो", "Screen कभी 768px नहीं होगी", "768px के बाद style हट जाएगी"], answer: 1 },
+  { id: 25, question: "Mobile-first approach में पहले क्या लिखते हैं?", options: ["Desktop styles", "Mobile styles", "Tablet styles", "Print styles"], answer: 1 },
+  { id: 26, question: "hover pseudo-class कब trigger होती है?", options: ["Page load होने पर", "Mouse element पर आने पर", "Click करने पर", "Scroll करने पर"], answer: 1 },
+  { id: 27, question: "transition property किसलिए use होती है?", options: ["Element को delete करने के लिए", "Properties को smoothly बदलने के लिए", "Element को hide करने के लिए", "Page reload करने के लिए"], answer: 1 },
+  { id: 28, question: "transform property से क्या कर सकते हैं?", options: ["सिर्फ color बदल सकते हैं", "Move, rotate, scale कर सकते हैं", "सिर्फ size बदल सकते हैं", "सिर्फ font बदल सकते हैं"], answer: 1 },
+  { id: 29, question: "box-sizing: border-box का क्या फायदा है?", options: ["Element तेज़ load होता है", "Padding और border total width में count होते हैं", "Colors बेहतर दिखते हैं", "Fonts छोटे होते हैं"], answer: 1 },
+  { id: 30, question: "rgba में 'a' किसके लिए होता है?", options: ["Angle", "Alpha (opacity)", "Area", "Average"], answer: 1 },
+  { id: 31, question: "line-height किसको control करती है?", options: ["Letters के बीच की spacing", "Lines के बीच की spacing", "Words के बीच की spacing", "Paragraphs की width"], answer: 1 },
+  { id: 32, question: "letter-spacing किसको control करती है?", options: ["Lines के बीच की spacing", "Letters के बीच की spacing", "Page की margin", "Image का size"], answer: 1 },
+  { id: 33, question: "CSS में cascading का मतलब क्या है?", options: ["सभी styles अलग रहती हैं", "Multiple rules में से कौन सा जीतेगा यह rules से तय होता है", "Styles delete होती रहती हैं", "Colors automatically बदलते हैं"], answer: 1 },
+  { id: 34, question: "Inline CSS कहाँ लिखी जाती है?", options: ["अलग .css file में", "<style> tag में", "Element के style attribute में", "<head> में अलग से"], answer: 2 },
+  { id: 35, question: "grid-template-columns: repeat(3, 1fr) का क्या मतलब है?", options: ["3 बराबर columns", "3 rows", "3 fixed-width columns", "3 different sized columns"], answer: 0 },
+  { id: 36, question: "viewport meta tag किसलिए जरूरी है?", options: ["SEO के लिए", "Responsive design के लिए", "Speed के लिए", "Security के लिए"], answer: 1 },
+  { id: 37, question: "Descendant selector कैसे लिखते हैं?", options: ["div > p", "div.p", "div p (space से)", "div+p"], answer: 2 },
+  { id: 38, question: "Group selector में अलग-अलग selectors को कैसे अलग करते हैं?", options: ["Space से", "Comma से", "Plus से", "Colon से"], answer: 1 },
+  { id: 39, question: "flex-wrap किसलिए use होता है?", options: ["Items को rotate करने के लिए", "Items को नई line में wrap करने के लिए", "Items को delete करने के लिए", "Items को hide करने के लिए"], answer: 1 },
+  { id: 40, question: "External CSS best practice क्यों है?", options: ["सबसे fast load होता है", "Code organized रहता है और कई pages share कर सकते हैं", "Colors बेहतर दिखते हैं", "Errors नहीं आती"], answer: 1 },
+]
+
+// ─────────────────────────────────────────
+// CSS MCQ — ENGLISH
+// ─────────────────────────────────────────
+const cssQuestionsEnglish = [
+  { id: 1, question: "What does CSS stand for?", options: ["Cascading Style Sheets", "Computer Style Sheets", "Creative Style System", "Colorful Style Sheets"], answer: 0 },
+  { id: 2, question: "Which tag links an external CSS file to HTML?", options: ["<style>", "<css>", "<link>", "<script>"], answer: 2 },
+  { id: 3, question: "Inside which tag is internal CSS written?", options: ["<css>", "<style>", "<link>", "<head-style>"], answer: 1 },
+  { id: 4, question: "Which symbol does a class selector start with?", options: ["#", ".", "*", "&"], answer: 1 },
+  { id: 5, question: "Which symbol does an ID selector start with?", options: [".", "#", "@", "%"], answer: 1 },
+  { id: 6, question: "Which symbol is the universal selector?", options: ["#", ".", "*", "$"], answer: 2 },
+  { id: 7, question: "Which property sets the color of text?", options: ["text-color", "font-color", "color", "fg-color"], answer: 2 },
+  { id: 8, question: "Which property sets the background color?", options: ["background-color", "bg-color", "color-bg", "back-color"], answer: 0 },
+  { id: 9, question: "What color does the hex code #ff0000 represent?", options: ["Green", "Blue", "Red", "Yellow"], answer: 2 },
+  { id: 10, question: "In the box model, which layer is closest to the content?", options: ["Margin", "Border", "Padding", "Outline"], answer: 2 },
+  { id: 11, question: "In the box model, where is margin located?", options: ["Innermost, around the content", "Between padding and border", "Outermost, outside the border", "Inside the border"], answer: 2 },
+  { id: 12, question: "Which property rounds the corners of an element?", options: ["corner-radius", "round-corner", "border-radius", "box-radius"], answer: 2 },
+  { id: 13, question: "Which property sets the size of a font?", options: ["text-size", "font-size", "size", "font-weight"], answer: 1 },
+  { id: 14, question: "Which property makes text bold?", options: ["font-bold", "text-weight", "font-weight", "bold"], answer: 2 },
+  { id: 15, question: "Which property centers text?", options: ["align", "text-center", "text-align", "center"], answer: 2 },
+  { id: 16, question: "Which value of text-decoration removes underline?", options: ["remove", "no-underline", "none", "off"], answer: 2 },
+  { id: 17, question: "What turns an element into a flex container?", options: ["display: flexbox", "display: flex", "position: flex", "type: flex"], answer: 1 },
+  { id: 18, question: "Which Flexbox property handles horizontal alignment?", options: ["align-items", "justify-content", "flex-direction", "text-align"], answer: 1 },
+  { id: 19, question: "Which Flexbox property handles vertical alignment?", options: ["justify-content", "align-items", "flex-wrap", "direction"], answer: 1 },
+  { id: 20, question: "Which property adds spacing between flex items?", options: ["space", "margin-all", "gap", "spacing"], answer: 2 },
+  { id: 21, question: "What turns an element into a grid container?", options: ["display: grid", "display: gridbox", "position: grid", "layout: grid"], answer: 0 },
+  { id: 22, question: "What is the fr unit used for in CSS Grid?", options: ["Fixed pixel", "Fraction of available space", "Font ratio", "Frame"], answer: 1 },
+  { id: 23, question: "What are media queries used for?", options: ["Changing colors", "Applying different styles based on screen size", "Changing fonts", "Creating animations"], answer: 1 },
+  { id: 24, question: "What does @media (max-width: 768px) mean?", options: ["The screen will always be 768px", "These styles apply only when the screen is 768px or smaller", "The screen will never be 768px", "Styles are removed after 768px"], answer: 1 },
+  { id: 25, question: "In a mobile-first approach, what do you write first?", options: ["Desktop styles", "Mobile styles", "Tablet styles", "Print styles"], answer: 1 },
+  { id: 26, question: "When does the hover pseudo-class trigger?", options: ["When the page loads", "When the mouse moves over an element", "When you click", "When you scroll"], answer: 1 },
+  { id: 27, question: "What is the transition property used for?", options: ["Deleting an element", "Smoothly animating property changes", "Hiding an element", "Reloading the page"], answer: 1 },
+  { id: 28, question: "What can the transform property do?", options: ["Only change color", "Move, rotate, and scale elements", "Only change size", "Only change font"], answer: 1 },
+  { id: 29, question: "What is the benefit of box-sizing: border-box?", options: ["Elements load faster", "Padding and border are included in the total width", "Colors look better", "Fonts become smaller"], answer: 1 },
+  { id: 30, question: "What does the 'a' in rgba stand for?", options: ["Angle", "Alpha (opacity)", "Area", "Average"], answer: 1 },
+  { id: 31, question: "What does line-height control?", options: ["Spacing between letters", "Spacing between lines", "Spacing between words", "Width of paragraphs"], answer: 1 },
+  { id: 32, question: "What does letter-spacing control?", options: ["Spacing between lines", "Spacing between letters", "Page margin", "Image size"], answer: 1 },
+  { id: 33, question: "What does cascading mean in CSS?", options: ["All styles stay independent", "Specific rules decide which of multiple matching rules wins", "Styles keep getting deleted", "Colors change automatically"], answer: 1 },
+  { id: 34, question: "Where is inline CSS written?", options: ["In a separate .css file", "Inside a style tag", "In the style attribute of an element", "Separately in the head"], answer: 2 },
+  { id: 35, question: "What does grid-template-columns: repeat(3, 1fr) mean?", options: ["3 equal columns", "3 rows", "3 fixed-width columns", "3 different sized columns"], answer: 0 },
+  { id: 36, question: "Why is the viewport meta tag important?", options: ["For SEO", "For responsive design", "For speed", "For security"], answer: 1 },
+  { id: 37, question: "How do you write a descendant selector?", options: ["div > p", "div.p", "div p (with a space)", "div+p"], answer: 2 },
+  { id: 38, question: "How are individual selectors separated in a group selector?", options: ["With a space", "With a comma", "With a plus sign", "With a colon"], answer: 1 },
+  { id: 39, question: "What is flex-wrap used for?", options: ["Rotating items", "Wrapping items onto a new line", "Deleting items", "Hiding items"], answer: 1 },
+  { id: 40, question: "Why is external CSS considered best practice?", options: ["It always loads the fastest", "Code stays organized and can be shared across pages", "Colors look better", "It prevents errors"], answer: 1 },
+]
+
+// ─────────────────────────────────────────
+// CSS MCQ — MARATHI
+// ─────────────────────────────────────────
+const cssQuestionsMarathi = [
+  { id: 1, question: "CSS चे पूर्ण नाव काय आहे?", options: ["Cascading Style Sheets", "Computer Style Sheets", "Creative Style System", "Colorful Style Sheets"], answer: 0 },
+  { id: 2, question: "External CSS file ला HTML शी जोडण्यासाठी कोणता tag वापरतात?", options: ["<style>", "<css>", "<link>", "<script>"], answer: 2 },
+  { id: 3, question: "Internal CSS कोणत्या tag च्या आत लिहतात?", options: ["<css>", "<style>", "<link>", "<head-style>"], answer: 1 },
+  { id: 4, question: "Class selector कोणत्या symbol ने सुरू होतो?", options: ["#", ".", "*", "&"], answer: 1 },
+  { id: 5, question: "ID selector कोणत्या symbol ने सुरू होतो?", options: [".", "#", "@", "%"], answer: 1 },
+  { id: 6, question: "Universal selector कोणता symbol आहे?", options: ["#", ".", "*", "$"], answer: 2 },
+  { id: 7, question: "Text चा रंग set करण्यासाठी कोणती property वापरतात?", options: ["text-color", "font-color", "color", "fg-color"], answer: 2 },
+  { id: 8, question: "Background चा रंग set करण्यासाठी कोणती property वापरतात?", options: ["background-color", "bg-color", "color-bg", "back-color"], answer: 0 },
+  { id: 9, question: "Hex code #ff0000 कोणता रंग दाखवतो?", options: ["हिरवा", "निळा", "लाल", "पिवळा"], answer: 2 },
+  { id: 10, question: "Box model मध्ये content च्या सर्वात जवळ कोणता layer असतो?", options: ["Margin", "Border", "Padding", "Outline"], answer: 2 },
+  { id: 11, question: "Box model मध्ये margin कुठे असतो?", options: ["Content च्या सर्वात आत", "Padding आणि border च्या मध्ये", "Border च्या सर्वात बाहेर", "Border च्या आत"], answer: 2 },
+  { id: 12, question: "Corners round करण्यासाठी कोणती property वापरतात?", options: ["corner-radius", "round-corner", "border-radius", "box-radius"], answer: 2 },
+  { id: 13, question: "Font चा size set करण्यासाठी कोणती property वापरतात?", options: ["text-size", "font-size", "size", "font-weight"], answer: 1 },
+  { id: 14, question: "Text bold करण्यासाठी कोणती property वापरतात?", options: ["font-bold", "text-weight", "font-weight", "bold"], answer: 2 },
+  { id: 15, question: "Text center करण्यासाठी कोणती property वापरतात?", options: ["align", "text-center", "text-align", "center"], answer: 2 },
+  { id: 16, question: "Underline हटवण्यासाठी text-decoration ची value काय असेल?", options: ["remove", "no-underline", "none", "off"], answer: 2 },
+  { id: 17, question: "Element ला flex container बनवण्यासाठी काय लिहतात?", options: ["display: flexbox", "display: flex", "position: flex", "type: flex"], answer: 1 },
+  { id: 18, question: "Flexbox मध्ये horizontal alignment कोणत्या property ने होते?", options: ["align-items", "justify-content", "flex-direction", "text-align"], answer: 1 },
+  { id: 19, question: "Flexbox मध्ये vertical alignment कोणत्या property ने होते?", options: ["justify-content", "align-items", "flex-wrap", "direction"], answer: 1 },
+  { id: 20, question: "Flex items च्या मध्ये spacing देण्यासाठी कोणती property वापरतात?", options: ["space", "margin-all", "gap", "spacing"], answer: 2 },
+  { id: 21, question: "Element ला grid container बनवण्यासाठी काय लिहतात?", options: ["display: grid", "display: gridbox", "position: grid", "layout: grid"], answer: 0 },
+  { id: 22, question: "Grid मध्ये fr unit कशासाठी आहे?", options: ["Fixed pixel", "Available space चा fraction", "Font ratio", "Frame"], answer: 1 },
+  { id: 23, question: "Media query कशासाठी वापरतात?", options: ["Colors बदलण्यासाठी", "Screen size नुसार style बदलण्यासाठी", "Font बदलण्यासाठी", "Animation बनवण्यासाठी"], answer: 1 },
+  { id: 24, question: "@media (max-width: 768px) चा अर्थ काय आहे?", options: ["Screen नेहमी 768px असेल", "Style तेव्हाच apply होईल जेव्हा screen 768px किंवा त्यापेक्षा कमी असेल", "Screen कधीही 768px नसेल", "768px नंतर style हटते"], answer: 1 },
+  { id: 25, question: "Mobile-first approach मध्ये आधी काय लिहतात?", options: ["Desktop styles", "Mobile styles", "Tablet styles", "Print styles"], answer: 1 },
+  { id: 26, question: "hover pseudo-class कधी trigger होतो?", options: ["Page load झाल्यावर", "Mouse element वर आल्यावर", "Click केल्यावर", "Scroll केल्यावर"], answer: 1 },
+  { id: 27, question: "transition property कशासाठी वापरतात?", options: ["Element delete करण्यासाठी", "Properties smoothly बदलण्यासाठी", "Element hide करण्यासाठी", "Page reload करण्यासाठी"], answer: 1 },
+  { id: 28, question: "transform property ने काय करता येते?", options: ["फक्त color बदलता येतो", "Move, rotate, scale करता येते", "फक्त size बदलता येतो", "फक्त font बदलता येतो"], answer: 1 },
+  { id: 29, question: "box-sizing: border-box चा फायदा काय आहे?", options: ["Element लवकर load होतो", "Padding आणि border total width मध्ये count होतात", "Colors चांगले दिसतात", "Fonts लहान होतात"], answer: 1 },
+  { id: 30, question: "rgba मधील 'a' कशासाठी आहे?", options: ["Angle", "Alpha (opacity)", "Area", "Average"], answer: 1 },
+  { id: 31, question: "line-height काय control करते?", options: ["Letters च्या मधील spacing", "Lines च्या मधील spacing", "Words च्या मधील spacing", "Paragraphs ची width"], answer: 1 },
+  { id: 32, question: "letter-spacing काय control करते?", options: ["Lines च्या मधील spacing", "Letters च्या मधील spacing", "Page चा margin", "Image चा size"], answer: 1 },
+  { id: 33, question: "CSS मध्ये cascading चा अर्थ काय आहे?", options: ["सर्व styles वेगळ्या राहतात", "Multiple rules मधून कोणता जिंकेल हे rules ने ठरते", "Styles delete होत राहतात", "Colors आपोआप बदलतात"], answer: 1 },
+  { id: 34, question: "Inline CSS कुठे लिहतात?", options: ["वेगळ्या .css file मध्ये", "style tag मध्ये", "Element च्या style attribute मध्ये", "head मध्ये वेगळे"], answer: 2 },
+  { id: 35, question: "grid-template-columns: repeat(3, 1fr) चा अर्थ काय आहे?", options: ["3 equal columns", "3 rows", "3 fixed-width columns", "3 वेगवेगळ्या size चे columns"], answer: 0 },
+  { id: 36, question: "viewport meta tag कशासाठी आवश्यक आहे?", options: ["SEO साठी", "Responsive design साठी", "Speed साठी", "Security साठी"], answer: 1 },
+  { id: 37, question: "Descendant selector कसे लिहतात?", options: ["div > p", "div.p", "div p (space ने)", "div+p"], answer: 2 },
+  { id: 38, question: "Group selector मध्ये वेगवेगळे selectors कसे वेगळे करतात?", options: ["Space ने", "Comma ने", "Plus ने", "Colon ने"], answer: 1 },
+  { id: 39, question: "flex-wrap कशासाठी वापरतात?", options: ["Items rotate करण्यासाठी", "Items नवीन line मध्ये wrap करण्यासाठी", "Items delete करण्यासाठी", "Items hide करण्यासाठी"], answer: 1 },
+  { id: 40, question: "External CSS best practice का आहे?", options: ["सर्वात fast load होतो", "Code organized राहतो आणि अनेक pages share करता येतात", "Colors चांगले दिसतात", "Errors येत नाहीत"], answer: 1 },
+]
+
 
 
 /* ── Pyra mascot (shared, compact) ──────────────────────────────── */
@@ -873,6 +1011,7 @@ function MCQPage() {
     : language === "java" ? javaQuestionsEnglish
     : language === "cpp" ? cppQuestionsEnglish
     : language === "html" ? htmlQuestionsEnglish
+    : language === "css" ? cssQuestionsEnglish
     : pythonQuestionsEnglish)
   : instructionLang === "marathi"
   ? (language === "sql" ? sqlQuestionsMarathi
@@ -880,12 +1019,14 @@ function MCQPage() {
     : language === "java" ? javaQuestionsMarathi
     : language === "cpp" ? cppQuestionsMarathi
     : language === "html" ? htmlQuestionsMarathi
+    : language === "css" ? cssQuestionsMarathi
     : pythonQuestionsMarathi)
   : (language === "sql" ? sqlQuestions
     : language === "javascript" ? javascriptQuestions
     : language === "java" ? javaQuestions
     : language === "cpp" ? cppQuestions
     : language === "html" ? htmlQuestions
+    : language === "css" ? cssQuestions
     : pythonQuestions)
 
   const lang = t[instructionLang]
