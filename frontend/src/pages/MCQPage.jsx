@@ -514,11 +514,6 @@ const javaQuestionsMarathi = [
   { id: 40, question: "यापैकी Java चा primitive data type कोणता नाही?", options: ["int", "boolean", "String", "char"], answer: 2 },
 ]
 
-javascript
-
-// ─────────────────────────────────────────
-// C++ MCQ — HINDI (paste after javaQuestionsMarathi)
-// ─────────────────────────────────────────
 const cppQuestions = [
   { id: 1, question: "C++ किसने बनाया?", options: ["James Gosling", "Dennis Ritchie", "Bjarne Stroustrup", "Guido van Rossum"], answer: 2 },
   { id: 2, question: "C++ कब बना?", options: ["1972", "1979", "1991", "1995"], answer: 1 },
@@ -562,9 +557,6 @@ const cppQuestions = [
   { id: 40, question: "C++ में compiled language का क्या मतलब है?", options: ["Code browser में चलता है", "Code पहले machine code में convert होता है फिर run होता है", "Code interpret होता है line by line", "Code automatically fix होता है"], answer: 1 },
 ]
 
-// ─────────────────────────────────────────
-// C++ MCQ — ENGLISH (paste after cppQuestions)
-// ─────────────────────────────────────────
 const cppQuestionsEnglish = [
   { id: 1, question: "Who created C++?", options: ["James Gosling", "Dennis Ritchie", "Bjarne Stroustrup", "Guido van Rossum"], answer: 2 },
   { id: 2, question: "In which year was C++ created?", options: ["1972", "1979", "1991", "1995"], answer: 1 },
@@ -608,9 +600,6 @@ const cppQuestionsEnglish = [
   { id: 40, question: "What does compiled language mean in the context of C++?", options: ["Code runs in the browser", "Code is converted to machine code before running", "Code is interpreted line by line", "Code fixes itself automatically"], answer: 1 },
 ]
 
-// ─────────────────────────────────────────
-// C++ MCQ — MARATHI (paste after cppQuestionsEnglish)
-// ─────────────────────────────────────────
 const cppQuestionsMarathi = [
   { id: 1, question: "C++ कोणी बनवली?", options: ["James Gosling", "Dennis Ritchie", "Bjarne Stroustrup", "Guido van Rossum"], answer: 2 },
   { id: 2, question: "C++ कोणत्या वर्षी बनवली गेली?", options: ["1972", "1979", "1991", "1995"], answer: 1 },
@@ -652,6 +641,144 @@ const cppQuestionsMarathi = [
   { id: 38, question: "C++ मध्ये auto keyword काय करतो?", options: ["Variable आपोआप delete होतो", "Compiler आपोआप type detect करतो", "Variable auto-increment होतो", "Function आपोआप call होतो"], answer: 1 },
   { id: 39, question: "C++ मध्ये pass by reference कसे होते?", options: ["Value ची copy जाते", "& ने original variable जातो", "Pointer जातो", "Array जातो"], answer: 1 },
   { id: 40, question: "C++ compiled language असणे म्हणजे काय?", options: ["Code browser मध्ये चालतो", "Code आधी machine code मध्ये convert होतो मग run होतो", "Code line by line interpret होतो", "Code स्वतः fix होतो"], answer: 1 },
+]
+
+// ─────────────────────────────────────────
+// HTML MCQ — HINDI (paste after cppQuestionsMarathi)
+// ─────────────────────────────────────────
+const htmlQuestions = [
+  { id: 1, question: "HTML का full form क्या है?", options: ["HyperText Markup Language", "High Tech Modern Language", "Home Tool Markup Language", "HyperType Manage Language"], answer: 0 },
+  { id: 2, question: "हर HTML document के सबसे ऊपर क्या लिखते हैं?", options: ["<html>", "<!DOCTYPE html>", "<head>", "<title>"], answer: 1 },
+  { id: 3, question: "Page की visible content कहाँ होती है?", options: ["<head>", "<title>", "<body>", "<meta>"], answer: 2 },
+  { id: 4, question: "Browser tab में नाम कौन सा tag दिखाता है?", options: ["<head>", "<h1>", "<title>", "<name>"], answer: 2 },
+  { id: 5, question: "सबसे बड़ी heading के लिए कौन सा tag use होता है?", options: ["<h6>", "<heading>", "<h1>", "<head>"], answer: 2 },
+  { id: 6, question: "Paragraph बनाने के लिए कौन सा tag use होता है?", options: ["<para>", "<p>", "<text>", "<pg>"], answer: 1 },
+  { id: 7, question: "Link बनाने के लिए कौन सा tag use होता है?", options: ["<link>", "<a>", "<href>", "<url>"], answer: 1 },
+  { id: 8, question: "Link में URL किस attribute में डालते हैं?", options: ["src", "link", "href", "url"], answer: 2 },
+  { id: 9, question: "Image दिखाने के लिए कौन सा tag use होता है?", options: ["<image>", "<pic>", "<img>", "<photo>"], answer: 2 },
+  { id: 10, question: "Image tag में path किस attribute में होता है?", options: ["href", "src", "link", "path"], answer: 1 },
+  { id: 11, question: "Image का alt attribute किसलिए जरूरी है?", options: ["Color के लिए", "Accessibility और image न दिखने पर text के लिए", "Size के लिए", "Border के लिए"], answer: 1 },
+  { id: 12, question: "Bullet points वाली list के लिए कौन सा tag use होता है?", options: ["<ol>", "<ul>", "<list>", "<dl>"], answer: 1 },
+  { id: 13, question: "Numbered list के लिए कौन सा tag use होता है?", options: ["<ul>", "<list>", "<ol>", "<nl>"], answer: 2 },
+  { id: 14, question: "List के हर item को किस tag में लिखते हैं?", options: ["<item>", "<li>", "<list-item>", "<el>"], answer: 1 },
+  { id: 15, question: "Table row के लिए कौन सा tag use होता है?", options: ["<row>", "<tr>", "<table-row>", "<td>"], answer: 1 },
+  { id: 16, question: "Table header के लिए कौन सा tag use होता है?", options: ["<header>", "<thead>", "<th>", "<td>"], answer: 2 },
+  { id: 17, question: "Table data यानी cells के लिए कौन सा tag use होता है?", options: ["<data>", "<cell>", "<th>", "<td>"], answer: 3 },
+  { id: 18, question: "Form बनाने के लिए कौन सा tag use होता है?", options: ["<input>", "<form>", "<data>", "<submit>"], answer: 1 },
+  { id: 19, question: "Text input field के लिए कौन सा tag use होता है?", options: ["<text>", "<input>", "<field>", "<box>"], answer: 1 },
+  { id: 20, question: "Multi-line text input के लिए कौन सा tag use होता है?", options: ["<input>", "<text>", "<textarea>", "<multitext>"], answer: 2 },
+  { id: 21, question: "Dropdown menu के लिए कौन सा tag use होता है?", options: ["<dropdown>", "<select>", "<menu>", "<option>"], answer: 1 },
+  { id: 22, question: "Page के top section यानी header के लिए कौन सा semantic tag है?", options: ["<top>", "<head>", "<header>", "<banner>"], answer: 2 },
+  { id: 23, question: "Navigation links के लिए कौन सा semantic tag use होता है?", options: ["<navigation>", "<nav>", "<links>", "<menu>"], answer: 1 },
+  { id: 24, question: "Page के main content के लिए कौन सा semantic tag है?", options: ["<content>", "<body>", "<main>", "<center>"], answer: 2 },
+  { id: 25, question: "Page के bottom section के लिए कौन सा semantic tag है?", options: ["<bottom>", "<footer>", "<end>", "<last>"], answer: 1 },
+  { id: 26, question: "Block-level container के लिए कौन सा tag use होता है?", options: ["<span>", "<div>", "<block>", "<container>"], answer: 1 },
+  { id: 27, question: "Inline container के लिए कौन सा tag use होता है?", options: ["<div>", "<inline>", "<span>", "<text>"], answer: 2 },
+  { id: 28, question: "Line break के लिए कौन सा tag use होता है?", options: ["<break>", "<br>", "<lb>", "<newline>"], answer: 1 },
+  { id: 29, question: "Horizontal line के लिए कौन सा tag use होता है?", options: ["<line>", "<hl>", "<hr>", "<divider>"], answer: 2 },
+  { id: 30, question: "Img tag self-closing क्यों है?", options: ["क्योंकि error आती है", "क्योंकि इसमें कोई content नहीं होता", "क्योंकि यह बड़ा होता है", "क्योंकि यह जरूरी नहीं है"], answer: 1 },
+  { id: 31, question: "id attribute किसके लिए use होता है?", options: ["Multiple elements group करने के लिए", "एक unique element identify करने के लिए", "Color देने के लिए", "Size देने के लिए"], answer: 1 },
+  { id: 32, question: "class attribute किसके लिए use होता है?", options: ["एक unique element identify करने के लिए", "Multiple elements group करने के लिए", "Page title देने के लिए", "Link बनाने के लिए"], answer: 1 },
+  { id: 33, question: "Form में data कहाँ submit होगा यह कौन सा attribute बताता है?", options: ["method", "action", "submit", "destination"], answer: 1 },
+  { id: 34, question: "Independent content जैसे blog post के लिए कौन सा tag है?", options: ["<section>", "<article>", "<aside>", "<post>"], answer: 1 },
+  { id: 35, question: "Side content यानी sidebar के लिए कौन सा tag है?", options: ["<side>", "<sidebar>", "<aside>", "<panel>"], answer: 2 },
+  { id: 36, question: "Form में submit button के लिए type attribute की value क्या होती है?", options: ["button", "send", "submit", "go"], answer: 2 },
+  { id: 37, question: "Nested list क्या है?", options: ["दो अलग lists साथ-साथ", "List के अंदर list", "List को delete करना", "List को sort करना"], answer: 1 },
+  { id: 38, question: "Link नए tab में खोलने के लिए कौन सा attribute use होता है?", options: ["new='tab'", "target='_blank'", "open='new'", "tab='new'"], answer: 1 },
+  { id: 39, question: "Comment लिखने के लिए HTML में क्या use होता है?", options: ["// comment", "# comment", "<!-- comment -->", "/* comment */"], answer: 2 },
+  { id: 40, question: "label tag किसलिए use होता है?", options: ["Image का size बताने के लिए", "Form input को describe करने के लिए", "Table बनाने के लिए", "List बनाने के लिए"], answer: 1 },
+]
+
+// ─────────────────────────────────────────
+// HTML MCQ — ENGLISH
+// ─────────────────────────────────────────
+const htmlQuestionsEnglish = [
+  { id: 1, question: "What does HTML stand for?", options: ["HyperText Markup Language", "High Tech Modern Language", "Home Tool Markup Language", "HyperType Manage Language"], answer: 0 },
+  { id: 2, question: "What is written at the very top of every HTML document?", options: ["<html>", "<!DOCTYPE html>", "<head>", "<title>"], answer: 1 },
+  { id: 3, question: "Where does the visible content of a page go?", options: ["<head>", "<title>", "<body>", "<meta>"], answer: 2 },
+  { id: 4, question: "Which tag controls the name shown in the browser tab?", options: ["<head>", "<h1>", "<title>", "<name>"], answer: 2 },
+  { id: 5, question: "Which tag is used for the largest heading?", options: ["<h6>", "<heading>", "<h1>", "<head>"], answer: 2 },
+  { id: 6, question: "Which tag is used to create a paragraph?", options: ["<para>", "<p>", "<text>", "<pg>"], answer: 1 },
+  { id: 7, question: "Which tag is used to create a link?", options: ["<link>", "<a>", "<href>", "<url>"], answer: 1 },
+  { id: 8, question: "Which attribute holds the URL in a link?", options: ["src", "link", "href", "url"], answer: 2 },
+  { id: 9, question: "Which tag is used to display an image?", options: ["<image>", "<pic>", "<img>", "<photo>"], answer: 2 },
+  { id: 10, question: "Which attribute holds the path in an image tag?", options: ["href", "src", "link", "path"], answer: 1 },
+  { id: 11, question: "Why is the alt attribute important on an image?", options: ["For color", "For accessibility and as fallback text if the image fails", "For size", "For border"], answer: 1 },
+  { id: 12, question: "Which tag is used for a bullet-point list?", options: ["<ol>", "<ul>", "<list>", "<dl>"], answer: 1 },
+  { id: 13, question: "Which tag is used for a numbered list?", options: ["<ul>", "<list>", "<ol>", "<nl>"], answer: 2 },
+  { id: 14, question: "Which tag wraps each item in a list?", options: ["<item>", "<li>", "<list-item>", "<el>"], answer: 1 },
+  { id: 15, question: "Which tag represents a table row?", options: ["<row>", "<tr>", "<table-row>", "<td>"], answer: 1 },
+  { id: 16, question: "Which tag represents a table header?", options: ["<header>", "<thead>", "<th>", "<td>"], answer: 2 },
+  { id: 17, question: "Which tag represents table data, or a cell?", options: ["<data>", "<cell>", "<th>", "<td>"], answer: 3 },
+  { id: 18, question: "Which tag is used to create a form?", options: ["<input>", "<form>", "<data>", "<submit>"], answer: 1 },
+  { id: 19, question: "Which tag is used for a text input field?", options: ["<text>", "<input>", "<field>", "<box>"], answer: 1 },
+  { id: 20, question: "Which tag is used for a multi-line text input?", options: ["<input>", "<text>", "<textarea>", "<multitext>"], answer: 2 },
+  { id: 21, question: "Which tag is used to create a dropdown menu?", options: ["<dropdown>", "<select>", "<menu>", "<option>"], answer: 1 },
+  { id: 22, question: "Which semantic tag is used for the top section of a page?", options: ["<top>", "<head>", "<header>", "<banner>"], answer: 2 },
+  { id: 23, question: "Which semantic tag is used for navigation links?", options: ["<navigation>", "<nav>", "<links>", "<menu>"], answer: 1 },
+  { id: 24, question: "Which semantic tag represents the main content of a page?", options: ["<content>", "<body>", "<main>", "<center>"], answer: 2 },
+  { id: 25, question: "Which semantic tag is used for the bottom section of a page?", options: ["<bottom>", "<footer>", "<end>", "<last>"], answer: 1 },
+  { id: 26, question: "Which tag is used as a block-level container?", options: ["<span>", "<div>", "<block>", "<container>"], answer: 1 },
+  { id: 27, question: "Which tag is used as an inline container?", options: ["<div>", "<inline>", "<span>", "<text>"], answer: 2 },
+  { id: 28, question: "Which tag creates a line break?", options: ["<break>", "<br>", "<lb>", "<newline>"], answer: 1 },
+  { id: 29, question: "Which tag creates a horizontal line?", options: ["<line>", "<hl>", "<hr>", "<divider>"], answer: 2 },
+  { id: 30, question: "Why is the img tag self-closing?", options: ["Because it causes an error otherwise", "Because it has no content inside it", "Because it is too large", "Because it is optional"], answer: 1 },
+  { id: 31, question: "What is the id attribute used for?", options: ["To group multiple elements", "To identify one unique element", "To set color", "To set size"], answer: 1 },
+  { id: 32, question: "What is the class attribute used for?", options: ["To identify one unique element", "To group multiple elements together", "To set the page title", "To create a link"], answer: 1 },
+  { id: 33, question: "Which attribute specifies where form data will be submitted?", options: ["method", "action", "submit", "destination"], answer: 1 },
+  { id: 34, question: "Which tag is used for independent content like a blog post?", options: ["<section>", "<article>", "<aside>", "<post>"], answer: 1 },
+  { id: 35, question: "Which tag is used for side content like a sidebar?", options: ["<side>", "<sidebar>", "<aside>", "<panel>"], answer: 2 },
+  { id: 36, question: "What is the type value for a submit button in a form?", options: ["button", "send", "submit", "go"], answer: 2 },
+  { id: 37, question: "What is a nested list?", options: ["Two separate lists side by side", "A list inside another list", "Deleting a list", "Sorting a list"], answer: 1 },
+  { id: 38, question: "Which attribute opens a link in a new tab?", options: ["new='tab'", "target='_blank'", "open='new'", "tab='new'"], answer: 1 },
+  { id: 39, question: "How do you write a comment in HTML?", options: ["// comment", "# comment", "<!-- comment -->", "/* comment */"], answer: 2 },
+  { id: 40, question: "What is the label tag used for?", options: ["Describing an image's size", "Describing a form input", "Creating a table", "Creating a list"], answer: 1 },
+]
+
+// ─────────────────────────────────────────
+// HTML MCQ — MARATHI
+// ─────────────────────────────────────────
+const htmlQuestionsMarathi = [
+  { id: 1, question: "HTML चे पूर्ण नाव काय आहे?", options: ["HyperText Markup Language", "High Tech Modern Language", "Home Tool Markup Language", "HyperType Manage Language"], answer: 0 },
+  { id: 2, question: "प्रत्येक HTML document च्या सर्वात वर काय लिहतात?", options: ["<html>", "<!DOCTYPE html>", "<head>", "<title>"], answer: 1 },
+  { id: 3, question: "Page चा visible content कुठे असतो?", options: ["<head>", "<title>", "<body>", "<meta>"], answer: 2 },
+  { id: 4, question: "Browser tab मध्ये नाव कोणता tag दाखवतो?", options: ["<head>", "<h1>", "<title>", "<name>"], answer: 2 },
+  { id: 5, question: "सर्वात मोठ्या heading साठी कोणता tag वापरतात?", options: ["<h6>", "<heading>", "<h1>", "<head>"], answer: 2 },
+  { id: 6, question: "Paragraph बनवण्यासाठी कोणता tag वापरतात?", options: ["<para>", "<p>", "<text>", "<pg>"], answer: 1 },
+  { id: 7, question: "Link बनवण्यासाठी कोणता tag वापरतात?", options: ["<link>", "<a>", "<href>", "<url>"], answer: 1 },
+  { id: 8, question: "Link मध्ये URL कोणत्या attribute मध्ये टाकतात?", options: ["src", "link", "href", "url"], answer: 2 },
+  { id: 9, question: "Image दाखवण्यासाठी कोणता tag वापरतात?", options: ["<image>", "<pic>", "<img>", "<photo>"], answer: 2 },
+  { id: 10, question: "Image tag मध्ये path कोणत्या attribute मध्ये असतो?", options: ["href", "src", "link", "path"], answer: 1 },
+  { id: 11, question: "Image चा alt attribute कशासाठी आवश्यक आहे?", options: ["Color साठी", "Accessibility आणि image न दिसल्यास text साठी", "Size साठी", "Border साठी"], answer: 1 },
+  { id: 12, question: "Bullet points असलेल्या list साठी कोणता tag वापरतात?", options: ["<ol>", "<ul>", "<list>", "<dl>"], answer: 1 },
+  { id: 13, question: "Numbered list साठी कोणता tag वापरतात?", options: ["<ul>", "<list>", "<ol>", "<nl>"], answer: 2 },
+  { id: 14, question: "List च्या प्रत्येक item ला कोणत्या tag मध्ये लिहतात?", options: ["<item>", "<li>", "<list-item>", "<el>"], answer: 1 },
+  { id: 15, question: "Table row साठी कोणता tag वापरतात?", options: ["<row>", "<tr>", "<table-row>", "<td>"], answer: 1 },
+  { id: 16, question: "Table header साठी कोणता tag वापरतात?", options: ["<header>", "<thead>", "<th>", "<td>"], answer: 2 },
+  { id: 17, question: "Table data म्हणजे cells साठी कोणता tag वापरतात?", options: ["<data>", "<cell>", "<th>", "<td>"], answer: 3 },
+  { id: 18, question: "Form बनवण्यासाठी कोणता tag वापरतात?", options: ["<input>", "<form>", "<data>", "<submit>"], answer: 1 },
+  { id: 19, question: "Text input field साठी कोणता tag वापरतात?", options: ["<text>", "<input>", "<field>", "<box>"], answer: 1 },
+  { id: 20, question: "Multi-line text input साठी कोणता tag वापरतात?", options: ["<input>", "<text>", "<textarea>", "<multitext>"], answer: 2 },
+  { id: 21, question: "Dropdown menu साठी कोणता tag वापरतात?", options: ["<dropdown>", "<select>", "<menu>", "<option>"], answer: 1 },
+  { id: 22, question: "Page च्या top section साठी कोणता semantic tag आहे?", options: ["<top>", "<head>", "<header>", "<banner>"], answer: 2 },
+  { id: 23, question: "Navigation links साठी कोणता semantic tag वापरतात?", options: ["<navigation>", "<nav>", "<links>", "<menu>"], answer: 1 },
+  { id: 24, question: "Page च्या main content साठी कोणता semantic tag आहे?", options: ["<content>", "<body>", "<main>", "<center>"], answer: 2 },
+  { id: 25, question: "Page च्या bottom section साठी कोणता semantic tag आहे?", options: ["<bottom>", "<footer>", "<end>", "<last>"], answer: 1 },
+  { id: 26, question: "Block-level container साठी कोणता tag वापरतात?", options: ["<span>", "<div>", "<block>", "<container>"], answer: 1 },
+  { id: 27, question: "Inline container साठी कोणता tag वापरतात?", options: ["<div>", "<inline>", "<span>", "<text>"], answer: 2 },
+  { id: 28, question: "Line break साठी कोणता tag वापरतात?", options: ["<break>", "<br>", "<lb>", "<newline>"], answer: 1 },
+  { id: 29, question: "Horizontal line साठी कोणता tag वापरतात?", options: ["<line>", "<hl>", "<hr>", "<divider>"], answer: 2 },
+  { id: 30, question: "Img tag self-closing का असतो?", options: ["कारण error येते", "कारण त्यात कोणताही content नसतो", "कारण तो मोठा असतो", "कारण तो आवश्यक नाही"], answer: 1 },
+  { id: 31, question: "id attribute कशासाठी वापरतात?", options: ["Multiple elements group करण्यासाठी", "एक unique element identify करण्यासाठी", "Color देण्यासाठी", "Size देण्यासाठी"], answer: 1 },
+  { id: 32, question: "class attribute कशासाठी वापरतात?", options: ["एक unique element identify करण्यासाठी", "Multiple elements group करण्यासाठी", "Page title देण्यासाठी", "Link बनवण्यासाठी"], answer: 1 },
+  { id: 33, question: "Form मध्ये data कुठे submit होईल हे कोणता attribute सांगतो?", options: ["method", "action", "submit", "destination"], answer: 1 },
+  { id: 34, question: "Independent content जसे blog post साठी कोणता tag आहे?", options: ["<section>", "<article>", "<aside>", "<post>"], answer: 1 },
+  { id: 35, question: "Side content म्हणजे sidebar साठी कोणता tag आहे?", options: ["<side>", "<sidebar>", "<aside>", "<panel>"], answer: 2 },
+  { id: 36, question: "Form मध्ये submit button साठी type attribute ची value काय असते?", options: ["button", "send", "submit", "go"], answer: 2 },
+  { id: 37, question: "Nested list म्हणजे काय?", options: ["दोन वेगळ्या lists एकत्र", "List च्या आत list", "List delete करणे", "List sort करणे"], answer: 1 },
+  { id: 38, question: "Link नवीन tab मध्ये उघडण्यासाठी कोणता attribute वापरतात?", options: ["new='tab'", "target='_blank'", "open='new'", "tab='new'"], answer: 1 },
+  { id: 39, question: "HTML मध्ये comment लिहण्यासाठी काय वापरतात?", options: ["// comment", "# comment", "<!-- comment -->", "/* comment */"], answer: 2 },
+  { id: 40, question: "label tag कशासाठी वापरतात?", options: ["Image चा size सांगण्यासाठी", "Form input describe करण्यासाठी", "Table बनवण्यासाठी", "List बनवण्यासाठी"], answer: 1 },
 ]
 
 
@@ -745,17 +872,20 @@ function MCQPage() {
     : language === "javascript" ? javascriptQuestionsEnglish
     : language === "java" ? javaQuestionsEnglish
     : language === "cpp" ? cppQuestionsEnglish
+    : language === "html" ? htmlQuestionsEnglish
     : pythonQuestionsEnglish)
   : instructionLang === "marathi"
   ? (language === "sql" ? sqlQuestionsMarathi
     : language === "javascript" ? javascriptQuestionsMarathi
     : language === "java" ? javaQuestionsMarathi
     : language === "cpp" ? cppQuestionsMarathi
+    : language === "html" ? htmlQuestionsMarathi
     : pythonQuestionsMarathi)
   : (language === "sql" ? sqlQuestions
     : language === "javascript" ? javascriptQuestions
     : language === "java" ? javaQuestions
     : language === "cpp" ? cppQuestions
+    : language === "html" ? htmlQuestions
     : pythonQuestions)
 
   const lang = t[instructionLang]

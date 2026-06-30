@@ -818,6 +818,204 @@ const cppLessonsMarathi = [
   },
 ]
 
+// ─────────────────────────────────────────
+// HTML LESSONS — HINDI (paste after cppLessonsMarathi)
+// ─────────────────────────────────────────
+const htmlLessons = [
+  {
+    id: 1,
+    title: "HTML क्या है?",
+    content: "HTML का पूरा नाम है HyperText Markup Language। HTML हर website का सबसे बुनियादी हिस्सा है — यह web page की structure और content बनाता है। जैसे एक घर बनाने के लिए ईंटें चाहिए, वैसे ही website बनाने के लिए HTML चाहिए। HTML elements से बनता है जिन्हें tags कहते हैं। Tags angle brackets में लिखे जाते हैं जैसे <p> या <h1>। ज्यादातर tags के दो हिस्से होते हैं — opening tag और closing tag, और बीच में content होता है। HTML किसी programming language की तरह logic नहीं चलाता, यह सिर्फ structure define करता है। हर browser HTML को पढ़कर उसे visual page में बदल देता है। HTML को CSS के साथ design मिलती है और JavaScript के साथ interactivity।",
+    example: null
+  },
+  {
+    id: 2,
+    title: "HTML का Basic Structure",
+    content: "हर HTML document की एक fixed structure होती है। सबसे ऊपर <!DOCTYPE html> लिखते हैं जो browser को बताता है कि यह HTML5 document है। पूरा content <html> tag के अंदर होता है। <head> section में page की जानकारी होती है जो screen पर नहीं दिखती जैसे title, meta tags, और CSS links। <title> tag से browser tab में नाम दिखता है। <body> section में वो सब कुछ होता है जो user को दिखता है — text, images, buttons, सब कुछ। यह structure हर HTML page में same रहती है, सिर्फ body के अंदर का content बदलता है। Indentation से code पढ़ना आसान होता है हालांकि browser इसे ignore करता है।",
+    example: '<!DOCTYPE html>\n<html>\n<head>\n    <title>मेरी पहली Website</title>\n</head>\n<body>\n    <h1>नमस्ते दुनिया!</h1>\n    <p>यह मेरा पहला HTML page है।</p>\n</body>\n</html>'
+  },
+  {
+    id: 3,
+    title: "Headings और Paragraphs",
+    content: "HTML में headings बनाने के लिए h1 से h6 tags use होते हैं। h1 सबसे बड़ा और सबसे important heading होता है, h6 सबसे छोटा। एक page में आमतौर पर सिर्फ एक h1 होना चाहिए क्योंकि यह main title के लिए होता है। Headings page की structure और SEO दोनों के लिए जरूरी हैं — search engines headings देखकर content समझते हैं। Paragraph बनाने के लिए <p> tag use होता है। हर <p> tag एक नया block बनाता है जिसके पहले और बाद में थोड़ी space अपने आप आ जाती है। <br> tag से line break होता है बिना नया paragraph बनाए। <hr> tag से horizontal line आती है जो content को अलग करती है।",
+    example: '<h1>मुख्य Heading</h1>\n<h2>Section Heading</h2>\n<h3>Sub-section Heading</h3>\n\n<p>यह एक paragraph है जिसमें आम तौर पर कुछ vाक्य होते हैं।</p>\n<p>यह दूसरा paragraph है।</p>\n\n<p>पहली line<br>दूसरी line (br से)</p>\n\n<hr>\n<p>Horizontal line के बाद का content</p>'
+  },
+  {
+    id: 4,
+    title: "Links और Images",
+    content: "HTML में links बनाने के लिए <a> tag use होता है जिसका मतलब है anchor। href attribute में वो URL या path डालते हैं जहाँ link जाएगा। Link के text को opening और closing <a> tags के बीच लिखते हैं। target='_blank' से link नए tab में खुलता है। Images के लिए <img> tag use होता है जो self-closing होता है यानी इसका कोई closing tag नहीं होता। src attribute में image का path या URL होता है। alt attribute बहुत जरूरी है — यह image के बारे में text बताता है जो तब दिखता है जब image load न हो, और screen readers के लिए भी जरूरी है accessibility के लिए। width और height attributes से image का size control कर सकते हैं।",
+    example: '<a href="https://www.google.com">Google पर जाएं</a>\n\n<a href="https://www.google.com" target="_blank">नए tab में Google खोलें</a>\n\n<img src="logo.png" alt="कंपनी का logo" width="200" height="100">\n\n<a href="about.html">About page पर जाएं</a>'
+  },
+  {
+    id: 5,
+    title: "Lists — Ordered और Unordered",
+    content: "HTML में दो प्रकार की lists होती हैं। Unordered list यानी bullet points वाली list <ul> tag से बनती है। हर item <li> tag में लिखते हैं जिसका मतलब है list item। Ordered list यानी numbered list <ol> tag से बनती है, इसके items भी <li> में होते हैं लेकिन browser automatically numbers लगा देता है। List के अंदर list भी हो सकती है जिसे nested list कहते हैं — यह sub-categories दिखाने के लिए useful है। Description list <dl> tag से बनती है जिसमें <dt> term होता है और <dd> उसका description। Lists menus, instructions, और structured content दिखाने के लिए बहुत use होती हैं।",
+    example: '<h3>मेरी पसंदीदा Fruits (Unordered)</h3>\n<ul>\n    <li>Apple</li>\n    <li>Banana</li>\n    <li>Mango</li>\n</ul>\n\n<h3>Steps (Ordered)</h3>\n<ol>\n    <li>Water उबालें</li>\n    <li>Tea पत्ती डालें</li>\n    <li>5 मिनट उबालें</li>\n    <li>Cup में डालें</li>\n</ol>\n\n<h3>Nested List</h3>\n<ul>\n    <li>Fruits\n        <ul>\n            <li>Apple</li>\n            <li>Banana</li>\n        </ul>\n    </li>\n    <li>Vegetables</li>\n</ul>'
+  },
+  {
+    id: 6,
+    title: "Tables",
+    content: "HTML में tables से data को rows और columns में organize करते हैं। <table> tag से table शुरू होती है। <tr> tag table row के लिए होता है। <th> tag table header यानी column के title के लिए होता है जो bold और center में दिखता है। <td> tag table data के लिए होता है यानी actual cells का content। पूरी table में जितनी <tr> होंगी उतनी rows बनेंगी। हर row में जितने <td> या <th> होंगे उतने columns बनेंगे। colspan attribute से एक cell कई columns में फैल सकता है। rowspan attribute से एक cell कई rows में फैल सकता है। Tables tabular data दिखाने के लिए perfect हैं जैसे price lists, schedules, या comparison charts।",
+    example: '<table border="1">\n    <tr>\n        <th>नाम</th>\n        <th>उम्र</th>\n        <th>शहर</th>\n    </tr>\n    <tr>\n        <td>Sharada</td>\n        <td>20</td>\n        <td>Mumbai</td>\n    </tr>\n    <tr>\n        <td>Rahul</td>\n        <td>22</td>\n        <td>Delhi</td>\n    </tr>\n</table>'
+  },
+  {
+    id: 7,
+    title: "Forms",
+    content: "HTML में forms से user से data collect करते हैं जैसे login, registration, या contact forms। <form> tag से form शुरू होता है। action attribute बताता है कि data कहाँ submit होगा। method attribute बताता है कैसे data भेजा जाएगा — GET या POST। <input> tag सबसे common form element है और self-closing होता है। type attribute बताता है input किस प्रकार का है — text, email, password, number, checkbox, radio, या submit। <label> tag input को describe करता है और accessibility के लिए जरूरी है। placeholder attribute से hint text दिखता है। <textarea> multi-line text के लिए होता है। <select> और <option> से dropdown menu बनता है। <button> या submit type का input form submit करता है।",
+    example: '<form action="/submit" method="post">\n    <label for="naam">नाम:</label>\n    <input type="text" id="naam" name="naam" placeholder="अपना नाम लिखें">\n    <br><br>\n    \n    <label for="email">Email:</label>\n    <input type="email" id="email" name="email">\n    <br><br>\n    \n    <label for="message">Message:</label><br>\n    <textarea id="message" name="message" rows="4"></textarea>\n    <br><br>\n    \n    <button type="submit">Submit करें</button>\n</form>'
+  },
+  {
+    id: 8,
+    title: "Semantic HTML Tags",
+    content: "Semantic HTML tags ऐसे tags हैं जिनका नाम ही बताता है कि उनके अंदर किस प्रकार का content है। <header> page या section के top part के लिए होता है, अक्सर logo और navigation के लिए। <nav> navigation links के लिए होता है। <main> page के main content area के लिए होता है। <section> content के अलग-अलग sections के लिए होता है। <article> independent content के लिए होता है जैसे blog post। <aside> side content के लिए होता है जैसे sidebar। <footer> page के bottom part के लिए होता है जिसमें copyright, links होते हैं। Semantic tags use करने से SEO बेहतर होता है, accessibility बढ़ती है, और code पढ़ना आसान होता है क्योंकि div की जगह meaningful names use होते हैं।",
+    example: '<header>\n    <h1>मेरी Website</h1>\n    <nav>\n        <a href="#home">Home</a>\n        <a href="#about">About</a>\n    </nav>\n</header>\n\n<main>\n    <article>\n        <h2>मेरा पहला Blog Post</h2>\n        <p>यह article का content है...</p>\n    </article>\n    \n    <aside>\n        <p>Related links यहाँ होते हैं</p>\n    </aside>\n</main>\n\n<footer>\n    <p>&copy; 2024 मेरी Website</p>\n</footer>'
+  },
+  {
+    id: 9,
+    title: "Div और Span — Container Elements",
+    content: "<div> और <span> generic container elements हैं जो content को group करने के लिए use होते हैं। <div> एक block-level element है यानी यह अपनी एक नई line लेता है और पूरी width occupy करता है। <div> से बड़े sections बनाते हैं जैसे header, sidebar, या content area। <span> एक inline element है यानी यह text के बीच में बिना नई line लिए fit हो जाता है। <span> से किसी text के छोटे हिस्से को style करते हैं जैसे एक word को highlight करना। ये दोनों खुद कोई meaning नहीं रखते, सिर्फ CSS और JavaScript के लिए hooks होते हैं। id attribute से unique element को target करते हैं। class attribute से multiple elements को group करके एक साथ style करते हैं।",
+    example: '<div id="container">\n    <div class="header-box">\n        <h2>यह एक div section है</h2>\n        <p>इस paragraph में <span style="color: red;">यह word</span> highlight है।</p>\n    </div>\n    \n    <div class="content-box">\n        <p>दूसरा content area</p>\n    </div>\n</div>'
+  },
+  {
+    id: 10,
+    title: "HTML Attributes — Mini Project",
+    content: "शाबाश! आपने HTML के सभी basic concepts सीख लिए। Attributes हर HTML tag को extra information देते हैं। हर attribute का एक name और value होता है जैसे src='image.png' में src attribute है और image.png value है। Global attributes हर tag पर use हो सकते हैं — id से unique identify करते हैं, class से group बनाते हैं, style से inline CSS देते हैं, title से tooltip text देते हैं। अब हम एक mini profile page बनाएंगे जो headings, paragraphs, image, list, और link सब को मिलाकर एक complete structure बनाएगा। यह project आपको दिखाएगा कि real websites कैसे बनती हैं — सब HTML elements मिलकर एक meaningful page बनाते हैं।",
+    example: '<!DOCTYPE html>\n<html>\n<head>\n    <title>मेरी Profile</title>\n</head>\n<body>\n    <header>\n        <h1>Sharada का Profile</h1>\n    </header>\n    \n    <main>\n        <img src="profile.jpg" alt="Profile picture" width="150">\n        <p>नमस्ते! मेरा नाम Sharada है और मैं एक student हूँ।</p>\n        \n        <h2>मेरी Skills</h2>\n        <ul>\n            <li>HTML</li>\n            <li>CSS</li>\n            <li>Problem Solving</li>\n        </ul>\n        \n        <h2>मुझसे संपर्क करें</h2>\n        <a href="mailto:sharada@example.com">Email भेजें</a>\n    </main>\n    \n    <footer>\n        <p>&copy; 2024 Sharada का Portfolio</p>\n    </footer>\n</body>\n</html>'
+  },
+]
+
+// ─────────────────────────────────────────
+// HTML LESSONS — ENGLISH
+// ─────────────────────────────────────────
+const htmlLessonsEnglish = [
+  {
+    id: 1,
+    title: "What is HTML?",
+    content: "HTML stands for HyperText Markup Language. HTML is the most basic building block of every website — it creates the structure and content of a web page. Just like you need bricks to build a house, you need HTML to build a website. HTML is made up of elements called tags. Tags are written inside angle brackets like p or h1. Most tags have two parts, an opening tag and a closing tag, with content in between. HTML does not run logic like a programming language, it only defines structure. Every browser reads HTML and turns it into a visual page. HTML gets its design from CSS and its interactivity from JavaScript.",
+    example: null
+  },
+  {
+    id: 2,
+    title: "Basic Structure of HTML",
+    content: "Every HTML document has a fixed structure. At the very top we write DOCTYPE html which tells the browser this is an HTML5 document. All the content lives inside the html tag. The head section contains information about the page that is not visible on screen, such as the title, meta tags, and CSS links. The title tag controls the name shown in the browser tab. The body section contains everything the user actually sees — text, images, buttons, everything. This structure stays the same across every HTML page, only the content inside the body changes. Indentation makes code easier to read although the browser itself ignores it.",
+    example: '<!DOCTYPE html>\n<html>\n<head>\n    <title>My First Website</title>\n</head>\n<body>\n    <h1>Hello World!</h1>\n    <p>This is my first HTML page.</p>\n</body>\n</html>'
+  },
+  {
+    id: 3,
+    title: "Headings and Paragraphs",
+    content: "HTML uses h1 through h6 tags to create headings. h1 is the largest and most important heading and h6 is the smallest. A page usually should have only one h1 because it is meant for the main title. Headings matter both for page structure and for SEO since search engines read headings to understand content. The p tag is used to create a paragraph. Every p tag creates a new block with a small space automatically added before and after it. The br tag creates a line break without starting a new paragraph. The hr tag inserts a horizontal line that visually separates content.",
+    example: '<h1>Main Heading</h1>\n<h2>Section Heading</h2>\n<h3>Sub-section Heading</h3>\n\n<p>This is a paragraph that usually contains a few sentences.</p>\n<p>This is a second paragraph.</p>\n\n<p>First line<br>Second line (using br)</p>\n\n<hr>\n<p>Content after the horizontal line</p>'
+  },
+  {
+    id: 4,
+    title: "Links and Images",
+    content: "The a tag, which stands for anchor, is used to create links in HTML. The href attribute holds the URL or path that the link points to. The text of the link goes between the opening and closing a tags. Adding target equals underscore blank opens the link in a new tab. The img tag is used for images and is self-closing meaning it has no closing tag. The src attribute holds the path or URL of the image. The alt attribute is very important — it provides text describing the image which shows if the image fails to load, and it is essential for screen readers and accessibility. The width and height attributes let you control the size of the image.",
+    example: '<a href="https://www.google.com">Go to Google</a>\n\n<a href="https://www.google.com" target="_blank">Open Google in new tab</a>\n\n<img src="logo.png" alt="Company logo" width="200" height="100">\n\n<a href="about.html">Go to About page</a>'
+  },
+  {
+    id: 5,
+    title: "Lists — Ordered and Unordered",
+    content: "HTML has two main types of lists. An unordered list, which shows bullet points, is created using the ul tag. Each item is written inside an li tag which stands for list item. An ordered list, which shows numbers, is created using the ol tag, and its items are also written inside li tags, but the browser automatically adds numbers. A list can contain another list inside it which is called a nested list, useful for showing sub-categories. A description list is created with the dl tag where dt is the term and dd is its description. Lists are heavily used for menus, instructions, and any structured content.",
+    example: '<h3>My Favorite Fruits (Unordered)</h3>\n<ul>\n    <li>Apple</li>\n    <li>Banana</li>\n    <li>Mango</li>\n</ul>\n\n<h3>Steps (Ordered)</h3>\n<ol>\n    <li>Boil water</li>\n    <li>Add tea leaves</li>\n    <li>Boil for 5 minutes</li>\n    <li>Pour into a cup</li>\n</ol>\n\n<h3>Nested List</h3>\n<ul>\n    <li>Fruits\n        <ul>\n            <li>Apple</li>\n            <li>Banana</li>\n        </ul>\n    </li>\n    <li>Vegetables</li>\n</ul>'
+  },
+  {
+    id: 6,
+    title: "Tables",
+    content: "HTML tables organize data into rows and columns. The table tag starts the table. The tr tag represents a table row. The th tag represents a table header, used for column titles, and is displayed bold and centered by default. The td tag represents table data, the actual cell content. The number of tr tags determines how many rows the table has. The number of td or th tags in each row determines how many columns there are. The colspan attribute lets a cell span across multiple columns. The rowspan attribute lets a cell span across multiple rows. Tables are perfect for showing tabular data such as price lists, schedules, or comparison charts.",
+    example: '<table border="1">\n    <tr>\n        <th>Name</th>\n        <th>Age</th>\n        <th>City</th>\n    </tr>\n    <tr>\n        <td>Sharada</td>\n        <td>20</td>\n        <td>Mumbai</td>\n    </tr>\n    <tr>\n        <td>Rahul</td>\n        <td>22</td>\n        <td>Delhi</td>\n    </tr>\n</table>'
+  },
+  {
+    id: 7,
+    title: "Forms",
+    content: "HTML forms are used to collect data from a user, for example in login, registration, or contact forms. The form tag starts a form. The action attribute specifies where the data will be submitted. The method attribute specifies how the data is sent — GET or POST. The input tag is the most common form element and is self-closing. The type attribute determines what kind of input it is — text, email, password, number, checkbox, radio, or submit. The label tag describes an input and is important for accessibility. The placeholder attribute shows hint text inside an input. The textarea tag is used for multi-line text. The select and option tags together create a dropdown menu. A button or an input with type submit submits the form.",
+    example: '<form action="/submit" method="post">\n    <label for="name">Name:</label>\n    <input type="text" id="name" name="name" placeholder="Enter your name">\n    <br><br>\n    \n    <label for="email">Email:</label>\n    <input type="email" id="email" name="email">\n    <br><br>\n    \n    <label for="message">Message:</label><br>\n    <textarea id="message" name="message" rows="4"></textarea>\n    <br><br>\n    \n    <button type="submit">Submit</button>\n</form>'
+  },
+  {
+    id: 8,
+    title: "Semantic HTML Tags",
+    content: "Semantic HTML tags are tags whose name itself describes what kind of content they hold. The header tag is for the top section of a page or area, often used for logos and navigation. The nav tag is for navigation links. The main tag represents the main content area of a page. The section tag is used for distinct sections of content. The article tag is for independent content such as a blog post. The aside tag is for side content such as a sidebar. The footer tag is for the bottom section containing copyright and links. Using semantic tags improves SEO, increases accessibility, and makes code easier to read since meaningful names replace generic divs.",
+    example: '<header>\n    <h1>My Website</h1>\n    <nav>\n        <a href="#home">Home</a>\n        <a href="#about">About</a>\n    </nav>\n</header>\n\n<main>\n    <article>\n        <h2>My First Blog Post</h2>\n        <p>This is the article content...</p>\n    </article>\n    \n    <aside>\n        <p>Related links go here</p>\n    </aside>\n</main>\n\n<footer>\n    <p>&copy; 2024 My Website</p>\n</footer>'
+  },
+  {
+    id: 9,
+    title: "Div and Span — Container Elements",
+    content: "Div and span are generic container elements used to group content. Div is a block-level element which means it takes its own new line and occupies the full available width. Div is used to create larger sections such as headers, sidebars, or content areas. Span is an inline element which means it sits within text without starting a new line. Span is used to style a small piece of text, such as highlighting a single word. Neither of these have any meaning of their own, they only serve as hooks for CSS and JavaScript. The id attribute targets a unique element. The class attribute groups multiple elements so they can be styled together.",
+    example: '<div id="container">\n    <div class="header-box">\n        <h2>This is a div section</h2>\n        <p>In this paragraph, <span style="color: red;">this word</span> is highlighted.</p>\n    </div>\n    \n    <div class="content-box">\n        <p>Another content area</p>\n    </div>\n</div>'
+  },
+  {
+    id: 10,
+    title: "HTML Attributes — Mini Project",
+    content: "Congratulations! You have learned all the basic concepts of HTML. Attributes give every HTML tag extra information. Every attribute has a name and a value, such as src equals image.png, where src is the attribute and image.png is its value. Global attributes can be used on any tag — id uniquely identifies an element, class groups elements, style provides inline CSS, and title shows tooltip text. Now we will build a mini profile page that combines headings, paragraphs, an image, a list, and a link into one complete structure. This project shows you how real websites are built — all HTML elements working together to form one meaningful page.",
+    example: '<!DOCTYPE html>\n<html>\n<head>\n    <title>My Profile</title>\n</head>\n<body>\n    <header>\n        <h1>Sharada\'s Profile</h1>\n    </header>\n    \n    <main>\n        <img src="profile.jpg" alt="Profile picture" width="150">\n        <p>Hello! My name is Sharada and I am a student.</p>\n        \n        <h2>My Skills</h2>\n        <ul>\n            <li>HTML</li>\n            <li>CSS</li>\n            <li>Problem Solving</li>\n        </ul>\n        \n        <h2>Contact Me</h2>\n        <a href="mailto:sharada@example.com">Send Email</a>\n    </main>\n    \n    <footer>\n        <p>&copy; 2024 Sharada\'s Portfolio</p>\n    </footer>\n</body>\n</html>'
+  },
+]
+
+// ─────────────────────────────────────────
+// HTML LESSONS — MARATHI
+// ─────────────────────────────────────────
+const htmlLessonsMarathi = [
+  {
+    id: 1,
+    title: "HTML म्हणजे काय?",
+    content: "HTML चे पूर्ण नाव आहे HyperText Markup Language. HTML हा प्रत्येक website चा सर्वात मूलभूत भाग आहे — हा web page ची structure आणि content बनवतो. जसे घर बांधण्यासाठी विटा लागतात, तसेच website बनवण्यासाठी HTML लागते. HTML elements ने बनते ज्यांना tags म्हणतात. Tags angle brackets मध्ये लिहतात जसे p किंवा h1. बहुतेक tags चे दोन भाग असतात — opening tag आणि closing tag, आणि मध्ये content असते. HTML कोणत्याही programming language सारखे logic चालवत नाही, हे फक्त structure define करते. प्रत्येक browser HTML वाचून त्याला visual page मध्ये बदलतो. HTML ला CSS सोबत design मिळते आणि JavaScript सोबत interactivity.",
+    example: null
+  },
+  {
+    id: 2,
+    title: "HTML ची Basic Structure",
+    content: "प्रत्येक HTML document ची एक fixed structure असते. सर्वात वर DOCTYPE html लिहतो जो browser ला सांगतो की हे HTML5 document आहे. संपूर्ण content html tag च्या आत असते. head section मध्ये page ची माहिती असते जी screen वर दिसत नाही जसे title, meta tags, आणि CSS links. title tag ने browser tab मध्ये नाव दिसते. body section मध्ये ते सर्व काही असते जे user ला दिसते — text, images, buttons, सर्व काही. ही structure प्रत्येक HTML page मध्ये same राहते, फक्त body च्या आतला content बदलतो. Indentation मुळे code वाचणे सोपे होते जरी browser ते ignore करतो.",
+    example: '<!DOCTYPE html>\n<html>\n<head>\n    <title>माझी पहिली Website</title>\n</head>\n<body>\n    <h1>नमस्कार जग!</h1>\n    <p>हे माझे पहिले HTML page आहे।</p>\n</body>\n</html>'
+  },
+  {
+    id: 3,
+    title: "Headings आणि Paragraphs",
+    content: "HTML मध्ये headings बनवण्यासाठी h1 ते h6 tags वापरतात. h1 सर्वात मोठी आणि सर्वात important heading असते, h6 सर्वात लहान. एका page मध्ये साधारणपणे फक्त एक h1 असायला हवी कारण ही main title साठी असते. Headings page च्या structure आणि SEO दोन्हीसाठी आवश्यक आहेत — search engines headings बघून content समजतात. Paragraph बनवण्यासाठी p tag वापरतात. प्रत्येक p tag एक नवीन block बनवतो ज्याच्या आधी आणि नंतर थोडी space आपोआप येते. br tag ने line break होतो नवीन paragraph न बनवता. hr tag ने horizontal line येते जी content वेगळे करते.",
+    example: '<h1>मुख्य Heading</h1>\n<h2>Section Heading</h2>\n<h3>Sub-section Heading</h3>\n\n<p>हा एक paragraph आहे ज्यात सामान्यतः काही वाक्ये असतात.</p>\n<p>हा दुसरा paragraph आहे.</p>\n\n<p>पहिली ओळ<br>दुसरी ओळ (br ने)</p>\n\n<hr>\n<p>Horizontal line नंतरचा content</p>'
+  },
+  {
+    id: 4,
+    title: "Links आणि Images",
+    content: "HTML मध्ये links बनवण्यासाठी a tag वापरतात ज्याचा अर्थ आहे anchor. href attribute मध्ये तो URL किंवा path टाकतो जिथे link जाईल. Link चा text opening आणि closing a tags च्या मध्ये लिहतो. target='_blank' ने link नवीन tab मध्ये उघडतो. Images साठी img tag वापरतात जो self-closing असतो म्हणजे याला closing tag नसतो. src attribute मध्ये image चा path किंवा URL असतो. alt attribute खूप महत्त्वाचा आहे — हा image बद्दल text सांगतो जो image load न झाल्यास दिसतो, आणि screen readers साठी देखील आवश्यक आहे accessibility साठी. width आणि height attributes ने image चा size control करता येतो.",
+    example: '<a href="https://www.google.com">Google वर जा</a>\n\n<a href="https://www.google.com" target="_blank">नवीन tab मध्ये Google उघडा</a>\n\n<img src="logo.png" alt="कंपनीचा logo" width="200" height="100">\n\n<a href="about.html">About page वर जा</a>'
+  },
+  {
+    id: 5,
+    title: "Lists — Ordered आणि Unordered",
+    content: "HTML मध्ये दोन प्रकारच्या lists असतात. Unordered list म्हणजे bullet points असलेली list ul tag ने बनते. प्रत्येक item li tag मध्ये लिहतो ज्याचा अर्थ आहे list item. Ordered list म्हणजे numbered list ol tag ने बनते, यातील items देखील li मध्ये असतात पण browser आपोआप numbers लावतो. List च्या आत list देखील असू शकते ज्याला nested list म्हणतात — हे sub-categories दाखवण्यासाठी उपयुक्त आहे. Description list dl tag ने बनते ज्यात dt term असतो आणि dd त्याचे description. Lists menus, instructions, आणि structured content दाखवण्यासाठी खूप वापरल्या जातात.",
+    example: '<h3>माझी आवडती Fruits (Unordered)</h3>\n<ul>\n    <li>Apple</li>\n    <li>Banana</li>\n    <li>Mango</li>\n</ul>\n\n<h3>Steps (Ordered)</h3>\n<ol>\n    <li>पाणी उकळा</li>\n    <li>Tea पाने टाका</li>\n    <li>5 मिनिटे उकळा</li>\n    <li>Cup मध्ये ओता</li>\n</ol>\n\n<h3>Nested List</h3>\n<ul>\n    <li>Fruits\n        <ul>\n            <li>Apple</li>\n            <li>Banana</li>\n        </ul>\n    </li>\n    <li>Vegetables</li>\n</ul>'
+  },
+  {
+    id: 6,
+    title: "Tables",
+    content: "HTML मध्ये tables ने data ला rows आणि columns मध्ये organize करतो. table tag ने table सुरू होते. tr tag table row साठी असतो. th tag table header साठी असतो म्हणजे column च्या title साठी जो bold आणि center मध्ये दिसतो. td tag table data साठी असतो म्हणजे actual cells चा content. संपूर्ण table मध्ये जितक्या tr असतील तितक्या rows बनतील. प्रत्येक row मध्ये जितके td किंवा th असतील तितके columns बनतील. colspan attribute ने एक cell अनेक columns मध्ये पसरू शकतो. rowspan attribute ने एक cell अनेक rows मध्ये पसरू शकतो. Tables tabular data दाखवण्यासाठी perfect आहेत जसे price lists, schedules, किंवा comparison charts.",
+    example: '<table border="1">\n    <tr>\n        <th>नाव</th>\n        <th>वय</th>\n        <th>शहर</th>\n    </tr>\n    <tr>\n        <td>Sharada</td>\n        <td>20</td>\n        <td>Mumbai</td>\n    </tr>\n    <tr>\n        <td>Rahul</td>\n        <td>22</td>\n        <td>Delhi</td>\n    </tr>\n</table>'
+  },
+  {
+    id: 7,
+    title: "Forms",
+    content: "HTML मध्ये forms ने user कडून data collect करतो जसे login, registration, किंवा contact forms. form tag ने form सुरू होतो. action attribute सांगतो की data कुठे submit होईल. method attribute सांगतो data कसे पाठवले जाईल — GET किंवा POST. input tag सर्वात common form element आहे आणि self-closing असतो. type attribute सांगतो input कोणत्या प्रकारचा आहे — text, email, password, number, checkbox, radio, किंवा submit. label tag input ला describe करतो आणि accessibility साठी आवश्यक आहे. placeholder attribute ने hint text दिसतो. textarea multi-line text साठी असतो. select आणि option ने dropdown menu बनतो. button किंवा submit type चा input form submit करतो.",
+    example: '<form action="/submit" method="post">\n    <label for="naam">नाव:</label>\n    <input type="text" id="naam" name="naam" placeholder="तुमचे नाव लिहा">\n    <br><br>\n    \n    <label for="email">Email:</label>\n    <input type="email" id="email" name="email">\n    <br><br>\n    \n    <label for="message">Message:</label><br>\n    <textarea id="message" name="message" rows="4"></textarea>\n    <br><br>\n    \n    <button type="submit">Submit करा</button>\n</form>'
+  },
+  {
+    id: 8,
+    title: "Semantic HTML Tags",
+    content: "Semantic HTML tags असे tags आहेत ज्यांच्या नावावरूनच कळते की त्यांच्यात कोणत्या प्रकारचा content आहे. header tag page किंवा section च्या top भागासाठी असतो, बऱ्याचदा logo आणि navigation साठी. nav tag navigation links साठी असतो. main tag page च्या main content area साठी असतो. section tag content च्या वेगवेगळ्या sections साठी असतो. article tag independent content साठी असतो जसे blog post. aside tag side content साठी असतो जसे sidebar. footer tag page च्या bottom भागासाठी असतो ज्यात copyright, links असतात. Semantic tags वापरल्याने SEO चांगला होतो, accessibility वाढते, आणि code वाचणे सोपे होते कारण div ऐवजी meaningful names वापरले जातात.",
+    example: '<header>\n    <h1>माझी Website</h1>\n    <nav>\n        <a href="#home">Home</a>\n        <a href="#about">About</a>\n    </nav>\n</header>\n\n<main>\n    <article>\n        <h2>माझी पहिली Blog Post</h2>\n        <p>हा article चा content आहे...</p>\n    </article>\n    \n    <aside>\n        <p>Related links इथे असतात</p>\n    </aside>\n</main>\n\n<footer>\n    <p>&copy; 2024 माझी Website</p>\n</footer>'
+  },
+  {
+    id: 9,
+    title: "Div आणि Span — Container Elements",
+    content: "div आणि span हे generic container elements आहेत जे content group करण्यासाठी वापरतात. div हा block-level element आहे म्हणजे हा स्वतःची नवीन ओळ घेतो आणि पूर्ण width occupy करतो. div ने मोठे sections बनवतात जसे header, sidebar, किंवा content area. span हा inline element आहे म्हणजे हा text च्या मध्ये नवीन ओळ न घेता fit होतो. span ने एखाद्या text च्या लहान भागाला style करतो जसे एका word ला highlight करणे. हे दोन्ही स्वतः कोणताही meaning ठेवत नाहीत, फक्त CSS आणि JavaScript साठी hooks असतात. id attribute ने unique element ला target करतो. class attribute ने multiple elements ला group करून एकत्र style करतो.",
+    example: '<div id="container">\n    <div class="header-box">\n        <h2>हे एक div section आहे</h2>\n        <p>या paragraph मध्ये <span style="color: red;">हा word</span> highlight आहे.</p>\n    </div>\n    \n    <div class="content-box">\n        <p>दुसरा content area</p>\n    </div>\n</div>'
+  },
+  {
+    id: 10,
+    title: "HTML Attributes — Mini Project",
+    content: "शाब्बास! तुम्ही HTML चे सर्व basic concepts शिकलात. Attributes प्रत्येक HTML tag ला extra information देतात. प्रत्येक attribute चे एक name आणि value असते जसे src='image.png' मध्ये src attribute आहे आणि image.png value आहे. Global attributes कोणत्याही tag वर वापरता येतात — id ने unique identify करतो, class ने group बनवतो, style ने inline CSS देतो, title ने tooltip text देतो. आता आपण एक mini profile page बनवूया जो headings, paragraphs, image, list, आणि link सर्व एकत्र करून एक complete structure बनवेल. हे project तुम्हाला दाखवेल की real websites कशा बनतात — सर्व HTML elements मिळून एक meaningful page बनवतात.",
+    example: '<!DOCTYPE html>\n<html>\n<head>\n    <title>माझी Profile</title>\n</head>\n<body>\n    <header>\n        <h1>Sharada चे Profile</h1>\n    </header>\n    \n    <main>\n        <img src="profile.jpg" alt="Profile picture" width="150">\n        <p>नमस्कार! माझे नाव Sharada आहे आणि मी एक student आहे.</p>\n        \n        <h2>माझे Skills</h2>\n        <ul>\n            <li>HTML</li>\n            <li>CSS</li>\n            <li>Problem Solving</li>\n        </ul>\n        \n        <h2>माझ्याशी संपर्क साधा</h2>\n        <a href="mailto:sharada@example.com">Email पाठवा</a>\n    </main>\n    \n    <footer>\n        <p>&copy; 2024 Sharada चे Portfolio</p>\n    </footer>\n</body>\n</html>'
+  },
+]
+
 
 
 // ─── Pyra SVG Mascot ───────────────────────────────────────────────────────────
@@ -895,17 +1093,20 @@ function LessonsPage() {
     : language === "javascript" ? javascriptLessonsEnglish
     : language === "java" ? javaLessonsEnglish
     : language === "cpp" ? cppLessonsEnglish
+    : language === "html" ? htmlLessonsEnglish
     : pythonLessonsEnglish)
   : instructionLang === "marathi"
   ? (language === "sql" ? sqlLessonsMarathi
     : language === "javascript" ? javascriptLessonsMarathi
     : language === "java" ? javaLessonsMarathi
     : language === "cpp" ? cppLessonsMarathi
+    : language === "html" ? htmlLessonsMarathi
     : pythonLessonsMarathi)
   : (language === "sql" ? sqlLessons
     : language === "javascript" ? javascriptLessons
     : language === "java" ? javaLessons
     : language === "cpp" ? cppLessons
+    : language === "html" ? htmlLessons
     : pythonLessons)
   const lang = t[instructionLang]
 
