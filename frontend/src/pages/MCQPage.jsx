@@ -1057,6 +1057,144 @@ const tailwindQuestionsMarathi = [
   { id: 40, question: "Production मध्ये Tailwind ची file size लहान का राहते?", options: ["सर्व classes आपोआप compress होतात", "फक्त actually वापरलेल्या classes final CSS मध्ये include होतात", "Images compress होतात", "JavaScript कमी असते"], answer: 1 },
 ]
 
+// ─────────────────────────────────────────
+// TYPESCRIPT MCQ — HINDI (paste after tailwindQuestionsMarathi)
+// ─────────────────────────────────────────
+const typescriptQuestions = [
+  { id: 1, question: "TypeScript किसने बनाया?", options: ["Google", "Microsoft", "Facebook", "Amazon"], answer: 1 },
+  { id: 2, question: "TypeScript किस year में बना?", options: ["2009", "2012", "2015", "2018"], answer: 1 },
+  { id: 3, question: "TypeScript किसका superset है?", options: ["Python", "Java", "JavaScript", "C++"], answer: 2 },
+  { id: 4, question: "TypeScript की सबसे बड़ी feature क्या है?", options: ["Faster execution", "Static typing", "Smaller file size", "No compilation needed"], answer: 1 },
+  { id: 5, question: "TypeScript browser में directly चलता है?", options: ["हाँ", "नहीं, इसे पहले compile करना पड़ता है", "कभी-कभी", "सिर्फ Chrome में"], answer: 1 },
+  { id: 6, question: "TypeScript code को JavaScript में convert करने वाली command क्या है?", options: ["ts-build", "tsc", "ts-compile", "typescript-run"], answer: 1 },
+  { id: 7, question: "TypeScript file का extension क्या होता है?", options: [".js", ".ts", ".tsx only", ".type"], answer: 1 },
+  { id: 8, question: "किसी भी type की value रखने वाला type कौन सा है?", options: ["unknown", "any", "mixed", "var"], answer: 1 },
+  { id: 9, question: "function कुछ return नहीं करता तो उसका return type क्या लिखते हैं?", options: ["null", "undefined", "void", "none"], answer: 2 },
+  { id: 10, question: "Optional parameter कैसे बनाते हैं?", options: ["parameter के पहले ! लगाकर", "parameter के बाद ? लगाकर", "parameter के बाद * लगाकर", "parameter को skip करके"], answer: 1 },
+  { id: 11, question: "Object की shape define करने के लिए क्या use करते हैं?", options: ["class", "interface", "function", "module"], answer: 1 },
+  { id: 12, question: "Interface में property को सिर्फ एक बार set करने देने वाला keyword कौन सा है?", options: ["const", "final", "readonly", "fixed"], answer: 2 },
+  { id: 13, question: "Type alias बनाने के लिए कौन सा keyword use होता है?", options: ["alias", "type", "typedef", "define"], answer: 1 },
+  { id: 14, question: "Union types में अलग types को कैसे जोड़ते हैं?", options: ["+ symbol से", "| symbol से", "& symbol से", ", से"], answer: 1 },
+  { id: 15, question: "Literal type में क्या होता है?", options: ["कोई भी value allow होती है", "सिर्फ specific values allow होती हैं", "सिर्फ numbers allow होते हैं", "सिर्फ strings allow होते हैं"], answer: 1 },
+  { id: 16, question: "TypeScript classes में कौन से access modifiers होते हैं?", options: ["public, private, protected", "open, closed, hidden", "global, local, scope", "static, dynamic, fixed"], answer: 0 },
+  { id: 17, question: "private field को class के बाहर access करने पर क्या होता है?", options: ["कुछ नहीं होता", "Compile-time error आती है", "Runtime पर crash होता है", "Warning आती है लेकिन चलता है"], answer: 1 },
+  { id: 18, question: "Generics में placeholder type कैसे लिखते हैं?", options: ["(T)", "[T]", "<T>", "{T}"], answer: 2 },
+  { id: 19, question: "Generic function का फायदा क्या है?", options: ["सिर्फ numbers के साथ काम करता है", "किसी भी type के साथ काम करता है type safety के साथ", "सिर्फ strings के साथ काम करता है", "Type checking बंद कर देता है"], answer: 1 },
+  { id: 20, question: "Enum किसके लिए use होता है?", options: ["Random values के लिए", "Related named constants define करने के लिए", "Functions बनाने के लिए", "Classes बनाने के लिए"], answer: 1 },
+  { id: 21, question: "Default रूप से enum members किस number से शुरू होते हैं?", options: ["1", "0", "-1", "100"], answer: 1 },
+  { id: 22, question: "tsconfig.json file किसलिए है?", options: ["सिर्फ documentation के लिए", "Project की TypeScript settings के लिए", "Images store करने के लिए", "Database config के लिए"], answer: 1 },
+  { id: 23, question: "tsconfig.json में strict: true करने से क्या होता है?", options: ["Code तेज़ run होता है", "सभी strict type checking features enable होती हैं", "File size कम होती है", "Comments हट जाते हैं"], answer: 1 },
+  { id: 24, question: "ts-node किसलिए use होता है?", options: ["File compress करने के लिए", "बिना पहले compile किए TypeScript directly run करने के लिए", "Images optimize करने के लिए", "Database से connect करने के लिए"], answer: 1 },
+  { id: 25, question: "TypeScript में array का type कैसे लिख सकते हैं?", options: ["सिर्फ number[]", "सिर्फ Array<number>", "number[] या Array<number> दोनों", "इनमें से कोई नहीं"], answer: 2 },
+  { id: 26, question: "TypeScript में shorthand constructor का क्या फायदा है?", options: ["Code छोटा हो जाता है, field declaration अपने आप होती है", "Functions तेज़ चलते हैं", "Errors नहीं आती कभी", "Memory कम लगती है"], answer: 0 },
+  { id: 27, question: "Type inference का मतलब क्या है?", options: ["TypeScript खुद type detect कर लेता है", "हमेशा type लिखना पड़ता है", "Types कभी check नहीं होते", "सिर्फ strings के लिए काम करता है"], answer: 0 },
+  { id: 28, question: "interface में readonly id: number; का क्या मतलब है?", options: ["id सिर्फ पढ़ सकते हैं चेंज नहीं कर सकते", "id हमेशा 0 होगी", "id optional है", "id string होगी"], answer: 0 },
+  { id: 29, question: "TypeScript में class किस interface को implement कर सकती है?", options: ["सिर्फ एक", "एक से ज्यादा भी", "implement नहीं कर सकती", "सिर्फ built-in interfaces"], answer: 1 },
+  { id: 30, question: "String enum में members की values कैसी होती हैं?", options: ["हमेशा numbers", "Specific string values", "हमेशा boolean", "Random"], answer: 1 },
+  { id: 31, question: "TypeScript किन कंपनियों में use होती है?", options: ["किसी में नहीं", "सिर्फ छोटी companies में", "Microsoft, Google, Airbnb, Slack जैसी बड़ी companies में", "सिर्फ startups में"], answer: 2 },
+  { id: 32, question: "Function के parameters के बाद type कैसे लिखते हैं?", options: ["Colon लगाकर", "Semicolon लगाकर", "Comma लगाकर", "Equal sign लगाकर"], answer: 0 },
+  { id: 33, question: "TypeScript install करने की npm command क्या है?", options: ["npm install typescript-lang", "npm install -g typescript", "npm get typescript", "npm add ts"], answer: 1 },
+  { id: 34, question: "any type ज्यादा use करना क्यों अच्छा नहीं है?", options: ["यह error देता है", "यह TypeScript के type safety फायदे को कम कर देता है", "यह slow होता है", "यह deprecated है"], answer: 1 },
+  { id: 35, question: "TypeScript में class field के सामने public लिखना जरूरी है?", options: ["हाँ हमेशा", "नहीं, public default होता है", "सिर्फ constructor में जरूरी है", "सिर्फ static fields के लिए"], answer: 1 },
+  { id: 36, question: "Generic interface का उदाहरण कौन सा है?", options: ["interface Box { content: any }", "interface Box<T> { content: T }", "interface Box() { content }", "interface<Box> { content }"], answer: 1 },
+  { id: 37, question: "तीन access modifiers में सबसे ज्यादा restrictive कौन सा है?", options: ["public", "protected", "private", "static"], answer: 2 },
+  { id: 38, question: "TypeScript compile होकर क्या बनता है?", options: ["Python code", "JavaScript code", "HTML code", "Binary code"], answer: 1 },
+  { id: 39, question: "Multiple generic types कैसे लिखते हैं?", options: ["<T>", "<T, U>", "[T, U]", "(T, U)"], answer: 1 },
+  { id: 40, question: "TypeScript में Status एक enum है तो Status.Completed का type क्या होगा?", options: ["string हमेशा", "number या string, enum की definition पर depend करता है", "boolean", "any"], answer: 1 },
+]
+
+// ─────────────────────────────────────────
+// TYPESCRIPT MCQ — ENGLISH
+// ─────────────────────────────────────────
+const typescriptQuestionsEnglish = [
+  { id: 1, question: "Who created TypeScript?", options: ["Google", "Microsoft", "Facebook", "Amazon"], answer: 1 },
+  { id: 2, question: "In which year was TypeScript created?", options: ["2009", "2012", "2015", "2018"], answer: 1 },
+  { id: 3, question: "TypeScript is a superset of which language?", options: ["Python", "Java", "JavaScript", "C++"], answer: 2 },
+  { id: 4, question: "What is the biggest feature of TypeScript?", options: ["Faster execution", "Static typing", "Smaller file size", "No compilation needed"], answer: 1 },
+  { id: 5, question: "Does TypeScript run directly in the browser?", options: ["Yes", "No, it must be compiled first", "Sometimes", "Only in Chrome"], answer: 1 },
+  { id: 6, question: "Which command converts TypeScript code into JavaScript?", options: ["ts-build", "tsc", "ts-compile", "typescript-run"], answer: 1 },
+  { id: 7, question: "What is the file extension for TypeScript files?", options: [".js", ".ts", ".tsx only", ".type"], answer: 1 },
+  { id: 8, question: "Which type can hold a value of any kind?", options: ["unknown", "any", "mixed", "var"], answer: 1 },
+  { id: 9, question: "What return type is used when a function returns nothing?", options: ["null", "undefined", "void", "none"], answer: 2 },
+  { id: 10, question: "How do you create an optional parameter?", options: ["By adding ! before the parameter", "By adding ? after the parameter", "By adding * after the parameter", "By skipping the parameter"], answer: 1 },
+  { id: 11, question: "What is used to define the shape of an object?", options: ["class", "interface", "function", "module"], answer: 1 },
+  { id: 12, question: "Which keyword allows a property to be set only once?", options: ["const", "final", "readonly", "fixed"], answer: 2 },
+  { id: 13, question: "Which keyword is used to create a type alias?", options: ["alias", "type", "typedef", "define"], answer: 1 },
+  { id: 14, question: "How are different types joined in a union type?", options: ["With the + symbol", "With the | symbol", "With the & symbol", "With a comma"], answer: 1 },
+  { id: 15, question: "What does a literal type do?", options: ["Allows any value", "Allows only specific values", "Allows only numbers", "Allows only strings"], answer: 1 },
+  { id: 16, question: "Which access modifiers exist in TypeScript classes?", options: ["public, private, protected", "open, closed, hidden", "global, local, scope", "static, dynamic, fixed"], answer: 0 },
+  { id: 17, question: "What happens when you try to access a private field from outside the class?", options: ["Nothing happens", "A compile-time error occurs", "It crashes at runtime", "A warning appears but it still works"], answer: 1 },
+  { id: 18, question: "How do you write a placeholder type in generics?", options: ["(T)", "[T]", "<T>", "{T}"], answer: 2 },
+  { id: 19, question: "What is the benefit of a generic function?", options: ["It only works with numbers", "It works with any type while keeping type safety", "It only works with strings", "It turns off type checking"], answer: 1 },
+  { id: 20, question: "What is an enum used for?", options: ["Random values", "Defining a set of related named constants", "Creating functions", "Creating classes"], answer: 1 },
+  { id: 21, question: "By default, what number do enum members start from?", options: ["1", "0", "-1", "100"], answer: 1 },
+  { id: 22, question: "What is the tsconfig.json file for?", options: ["Only documentation", "Project's TypeScript settings", "Storing images", "Database configuration"], answer: 1 },
+  { id: 23, question: "What does setting strict to true in tsconfig.json do?", options: ["Makes code run faster", "Enables all strict type-checking features", "Reduces file size", "Removes comments"], answer: 1 },
+  { id: 24, question: "What is ts-node used for?", options: ["Compressing files", "Running TypeScript directly without compiling first", "Optimizing images", "Connecting to a database"], answer: 1 },
+  { id: 25, question: "How can an array type be written in TypeScript?", options: ["Only number[]", "Only Array<number>", "Either number[] or Array<number>", "Neither of these"], answer: 2 },
+  { id: 26, question: "What is the benefit of a shorthand constructor in TypeScript?", options: ["Code is shorter and the field is declared automatically", "Functions run faster", "Errors never happen", "It uses less memory"], answer: 0 },
+  { id: 27, question: "What does type inference mean?", options: ["TypeScript automatically detects the type", "You always have to write a type", "Types are never checked", "It only works for strings"], answer: 0 },
+  { id: 28, question: "What does readonly id: number; mean in an interface?", options: ["id can be read but not changed after being set", "id will always be 0", "id is optional", "id will be a string"], answer: 0 },
+  { id: 29, question: "How many interfaces can a TypeScript class implement?", options: ["Only one", "More than one", "It cannot implement any", "Only built-in interfaces"], answer: 1 },
+  { id: 30, question: "What kind of values do string enum members have?", options: ["Always numbers", "Specific string values", "Always booleans", "Random values"], answer: 1 },
+  { id: 31, question: "Which companies use TypeScript?", options: ["None", "Only small companies", "Large companies like Microsoft, Google, Airbnb, Slack", "Only startups"], answer: 2 },
+  { id: 32, question: "How is a type written after a function's parameters?", options: ["With a colon", "With a semicolon", "With a comma", "With an equals sign"], answer: 0 },
+  { id: 33, question: "What is the npm command to install TypeScript globally?", options: ["npm install typescript-lang", "npm install -g typescript", "npm get typescript", "npm add ts"], answer: 1 },
+  { id: 34, question: "Why isn't it good to overuse the any type?", options: ["It causes errors", "It removes the type safety benefit TypeScript provides", "It is slow", "It is deprecated"], answer: 1 },
+  { id: 35, question: "Is it required to write public in front of a class field in TypeScript?", options: ["Yes, always", "No, public is the default", "Only required in the constructor", "Only for static fields"], answer: 1 },
+  { id: 36, question: "Which is an example of a generic interface?", options: ["interface Box { content: any }", "interface Box<T> { content: T }", "interface Box() { content }", "interface<Box> { content }"], answer: 1 },
+  { id: 37, question: "Which of the three access modifiers is the most restrictive?", options: ["public", "protected", "private", "static"], answer: 2 },
+  { id: 38, question: "What does TypeScript compile into?", options: ["Python code", "JavaScript code", "HTML code", "Binary code"], answer: 1 },
+  { id: 39, question: "How are multiple generic types written?", options: ["<T>", "<T, U>", "[T, U]", "(T, U)"], answer: 1 },
+  { id: 40, question: "If Status is an enum, what is the type of Status.Completed?", options: ["Always string", "Either number or string, depending on the enum's definition", "Boolean", "any"], answer: 1 },
+]
+
+// ─────────────────────────────────────────
+// TYPESCRIPT MCQ — MARATHI
+// ─────────────────────────────────────────
+const typescriptQuestionsMarathi = [
+  { id: 1, question: "TypeScript कोणी बनवली?", options: ["Google", "Microsoft", "Facebook", "Amazon"], answer: 1 },
+  { id: 2, question: "TypeScript कोणत्या वर्षी बनवली गेली?", options: ["2009", "2012", "2015", "2018"], answer: 1 },
+  { id: 3, question: "TypeScript कोणत्या language चा superset आहे?", options: ["Python", "Java", "JavaScript", "C++"], answer: 2 },
+  { id: 4, question: "TypeScript ची सर्वात मोठी feature कोणती आहे?", options: ["Faster execution", "Static typing", "Smaller file size", "No compilation needed"], answer: 1 },
+  { id: 5, question: "TypeScript browser मध्ये directly चालते का?", options: ["हो", "नाही, आधी compile करावे लागते", "कधीकधी", "फक्त Chrome मध्ये"], answer: 1 },
+  { id: 6, question: "TypeScript code ला JavaScript मध्ये convert करणारी command कोणती आहे?", options: ["ts-build", "tsc", "ts-compile", "typescript-run"], answer: 1 },
+  { id: 7, question: "TypeScript file चा extension काय असतो?", options: [".js", ".ts", ".tsx फक्त", ".type"], answer: 1 },
+  { id: 8, question: "कोणत्याही type ची value ठेवणारा type कोणता आहे?", options: ["unknown", "any", "mixed", "var"], answer: 1 },
+  { id: 9, question: "function काही return करत नसेल तर त्याचा return type काय लिहतात?", options: ["null", "undefined", "void", "none"], answer: 2 },
+  { id: 10, question: "Optional parameter कसे बनवतात?", options: ["parameter च्या आधी ! लावून", "parameter च्या नंतर ? लावून", "parameter च्या नंतर * लावून", "parameter skip करून"], answer: 1 },
+  { id: 11, question: "Object ची shape define करण्यासाठी काय वापरतात?", options: ["class", "interface", "function", "module"], answer: 1 },
+  { id: 12, question: "Interface मध्ये property फक्त एकदाच set करू देणारा keyword कोणता आहे?", options: ["const", "final", "readonly", "fixed"], answer: 2 },
+  { id: 13, question: "Type alias बनवण्यासाठी कोणता keyword वापरतात?", options: ["alias", "type", "typedef", "define"], answer: 1 },
+  { id: 14, question: "Union types मध्ये वेगवेगळे types कसे जोडतात?", options: ["+ symbol ने", "| symbol ने", "& symbol ने", ", ने"], answer: 1 },
+  { id: 15, question: "Literal type मध्ये काय होते?", options: ["कोणतीही value allow होते", "फक्त specific values allow होतात", "फक्त numbers allow होतात", "फक्त strings allow होतात"], answer: 1 },
+  { id: 16, question: "TypeScript classes मध्ये कोणते access modifiers असतात?", options: ["public, private, protected", "open, closed, hidden", "global, local, scope", "static, dynamic, fixed"], answer: 0 },
+  { id: 17, question: "private field ला class च्या बाहेर access केल्यावर काय होते?", options: ["काहीच होत नाही", "Compile-time error येते", "Runtime वर crash होते", "Warning येते पण चालते"], answer: 1 },
+  { id: 18, question: "Generics मध्ये placeholder type कसे लिहतात?", options: ["(T)", "[T]", "<T>", "{T}"], answer: 2 },
+  { id: 19, question: "Generic function चा फायदा काय आहे?", options: ["फक्त numbers सोबत काम करतो", "कोणत्याही type सोबत type safety सह काम करतो", "फक्त strings सोबत काम करतो", "Type checking बंद करतो"], answer: 1 },
+  { id: 20, question: "Enum कशासाठी वापरतात?", options: ["Random values साठी", "Related named constants define करण्यासाठी", "Functions बनवण्यासाठी", "Classes बनवण्यासाठी"], answer: 1 },
+  { id: 21, question: "Default रूपात enum members कोणत्या number पासून सुरू होतात?", options: ["1", "0", "-1", "100"], answer: 1 },
+  { id: 22, question: "tsconfig.json file कशासाठी आहे?", options: ["फक्त documentation साठी", "Project च्या TypeScript settings साठी", "Images store करण्यासाठी", "Database config साठी"], answer: 1 },
+  { id: 23, question: "tsconfig.json मध्ये strict: true केल्याने काय होते?", options: ["Code वेगाने run होतो", "सर्व strict type checking features enable होतात", "File size कमी होते", "Comments निघून जातात"], answer: 1 },
+  { id: 24, question: "ts-node कशासाठी वापरतात?", options: ["File compress करण्यासाठी", "आधी compile न करता TypeScript directly run करण्यासाठी", "Images optimize करण्यासाठी", "Database शी connect करण्यासाठी"], answer: 1 },
+  { id: 25, question: "TypeScript मध्ये array चा type कसा लिहता येतो?", options: ["फक्त number[]", "फक्त Array<number>", "number[] किंवा Array<number> दोन्ही", "यापैकी काहीही नाही"], answer: 2 },
+  { id: 26, question: "TypeScript मध्ये shorthand constructor चा फायदा काय आहे?", options: ["Code लहान होतो, field declaration आपोआप होते", "Functions वेगाने चालतात", "Errors कधीच येत नाहीत", "Memory कमी लागते"], answer: 0 },
+  { id: 27, question: "Type inference चा अर्थ काय आहे?", options: ["TypeScript स्वतः type detect करतो", "नेहमी type लिहावे लागते", "Types कधीच check होत नाहीत", "फक्त strings साठी काम करते"], answer: 0 },
+  { id: 28, question: "interface मध्ये readonly id: number; चा अर्थ काय आहे?", options: ["id फक्त वाचता येतो बदलता येत नाही", "id नेहमी 0 असेल", "id optional आहे", "id string असेल"], answer: 0 },
+  { id: 29, question: "TypeScript मध्ये class किती interfaces implement करू शकते?", options: ["फक्त एक", "एकापेक्षा जास्त देखील", "implement करू शकत नाही", "फक्त built-in interfaces"], answer: 1 },
+  { id: 30, question: "String enum मध्ये members च्या values कशा असतात?", options: ["नेहमी numbers", "Specific string values", "नेहमी boolean", "Random"], answer: 1 },
+  { id: 31, question: "TypeScript कोणत्या companies मध्ये वापरतात?", options: ["कोणत्याच नाही", "फक्त लहान companies मध्ये", "Microsoft, Google, Airbnb, Slack सारख्या मोठ्या companies मध्ये", "फक्त startups मध्ये"], answer: 2 },
+  { id: 32, question: "Function च्या parameters नंतर type कसे लिहतात?", options: ["Colon लावून", "Semicolon लावून", "Comma लावून", "Equal sign लावून"], answer: 0 },
+  { id: 33, question: "TypeScript install करण्याची npm command कोणती आहे?", options: ["npm install typescript-lang", "npm install -g typescript", "npm get typescript", "npm add ts"], answer: 1 },
+  { id: 34, question: "any type जास्त वापरणे का चांगले नाही?", options: ["हे error देते", "हे TypeScript च्या type safety फायद्याला कमी करते", "हे slow असते", "हे deprecated आहे"], answer: 1 },
+  { id: 35, question: "TypeScript मध्ये class field च्या समोर public लिहणे आवश्यक आहे का?", options: ["हो नेहमी", "नाही, public default असतो", "फक्त constructor मध्ये आवश्यक आहे", "फक्त static fields साठी"], answer: 1 },
+  { id: 36, question: "Generic interface चे उदाहरण कोणते आहे?", options: ["interface Box { content: any }", "interface Box<T> { content: T }", "interface Box() { content }", "interface<Box> { content }"], answer: 1 },
+  { id: 37, question: "तीन access modifiers मध्ये सर्वात restrictive कोणता आहे?", options: ["public", "protected", "private", "static"], answer: 2 },
+  { id: 38, question: "TypeScript compile होऊन काय बनते?", options: ["Python code", "JavaScript code", "HTML code", "Binary code"], answer: 1 },
+  { id: 39, question: "Multiple generic types कसे लिहतात?", options: ["<T>", "<T, U>", "[T, U]", "(T, U)"], answer: 1 },
+  { id: 40, question: "TypeScript मध्ये Status एक enum असेल तर Status.Completed चा type काय असेल?", options: ["नेहमी string", "number किंवा string, enum च्या definition वर depend करते", "boolean", "any"], answer: 1 },
+]
+
 
 
 /* ── Pyra mascot (shared, compact) ──────────────────────────────── */
@@ -1151,6 +1289,7 @@ function MCQPage() {
     : language === "html" ? htmlQuestionsEnglish
     : language === "css" ? cssQuestionsEnglish
     : language === "tailwind" ? tailwindQuestionsEnglish
+    : language === "typescript" ? typescriptQuestionsEnglish
     : pythonQuestionsEnglish)
   : instructionLang === "marathi"
   ? (language === "sql" ? sqlQuestionsMarathi
@@ -1160,6 +1299,7 @@ function MCQPage() {
     : language === "html" ? htmlQuestionsMarathi
     : language === "css" ? cssQuestionsMarathi
     : language === "tailwind" ? tailwindQuestionsMarathi
+    : language === "typescript" ? typescriptQuestionsMarathi
     : pythonQuestionsMarathi)
   : (language === "sql" ? sqlQuestions
     : language === "javascript" ? javascriptQuestions
@@ -1168,6 +1308,7 @@ function MCQPage() {
     : language === "html" ? htmlQuestions
     : language === "css" ? cssQuestions
     : language === "tailwind" ? tailwindQuestionsMarathi
+    : language === "typescript" ? typescriptQuestionsMarathi
     : pythonQuestions)
 
   const lang = t[instructionLang]
