@@ -1214,6 +1214,204 @@ const cssLessonsMarathi = [
   },
 ]
 
+// ─────────────────────────────────────────
+// TAILWIND CSS LESSONS — HINDI (paste after cssLessonsMarathi)
+// ─────────────────────────────────────────
+const tailwindLessons = [
+  {
+    id: 1,
+    title: "Tailwind CSS क्या है?",
+    content: "Tailwind CSS एक utility-first CSS framework है जो modern web development में बहुत popular हो गया है। Traditional CSS में हम अपने खुद के class names बनाते हैं जैसे .card या .button और फिर एक अलग file में उनकी styling लिखते हैं। Tailwind में इसके बजाय छोटी-छोटी pre-built utility classes होती हैं जैसे text-center, bg-blue-500, या p-4 जिन्हें सीधे HTML में लगाते हैं। हर class एक single CSS property करती है। इससे बार-बार CSS file में जाने की जरूरत नहीं पड़ती और development बहुत fast हो जाता है। Tailwind को Adam Wathan ने बनाया था। बड़ी companies जैसे GitHub, Shopify, और Netflix भी Tailwind use करती हैं क्योंकि यह consistency और speed दोनों देता है।",
+    example: null
+  },
+  {
+    id: 2,
+    title: "Tailwind को Setup करना",
+    content: "Tailwind को अपने project में add करने के कई तरीके हैं। सबसे आसान तरीका है CDN link use करना जो quick testing के लिए perfect है — बस एक <script> tag <head> में add करते हैं। Production projects में npm के through install करते हैं — npm install tailwindcss से package मिलता है। फिर tailwind.config.js file बनती है जो customization के लिए होती है। एक main CSS file में तीन directives लिखते हैं — @tailwind base, @tailwind components, @tailwind utilities। Build process इन्हें असली CSS में convert करता है। Modern frameworks जैसे React, Next.js, और Vite में Tailwind का integration बहुत smooth है। यह automatically सिर्फ used classes को final CSS में include करता है जिससे file size छोटी रहती है।",
+    example: '<!-- Quick testing के लिए CDN -->\n<script src="https://cdn.tailwindcss.com"></script>\n\n<!-- फिर सीधे HTML में classes use करें -->\n<h1 class="text-3xl font-bold text-blue-600">\n    नमस्ते Tailwind!\n</h1>\n\n<!-- npm install के बाद CSS file में -->\n@tailwind base;\n@tailwind components;\n@tailwind utilities;'
+  },
+  {
+    id: 3,
+    title: "Spacing — Padding और Margin",
+    content: "Tailwind में spacing के लिए numbers based scale होता है। p से padding लगती है और m से margin। p-4 का मतलब है padding सभी तरफ 1rem यानी 16px। हर number 0.25rem यानी 4px के multiples में होता है — तो p-1 है 4px, p-2 है 8px, p-4 है 16px। सिर्फ specific sides के लिए: pt top padding, pb bottom, pl left, pr right। px से left-right दोनों, py से top-bottom दोनों। Margin के लिए भी same pattern है m, mt, mb, ml, mr, mx, my। Negative margin के लिए -mt-4 जैसे लिखते हैं। gap property से flex या grid items के बीच spacing देते हैं — gap-4 से 16px gap मिलता है। यह pattern सीखने के बाद spacing values याद रखना बहुत आसान हो जाता है।",
+    example: '<div class="p-4 m-2">\n    Padding 16px, Margin 8px\n</div>\n\n<div class="px-6 py-3">\n    Horizontal 24px, Vertical 12px\n</div>\n\n<div class="pt-8 pb-2 pl-4 pr-4">\n    अलग-अलग sides की padding\n</div>\n\n<div class="flex gap-4">\n    <div>Item 1</div>\n    <div>Item 2</div>\n</div>'
+  },
+  {
+    id: 4,
+    title: "Colors और Background",
+    content: "Tailwind में हर color के 10 अलग-अलग shades होते हैं 50 से 900 तक — 50 सबसे हल्का होता है और 900 सबसे गहरा। text-blue-500 से text का रंग blue मध्यम shade में होता है। bg-red-100 से बहुत हल्का लाल background मिलता है। bg-green-700 से गहरा हरा background मिलता है। border-gray-300 से border का रंग set होता है। Tailwind के default colors में slate, gray, red, orange, yellow, green, blue, purple, pink जैसे बहुत सारे color families होते हैं। hover: prefix से hover state के लिए अलग color दे सकते हैं जैसे hover:bg-blue-600। opacity control करने के लिए bg-blue-500/50 लिख सकते हैं जो 50% opacity देता है। यह system consistent design बनाने में बहुत मदद करता है।",
+    example: '<div class="bg-blue-500 text-white p-4">\n    Blue background, white text\n</div>\n\n<button class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded">\n    Hover करने पर रंग बदलेगा\n</button>\n\n<div class="bg-gray-100 border border-gray-300 p-4">\n    Light gray background with border\n</div>\n\n<div class="bg-purple-500/30 p-4">\n    30% opacity वाला purple\n</div>'
+  },
+  {
+    id: 5,
+    title: "Typography — Text Styling",
+    content: "Tailwind में text styling के लिए simple classes हैं। Font size के लिए text-xs से text-9xl तक classes होते हैं — text-sm छोटा है, text-xl बड़ा है, text-4xl और भी बड़ा। font-bold से bold text मिलता है, font-normal normal weight देता है, font-light हल्का text देता है। text-center, text-left, text-right से alignment होती है। leading- classes line-height control करते हैं जैसे leading-tight या leading-loose। tracking- classes letter-spacing control करते हैं। underline से underline लगता है, line-through से strikethrough। truncate से लंबा text एक line में ... के साथ cut हो जाता है। italic class से text तिरछा होता है। ये सभी classes सीधे tag में लिखते हैं जो traditional CSS से कहीं ज्यादा fast है।",
+    example: '<h1 class="text-4xl font-bold text-center">\n    बड़ी Bold Heading\n</h1>\n\n<p class="text-sm text-gray-600 leading-relaxed">\n    यह छोटा text है loose line height के साथ\n</p>\n\n<p class="truncate w-48">\n    यह बहुत लंबा text है जो cut हो जाएगा...\n</p>\n\n<a href="#" class="underline text-blue-600 hover:text-blue-800">\n    Link with underline\n</a>'
+  },
+  {
+    id: 6,
+    title: "Flexbox Utilities",
+    content: "Tailwind में flexbox बहुत आसानी से use हो जाता है। flex class से element flex container बनता है। flex-row default direction है, flex-col से column direction मिलती है। justify-center, justify-between, justify-around horizontal alignment के लिए हैं। items-center, items-start, items-end vertical alignment के लिए हैं। flex-wrap से items wrap हो सकते हैं। flex-1 से item बाकी space ले लेता है। gap-x और gap-y से horizontal और vertical gap अलग-अलग set कर सकते हैं। एक common pattern है flex justify-center items-center जो किसी भी content को perfectly center कर देता है — यह traditional CSS में काफी मुश्किल काम था लेकिन Tailwind में सिर्फ कुछ classes से हो जाता है।",
+    example: '<div class="flex justify-center items-center h-screen">\n    <p>यह बिल्कुल center में है</p>\n</div>\n\n<div class="flex justify-between items-center p-4">\n    <span>बाएं</span>\n    <span>दाएं</span>\n</div>\n\n<div class="flex flex-col gap-2">\n    <div>Item 1</div>\n    <div>Item 2</div>\n    <div>Item 3</div>\n</div>\n\n<div class="flex flex-wrap gap-4">\n    <div class="flex-1">Grows</div>\n    <div class="flex-1">Equal</div>\n</div>'
+  },
+  {
+    id: 7,
+    title: "Grid Utilities",
+    content: "Tailwind में CSS Grid भी आसान utilities के साथ मिलता है। grid class से element grid container बनता है। grid-cols-3 से तीन equal columns बनते हैं — number 1 से 12 तक हो सकता है। grid-rows-2 से दो rows define होती हैं। col-span-2 से कोई item दो columns में फैल जाता है। row-span-2 से item दो rows में फैलता है। gap-4 से grid items के बीच spacing मिलती है, gap-x और gap-y अलग से control होते हैं। Responsive design के लिए md:grid-cols-3 जैसे prefixes use करते हैं जो सिर्फ medium screens और बड़ी पर apply होते हैं। grid-cols-none से grid हटाई जा सकती है। Grid layouts photo galleries, dashboards, और card layouts के लिए perfect हैं।",
+    example: '<div class="grid grid-cols-3 gap-4">\n    <div class="bg-blue-200 p-4">1</div>\n    <div class="bg-blue-200 p-4">2</div>\n    <div class="bg-blue-200 p-4">3</div>\n</div>\n\n<div class="grid grid-cols-4 gap-2">\n    <div class="col-span-2 bg-green-200 p-4">2 columns wide</div>\n    <div class="bg-green-200 p-4">1</div>\n    <div class="bg-green-200 p-4">1</div>\n</div>\n\n<!-- Responsive grid -->\n<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">\n    <div>Mobile: 1 col, Tablet: 2, Desktop: 3</div>\n</div>'
+  },
+  {
+    id: 8,
+    title: "Responsive Design Prefixes",
+    content: "Tailwind का responsive system बहुत intuitive है। Default classes mobile के लिए होती हैं — यह mobile-first approach है। Bigger screens के लिए breakpoint prefixes use करते हैं। sm: 640px और बड़ी screens के लिए, md: 768px और बड़ी के लिए, lg: 1024px और बड़ी के लिए, xl: 1280px और बड़ी के लिए, 2xl: 1536px और बड़ी के लिए। जैसे text-sm md:text-lg lg:text-2xl का मतलब है mobile पर small text, tablet पर large text, desktop पर extra-large text। इस approach से एक ही HTML element में सभी screen sizes के लिए styling लिख सकते हैं बिना अलग media queries लिखे। यह बहुत powerful feature है क्योंकि पूरा responsive design सीधे class names में दिख जाता है, अलग CSS file खोलने की जरूरत नहीं।",
+    example: '<div class="text-sm md:text-lg lg:text-2xl">\n    Screen size के हिसाब से text size बदलता है\n</div>\n\n<div class="w-full md:w-1/2 lg:w-1/3">\n    Mobile: full width, Tablet: half, Desktop: एक तिहाई\n</div>\n\n<div class="hidden md:block">\n    सिर्फ tablet और बड़ी screens पर दिखेगा\n</div>\n\n<div class="block md:hidden">\n    सिर्फ mobile पर दिखेगा\n</div>'
+  },
+  {
+    id: 9,
+    title: "Hover, Focus और State Variants",
+    content: "Tailwind में interactive states के लिए special prefixes होते हैं। hover: से mouse आने पर style बदलती है — hover:bg-blue-700। focus: से input field पर focus आने पर style बदलती है, forms में बहुत useful है — focus:border-blue-500 focus:outline-none। active: से click होने के दौरान style मिलती है। disabled: से disabled elements के लिए अलग styling होती है। group hover के लिए group class parent पर लगाते हैं और group-hover: child elements पर — इससे parent hover करने पर child भी style बदलता है। dark: prefix से dark mode के लिए अलग styles दे सकते हैं। transition और duration- classes से ये state changes smooth animate होती हैं — transition-colors duration-300 से रंग 300 milliseconds में smoothly बदलता है।",
+    example: '<button class="bg-blue-500 hover:bg-blue-700 active:bg-blue-900 text-white px-4 py-2 rounded transition-colors duration-300">\n    Hover और click करें\n</button>\n\n<input class="border border-gray-300 focus:border-blue-500 focus:outline-none p-2 rounded" placeholder="यहाँ click करें">\n\n<div class="group p-4 border rounded">\n    <h3 class="group-hover:text-blue-600">Parent पर hover करें</h3>\n    <p class="group-hover:text-blue-400">यह text भी बदलेगा</p>\n</div>'
+  },
+  {
+    id: 10,
+    title: "Mini Project — Responsive Card Component",
+    content: "शाबाश! आपने Tailwind CSS के सभी important concepts सीख लिए। अब हम सब कुछ मिलाकर एक complete responsive card component बनाएंगे जिसमें spacing, colors, typography, flexbox, hover effects, और responsive design — सब use होगा। यह project दिखाएगा कि कैसे real production websites Tailwind से fast और consistent तरीके से बनती हैं। इस card में image, title, description, और button होगा जो सभी screen sizes पर अच्छी दिखेगी। Tailwind सीखने के बाद आप किसी भी UI को बहुत तेज़ी से बना सकते हैं क्योंकि traditional CSS file लिखने की जरूरत नहीं पड़ती — सब कुछ HTML classes में ही हो जाता है।",
+    example: '<div class="max-w-sm mx-auto bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 m-4">\n    <img class="w-full h-48 object-cover" src="course.jpg" alt="Course image">\n    \n    <div class="p-6">\n        <h2 class="text-xl font-bold text-gray-800 mb-2">\n            Python सीखें\n        </h2>\n        <p class="text-gray-600 text-sm mb-4">\n            शुरुआत से लेकर advanced तक, आसान भाषा में सीखें।\n        </p>\n        \n        <div class="flex justify-between items-center">\n            <span class="text-2xl font-bold text-blue-600">मुफ़्त</span>\n            <button class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">\n                शुरू करें\n            </button>\n        </div>\n    </div>\n</div>'
+  },
+]
+
+// ─────────────────────────────────────────
+// TAILWIND CSS LESSONS — ENGLISH
+// ─────────────────────────────────────────
+const tailwindLessonsEnglish = [
+  {
+    id: 1,
+    title: "What is Tailwind CSS?",
+    content: "Tailwind CSS is a utility-first CSS framework that has become extremely popular in modern web development. In traditional CSS we create our own class names like .card or .button and write their styling in a separate file. In Tailwind, instead, there are small pre-built utility classes like text-center, bg-blue-500, or p-4 that are applied directly in the HTML. Each class performs a single CSS property. This means you don't have to keep switching to a CSS file, and development becomes much faster. Tailwind was created by Adam Wathan. Large companies like GitHub, Shopify, and Netflix use Tailwind because it provides both consistency and speed.",
+    example: null
+  },
+  {
+    id: 2,
+    title: "Setting Up Tailwind",
+    content: "There are several ways to add Tailwind to a project. The easiest way is using a CDN link which is perfect for quick testing — you just add a script tag in the head. In production projects we install it through npm using npm install tailwindcss. Then a tailwind.config.js file is created for customization. In a main CSS file we write three directives — @tailwind base, @tailwind components, @tailwind utilities. The build process converts these into actual CSS. Modern frameworks like React, Next.js, and Vite have very smooth integration with Tailwind. It automatically includes only the classes that are actually used in the final CSS, which keeps the file size small.",
+    example: '<!-- CDN for quick testing -->\n<script src="https://cdn.tailwindcss.com"></script>\n\n<!-- Then use classes directly in HTML -->\n<h1 class="text-3xl font-bold text-blue-600">\n    Hello Tailwind!\n</h1>\n\n<!-- After npm install, in CSS file -->\n@tailwind base;\n@tailwind components;\n@tailwind utilities;'
+  },
+  {
+    id: 3,
+    title: "Spacing — Padding and Margin",
+    content: "Tailwind uses a numbered scale for spacing. p adds padding and m adds margin. p-4 means padding of 1rem, which is 16px, on all sides. Every number is a multiple of 0.25rem which is 4px — so p-1 is 4px, p-2 is 8px, and p-4 is 16px. For specific sides: pt is top padding, pb is bottom, pl is left, pr is right. px applies to both left and right, py applies to both top and bottom. Margin follows the same pattern with m, mt, mb, ml, mr, mx, my. Negative margins are written like -mt-4. The gap property adds spacing between flex or grid items — gap-4 gives a 16px gap. Once you learn this pattern, remembering spacing values becomes very easy.",
+    example: '<div class="p-4 m-2">\n    16px padding, 8px margin\n</div>\n\n<div class="px-6 py-3">\n    Horizontal 24px, Vertical 12px\n</div>\n\n<div class="pt-8 pb-2 pl-4 pr-4">\n    Different padding for each side\n</div>\n\n<div class="flex gap-4">\n    <div>Item 1</div>\n    <div>Item 2</div>\n</div>'
+  },
+  {
+    id: 4,
+    title: "Colors and Backgrounds",
+    content: "Every color in Tailwind has 10 different shades ranging from 50 to 900 — 50 is the lightest and 900 is the darkest. text-blue-500 sets the text color to a medium shade of blue. bg-red-100 gives a very light red background. bg-green-700 gives a dark green background. border-gray-300 sets the border color. Tailwind's default colors include many color families like slate, gray, red, orange, yellow, green, blue, purple, and pink. The hover: prefix lets you give a different color for the hover state, like hover:bg-blue-600. To control opacity you can write bg-blue-500/50 which gives 50% opacity. This system helps a lot in building consistent design across an entire project.",
+    example: '<div class="bg-blue-500 text-white p-4">\n    Blue background, white text\n</div>\n\n<button class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded">\n    Color changes on hover\n</button>\n\n<div class="bg-gray-100 border border-gray-300 p-4">\n    Light gray background with border\n</div>\n\n<div class="bg-purple-500/30 p-4">\n    Purple at 30% opacity\n</div>'
+  },
+  {
+    id: 5,
+    title: "Typography — Text Styling",
+    content: "Tailwind has simple classes for text styling. For font size there are classes from text-xs to text-9xl — text-sm is small, text-xl is large, text-4xl is even larger. font-bold gives bold text, font-normal gives normal weight, font-light gives lighter text. text-center, text-left, text-right handle alignment. The leading- classes control line-height, like leading-tight or leading-loose. The tracking- classes control letter-spacing. underline adds an underline, line-through adds a strikethrough. truncate cuts off long text in one line with an ellipsis. The italic class slants text. All of these classes are written directly on the tag which is far faster than writing traditional CSS.",
+    example: '<h1 class="text-4xl font-bold text-center">\n    Big Bold Heading\n</h1>\n\n<p class="text-sm text-gray-600 leading-relaxed">\n    This is small text with loose line height\n</p>\n\n<p class="truncate w-48">\n    This is very long text that will be cut off...\n</p>\n\n<a href="#" class="underline text-blue-600 hover:text-blue-800">\n    Link with underline\n</a>'
+  },
+  {
+    id: 6,
+    title: "Flexbox Utilities",
+    content: "Flexbox becomes very easy to use in Tailwind. The flex class makes an element a flex container. flex-row is the default direction, flex-col switches to column direction. justify-center, justify-between, and justify-around handle horizontal alignment. items-center, items-start, and items-end handle vertical alignment. flex-wrap allows items to wrap. flex-1 makes an item take up the remaining space. gap-x and gap-y let you set horizontal and vertical gap separately. A very common pattern is flex justify-center items-center which perfectly centers any content — something that used to be quite tricky in traditional CSS is achieved here with just a few classes.",
+    example: '<div class="flex justify-center items-center h-screen">\n    <p>This is perfectly centered</p>\n</div>\n\n<div class="flex justify-between items-center p-4">\n    <span>Left</span>\n    <span>Right</span>\n</div>\n\n<div class="flex flex-col gap-2">\n    <div>Item 1</div>\n    <div>Item 2</div>\n    <div>Item 3</div>\n</div>\n\n<div class="flex flex-wrap gap-4">\n    <div class="flex-1">Grows</div>\n    <div class="flex-1">Equal</div>\n</div>'
+  },
+  {
+    id: 7,
+    title: "Grid Utilities",
+    content: "CSS Grid also comes with easy utilities in Tailwind. The grid class turns an element into a grid container. grid-cols-3 creates three equal columns — the number can range from 1 to 12. grid-rows-2 defines two rows. col-span-2 makes an item span across two columns. row-span-2 makes an item span across two rows. gap-4 adds spacing between grid items, and gap-x and gap-y control it separately. For responsive design we use prefixes like md:grid-cols-3 which only apply on medium screens and above. grid-cols-none removes the grid. Grid layouts are perfect for photo galleries, dashboards, and card layouts.",
+    example: '<div class="grid grid-cols-3 gap-4">\n    <div class="bg-blue-200 p-4">1</div>\n    <div class="bg-blue-200 p-4">2</div>\n    <div class="bg-blue-200 p-4">3</div>\n</div>\n\n<div class="grid grid-cols-4 gap-2">\n    <div class="col-span-2 bg-green-200 p-4">2 columns wide</div>\n    <div class="bg-green-200 p-4">1</div>\n    <div class="bg-green-200 p-4">1</div>\n</div>\n\n<!-- Responsive grid -->\n<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">\n    <div>Mobile: 1 col, Tablet: 2, Desktop: 3</div>\n</div>'
+  },
+  {
+    id: 8,
+    title: "Responsive Design Prefixes",
+    content: "Tailwind's responsive system is very intuitive. Default classes apply to mobile — this is the mobile-first approach. For larger screens we use breakpoint prefixes. sm: applies at 640px and above, md: at 768px and above, lg: at 1024px and above, xl: at 1280px and above, and 2xl: at 1536px and above. For example, text-sm md:text-lg lg:text-2xl means small text on mobile, large text on tablet, and extra-large text on desktop. With this approach you can write styling for every screen size on a single HTML element without writing separate media queries. This is a very powerful feature because the entire responsive design is visible directly in the class names, with no need to open a separate CSS file.",
+    example: '<div class="text-sm md:text-lg lg:text-2xl">\n    Text size changes with screen size\n</div>\n\n<div class="w-full md:w-1/2 lg:w-1/3">\n    Mobile: full width, Tablet: half, Desktop: one-third\n</div>\n\n<div class="hidden md:block">\n    Only visible on tablet and larger screens\n</div>\n\n<div class="block md:hidden">\n    Only visible on mobile\n</div>'
+  },
+  {
+    id: 9,
+    title: "Hover, Focus, and State Variants",
+    content: "Tailwind has special prefixes for interactive states. hover: changes style when the mouse moves over an element, like hover:bg-blue-700. focus: changes style when an input field is focused, very useful in forms, like focus:border-blue-500 focus:outline-none. active: applies style while an element is being clicked. disabled: gives separate styling for disabled elements. For group hover effects, you add the group class on the parent and group-hover: on the child elements — this changes the child style whenever the parent is hovered. The dark: prefix lets you give different styles for dark mode. The transition and duration- classes make these state changes animate smoothly — transition-colors duration-300 smoothly changes color over 300 milliseconds.",
+    example: '<button class="bg-blue-500 hover:bg-blue-700 active:bg-blue-900 text-white px-4 py-2 rounded transition-colors duration-300">\n    Hover and click me\n</button>\n\n<input class="border border-gray-300 focus:border-blue-500 focus:outline-none p-2 rounded" placeholder="Click here">\n\n<div class="group p-4 border rounded">\n    <h3 class="group-hover:text-blue-600">Hover the parent</h3>\n    <p class="group-hover:text-blue-400">This text changes too</p>\n</div>'
+  },
+  {
+    id: 10,
+    title: "Mini Project — Responsive Card Component",
+    content: "Congratulations! You have learned all the important concepts of Tailwind CSS. Now we will combine everything to build a complete responsive card component using spacing, colors, typography, flexbox, hover effects, and responsive design all together. This project shows you how real production websites are built quickly and consistently with Tailwind. This card will have an image, title, description, and a button, and it will look great on every screen size. After learning Tailwind you can build any UI very quickly because you don't need to write a traditional CSS file — everything happens through HTML classes directly.",
+    example: '<div class="max-w-sm mx-auto bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 m-4">\n    <img class="w-full h-48 object-cover" src="course.jpg" alt="Course image">\n    \n    <div class="p-6">\n        <h2 class="text-xl font-bold text-gray-800 mb-2">\n            Learn Python\n        </h2>\n        <p class="text-gray-600 text-sm mb-4">\n            From beginner to advanced, in simple language.\n        </p>\n        \n        <div class="flex justify-between items-center">\n            <span class="text-2xl font-bold text-blue-600">Free</span>\n            <button class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">\n                Get Started\n            </button>\n        </div>\n    </div>\n</div>'
+  },
+]
+
+// ─────────────────────────────────────────
+// TAILWIND CSS LESSONS — MARATHI
+// ─────────────────────────────────────────
+const tailwindLessonsMarathi = [
+  {
+    id: 1,
+    title: "Tailwind CSS म्हणजे काय?",
+    content: "Tailwind CSS हे एक utility-first CSS framework आहे जे modern web development मध्ये खूप popular झाले आहे. Traditional CSS मध्ये आपण स्वतःचे class names बनवतो जसे .card किंवा .button आणि मग एका वेगळ्या file मध्ये त्यांची styling लिहतो. Tailwind मध्ये त्याऐवजी छोट्या pre-built utility classes असतात जसे text-center, bg-blue-500, किंवा p-4 ज्या थेट HTML मध्ये लावतात. प्रत्येक class एक single CSS property करते. यामुळे वारंवार CSS file मध्ये जाण्याची गरज नाही आणि development खूप fast होतो. Tailwind ला Adam Wathan यांनी बनवले होते. GitHub, Shopify, आणि Netflix सारख्या मोठ्या companies देखील Tailwind वापरतात कारण ते consistency आणि speed दोन्ही देते.",
+    example: null
+  },
+  {
+    id: 2,
+    title: "Tailwind Setup करणे",
+    content: "Tailwind ला project मध्ये add करण्याचे अनेक मार्ग आहेत. सर्वात सोपा मार्ग आहे CDN link वापरणे जो quick testing साठी perfect आहे — फक्त एक script tag head मध्ये add करतो. Production projects मध्ये npm द्वारे install करतो — npm install tailwindcss ने package मिळतो. मग tailwind.config.js file बनते जी customization साठी असते. एका main CSS file मध्ये तीन directives लिहतो — @tailwind base, @tailwind components, @tailwind utilities. Build process हे actual CSS मध्ये convert करते. React, Next.js, आणि Vite सारख्या modern frameworks मध्ये Tailwind चे integration खूप smooth आहे. हे आपोआप फक्त वापरलेल्या classes ला final CSS मध्ये include करते ज्यामुळे file size लहान राहते.",
+    example: '<!-- Quick testing साठी CDN -->\n<script src="https://cdn.tailwindcss.com"></script>\n\n<!-- मग थेट HTML मध्ये classes वापरा -->\n<h1 class="text-3xl font-bold text-blue-600">\n    नमस्कार Tailwind!\n</h1>\n\n<!-- npm install नंतर CSS file मध्ये -->\n@tailwind base;\n@tailwind components;\n@tailwind utilities;'
+  },
+  {
+    id: 3,
+    title: "Spacing — Padding आणि Margin",
+    content: "Tailwind मध्ये spacing साठी numbers based scale असतो. p ने padding लागते आणि m ने margin. p-4 म्हणजे padding सर्व बाजूंना 1rem म्हणजे 16px. प्रत्येक number 0.25rem म्हणजे 4px च्या multiples मध्ये असतो — तर p-1 आहे 4px, p-2 आहे 8px, p-4 आहे 16px. फक्त specific sides साठी: pt top padding, pb bottom, pl left, pr right. px ने left-right दोन्ही, py ने top-bottom दोन्ही. Margin साठी देखील same pattern आहे m, mt, mb, ml, mr, mx, my. Negative margin साठी -mt-4 असे लिहतात. gap property ने flex किंवा grid items च्या मधील spacing देतात — gap-4 ने 16px gap मिळतो. हा pattern शिकल्यानंतर spacing values लक्षात ठेवणे खूप सोपे होते.",
+    example: '<div class="p-4 m-2">\n    Padding 16px, Margin 8px\n</div>\n\n<div class="px-6 py-3">\n    Horizontal 24px, Vertical 12px\n</div>\n\n<div class="pt-8 pb-2 pl-4 pr-4">\n    वेगवेगळ्या sides ची padding\n</div>\n\n<div class="flex gap-4">\n    <div>Item 1</div>\n    <div>Item 2</div>\n</div>'
+  },
+  {
+    id: 4,
+    title: "Colors आणि Background",
+    content: "Tailwind मध्ये प्रत्येक color चे 10 वेगवेगळे shades असतात 50 ते 900 पर्यंत — 50 सर्वात हलका असतो आणि 900 सर्वात गडद. text-blue-500 ने text चा रंग blue च्या मध्यम shade मध्ये होतो. bg-red-100 ने खूप हलका लाल background मिळतो. bg-green-700 ने गडद हिरवा background मिळतो. border-gray-300 ने border चा रंग set होतो. Tailwind च्या default colors मध्ये slate, gray, red, orange, yellow, green, blue, purple, pink सारख्या खूप साऱ्या color families असतात. hover: prefix ने hover state साठी वेगळा color देता येतो जसे hover:bg-blue-600. opacity control करण्यासाठी bg-blue-500/50 लिहता येते जे 50% opacity देते. ही system consistent design बनवण्यात खूप मदत करते.",
+    example: '<div class="bg-blue-500 text-white p-4">\n    Blue background, white text\n</div>\n\n<button class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded">\n    Hover केल्यावर रंग बदलेल\n</button>\n\n<div class="bg-gray-100 border border-gray-300 p-4">\n    Light gray background with border\n</div>\n\n<div class="bg-purple-500/30 p-4">\n    30% opacity असलेला purple\n</div>'
+  },
+  {
+    id: 5,
+    title: "Typography — Text Styling",
+    content: "Tailwind मध्ये text styling साठी simple classes आहेत. Font size साठी text-xs ते text-9xl पर्यंत classes आहेत — text-sm लहान आहे, text-xl मोठा आहे, text-4xl आणखी मोठा. font-bold ने bold text मिळतो, font-normal normal weight देतो, font-light हलका text देतो. text-center, text-left, text-right ने alignment होते. leading- classes line-height control करतात जसे leading-tight किंवा leading-loose. tracking- classes letter-spacing control करतात. underline ने underline लागते, line-through ने strikethrough. truncate ने लांब text एका line मध्ये ... सह cut होतो. italic class ने text तिरके होते. हे सर्व classes थेट tag मध्ये लिहतात जे traditional CSS पेक्षा खूप जास्त fast आहे.",
+    example: '<h1 class="text-4xl font-bold text-center">\n    मोठी Bold Heading\n</h1>\n\n<p class="text-sm text-gray-600 leading-relaxed">\n    हे लहान text आहे loose line height सोबत\n</p>\n\n<p class="truncate w-48">\n    हे खूप लांब text आहे जे cut होईल...\n</p>\n\n<a href="#" class="underline text-blue-600 hover:text-blue-800">\n    Link with underline\n</a>'
+  },
+  {
+    id: 6,
+    title: "Flexbox Utilities",
+    content: "Tailwind मध्ये flexbox खूप सहज वापरता येतो. flex class ने element flex container बनतो. flex-row default direction आहे, flex-col ने column direction मिळते. justify-center, justify-between, justify-around horizontal alignment साठी आहेत. items-center, items-start, items-end vertical alignment साठी आहेत. flex-wrap ने items wrap होऊ शकतात. flex-1 ने item बाकीची space घेतो. gap-x आणि gap-y ने horizontal आणि vertical gap वेगवेगळे set करता येतात. एक common pattern आहे flex justify-center items-center जो कोणत्याही content ला perfectly center करतो — हे traditional CSS मध्ये खूप कठीण काम होते पण Tailwind मध्ये फक्त काही classes ने होते.",
+    example: '<div class="flex justify-center items-center h-screen">\n    <p>हे अगदी center मध्ये आहे</p>\n</div>\n\n<div class="flex justify-between items-center p-4">\n    <span>डावीकडे</span>\n    <span>उजवीकडे</span>\n</div>\n\n<div class="flex flex-col gap-2">\n    <div>Item 1</div>\n    <div>Item 2</div>\n    <div>Item 3</div>\n</div>\n\n<div class="flex flex-wrap gap-4">\n    <div class="flex-1">Grows</div>\n    <div class="flex-1">Equal</div>\n</div>'
+  },
+  {
+    id: 7,
+    title: "Grid Utilities",
+    content: "Tailwind मध्ये CSS Grid देखील सोप्या utilities सोबत मिळतो. grid class ने element grid container बनतो. grid-cols-3 ने तीन equal columns बनतात — number 1 ते 12 पर्यंत असू शकतो. grid-rows-2 ने दोन rows define होतात. col-span-2 ने एखादा item दोन columns मध्ये पसरतो. row-span-2 ने item दोन rows मध्ये पसरतो. gap-4 ने grid items च्या मधील spacing मिळते, gap-x आणि gap-y वेगळे control होतात. Responsive design साठी md:grid-cols-3 सारखे prefixes वापरतात जे फक्त medium screens आणि मोठ्यावर apply होतात. grid-cols-none ने grid हटवता येते. Grid layouts photo galleries, dashboards, आणि card layouts साठी perfect आहेत.",
+    example: '<div class="grid grid-cols-3 gap-4">\n    <div class="bg-blue-200 p-4">1</div>\n    <div class="bg-blue-200 p-4">2</div>\n    <div class="bg-blue-200 p-4">3</div>\n</div>\n\n<div class="grid grid-cols-4 gap-2">\n    <div class="col-span-2 bg-green-200 p-4">2 columns wide</div>\n    <div class="bg-green-200 p-4">1</div>\n    <div class="bg-green-200 p-4">1</div>\n</div>\n\n<!-- Responsive grid -->\n<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">\n    <div>Mobile: 1 col, Tablet: 2, Desktop: 3</div>\n</div>'
+  },
+  {
+    id: 8,
+    title: "Responsive Design Prefixes",
+    content: "Tailwind ची responsive system खूप intuitive आहे. Default classes mobile साठी असतात — ही mobile-first approach आहे. मोठ्या screens साठी breakpoint prefixes वापरतात. sm: 640px आणि मोठ्या screens साठी, md: 768px आणि मोठ्यासाठी, lg: 1024px आणि मोठ्यासाठी, xl: 1280px आणि मोठ्यासाठी, 2xl: 1536px आणि मोठ्यासाठी. जसे text-sm md:text-lg lg:text-2xl म्हणजे mobile वर small text, tablet वर large text, desktop वर extra-large text. या approach ने एकाच HTML element मध्ये सर्व screen sizes साठी styling लिहता येते वेगळ्या media queries न लिहता. हे खूप powerful feature आहे कारण संपूर्ण responsive design थेट class names मध्ये दिसते, वेगळी CSS file उघडण्याची गरज नाही.",
+    example: '<div class="text-sm md:text-lg lg:text-2xl">\n    Screen size नुसार text size बदलतो\n</div>\n\n<div class="w-full md:w-1/2 lg:w-1/3">\n    Mobile: full width, Tablet: half, Desktop: एक तृतीयांश\n</div>\n\n<div class="hidden md:block">\n    फक्त tablet आणि मोठ्या screens वर दिसेल\n</div>\n\n<div class="block md:hidden">\n    फक्त mobile वर दिसेल\n</div>'
+  },
+  {
+    id: 9,
+    title: "Hover, Focus आणि State Variants",
+    content: "Tailwind मध्ये interactive states साठी special prefixes असतात. hover: ने mouse आल्यावर style बदलते — hover:bg-blue-700. focus: ने input field वर focus आल्यावर style बदलते, forms मध्ये खूप useful आहे — focus:border-blue-500 focus:outline-none. active: ने click होताना style मिळते. disabled: ने disabled elements साठी वेगळी styling असते. group hover साठी group class parent वर लावतात आणि group-hover: child elements वर — यामुळे parent hover केल्यावर child देखील style बदलतो. dark: prefix ने dark mode साठी वेगळे styles देता येतात. transition आणि duration- classes ने हे state changes smooth animate होतात — transition-colors duration-300 ने रंग 300 milliseconds मध्ये smoothly बदलतो.",
+    example: '<button class="bg-blue-500 hover:bg-blue-700 active:bg-blue-900 text-white px-4 py-2 rounded transition-colors duration-300">\n    Hover आणि click करा\n</button>\n\n<input class="border border-gray-300 focus:border-blue-500 focus:outline-none p-2 rounded" placeholder="इथे click करा">\n\n<div class="group p-4 border rounded">\n    <h3 class="group-hover:text-blue-600">Parent वर hover करा</h3>\n    <p class="group-hover:text-blue-400">हा text देखील बदलेल</p>\n</div>'
+  },
+  {
+    id: 10,
+    title: "Mini Project — Responsive Card Component",
+    content: "शाब्बास! तुम्ही Tailwind CSS चे सर्व महत्त्वाचे concepts शिकलात. आता आपण सर्व एकत्र करून एक complete responsive card component बनवूया ज्यात spacing, colors, typography, flexbox, hover effects, आणि responsive design — सर्व वापरले जाईल. हे project दाखवेल की real production websites Tailwind ने कशा fast आणि consistent पद्धतीने बनतात. या card मध्ये image, title, description, आणि button असेल जो सर्व screen sizes वर चांगला दिसेल. Tailwind शिकल्यानंतर तुम्ही कोणताही UI खूप वेगाने बनवू शकता कारण traditional CSS file लिहण्याची गरज नाही — सर्व काही HTML classes मध्येच होते.",
+    example: '<div class="max-w-sm mx-auto bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 m-4">\n    <img class="w-full h-48 object-cover" src="course.jpg" alt="Course image">\n    \n    <div class="p-6">\n        <h2 class="text-xl font-bold text-gray-800 mb-2">\n            Python शिका\n        </h2>\n        <p class="text-gray-600 text-sm mb-4">\n            सुरुवातीपासून advanced पर्यंत, सोप्या भाषेत शिका.\n        </p>\n        \n        <div class="flex justify-between items-center">\n            <span class="text-2xl font-bold text-blue-600">मोफत</span>\n            <button class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">\n                सुरू करा\n            </button>\n        </div>\n    </div>\n</div>'
+  },
+]
+
 
 
 // ─── Pyra SVG Mascot ───────────────────────────────────────────────────────────
@@ -1293,6 +1491,7 @@ function LessonsPage() {
     : language === "cpp" ? cppLessonsEnglish
     : language === "html" ? htmlLessonsEnglish
     : language === "css" ? cssLessonsEnglish
+    : language === "tailwind" ? tailwindLessonsEnglish
     : pythonLessonsEnglish)
   : instructionLang === "marathi"
   ? (language === "sql" ? sqlLessonsMarathi
@@ -1301,6 +1500,7 @@ function LessonsPage() {
     : language === "cpp" ? cppLessonsMarathi
     : language === "html" ? htmlLessonsMarathi
     : language === "css" ? cssLessonsMarathi
+    : language === "tailwind" ? tailwindLessonsMarathi
     : pythonLessonsMarathi)
   : (language === "sql" ? sqlLessons
     : language === "javascript" ? javascriptLessons
@@ -1308,6 +1508,7 @@ function LessonsPage() {
     : language === "cpp" ? cppLessons
     : language === "html" ? htmlLessons
     : language === "css" ? cssLessons
+    : language === "tailwind" ? tailwindLessons
     : pythonLessons)
   const lang = t[instructionLang]
 

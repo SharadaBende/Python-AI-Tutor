@@ -919,6 +919,144 @@ const cssQuestionsMarathi = [
   { id: 40, question: "External CSS best practice का आहे?", options: ["सर्वात fast load होतो", "Code organized राहतो आणि अनेक pages share करता येतात", "Colors चांगले दिसतात", "Errors येत नाहीत"], answer: 1 },
 ]
 
+// ─────────────────────────────────────────
+// TAILWIND CSS MCQ — HINDI (paste after cssQuestionsMarathi)
+// ─────────────────────────────────────────
+const tailwindQuestions = [
+  { id: 1, question: "Tailwind CSS किस प्रकार का framework है?", options: ["Component-based", "Utility-first", "Object-oriented", "Template-based"], answer: 1 },
+  { id: 2, question: "Tailwind को किसने बनाया?", options: ["Dan Abramov", "Adam Wathan", "Evan You", "Brendan Eich"], answer: 1 },
+  { id: 3, question: "Quick testing के लिए Tailwind add करने का सबसे आसान तरीका क्या है?", options: ["npm install", "CDN link", "Download ZIP", "Git clone"], answer: 1 },
+  { id: 4, question: "p-4 class से कितनी padding मिलती है?", options: ["4px", "16px", "8px", "40px"], answer: 1 },
+  { id: 5, question: "px class किसके लिए होता है?", options: ["सिर्फ top padding", "Left और right दोनों padding", "सिर्फ bottom padding", "सिर्फ left padding"], answer: 1 },
+  { id: 6, question: "Tailwind में हर color के कितने shades होते हैं?", options: ["5", "10", "15", "20"], answer: 1 },
+  { id: 7, question: "bg-blue-500 क्या करता है?", options: ["Text का रंग blue करता है", "Background का रंग medium blue करता है", "Border का रंग blue करता है", "Font को blue बनाता है"], answer: 1 },
+  { id: 8, question: "Element को flex container बनाने के लिए कौन सी class use होती है?", options: ["display-flex", "flex", "flexbox", "row"], answer: 1 },
+  { id: 9, question: "justify-center किसके लिए use होता है?", options: ["Vertical alignment", "Horizontal alignment", "Text size", "Font weight"], answer: 1 },
+  { id: 10, question: "items-center किसके लिए use होता है?", options: ["Horizontal alignment", "Vertical alignment", "Background color", "Border radius"], answer: 1 },
+  { id: 11, question: "Element को grid container बनाने के लिए कौन सी class use होती है?", options: ["display-grid", "grid", "gridbox", "table"], answer: 1 },
+  { id: 12, question: "grid-cols-3 का क्या मतलब है?", options: ["3 rows", "3 equal columns", "3px width", "3 items"], answer: 1 },
+  { id: 13, question: "col-span-2 क्या करता है?", options: ["2 rows बनाता है", "Item को 2 columns में फैलाता है", "2 items hide करता है", "2px margin देता है"], answer: 1 },
+  { id: 14, question: "md: prefix किस screen size के लिए apply होता है?", options: ["480px और छोटी", "768px और बड़ी", "1920px और बड़ी", "सभी screens"], answer: 1 },
+  { id: 15, question: "Tailwind mobile-first है इसका मतलब क्या है?", options: ["सिर्फ mobile पर काम करता है", "Default styles mobile के लिए होती हैं फिर larger screens के लिए prefix लगाते हैं", "Desktop के लिए कोई support नहीं", "Tablet सबसे पहले आता है"], answer: 1 },
+  { id: 16, question: "hover: prefix कब trigger होता है?", options: ["Page load पर", "Mouse element पर आने पर", "Click करने पर", "Scroll करने पर"], answer: 1 },
+  { id: 17, question: "focus: prefix किस element types पर सबसे ज्यादा use होता है?", options: ["Images", "Buttons", "Input fields", "Headings"], answer: 2 },
+  { id: 18, question: "text-center क्या करता है?", options: ["Text को bold करता है", "Text को center align करता है", "Text का size बढ़ाता है", "Text को underline करता है"], answer: 1 },
+  { id: 19, question: "font-bold क्या करता है?", options: ["Text का size बढ़ाता है", "Text को bold बनाता है", "Text को italic बनाता है", "Text को center करता है"], answer: 1 },
+  { id: 20, question: "rounded-xl क्या करता है?", options: ["Border का रंग बदलता है", "Corners को बहुत round बनाता है", "Element को hide करता है", "Width बदलता है"], answer: 1 },
+  { id: 21, question: "shadow-md क्या करता है?", options: ["Background color बदलता है", "Medium box shadow देता है", "Text shadow देता है", "Border हटाता है"], answer: 1 },
+  { id: 22, question: "transition-colors किसके लिए use होता है?", options: ["Color changes को smooth animate करने के लिए", "Layout बदलने के लिए", "Page reload करने के लिए", "Image resize करने के लिए"], answer: 0 },
+  { id: 23, question: "group-hover: कैसे काम करता है?", options: ["Sirf parent पर apply होता है", "Parent hover होने पर child elements की style बदलती है", "Sभी elements hover करते हैं", "कुछ नहीं करता"], answer: 1 },
+  { id: 24, question: "gap-4 किसके लिए use होता है?", options: ["Margin के लिए", "Flex या grid items के बीच spacing के लिए", "Font size के लिए", "Border width के लिए"], answer: 1 },
+  { id: 25, question: "hidden class क्या करती है?", options: ["Element को छोटा बनाती है", "Element को display: none करती है", "Element का रंग हल्का करती है", "Element को move करती है"], answer: 1 },
+  { id: 26, question: "max-w-sm क्या करता है?", options: ["Maximum height set करता है", "Maximum width small set करता है", "Margin set करता है", "Font size set करता है"], answer: 1 },
+  { id: 27, question: "mx-auto किसके लिए use होता है?", options: ["Element को vertically center करने के लिए", "Element को horizontally center करने के लिए (auto margins)", "Padding बढ़ाने के लिए", "Border देने के लिए"], answer: 1 },
+  { id: 28, question: "w-full किसके लिए है?", options: ["Width 100% करने के लिए", "Height 100% करने के लिए", "Full screen बनाने के लिए", "Full opacity के लिए"], answer: 0 },
+  { id: 29, question: "object-cover किस element पर use होता है?", options: ["Buttons पर", "Images पर", "Headings पर", "Forms पर"], answer: 1 },
+  { id: 30, question: "duration-300 का क्या मतलब है?", options: ["300px width", "300 milliseconds की transition speed", "300 items", "300% opacity"], answer: 1 },
+  { id: 31, question: "Tailwind में responsive design के लिए कौन सा order सही है?", options: ["xl, lg, md, sm", "sm, md, lg, xl", "md, sm, xl, lg", "lg, xl, sm, md"], answer: 1 },
+  { id: 32, question: "bg-blue-500/50 में /50 क्या दिखाता है?", options: ["50px size", "50% opacity", "50 items", "50 shade number"], answer: 1 },
+  { id: 33, question: "flex-col क्या करता है?", options: ["Items को row में लगाता है", "Items को column में लगाता है", "Items को hide करता है", "Items को center करता है"], answer: 1 },
+  { id: 34, question: "tailwind.config.js file किसलिए है?", options: ["सिर्फ documentation के लिए", "Tailwind को customize करने के लिए", "Images store करने के लिए", "Database connect करने के लिए"], answer: 1 },
+  { id: 35, question: "@tailwind base, components, utilities directives कहाँ लिखते हैं?", options: ["HTML file में", "Main CSS file में", "JavaScript file में", "Config file में"], answer: 1 },
+  { id: 36, question: "truncate class क्या करती है?", options: ["Text को बड़ा करती है", "लंबे text को एक line में ... के साथ cut करती है", "Text को delete करती है", "Text को बदलती है"], answer: 1 },
+  { id: 37, question: "Tailwind में disabled: prefix किसलिए है?", options: ["Disabled elements के लिए अलग styling", "Page को disable करने के लिए", "JavaScript disable करने के लिए", "Forms हटाने के लिए"], answer: 0 },
+  { id: 38, question: "leading-relaxed क्या control करता है?", options: ["Font weight", "Line height", "Letter spacing", "Text color"], answer: 1 },
+  { id: 39, question: "Tailwind में dark: prefix किसके लिए है?", options: ["Dark colors देने के लिए हमेशा", "Dark mode के लिए अलग styles देने के लिए", "Text को बोल्ड बनाने के लिए", "Border को गहरा बनाने के लिए"], answer: 1 },
+  { id: 40, question: "Production में Tailwind file size छोटी क्यों रहती है?", options: ["सभी classes automatically compress होती हैं", "सिर्फ actually used classes ही final CSS में include होती हैं", "Images compress होती हैं", "JavaScript कम होती है"], answer: 1 },
+]
+
+// ─────────────────────────────────────────
+// TAILWIND CSS MCQ — ENGLISH
+// ─────────────────────────────────────────
+const tailwindQuestionsEnglish = [
+  { id: 1, question: "What type of framework is Tailwind CSS?", options: ["Component-based", "Utility-first", "Object-oriented", "Template-based"], answer: 1 },
+  { id: 2, question: "Who created Tailwind?", options: ["Dan Abramov", "Adam Wathan", "Evan You", "Brendan Eich"], answer: 1 },
+  { id: 3, question: "What is the easiest way to add Tailwind for quick testing?", options: ["npm install", "CDN link", "Download ZIP", "Git clone"], answer: 1 },
+  { id: 4, question: "How much padding does p-4 give?", options: ["4px", "16px", "8px", "40px"], answer: 1 },
+  { id: 5, question: "What does the px class apply padding to?", options: ["Only top", "Both left and right", "Only bottom", "Only left"], answer: 1 },
+  { id: 6, question: "How many shades does each color have in Tailwind?", options: ["5", "10", "15", "20"], answer: 1 },
+  { id: 7, question: "What does bg-blue-500 do?", options: ["Makes text color blue", "Makes the background a medium blue", "Makes the border blue", "Makes the font blue"], answer: 1 },
+  { id: 8, question: "Which class makes an element a flex container?", options: ["display-flex", "flex", "flexbox", "row"], answer: 1 },
+  { id: 9, question: "What is justify-center used for?", options: ["Vertical alignment", "Horizontal alignment", "Text size", "Font weight"], answer: 1 },
+  { id: 10, question: "What is items-center used for?", options: ["Horizontal alignment", "Vertical alignment", "Background color", "Border radius"], answer: 1 },
+  { id: 11, question: "Which class makes an element a grid container?", options: ["display-grid", "grid", "gridbox", "table"], answer: 1 },
+  { id: 12, question: "What does grid-cols-3 mean?", options: ["3 rows", "3 equal columns", "3px width", "3 items"], answer: 1 },
+  { id: 13, question: "What does col-span-2 do?", options: ["Creates 2 rows", "Makes an item span across 2 columns", "Hides 2 items", "Adds 2px margin"], answer: 1 },
+  { id: 14, question: "At which screen size does the md: prefix apply?", options: ["480px and smaller", "768px and above", "1920px and above", "All screens"], answer: 1 },
+  { id: 15, question: "What does mobile-first mean in Tailwind?", options: ["It only works on mobile", "Default styles are for mobile, prefixes are used for larger screens", "There is no support for desktop", "Tablet comes first"], answer: 1 },
+  { id: 16, question: "When does the hover: prefix trigger?", options: ["On page load", "When the mouse moves over the element", "When clicked", "When scrolled"], answer: 1 },
+  { id: 17, question: "Which element type most commonly uses focus:?", options: ["Images", "Buttons", "Input fields", "Headings"], answer: 2 },
+  { id: 18, question: "What does text-center do?", options: ["Makes text bold", "Centers text alignment", "Increases text size", "Underlines text"], answer: 1 },
+  { id: 19, question: "What does font-bold do?", options: ["Increases text size", "Makes text bold", "Makes text italic", "Centers text"], answer: 1 },
+  { id: 20, question: "What does rounded-xl do?", options: ["Changes border color", "Makes corners very rounded", "Hides the element", "Changes width"], answer: 1 },
+  { id: 21, question: "What does shadow-md do?", options: ["Changes background color", "Gives a medium box shadow", "Gives a text shadow", "Removes border"], answer: 1 },
+  { id: 22, question: "What is transition-colors used for?", options: ["Smoothly animating color changes", "Changing layout", "Reloading the page", "Resizing images"], answer: 0 },
+  { id: 23, question: "How does group-hover: work?", options: ["Only applies to the parent", "Changes child element styles when the parent is hovered", "All elements hover at once", "It does nothing"], answer: 1 },
+  { id: 24, question: "What is gap-4 used for?", options: ["Margin", "Spacing between flex or grid items", "Font size", "Border width"], answer: 1 },
+  { id: 25, question: "What does the hidden class do?", options: ["Makes the element smaller", "Sets the element to display: none", "Lightens the element's color", "Moves the element"], answer: 1 },
+  { id: 26, question: "What does max-w-sm do?", options: ["Sets a maximum height", "Sets a small maximum width", "Sets margin", "Sets font size"], answer: 1 },
+  { id: 27, question: "What is mx-auto used for?", options: ["Vertically centering an element", "Horizontally centering an element using auto margins", "Increasing padding", "Adding a border"], answer: 1 },
+  { id: 28, question: "What is w-full for?", options: ["Setting width to 100%", "Setting height to 100%", "Making the page full screen", "Setting full opacity"], answer: 0 },
+  { id: 29, question: "Which element is object-cover typically used on?", options: ["Buttons", "Images", "Headings", "Forms"], answer: 1 },
+  { id: 30, question: "What does duration-300 mean?", options: ["300px width", "Transition speed of 300 milliseconds", "300 items", "300% opacity"], answer: 1 },
+  { id: 31, question: "What is the correct breakpoint order in Tailwind?", options: ["xl, lg, md, sm", "sm, md, lg, xl", "md, sm, xl, lg", "lg, xl, sm, md"], answer: 1 },
+  { id: 32, question: "In bg-blue-500/50, what does /50 represent?", options: ["50px size", "50% opacity", "50 items", "50 shade number"], answer: 1 },
+  { id: 33, question: "What does flex-col do?", options: ["Arranges items in a row", "Arranges items in a column", "Hides items", "Centers items"], answer: 1 },
+  { id: 34, question: "What is the tailwind.config.js file for?", options: ["Only for documentation", "For customizing Tailwind", "For storing images", "For connecting to a database"], answer: 1 },
+  { id: 35, question: "Where are the @tailwind base, components, utilities directives written?", options: ["In the HTML file", "In the main CSS file", "In the JavaScript file", "In the config file"], answer: 1 },
+  { id: 36, question: "What does the truncate class do?", options: ["Makes text bigger", "Cuts long text in one line with an ellipsis", "Deletes text", "Changes the text"], answer: 1 },
+  { id: 37, question: "What is the disabled: prefix used for in Tailwind?", options: ["Separate styling for disabled elements", "Disabling the whole page", "Disabling JavaScript", "Removing forms"], answer: 0 },
+  { id: 38, question: "What does leading-relaxed control?", options: ["Font weight", "Line height", "Letter spacing", "Text color"], answer: 1 },
+  { id: 39, question: "What is the dark: prefix used for in Tailwind?", options: ["Always applying dark colors", "Giving separate styles for dark mode", "Making text bold", "Making the border darker"], answer: 1 },
+  { id: 40, question: "Why does the Tailwind file size stay small in production?", options: ["All classes are automatically compressed", "Only the classes actually used are included in the final CSS", "Images get compressed", "There is less JavaScript"], answer: 1 },
+]
+
+// ─────────────────────────────────────────
+// TAILWIND CSS MCQ — MARATHI
+// ─────────────────────────────────────────
+const tailwindQuestionsMarathi = [
+  { id: 1, question: "Tailwind CSS कोणत्या प्रकारचे framework आहे?", options: ["Component-based", "Utility-first", "Object-oriented", "Template-based"], answer: 1 },
+  { id: 2, question: "Tailwind कोणी बनवले?", options: ["Dan Abramov", "Adam Wathan", "Evan You", "Brendan Eich"], answer: 1 },
+  { id: 3, question: "Quick testing साठी Tailwind add करण्याचा सर्वात सोपा मार्ग कोणता आहे?", options: ["npm install", "CDN link", "Download ZIP", "Git clone"], answer: 1 },
+  { id: 4, question: "p-4 class ने किती padding मिळते?", options: ["4px", "16px", "8px", "40px"], answer: 1 },
+  { id: 5, question: "px class कशासाठी असतो?", options: ["फक्त top padding", "Left आणि right दोन्ही padding", "फक्त bottom padding", "फक्त left padding"], answer: 1 },
+  { id: 6, question: "Tailwind मध्ये प्रत्येक color चे किती shades असतात?", options: ["5", "10", "15", "20"], answer: 1 },
+  { id: 7, question: "bg-blue-500 काय करते?", options: ["Text चा रंग blue करते", "Background चा रंग medium blue करते", "Border चा रंग blue करते", "Font ला blue बनवते"], answer: 1 },
+  { id: 8, question: "Element ला flex container बनवण्यासाठी कोणती class वापरतात?", options: ["display-flex", "flex", "flexbox", "row"], answer: 1 },
+  { id: 9, question: "justify-center कशासाठी वापरतात?", options: ["Vertical alignment", "Horizontal alignment", "Text size", "Font weight"], answer: 1 },
+  { id: 10, question: "items-center कशासाठी वापरतात?", options: ["Horizontal alignment", "Vertical alignment", "Background color", "Border radius"], answer: 1 },
+  { id: 11, question: "Element ला grid container बनवण्यासाठी कोणती class वापरतात?", options: ["display-grid", "grid", "gridbox", "table"], answer: 1 },
+  { id: 12, question: "grid-cols-3 चा अर्थ काय आहे?", options: ["3 rows", "3 equal columns", "3px width", "3 items"], answer: 1 },
+  { id: 13, question: "col-span-2 काय करते?", options: ["2 rows बनवते", "Item ला 2 columns मध्ये पसरवते", "2 items hide करते", "2px margin देते"], answer: 1 },
+  { id: 14, question: "md: prefix कोणत्या screen size साठी apply होतो?", options: ["480px आणि लहान", "768px आणि मोठे", "1920px आणि मोठे", "सर्व screens"], answer: 1 },
+  { id: 15, question: "Tailwind mobile-first आहे याचा अर्थ काय आहे?", options: ["फक्त mobile वर काम करते", "Default styles mobile साठी असतात मग larger screens साठी prefix लावतात", "Desktop साठी कोणताही support नाही", "Tablet सर्वात आधी येतो"], answer: 1 },
+  { id: 16, question: "hover: prefix कधी trigger होतो?", options: ["Page load वर", "Mouse element वर आल्यावर", "Click केल्यावर", "Scroll केल्यावर"], answer: 1 },
+  { id: 17, question: "focus: prefix कोणत्या element types वर सर्वात जास्त वापरतात?", options: ["Images", "Buttons", "Input fields", "Headings"], answer: 2 },
+  { id: 18, question: "text-center काय करते?", options: ["Text bold करते", "Text center align करते", "Text चा size वाढवते", "Text underline करते"], answer: 1 },
+  { id: 19, question: "font-bold काय करते?", options: ["Text चा size वाढवते", "Text bold बनवते", "Text italic बनवते", "Text center करते"], answer: 1 },
+  { id: 20, question: "rounded-xl काय करते?", options: ["Border चा रंग बदलते", "Corners ला खूप round बनवते", "Element hide करते", "Width बदलते"], answer: 1 },
+  { id: 21, question: "shadow-md काय करते?", options: ["Background color बदलते", "Medium box shadow देते", "Text shadow देते", "Border हटवते"], answer: 1 },
+  { id: 22, question: "transition-colors कशासाठी वापरतात?", options: ["Color changes smoothly animate करण्यासाठी", "Layout बदलण्यासाठी", "Page reload करण्यासाठी", "Image resize करण्यासाठी"], answer: 0 },
+  { id: 23, question: "group-hover: कसे काम करते?", options: ["फक्त parent वर apply होते", "Parent hover झाल्यावर child elements ची style बदलते", "सर्व elements एकत्र hover होतात", "काहीच करत नाही"], answer: 1 },
+  { id: 24, question: "gap-4 कशासाठी वापरतात?", options: ["Margin साठी", "Flex किंवा grid items च्या मधील spacing साठी", "Font size साठी", "Border width साठी"], answer: 1 },
+  { id: 25, question: "hidden class काय करते?", options: ["Element लहान बनवते", "Element ला display: none करते", "Element चा रंग हलका करते", "Element move करते"], answer: 1 },
+  { id: 26, question: "max-w-sm काय करते?", options: ["Maximum height set करते", "Maximum width small set करते", "Margin set करते", "Font size set करते"], answer: 1 },
+  { id: 27, question: "mx-auto कशासाठी वापरतात?", options: ["Element vertically center करण्यासाठी", "Element horizontally center करण्यासाठी (auto margins)", "Padding वाढवण्यासाठी", "Border देण्यासाठी"], answer: 1 },
+  { id: 28, question: "w-full कशासाठी आहे?", options: ["Width 100% करण्यासाठी", "Height 100% करण्यासाठी", "Full screen बनवण्यासाठी", "Full opacity साठी"], answer: 0 },
+  { id: 29, question: "object-cover कोणत्या element वर वापरतात?", options: ["Buttons वर", "Images वर", "Headings वर", "Forms वर"], answer: 1 },
+  { id: 30, question: "duration-300 चा अर्थ काय आहे?", options: ["300px width", "300 milliseconds ची transition speed", "300 items", "300% opacity"], answer: 1 },
+  { id: 31, question: "Tailwind मध्ये responsive design साठी कोणता order बरोबर आहे?", options: ["xl, lg, md, sm", "sm, md, lg, xl", "md, sm, xl, lg", "lg, xl, sm, md"], answer: 1 },
+  { id: 32, question: "bg-blue-500/50 मध्ये /50 काय दाखवते?", options: ["50px size", "50% opacity", "50 items", "50 shade number"], answer: 1 },
+  { id: 33, question: "flex-col काय करते?", options: ["Items row मध्ये लावते", "Items column मध्ये लावते", "Items hide करते", "Items center करते"], answer: 1 },
+  { id: 34, question: "tailwind.config.js file कशासाठी आहे?", options: ["फक्त documentation साठी", "Tailwind customize करण्यासाठी", "Images store करण्यासाठी", "Database connect करण्यासाठी"], answer: 1 },
+  { id: 35, question: "@tailwind base, components, utilities directives कुठे लिहतात?", options: ["HTML file मध्ये", "Main CSS file मध्ये", "JavaScript file मध्ये", "Config file मध्ये"], answer: 1 },
+  { id: 36, question: "truncate class काय करते?", options: ["Text मोठा करते", "लांब text ला एका line मध्ये ... सह cut करते", "Text delete करते", "Text बदलते"], answer: 1 },
+  { id: 37, question: "Tailwind मध्ये disabled: prefix कशासाठी आहे?", options: ["Disabled elements साठी वेगळी styling", "संपूर्ण page disable करण्यासाठी", "JavaScript disable करण्यासाठी", "Forms हटवण्यासाठी"], answer: 0 },
+  { id: 38, question: "leading-relaxed काय control करते?", options: ["Font weight", "Line height", "Letter spacing", "Text color"], answer: 1 },
+  { id: 39, question: "Tailwind मध्ये dark: prefix कशासाठी आहे?", options: ["नेहमी dark colors देण्यासाठी", "Dark mode साठी वेगळे styles देण्यासाठी", "Text bold बनवण्यासाठी", "Border गडद बनवण्यासाठी"], answer: 1 },
+  { id: 40, question: "Production मध्ये Tailwind ची file size लहान का राहते?", options: ["सर्व classes आपोआप compress होतात", "फक्त actually वापरलेल्या classes final CSS मध्ये include होतात", "Images compress होतात", "JavaScript कमी असते"], answer: 1 },
+]
+
 
 
 /* ── Pyra mascot (shared, compact) ──────────────────────────────── */
@@ -1012,6 +1150,7 @@ function MCQPage() {
     : language === "cpp" ? cppQuestionsEnglish
     : language === "html" ? htmlQuestionsEnglish
     : language === "css" ? cssQuestionsEnglish
+    : language === "tailwind" ? tailwindQuestionsEnglish
     : pythonQuestionsEnglish)
   : instructionLang === "marathi"
   ? (language === "sql" ? sqlQuestionsMarathi
@@ -1020,6 +1159,7 @@ function MCQPage() {
     : language === "cpp" ? cppQuestionsMarathi
     : language === "html" ? htmlQuestionsMarathi
     : language === "css" ? cssQuestionsMarathi
+    : language === "tailwind" ? tailwindQuestionsMarathi
     : pythonQuestionsMarathi)
   : (language === "sql" ? sqlQuestions
     : language === "javascript" ? javascriptQuestions
@@ -1027,6 +1167,7 @@ function MCQPage() {
     : language === "cpp" ? cppQuestions
     : language === "html" ? htmlQuestions
     : language === "css" ? cssQuestions
+    : language === "tailwind" ? tailwindQuestionsMarathi
     : pythonQuestions)
 
   const lang = t[instructionLang]
