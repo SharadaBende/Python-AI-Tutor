@@ -1412,6 +1412,204 @@ const tailwindLessonsMarathi = [
   },
 ]
 
+// ─────────────────────────────────────────
+// TYPESCRIPT LESSONS — HINDI (paste after tailwindLessonsMarathi)
+// ─────────────────────────────────────────
+const typescriptLessons = [
+  {
+    id: 1,
+    title: "TypeScript क्या है?",
+    content: "TypeScript JavaScript का एक superset है जिसे Microsoft ने 2012 में बनाया था। Superset का मतलब है कि TypeScript में JavaScript का सारा code valid रहता है, और इसके ऊपर TypeScript कुछ extra features add करता है — सबसे बड़ा है static typing। JavaScript dynamically typed है यानी variable का type कभी भी बदल सकता है और errors सिर्फ runtime पर पता चलती हैं। TypeScript में हम variables, functions, और objects के types पहले से बता सकते हैं, और अगर कहीं गलत type use हो तो editor में लिखते समय ही error दिख जाती है — runtime तक wait नहीं करना पड़ता। बड़ी companies जैसे Microsoft, Google, Airbnb, और Slack TypeScript use करती हैं क्योंकि यह बड़े projects में bugs कम करने में बहुत मदद करता है। TypeScript code को compile करके वापस JavaScript में convert किया जाता है क्योंकि browsers सीधे TypeScript नहीं समझते।",
+    example: null
+  },
+  {
+    id: 2,
+    title: "Basic Types",
+    content: "TypeScript में variables के साथ उनका type colon लगाकर लिखते हैं। string type text के लिए होता है। number type सभी संख्याओं के लिए होता है — पूरी और दशमलव दोनों, JavaScript की तरह यहाँ int और float अलग नहीं होते। boolean type true या false के लिए होता है। Array का type दो तरीकों से लिख सकते हैं — number[] या Array<number>। any type किसी भी प्रकार की value रख सकता है लेकिन इसे जितना कम use करें उतना अच्छा क्योंकि यह TypeScript के फायदे को कम कर देता है। void type उन functions के लिए होता है जो कुछ return नहीं करते। TypeScript बहुत बार type को automatically detect भी कर लेता है, इसे type inference कहते हैं — फिर भी explicit type लिखना अच्छी practice है।",
+    example: 'let naam: string = "Sharada";\nlet umar: number = 20;\nlet isStudent: boolean = true;\nlet marks: number[] = [85, 90, 78];\nlet anything: any = "कुछ भी हो सकता है";\n\nfunction greet(): void {\n    console.log("नमस्ते " + naam);\n}\n\nconsole.log(naam, umar, isStudent);\nconsole.log(marks);\ngreet();'
+  },
+  {
+    id: 3,
+    title: "Functions में Types",
+    content: "TypeScript में functions के parameters और return value दोनों के types बता सकते हैं। Parameter के बाद colon लगाकर type लिखते हैं। Function के closing bracket के बाद colon लगाकर return type लिखते हैं। अगर return type number है तो function जरूर एक number ही return करेगा, नहीं तो error आएगी। Optional parameters के लिए parameter name के बाद question mark लगाते हैं — यह बताता है कि function call करते समय यह parameter देना जरूरी नहीं। Default parameters में equal sign से default value दे सकते हैं। Arrow functions में भी same तरीके से types लिखते हैं। यह सब features मिलकर ensure करते हैं कि function सही तरीके से call हो रहा है, गलत arguments पास होने पर editor तुरंत बता देता है।",
+    example: 'function add(a: number, b: number): number {\n    return a + b;\n}\n\nfunction greet(naam: string, message?: string): string {\n    return message ? message + " " + naam : "नमस्ते " + naam;\n}\n\nfunction multiply(a: number, b: number = 2): number {\n    return a * b;\n}\n\nconst subtract = (a: number, b: number): number => a - b;\n\nconsole.log(add(5, 3));\nconsole.log(greet("Sharada"));\nconsole.log(greet("Pyra", "नमस्कार"));\nconsole.log(multiply(5));\nconsole.log(subtract(10, 4));'
+  },
+  {
+    id: 4,
+    title: "Interfaces — Object Shapes Define करना",
+    content: "Interface से हम बताते हैं कि किसी object की shape कैसी होनी चाहिए — कौन-कौन से properties होने चाहिए और उनके types क्या होने चाहिए। interface keyword से interface बनाते हैं। हर property का नाम और type colon से अलग करते हैं। Optional properties के लिए नाम के बाद question mark लगाते हैं। readonly keyword से property को सिर्फ एक बार set कर सकते हैं, बाद में बदल नहीं सकते। जब किसी variable को उस interface का type देते हैं, तो TypeScript check करता है कि object exactly उस shape का है या नहीं — अगर कोई जरूरी property missing है या गलत type की है तो error आती है। Interfaces बड़े projects में बहुत जरूरी हैं क्योंकि वे data की structure को consistent रखते हैं और team के सभी members को पता रहता है कि object में क्या-क्या होना चाहिए।",
+    example: 'interface Student {\n    naam: string;\n    umar: number;\n    marks: number;\n    isActive?: boolean;\n    readonly id: number;\n}\n\nconst student1: Student = {\n    naam: "Sharada",\n    umar: 20,\n    marks: 92.5,\n    id: 1\n};\n\nfunction displayStudent(s: Student): void {\n    console.log(s.naam + " - " + s.umar + " साल - " + s.marks + " marks");\n}\n\ndisplayStudent(student1);\n\n// student1.id = 2;  // Error! readonly property बदल नहीं सकते'
+  },
+  {
+    id: 5,
+    title: "Type Aliases और Union Types",
+    content: "Type alias से हम किसी type को एक नया नाम दे सकते हैं जिसे बार-बार use कर सकते हैं। type keyword से type alias बनाते हैं। Union types से किसी variable को कई possible types में से एक होने देते हैं — pipe symbol से types को जोड़ते हैं। जैसे एक variable string या number दोनों हो सकता है। Union types खासकर तब useful हैं जब function अलग-अलग types accept कर सकता है। Literal types से हम specific values को ही allow करते हैं, जैसे सिर्फ 'small', 'medium', या 'large' string values। यह बहुत useful है जब हमें pता हो कि variable सिर्फ कुछ fixed values ही ले सकता है — जैसे status field जो सिर्फ 'pending', 'completed', या 'cancelled' हो सकता है। Type aliases code को readable और reusable बनाते हैं।",
+    example: 'type ID = string | number;\n\ntype Status = "pending" | "completed" | "cancelled";\n\nfunction printID(id: ID): void {\n    console.log("ID है: " + id);\n}\n\nfunction updateStatus(status: Status): void {\n    console.log("Status: " + status);\n}\n\nprintID(101);\nprintID("STU-101");\nupdateStatus("completed");\n\n// updateStatus("done");  // Error! "done" valid status नहीं है'
+  },
+  {
+    id: 6,
+    title: "Classes में Types",
+    content: "TypeScript classes में हर field का type बताना जरूरी है। access modifiers — public, private, protected — TypeScript में strictly enforce होते हैं, जो JavaScript में नहीं था। private field को class के बाहर access करने पर compile-time error आती है, जो data को secure बनाता है। Constructor के parameters में भी types देते हैं। TypeScript में एक shorthand है जहाँ constructor के parameters में directly public/private लिखकर field declaration भी automatically हो जाती है। Interfaces को classes के साथ implement keyword से use कर सकते हैं, जिससे class को उस interface के सभी properties और methods provide करने होंगे। Inheritance वैसे ही काम करती है जैसे JavaScript में extends keyword से, लेकिन types के साथ अतिरिक्त safety मिलती है।",
+    example: 'class Student {\n    private naam: string;\n    public umar: number;\n    \n    constructor(naam: string, umar: number) {\n        this.naam = naam;\n        this.umar = umar;\n    }\n    \n    public displayInfo(): void {\n        console.log(this.naam + " - " + this.umar + " साल");\n    }\n}\n\n// Shorthand constructor\nclass Teacher {\n    constructor(public naam: string, private subject: string) {}\n    \n    getSubject(): string {\n        return this.subject;\n    }\n}\n\nconst s1 = new Student("Sharada", 20);\ns1.displayInfo();\n\nconst t1 = new Teacher("Priya", "Mathematics");\nconsole.log(t1.naam, t1.getSubject());'
+  },
+  {
+    id: 7,
+    title: "Generics — Reusable Type-Safe Code",
+    content: "Generics से हम ऐसे functions और classes बना सकते हैं जो किसी भी type के साथ काम करें, लेकिन फिर भी type safety बनी रहे। Angular brackets <T> में एक placeholder type लिखते हैं जिसे actual use करते समय असली type से replace किया जाता है। यह बिल्कुल function parameters की तरह काम करता है, बस values की जगह types के लिए। Generic function किसी भी type को accept कर सकता है और वही type return करता है, जिससे flexibility और type safety दोनों मिलती है। Generic interfaces और classes भी बना सकते हैं — जैसे एक Box class जो किसी भी type की value रख सके। Multiple generic types भी एक साथ use कर सकते हैं जैसे <T, U>। Generics TypeScript की सबसे powerful features में से एक हैं क्योंकि वे code reuse करने देते हैं बिना type safety खोए।",
+    example: 'function identity<T>(value: T): T {\n    return value;\n}\n\ninterface Box<T> {\n    content: T;\n}\n\nfunction getFirstItem<T>(items: T[]): T {\n    return items[0];\n}\n\nconst numBox: Box<number> = { content: 42 };\nconst strBox: Box<string> = { content: "नमस्ते" };\n\nconsole.log(identity<string>("Sharada"));\nconsole.log(identity<number>(25));\n\nconst fruits: string[] = ["apple", "banana", "mango"];\nconsole.log(getFirstItem(fruits));\n\nconsole.log(numBox.content);\nconsole.log(strBox.content);'
+  },
+  {
+    id: 8,
+    title: "Enums — Named Constants",
+    content: "Enum यानी enumeration से हम related constants का एक set define कर सकते हैं जिनके readable नाम होते हैं। enum keyword से enum बनाते हैं। Default रूप से enum members को 0 से शुरू होने वाली numbers मिलती हैं, और हर अगला member पिछले से एक ज्यादा होता है। हम चाहें तो खुद specific numbers assign कर सकते हैं। String enums में हर member को एक specific string value देते हैं जो ज्यादा readable होती है debugging के time। Enums खासकर तब useful हैं जब हमें pता हो कि variable सिर्फ कुछ specific predefined values ही ले सकता है, जैसे days of week, directions, या status types। Enum use करने से magic numbers या strings की जगह meaningful names मिलते हैं जिससे code पढ़ना आसान होता है।",
+    example: 'enum Status {\n    Pending,\n    InProgress,\n    Completed,\n    Cancelled\n}\n\nenum Direction {\n    Up = "UP",\n    Down = "DOWN",\n    Left = "LEFT",\n    Right = "RIGHT"\n}\n\nfunction updateOrder(status: Status): void {\n    if (status === Status.Completed) {\n        console.log("Order पूरा हो गया!");\n    } else if (status === Status.Pending) {\n        console.log("Order pending है");\n    }\n}\n\nupdateOrder(Status.Completed);\nconsole.log(Direction.Up);\nconsole.log(Status.InProgress);  // 1 print होगा'
+  },
+  {
+    id: 9,
+    title: "TypeScript को Setup करना और Compile करना",
+    content: "TypeScript use करने के लिए सबसे पहले npm install -g typescript से global install करते हैं। tsc compiler command है जो TypeScript file को JavaScript में convert करती है। एक .ts extension वाली file बनाते हैं जिसमें TypeScript code लिखते हैं। tsc filename.ts चलाने से वही नाम की .js file बन जाती है। tsconfig.json file project की settings रखती है जैसे target JavaScript version, strict mode on/off, और किन folders को compile करना है। strict: true सबसे recommended setting है क्योंकि यह सभी strict type checking features को enable कर देती है। Modern projects में अक्सर ts-node use करते हैं जो बिना पहले compile किए directly TypeScript run कर देता है development के दौरान। Build tools जैसे Webpack और Vite में भी TypeScript का built-in support होता है।",
+    example: '// terminal commands:\n// npm install -g typescript\n// tsc --init   (tsconfig.json बनाने के लिए)\n// tsc app.ts   (compile करने के लिए)\n// node app.js  (run करने के लिए)\n\n// tsconfig.json उदाहरण:\n// {\n//   "compilerOptions": {\n//     "target": "ES2020",\n//     "strict": true,\n//     "outDir": "./dist"\n//   }\n// }\n\n// app.ts\nfunction greet(naam: string): string {\n    return "नमस्ते " + naam + "!";\n}\n\nconsole.log(greet("Sharada"));'
+  },
+  {
+    id: 10,
+    title: "Mini Project — Type-Safe Todo List",
+    content: "शाबाश! आपने TypeScript के सभी important concepts सीख लिए। अब हम सब कुछ मिलाकर एक Type-Safe Todo List Manager बनाएंगे। इस project में हम interfaces, enums, generics, classes, और functions सब use करेंगे। यह project दिखाएगा कि कैसे TypeScript real applications में bugs को पहले ही पकड़ लेता है, runtime तक wait नहीं करना पड़ता। हम एक Todo interface बनाएंगे जिसमें properties होंगी, एक Priority enum होगा, और एक TodoManager class होगी जो todos को add, complete, और display करेगी। यह project आपको दिखाएगा कि TypeScript professional applications में development को कितना safer और faster बना देता है।",
+    example: 'interface Todo {\n    id: number;\n    title: string;\n    priority: Priority;\n    completed: boolean;\n}\n\nenum Priority {\n    Low = "कम",\n    Medium = "मध्यम",\n    High = "ज्यादा"\n}\n\nclass TodoManager {\n    private todos: Todo[] = [];\n    private nextId: number = 1;\n    \n    addTodo(title: string, priority: Priority): void {\n        const newTodo: Todo = {\n            id: this.nextId++,\n            title: title,\n            priority: priority,\n            completed: false\n        };\n        this.todos.push(newTodo);\n        console.log(title + " add हो गया!");\n    }\n    \n    completeTodo(id: number): void {\n        const todo = this.todos.find(t => t.id === id);\n        if (todo) {\n            todo.completed = true;\n            console.log(todo.title + " complete हो गया!");\n        }\n    }\n    \n    displayAll(): void {\n        console.log("=== सभी Todos ===");\n        this.todos.forEach(t => {\n            const status = t.completed ? "✓" : "○";\n            console.log(status + " " + t.title + " [" + t.priority + "]");\n        });\n    }\n}\n\nconst manager = new TodoManager();\nmanager.addTodo("Python सीखें", Priority.High);\nmanager.addTodo("Groceries खरीदें", Priority.Low);\nmanager.completeTodo(1);\nmanager.displayAll();'
+  },
+]
+
+// ─────────────────────────────────────────
+// TYPESCRIPT LESSONS — ENGLISH
+// ─────────────────────────────────────────
+const typescriptLessonsEnglish = [
+  {
+    id: 1,
+    title: "What is TypeScript?",
+    content: "TypeScript is a superset of JavaScript created by Microsoft in 2012. Superset means that all valid JavaScript code is also valid TypeScript code, and on top of that TypeScript adds extra features, the biggest being static typing. JavaScript is dynamically typed which means a variable's type can change at any time and errors are only discovered at runtime. In TypeScript we can declare the types of variables, functions, and objects in advance, and if the wrong type is used anywhere the error shows up right in the editor while writing the code, without waiting until runtime. Large companies like Microsoft, Google, Airbnb, and Slack use TypeScript because it greatly reduces bugs in large projects. TypeScript code is compiled back into JavaScript because browsers do not understand TypeScript directly.",
+    example: null
+  },
+  {
+    id: 2,
+    title: "Basic Types",
+    content: "In TypeScript we write a variable's type after a colon. The string type is for text. The number type is for all numbers, both whole and decimal — unlike some languages, TypeScript does not separate int and float. The boolean type is for true or false. An array type can be written two ways — number[] or Array of number. The any type can hold a value of any kind, but it should be used as little as possible since it removes the benefits that TypeScript provides. The void type is for functions that return nothing. TypeScript can often detect the type automatically, which is called type inference, but writing explicit types is still good practice.",
+    example: 'let name: string = "Sharada";\nlet age: number = 20;\nlet isStudent: boolean = true;\nlet marks: number[] = [85, 90, 78];\nlet anything: any = "could be anything";\n\nfunction greet(): void {\n    console.log("Hello " + name);\n}\n\nconsole.log(name, age, isStudent);\nconsole.log(marks);\ngreet();'
+  },
+  {
+    id: 3,
+    title: "Types in Functions",
+    content: "In TypeScript we can declare types for both the parameters and the return value of a function. We write the type after a colon following each parameter. We write the return type after a colon following the closing parenthesis of the function. If the return type is number then the function must return a number, otherwise an error is raised. For optional parameters we add a question mark after the parameter name, which means the function does not require that argument when called. Default parameters can be given a default value using an equals sign. Arrow functions use the same way of declaring types. All of these features together ensure the function is being called correctly, and the editor immediately flags any wrong arguments being passed.",
+    example: 'function add(a: number, b: number): number {\n    return a + b;\n}\n\nfunction greet(name: string, message?: string): string {\n    return message ? message + " " + name : "Hello " + name;\n}\n\nfunction multiply(a: number, b: number = 2): number {\n    return a * b;\n}\n\nconst subtract = (a: number, b: number): number => a - b;\n\nconsole.log(add(5, 3));\nconsole.log(greet("Sharada"));\nconsole.log(greet("Pyra", "Hi"));\nconsole.log(multiply(5));\nconsole.log(subtract(10, 4));'
+  },
+  {
+    id: 4,
+    title: "Interfaces — Defining Object Shapes",
+    content: "An interface describes what shape an object should have — what properties it must have and what type each one is. We use the interface keyword to create one. Each property's name and type are separated by a colon. For optional properties we add a question mark after the name. The readonly keyword means a property can only be set once and cannot be changed afterward. When we give a variable that interface as its type, TypeScript checks that the object exactly matches that shape — if a required property is missing or has the wrong type, an error appears. Interfaces are essential in large projects because they keep data structures consistent and make sure every team member knows exactly what an object should contain.",
+    example: 'interface Student {\n    name: string;\n    age: number;\n    marks: number;\n    isActive?: boolean;\n    readonly id: number;\n}\n\nconst student1: Student = {\n    name: "Sharada",\n    age: 20,\n    marks: 92.5,\n    id: 1\n};\n\nfunction displayStudent(s: Student): void {\n    console.log(s.name + " - age " + s.age + " - " + s.marks + " marks");\n}\n\ndisplayStudent(student1);\n\n// student1.id = 2;  // Error! cannot change a readonly property'
+  },
+  {
+    id: 5,
+    title: "Type Aliases and Union Types",
+    content: "A type alias lets us give a type a new name that we can reuse. We use the type keyword to create one. Union types let a variable be one of several possible types — the pipe symbol joins the types together. For example a variable could be either a string or a number. Union types are especially useful when a function can accept several different types. Literal types let us allow only specific values, such as only the strings 'small', 'medium', or 'large'. This is very useful when we know a variable should only ever hold a fixed set of values, like a status field that can only be 'pending', 'completed', or 'cancelled'. Type aliases make code more readable and reusable.",
+    example: 'type ID = string | number;\n\ntype Status = "pending" | "completed" | "cancelled";\n\nfunction printID(id: ID): void {\n    console.log("ID is: " + id);\n}\n\nfunction updateStatus(status: Status): void {\n    console.log("Status: " + status);\n}\n\nprintID(101);\nprintID("STU-101");\nupdateStatus("completed");\n\n// updateStatus("done");  // Error! "done" is not a valid status'
+  },
+  {
+    id: 6,
+    title: "Types in Classes",
+    content: "In TypeScript classes you must declare the type of every field. Access modifiers — public, private, protected — are strictly enforced in TypeScript, unlike in plain JavaScript. Trying to access a private field from outside the class produces a compile-time error, which keeps data secure. Constructor parameters can also have types. TypeScript has a shorthand where writing public or private directly in the constructor parameters automatically declares the field too. Classes can implement an interface using the implements keyword, which requires the class to provide every property and method defined in that interface. Inheritance works the same way as in JavaScript using the extends keyword, but with the added safety that types provide.",
+    example: 'class Student {\n    private name: string;\n    public age: number;\n    \n    constructor(name: string, age: number) {\n        this.name = name;\n        this.age = age;\n    }\n    \n    public displayInfo(): void {\n        console.log(this.name + " - age " + this.age);\n    }\n}\n\n// Shorthand constructor\nclass Teacher {\n    constructor(public name: string, private subject: string) {}\n    \n    getSubject(): string {\n        return this.subject;\n    }\n}\n\nconst s1 = new Student("Sharada", 20);\ns1.displayInfo();\n\nconst t1 = new Teacher("Priya", "Mathematics");\nconsole.log(t1.name, t1.getSubject());'
+  },
+  {
+    id: 7,
+    title: "Generics — Reusable Type-Safe Code",
+    content: "Generics let us write functions and classes that work with any type while still keeping type safety. We write a placeholder type inside angle brackets, like T, which gets replaced with the actual type when used. This works exactly like a function parameter, but for types instead of values. A generic function can accept any type and return that same type, giving us both flexibility and type safety at once. We can also create generic interfaces and classes, such as a Box class that can hold a value of any type. Multiple generic types can be used together, like T and U. Generics are one of the most powerful features of TypeScript because they let us reuse code without losing type safety.",
+    example: 'function identity<T>(value: T): T {\n    return value;\n}\n\ninterface Box<T> {\n    content: T;\n}\n\nfunction getFirstItem<T>(items: T[]): T {\n    return items[0];\n}\n\nconst numBox: Box<number> = { content: 42 };\nconst strBox: Box<string> = { content: "Hello" };\n\nconsole.log(identity<string>("Sharada"));\nconsole.log(identity<number>(25));\n\nconst fruits: string[] = ["apple", "banana", "mango"];\nconsole.log(getFirstItem(fruits));\n\nconsole.log(numBox.content);\nconsole.log(strBox.content);'
+  },
+  {
+    id: 8,
+    title: "Enums — Named Constants",
+    content: "An enum, short for enumeration, lets us define a set of related constants with readable names. We use the enum keyword to create one. By default, enum members are assigned numbers starting from 0, and each next member increases by one. We can also assign specific numbers ourselves. String enums give each member a specific string value, which is much more readable while debugging. Enums are especially useful when we know a variable should only ever hold one of a few predefined values, like days of the week, directions, or status types. Using enums replaces magic numbers or strings with meaningful names, making the code much easier to read.",
+    example: 'enum Status {\n    Pending,\n    InProgress,\n    Completed,\n    Cancelled\n}\n\nenum Direction {\n    Up = "UP",\n    Down = "DOWN",\n    Left = "LEFT",\n    Right = "RIGHT"\n}\n\nfunction updateOrder(status: Status): void {\n    if (status === Status.Completed) {\n        console.log("Order is complete!");\n    } else if (status === Status.Pending) {\n        console.log("Order is pending");\n    }\n}\n\nupdateOrder(Status.Completed);\nconsole.log(Direction.Up);\nconsole.log(Status.InProgress);  // prints 1'
+  },
+  {
+    id: 9,
+    title: "Setting Up and Compiling TypeScript",
+    content: "To use TypeScript, first install it globally using npm install -g typescript. The tsc command is the compiler that converts a TypeScript file into JavaScript. You create a file with a .ts extension and write TypeScript code in it. Running tsc filename.ts produces a .js file with the same name. A tsconfig.json file holds project settings such as the target JavaScript version, whether strict mode is on or off, and which folders to compile. Setting strict to true is the most recommended setting because it enables all of TypeScript's strict type-checking features. Modern projects often use ts-node, which runs TypeScript directly without compiling it first, which is great during development. Build tools like Webpack and Vite also have built-in support for TypeScript.",
+    example: '// terminal commands:\n// npm install -g typescript\n// tsc --init   (creates tsconfig.json)\n// tsc app.ts   (compiles the file)\n// node app.js  (runs the file)\n\n// example tsconfig.json:\n// {\n//   "compilerOptions": {\n//     "target": "ES2020",\n//     "strict": true,\n//     "outDir": "./dist"\n//   }\n// }\n\n// app.ts\nfunction greet(name: string): string {\n    return "Hello " + name + "!";\n}\n\nconsole.log(greet("Sharada"));'
+  },
+  {
+    id: 10,
+    title: "Mini Project — Type-Safe Todo List",
+    content: "Congratulations! You have learned all the important concepts of TypeScript. Now we will combine everything to build a Type-Safe Todo List Manager. This project uses interfaces, enums, generics, classes, and functions all together. It shows how TypeScript catches bugs in real applications early, without having to wait until runtime. We will build a Todo interface with several properties, a Priority enum, and a TodoManager class that adds, completes, and displays todos. This project shows you how much safer and faster TypeScript makes development in professional applications.",
+    example: 'interface Todo {\n    id: number;\n    title: string;\n    priority: Priority;\n    completed: boolean;\n}\n\nenum Priority {\n    Low = "Low",\n    Medium = "Medium",\n    High = "High"\n}\n\nclass TodoManager {\n    private todos: Todo[] = [];\n    private nextId: number = 1;\n    \n    addTodo(title: string, priority: Priority): void {\n        const newTodo: Todo = {\n            id: this.nextId++,\n            title: title,\n            priority: priority,\n            completed: false\n        };\n        this.todos.push(newTodo);\n        console.log(title + " added!");\n    }\n    \n    completeTodo(id: number): void {\n        const todo = this.todos.find(t => t.id === id);\n        if (todo) {\n            todo.completed = true;\n            console.log(todo.title + " completed!");\n        }\n    }\n    \n    displayAll(): void {\n        console.log("=== All Todos ===");\n        this.todos.forEach(t => {\n            const status = t.completed ? "✓" : "○";\n            console.log(status + " " + t.title + " [" + t.priority + "]");\n        });\n    }\n}\n\nconst manager = new TodoManager();\nmanager.addTodo("Learn Python", Priority.High);\nmanager.addTodo("Buy groceries", Priority.Low);\nmanager.completeTodo(1);\nmanager.displayAll();'
+  },
+]
+
+// ─────────────────────────────────────────
+// TYPESCRIPT LESSONS — MARATHI
+// ─────────────────────────────────────────
+const typescriptLessonsMarathi = [
+  {
+    id: 1,
+    title: "TypeScript म्हणजे काय?",
+    content: "TypeScript हे JavaScript चे एक superset आहे जे Microsoft ने 2012 साली बनवले. Superset म्हणजे TypeScript मध्ये JavaScript चा सर्व code valid राहतो, आणि त्याच्या वर TypeScript काही extra features add करते — सर्वात मोठे आहे static typing. JavaScript dynamically typed आहे म्हणजे variable चा type कधीही बदलू शकतो आणि errors फक्त runtime वर कळतात. TypeScript मध्ये आपण variables, functions, आणि objects चे types आधीच सांगू शकतो, आणि जर कुठे चुकीचा type वापरला तर editor मध्ये लिहताना लगेच error दिसते — runtime पर्यंत wait करावे लागत नाही. Microsoft, Google, Airbnb, आणि Slack सारख्या मोठ्या companies TypeScript वापरतात कारण हे मोठ्या projects मध्ये bugs कमी करण्यात खूप मदत करते. TypeScript code compile करून परत JavaScript मध्ये convert केला जातो कारण browsers थेट TypeScript समजत नाहीत.",
+    example: null
+  },
+  {
+    id: 2,
+    title: "Basic Types",
+    content: "TypeScript मध्ये variables सोबत त्यांचा type colon लावून लिहतात. string type text साठी असतो. number type सर्व संख्यांसाठी असतो — पूर्ण आणि दशांश दोन्ही, JavaScript प्रमाणे इथे int आणि float वेगळे नसतात. boolean type true किंवा false साठी असतो. Array चा type दोन प्रकारे लिहता येतो — number[] किंवा Array<number>. any type कोणत्याही प्रकारची value ठेवू शकतो पण हे जितके कमी वापराल तितके चांगले कारण हे TypeScript चा फायदा कमी करते. void type त्या functions साठी असतो जे काही return करत नाहीत. TypeScript बऱ्याच वेळा type आपोआप detect देखील करतो, याला type inference म्हणतात — तरीही explicit type लिहणे चांगली practice आहे.",
+    example: 'let naam: string = "Sharada";\nlet vay: number = 20;\nlet isStudent: boolean = true;\nlet marks: number[] = [85, 90, 78];\nlet anything: any = "काहीही असू शकते";\n\nfunction namaskaar(): void {\n    console.log("नमस्कार " + naam);\n}\n\nconsole.log(naam, vay, isStudent);\nconsole.log(marks);\nnamaskaar();'
+  },
+  {
+    id: 3,
+    title: "Functions मध्ये Types",
+    content: "TypeScript मध्ये functions च्या parameters आणि return value दोन्हीचे types सांगता येतात. Parameter च्या नंतर colon लावून type लिहतात. Function च्या closing bracket च्या नंतर colon लावून return type लिहतात. जर return type number असेल तर function नक्की एक number च return करेल, नाहीतर error येते. Optional parameters साठी parameter name नंतर question mark लावतात — हे सांगते की function call करताना हा parameter देणे आवश्यक नाही. Default parameters मध्ये equal sign ने default value देता येते. Arrow functions मध्ये देखील same पद्धतीने types लिहतात. हे सर्व features मिळून ensure करतात की function योग्य पद्धतीने call होत आहे, चुकीचे arguments pass केल्यास editor लगेच सांगतो.",
+    example: 'function add(a: number, b: number): number {\n    return a + b;\n}\n\nfunction namaskaar(naam: string, message?: string): string {\n    return message ? message + " " + naam : "नमस्कार " + naam;\n}\n\nfunction multiply(a: number, b: number = 2): number {\n    return a * b;\n}\n\nconst subtract = (a: number, b: number): number => a - b;\n\nconsole.log(add(5, 3));\nconsole.log(namaskaar("Sharada"));\nconsole.log(namaskaar("Pyra", "नमस्ते"));\nconsole.log(multiply(5));\nconsole.log(subtract(10, 4));'
+  },
+  {
+    id: 4,
+    title: "Interfaces — Object Shapes Define करणे",
+    content: "Interface ने आपण सांगतो की एखाद्या object ची shape कशी असायला हवी — कोणकोणत्या properties असायला हव्यात आणि त्यांचे types काय असायला हवेत. interface keyword ने interface बनवतो. प्रत्येक property चे नाव आणि type colon ने वेगळे करतात. Optional properties साठी नावानंतर question mark लावतात. readonly keyword ने property फक्त एकदाच set करता येतो, नंतर बदलता येत नाही. जेव्हा एखाद्या variable ला त्या interface चा type देतो, तेव्हा TypeScript check करतो की object exactly त्या shape चा आहे की नाही — जर कोणती आवश्यक property missing असेल किंवा चुकीच्या type ची असेल तर error येते. Interfaces मोठ्या projects मध्ये खूप आवश्यक आहेत कारण ते data ची structure consistent ठेवतात आणि team च्या सर्व members ना कळते की object मध्ये काय काय असायला हवे.",
+    example: 'interface Student {\n    naam: string;\n    vay: number;\n    marks: number;\n    isActive?: boolean;\n    readonly id: number;\n}\n\nconst student1: Student = {\n    naam: "Sharada",\n    vay: 20,\n    marks: 92.5,\n    id: 1\n};\n\nfunction displayStudent(s: Student): void {\n    console.log(s.naam + " - " + s.vay + " वर्षे - " + s.marks + " marks");\n}\n\ndisplayStudent(student1);\n\n// student1.id = 2;  // Error! readonly property बदलता येत नाही'
+  },
+  {
+    id: 5,
+    title: "Type Aliases आणि Union Types",
+    content: "Type alias ने आपण एखाद्या type ला नवीन नाव देऊ शकतो जे वारंवार वापरता येते. type keyword ने type alias बनवतो. Union types ने एखाद्या variable ला अनेक possible types पैकी एक असू देतो — pipe symbol ने types जोडतात. जसे एक variable string किंवा number दोन्ही असू शकतो. Union types खासकरून तेव्हा उपयुक्त असतात जेव्हा function वेगवेगळे types accept करू शकतो. Literal types ने आपण specific values लाच allow करतो, जसे फक्त 'small', 'medium', किंवा 'large' string values. हे खूप उपयुक्त आहे जेव्हा आपल्याला माहीत असते की variable फक्त काही fixed values च घेऊ शकतो — जसे status field जो फक्त 'pending', 'completed', किंवा 'cancelled' असू शकतो. Type aliases code ला readable आणि reusable बनवतात.",
+    example: 'type ID = string | number;\n\ntype Status = "pending" | "completed" | "cancelled";\n\nfunction printID(id: ID): void {\n    console.log("ID आहे: " + id);\n}\n\nfunction updateStatus(status: Status): void {\n    console.log("Status: " + status);\n}\n\nprintID(101);\nprintID("STU-101");\nupdateStatus("completed");\n\n// updateStatus("done");  // Error! "done" valid status नाही'
+  },
+  {
+    id: 6,
+    title: "Classes मध्ये Types",
+    content: "TypeScript classes मध्ये प्रत्येक field चा type सांगणे आवश्यक आहे. access modifiers — public, private, protected — TypeScript मध्ये strictly enforce होतात, जे plain JavaScript मध्ये नव्हते. private field ला class च्या बाहेर access केल्यावर compile-time error येते, जे data ला secure बनवते. Constructor च्या parameters मध्ये देखील types देतात. TypeScript मध्ये एक shorthand आहे जिथे constructor च्या parameters मध्ये directly public/private लिहून field declaration देखील आपोआप होते. Interfaces ला classes सोबत implement keyword ने वापरता येते, ज्यामुळे class ला त्या interface च्या सर्व properties आणि methods provide कराव्या लागतात. Inheritance तशीच काम करते जशी JavaScript मध्ये extends keyword ने, पण types सोबत अतिरिक्त safety मिळते.",
+    example: 'class Student {\n    private naam: string;\n    public vay: number;\n    \n    constructor(naam: string, vay: number) {\n        this.naam = naam;\n        this.vay = vay;\n    }\n    \n    public displayInfo(): void {\n        console.log(this.naam + " - " + this.vay + " वर्षे");\n    }\n}\n\n// Shorthand constructor\nclass Teacher {\n    constructor(public naam: string, private subject: string) {}\n    \n    getSubject(): string {\n        return this.subject;\n    }\n}\n\nconst s1 = new Student("Sharada", 20);\ns1.displayInfo();\n\nconst t1 = new Teacher("Priya", "Mathematics");\nconsole.log(t1.naam, t1.getSubject());'
+  },
+  {
+    id: 7,
+    title: "Generics — Reusable Type-Safe Code",
+    content: "Generics ने आपण असे functions आणि classes बनवू शकतो जे कोणत्याही type सोबत काम करतात, पण तरीही type safety राहते. Angular brackets <T> मध्ये एक placeholder type लिहतात जो actual वापरताना खऱ्या type ने replace होतो. हे अगदी function parameters सारखे काम करते, फक्त values ऐवजी types साठी. Generic function कोणताही type accept करू शकतो आणि तोच type return करतो, ज्यामुळे flexibility आणि type safety दोन्ही मिळतात. Generic interfaces आणि classes देखील बनवू शकतो — जसे एक Box class जो कोणत्याही type ची value ठेवू शकेल. Multiple generic types देखील एकत्र वापरू शकतो जसे <T, U>. Generics TypeScript च्या सर्वात powerful features पैकी एक आहेत कारण ते code reuse करू देतात type safety न गमावता.",
+    example: 'function identity<T>(value: T): T {\n    return value;\n}\n\ninterface Box<T> {\n    content: T;\n}\n\nfunction getFirstItem<T>(items: T[]): T {\n    return items[0];\n}\n\nconst numBox: Box<number> = { content: 42 };\nconst strBox: Box<string> = { content: "नमस्कार" };\n\nconsole.log(identity<string>("Sharada"));\nconsole.log(identity<number>(25));\n\nconst fruits: string[] = ["apple", "banana", "mango"];\nconsole.log(getFirstItem(fruits));\n\nconsole.log(numBox.content);\nconsole.log(strBox.content);'
+  },
+  {
+    id: 8,
+    title: "Enums — Named Constants",
+    content: "Enum म्हणजे enumeration ने आपण related constants चा एक set define करू शकतो ज्यांची readable नावे असतात. enum keyword ने enum बनवतो. Default रूपात enum members ला 0 पासून सुरू होणाऱ्या numbers मिळतात, आणि प्रत्येक पुढचा member मागच्यापेक्षा एक जास्त असतो. आपण स्वतः specific numbers देखील assign करू शकतो. String enums मध्ये प्रत्येक member ला एक specific string value देतात जी जास्त readable असते debugging च्या वेळी. Enums खासकरून तेव्हा उपयुक्त असतात जेव्हा आपल्याला माहीत असते की variable फक्त काही specific predefined values च घेऊ शकतो, जसे days of week, directions, किंवा status types. Enum वापरल्याने magic numbers किंवा strings ऐवजी meaningful names मिळतात ज्यामुळे code वाचणे सोपे होते.",
+    example: 'enum Status {\n    Pending,\n    InProgress,\n    Completed,\n    Cancelled\n}\n\nenum Direction {\n    Up = "UP",\n    Down = "DOWN",\n    Left = "LEFT",\n    Right = "RIGHT"\n}\n\nfunction updateOrder(status: Status): void {\n    if (status === Status.Completed) {\n        console.log("Order पूर्ण झाला!");\n    } else if (status === Status.Pending) {\n        console.log("Order pending आहे");\n    }\n}\n\nupdateOrder(Status.Completed);\nconsole.log(Direction.Up);\nconsole.log(Status.InProgress);  // 1 print होईल'
+  },
+  {
+    id: 9,
+    title: "TypeScript Setup आणि Compile करणे",
+    content: "TypeScript वापरण्यासाठी आधी npm install -g typescript ने global install करतो. tsc compiler command आहे जी TypeScript file ला JavaScript मध्ये convert करते. एक .ts extension असलेली file बनवतो ज्यात TypeScript code लिहतो. tsc filename.ts चालवल्याने त्याच नावाची .js file बनते. tsconfig.json file project च्या settings ठेवते जसे target JavaScript version, strict mode on/off, आणि कोणते folders compile करायचे. strict: true सर्वात recommended setting आहे कारण ही सर्व strict type checking features enable करते. Modern projects मध्ये बऱ्याचदा ts-node वापरतात जो आधी compile न करता directly TypeScript run करतो development च्या वेळी. Webpack आणि Vite सारख्या build tools मध्ये देखील TypeScript चा built-in support असतो.",
+    example: '// terminal commands:\n// npm install -g typescript\n// tsc --init   (tsconfig.json बनवण्यासाठी)\n// tsc app.ts   (compile करण्यासाठी)\n// node app.js  (run करण्यासाठी)\n\n// tsconfig.json उदाहरण:\n// {\n//   "compilerOptions": {\n//     "target": "ES2020",\n//     "strict": true,\n//     "outDir": "./dist"\n//   }\n// }\n\n// app.ts\nfunction namaskaar(naam: string): string {\n    return "नमस्कार " + naam + "!";\n}\n\nconsole.log(namaskaar("Sharada"));'
+  },
+  {
+    id: 10,
+    title: "Mini Project — Type-Safe Todo List",
+    content: "शाब्बास! तुम्ही TypeScript चे सर्व महत्त्वाचे concepts शिकलात. आता आपण सर्व एकत्र करून एक Type-Safe Todo List Manager बनवूया. या project मध्ये आपण interfaces, enums, generics, classes, आणि functions सर्व वापरू. हे project दाखवेल की TypeScript real applications मध्ये bugs आधीच कसे पकडतो, runtime पर्यंत wait करावे लागत नाही. आपण एक Todo interface बनवू ज्यात properties असतील, एक Priority enum असेल, आणि एक TodoManager class असेल जो todos add, complete, आणि display करेल. हे project तुम्हाला दाखवेल की TypeScript professional applications मध्ये development किती safer आणि faster बनवतो.",
+    example: 'interface Todo {\n    id: number;\n    title: string;\n    priority: Priority;\n    completed: boolean;\n}\n\nenum Priority {\n    Low = "कमी",\n    Medium = "मध्यम",\n    High = "जास्त"\n}\n\nclass TodoManager {\n    private todos: Todo[] = [];\n    private nextId: number = 1;\n    \n    addTodo(title: string, priority: Priority): void {\n        const newTodo: Todo = {\n            id: this.nextId++,\n            title: title,\n            priority: priority,\n            completed: false\n        };\n        this.todos.push(newTodo);\n        console.log(title + " add झाले!");\n    }\n    \n    completeTodo(id: number): void {\n        const todo = this.todos.find(t => t.id === id);\n        if (todo) {\n            todo.completed = true;\n            console.log(todo.title + " complete झाले!");\n        }\n    }\n    \n    displayAll(): void {\n        console.log("=== सर्व Todos ===");\n        this.todos.forEach(t => {\n            const status = t.completed ? "✓" : "○";\n            console.log(status + " " + t.title + " [" + t.priority + "]");\n        });\n    }\n}\n\nconst manager = new TodoManager();\nmanager.addTodo("Python शिका", Priority.High);\nmanager.addTodo("Groceries आणा", Priority.Low);\nmanager.completeTodo(1);\nmanager.displayAll();'
+  },
+]
+
 
 
 // ─── Pyra SVG Mascot ───────────────────────────────────────────────────────────
@@ -1492,6 +1690,7 @@ function LessonsPage() {
     : language === "html" ? htmlLessonsEnglish
     : language === "css" ? cssLessonsEnglish
     : language === "tailwind" ? tailwindLessonsEnglish
+    : language === "typescript" ? typescriptLessonsEnglish
     : pythonLessonsEnglish)
   : instructionLang === "marathi"
   ? (language === "sql" ? sqlLessonsMarathi
@@ -1501,6 +1700,7 @@ function LessonsPage() {
     : language === "html" ? htmlLessonsMarathi
     : language === "css" ? cssLessonsMarathi
     : language === "tailwind" ? tailwindLessonsMarathi
+    : language === "typescript" ? typescriptLessonsMarathi
     : pythonLessonsMarathi)
   : (language === "sql" ? sqlLessons
     : language === "javascript" ? javascriptLessons
@@ -1509,6 +1709,7 @@ function LessonsPage() {
     : language === "html" ? htmlLessons
     : language === "css" ? cssLessons
     : language === "tailwind" ? tailwindLessons
+    : language === "typescript" ? typescriptLessons
     : pythonLessons)
   const lang = t[instructionLang]
 
