@@ -509,7 +509,6 @@ function AgentPage() {
 
             {/* ── Command input card ── */}
             <div
-              aria-live="polite"
               style={{
                 background: cardBg,
                 border: `${borderWidth} solid ${cardBorder}`,
@@ -545,7 +544,7 @@ function AgentPage() {
               />
               {status !== "" && (
                 <p
-                  aria-live="assertive"
+                  aria-live={pyraSpeaking ? "off" : "assertive"}
                   style={{
                     color: accent, fontSize: "0.9rem",
                     background: accentSoft,

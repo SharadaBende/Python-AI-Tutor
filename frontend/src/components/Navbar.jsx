@@ -44,22 +44,6 @@ const HELP_PROMPT = {
   mr: "मदतीसाठी H दाबा",
 }
 
-const [isOnline, setIsOnline] = useState(
-    typeof navigator === "undefined" ? true : navigator.onLine
-  )
-
-  useEffect(() => {
-    setupAutoFlush()
-    const goOnline = () => setIsOnline(true)
-    const goOffline = () => setIsOnline(false)
-    window.addEventListener("online", goOnline)
-    window.addEventListener("offline", goOffline)
-    return () => {
-      window.removeEventListener("online", goOnline)
-      window.removeEventListener("offline", goOffline)
-    }
-  }, [])
-
 const OFFLINE_LABEL = {
   hi: "आप offline हैं — progress वापस आते ही save होगी",
   en: "You're offline — progress will save when back online",
@@ -93,6 +77,22 @@ function Navbar({
   pageContextRef.current = pageContext
   const helpTextRef = useRef(helpText)
   helpTextRef.current = helpText
+
+  const [isOnline, setIsOnline] = useState(
+    typeof navigator === "undefined" ? true : navigator.onLine
+  )
+
+  useEffect(() => {
+    setupAutoFlush()
+    const goOnline = () => setIsOnline(true)
+    const goOffline = () => setIsOnline(false)
+    window.addEventListener("online", goOnline)
+    window.addEventListener("offline", goOffline)
+    return () => {
+      window.removeEventListener("online", goOnline)
+      window.removeEventListener("offline", goOffline)
+    }
+  }, [])
 
   const pages = [
     { path: "/lessons", label: "Lessons", key: "1" },

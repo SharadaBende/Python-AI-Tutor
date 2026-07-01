@@ -2051,7 +2051,7 @@ function LessonsPage() {
               </div>
 
               {/* Lesson card */}
-              <div aria-live="polite" style={cardStyle}>
+              <div style={cardStyle}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
                   <span style={{
                     background: accent,
@@ -2087,13 +2087,16 @@ function LessonsPage() {
 
                 {/* Status / listening indicator */}
                 {status !== "" && (
-                  <div style={{
-                    marginTop: "1rem",
-                    padding: "0.5rem 1rem",
-                    borderRadius: "8px",
-                    background: isDark ? "rgba(28,176,246,0.1)" : "#e8f7fe",
-                    border: `1px solid ${isDark ? "rgba(28,176,246,0.2)" : "#b3e5fc"}`,
-                  }}>
+                  <div
+                    aria-live={speaking ? "off" : "polite"}
+                    style={{
+                      marginTop: "1rem",
+                      padding: "0.5rem 1rem",
+                      borderRadius: "8px",
+                      background: isDark ? "rgba(28,176,246,0.1)" : "#e8f7fe",
+                      border: `1px solid ${isDark ? "rgba(28,176,246,0.2)" : "#b3e5fc"}`,
+                    }}
+                  >
                     {listening
                       ? <BouncingDots label="Pyra सुन रही है..." />
                       : <span style={{ color: accent, fontSize: "0.88rem", fontWeight: 500 }}>{status}</span>

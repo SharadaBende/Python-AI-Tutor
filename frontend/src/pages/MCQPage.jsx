@@ -1328,6 +1328,10 @@ function MCQPage() {
   // "idle" | "correct" | "wrong"
   const [pyraMood, setPyraMood] = useState("idle")
   // per-option animation: null | "correct" | "wrong"
+  // Tracks whether Pyra's own voice is actively speaking, so screen-reader
+  // live regions can stay silent while she talks instead of narrating the
+  // same text on top of her — see speak() below.
+  const [pyraSpeaking, setPyraSpeaking] = useState(false)
   const [optionAnim, setOptionAnim] = useState([null, null, null, null])
 
   const theme = useTheme()
@@ -1343,11 +1347,16 @@ function MCQPage() {
   function speak(text, onEnd) {
     window.speechSynthesis.cancel()
     setLastMessage(text)
+    setPyraSpeaking(true)
     const utterance = new SpeechSynthesisUtterance(text)
     utterance.lang = lang.voiceLang
     utterance.rate = parseFloat(localStorage.getItem("speed") || "0.85")
     utterance.pitch = 1.0
     utterance.volume = 1
+    const finish = () => {
+      setPyraSpeaking(false)
+      if (onEnd) onEnd()
+    }
     const trySpeak = () => {
       const voices = window.speechSynthesis.getVoices()
       let preferred = null
@@ -1357,7 +1366,8 @@ function MCQPage() {
         preferred = voices.find(v => v.name === "Google हिन्दी")
       if (!preferred) preferred = voices.find(v => v.lang === lang.voiceLang)
       if (preferred) utterance.voice = preferred
-      if (onEnd) utterance.onend = onEnd
+      utterance.onend = finish
+      utterance.onerror = finish
       window.speechSynthesis.speak(utterance)
     }
     if (window.speechSynthesis.getVoices().length === 0)
@@ -1710,7 +1720,6 @@ function MCQPage() {
 
             {/* ── Question card ── */}
             <div
-              aria-live="polite"
               style={{
                 background: cardBg,
                 border: `${borderWidth} solid ${cardBorder}`,
@@ -1794,7 +1803,7 @@ function MCQPage() {
 
               {status !== "" && (
                 <p
-                  aria-live="assertive"
+                  aria-live={pyraSpeaking ? "off" : "assertive"}
                   style={{
                     marginTop: "1rem",
                     color: pyraMood === "correct" ? success : pyraMood === "wrong" ? danger : accent,
