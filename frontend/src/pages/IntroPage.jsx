@@ -161,7 +161,8 @@ function IntroPage() {
         .intro-repeat-btn:hover { background: ${ACCENT_SOFT}; color: ${CREAM}; }
       `}</style>
 
-      <main aria-label="Drishti Intro" style={{
+      <main id="main-content" tabIndex={-1} aria-label="Drishti Intro" style={{
+        outline: "none",
         minHeight: "100vh",
         background: "radial-gradient(circle at 50% 20%, #0d1b2a 0%, #0a0a0a 70%)",
         position: "relative",
