@@ -1,19 +1,89 @@
+import { useEffect, useRef } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
+
+// Page names spoken by Pyra when the user asks "where am I" (W key).
+// Keyed by instructionLang so the announcement matches whatever
+// language the learner picked on the Language Selection page.
+const PAGE_LABELS = {
+  hi: {
+    "/lessons": "पाठ पेज",
+    "/mcq": "प्रश्नोत्तरी पेज",
+    "/agent": "एआई एजेंट पेज",
+  },
+  en: {
+    "/lessons": "Lessons page",
+    "/mcq": "MCQ Quiz page",
+    "/agent": "AI Agent page",
+  },
+  mr: {
+    "/lessons": "धडे पान",
+    "/mcq": "प्रश्नमंजुषा पान",
+    "/agent": "एआय एजंट पान",
+  },
+}
+
+const WHERE_AM_I_PROMPT = {
+  hi: "कहाँ हूँ बताने के लिए W दबाएं",
+  en: "Press W to hear where you are",
+  mr: "मी कुठे आहे हे ऐकण्यासाठी W दाबा",
+}
+
+function speakWhereAmI(text, lang, rate) {
+  if (typeof window === "undefined" || !window.speechSynthesis) return
+  window.speechSynthesis.cancel()
+  const utter = new SpeechSynthesisUtterance(text)
+  utter.rate = rate || 1
+  utter.lang = lang === "hi" ? "hi-IN" : lang === "mr" ? "mr-IN" : "en-IN"
+  window.speechSynthesis.speak(utter)
+}
 
 function Navbar({
   name, theme, toggleTheme, fontSize, setFontSize, speed, setSpeed,
   language, instructionLang, userId,
   cardBg, cardBorder, borderWidth, textColor, mutedColor,
   accent, accentText, accentSoft,
+  // Optional: page-specific detail spoken after the page name, e.g.
+  // "Lesson 6 of 15" or "Question 12 of 40, score 8 out of 11".
+  // Pass this down from LessonsPage / MCQPage / AgentPage; if omitted,
+  // the announcement just says the page name.
+  pageContext,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
+  const pageContextRef = useRef(pageContext)
+  pageContextRef.current = pageContext
 
   const pages = [
     { path: "/lessons", label: "Lessons", key: "1" },
     { path: "/mcq",     label: "MCQ",     key: "2" },
     { path: "/agent",   label: "Agent",   key: "3" },
   ]
+
+  function announceWhereAmI() {
+    const lang = instructionLang || "en"
+    const labels = PAGE_LABELS[lang] || PAGE_LABELS.en
+    const pageName = labels[location.pathname] || location.pathname
+    const extra = pageContextRef.current
+    const text = extra ? `${pageName}. ${extra}` : pageName
+    speakWhereAmI(text, lang, speed)
+  }
+
+  // Global "W" shortcut — works from anywhere on the page, not just
+  // when the navbar has focus, so it behaves like the existing M
+  // (theme) shortcut. Ignored while typing in an input/textarea so it
+  // doesn't fire while someone is filling out a form field.
+  useEffect(() => {
+    function handleKeyDown(e) {
+      const tag = document.activeElement && document.activeElement.tagName
+      if (tag === "INPUT" || tag === "TEXTAREA") return
+      if (e.key.toLowerCase() !== "w") return
+      e.preventDefault()
+      announceWhereAmI()
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname, instructionLang, speed])
 
   function goTo(path) {
     navigate(path, { state: { name, language, instructionLang, user_id: userId } })
@@ -135,6 +205,22 @@ function Navbar({
           >
             {theme === "dark" ? "☀ Light" : "🌙 Dark"}{" "}
             <span style={{ fontSize: "0.62rem", opacity: 0.7 }}>(M)</span>
+          </button>
+
+          {/* Where am I? */}
+          <button
+            className="navbtn"
+            onClick={announceWhereAmI}
+            aria-label={WHERE_AM_I_PROMPT[instructionLang] || WHERE_AM_I_PROMPT.en}
+            title={WHERE_AM_I_PROMPT[instructionLang] || WHERE_AM_I_PROMPT.en}
+            style={{
+              ...controlBtn,
+              border: `${borderWidth} solid ${cardBorder}`,
+              fontWeight: "600",
+            }}
+          >
+            📍{" "}
+            <span style={{ fontSize: "0.62rem", opacity: 0.7 }}>(W)</span>
           </button>
 
         </div>
