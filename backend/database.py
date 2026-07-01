@@ -24,7 +24,7 @@ class User(Base):
     # breaks the streak.
     last_active_date = Column(String, nullable=True)
 
-    
+
 class Progress(Base):
     __tablename__ = "progress"
 
@@ -40,3 +40,10 @@ class Progress(Base):
     
 def init_db():
     Base.metadata.create_all(bind=engine)
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
