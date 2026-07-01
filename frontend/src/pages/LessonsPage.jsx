@@ -1963,7 +1963,7 @@ function LessonsPage() {
         .mic-listening { animation: micPulse 1s ease-out infinite !important; }
       `}</style>
 
-      <main aria-label="Lessons पृष्ठ" style={pageStyle}>
+      <main id="main-content" tabIndex={-1} aria-label="Lessons पृष्ठ" style={{ ...pageStyle, outline: "none" }}>
         <div style={{ width: "100%", maxWidth: "1100px", margin: "0 auto" }}>
 
           <Navbar

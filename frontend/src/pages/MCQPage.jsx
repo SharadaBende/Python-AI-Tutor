@@ -1606,7 +1606,8 @@ function MCQPage() {
     : "Q to hear the question, 1 through 4 to choose an answer, T to answer by voice, R to repeat, N for next question"
 
   return (
-    <main aria-label="MCQ Practice पृष्ठ" style={{
+    <main id="main-content" tabIndex={-1} aria-label="MCQ Practice पृष्ठ" style={{
+      outline: "none",
       minHeight: "100vh", background: bg,
       display: "flex", alignItems: "flex-start", justifyContent: "center",
       fontFamily: "'Segoe UI', sans-serif", padding: "1rem", fontSize: fontSize + "px"

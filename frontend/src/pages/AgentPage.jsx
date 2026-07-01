@@ -429,7 +429,8 @@ function AgentPage() {
   }, [command, lastMessage, progress, userId, readingLine, codeLines])
   
   return (
-    <main aria-label="Code Agent पृष्ठ" style={{
+    <main id="main-content" tabIndex={-1} aria-label="Code Agent पृष्ठ" style={{
+      outline: "none",
       minHeight: "100vh",
       background: bg,
       display: "flex", alignItems: "flex-start", justifyContent: "center",

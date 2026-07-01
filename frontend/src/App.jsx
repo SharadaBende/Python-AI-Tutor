@@ -8,10 +8,43 @@ import LessonsPage from "./pages/LessonsPage"
 import MCQPage from "./pages/MCQPage"
 import AgentPage from "./pages/AgentPage"
 import CertificatePage from "./pages/CertificatePage"
+import RouteFocusHandler from "./components/RouteFocusHandler"
 
 function App() {
   return (
     <BrowserRouter>
+      {/* Skip link: invisible until focused (first Tab press), then
+          jumps keyboard/screen-reader users straight past the navbar
+          and controls to the page's main content — id="main-content"
+          must exist on the target page's <main> element. */}
+      <a
+        href="#main-content"
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          top: "0",
+          background: "#1cb0f6",
+          color: "#fff",
+          padding: "0.75rem 1.25rem",
+          borderRadius: "0 0 10px 0",
+          zIndex: 1000,
+          fontWeight: 700,
+          textDecoration: "none",
+        }}
+        onFocus={(e) => {
+          e.currentTarget.style.left = "0"
+        }}
+        onBlur={(e) => {
+          e.currentTarget.style.left = "-9999px"
+        }}
+      >
+        मुख्य content पर जाएं / Skip to main content
+      </a>
+
+      {/* Moves focus to the new page's main content on every route
+          change, so screen readers announce the page change. */}
+      <RouteFocusHandler />
+
       <Routes>
         <Route path="/" element={<InstructionLanguagePage />} />
         <Route path="/login" element={<LoginPage />} />
