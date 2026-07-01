@@ -194,7 +194,8 @@ function RegisterPage() {
         }
       `}</style>
 
-      <main aria-label="Register" style={{
+      <main id="main-content" tabIndex={-1} aria-label="Register" style={{
+        outline: "none",
         minHeight: "100vh",
         background: "radial-gradient(circle at 80% 20%, #0d1b2a 0%, #0a0a0a 70%)",
         position: "relative",
