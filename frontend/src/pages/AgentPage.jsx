@@ -152,6 +152,8 @@ function AgentPage() {
   const [status, setStatus] = useState("")
   const [lastMessage, setLastMessage] = useState("")
   const [pyraSpeaking, setPyraSpeaking] = useState(false)
+  const [codeLines, setCodeLines] = useState([])
+  const [readingLine, setReadingLine] = useState(null)
   const theme = useTheme()
   const {
     theme: themeMode, toggleTheme, bg, textColor, cardBg, cardBorder, borderWidth,
@@ -287,12 +289,135 @@ function AgentPage() {
     }
   }
 
-  useEffect(() => {
+  // Turns one line of generated code into a spoken description instead
+  // of reading raw symbols. Falls back to reading the line as-is (with
+  // a few punctuation words swapped in) for anything not recognized.
+  function describeCodeLine(rawLine) {
+    const line = rawLine.trim()
+    if (line === "") return instructionLang === "english" ? "empty line" : instructionLang === "marathi" ? "रिकामी ओळ" : "खाली line"
+
+    const say = { en: instructionLang === "english", mr: instructionLang === "marathi" }
+
+    if (line.startsWith("#")) {
+      const comment = line.replace(/^#\s*/, "")
+      return (say.en ? "Comment: " : say.mr ? "Comment: " : "Comment: ") + comment
+    }
+    if (/^for\s+\w+\s+in\s+range\(/.test(line)) {
+      const match = line.match(/range\(([^)]*)\)/)
+      const args = match ? match[1] : ""
+      return say.en ? `A for loop repeating over range ${args}`
+        : say.mr ? `range ${args} वर एक for loop`
+        : `एक for loop, range ${args} पर`
+    }
+    if (/^for\s+\w+\s+in\s+/.test(line)) {
+      return say.en ? "A for loop going through each item in a list"
+        : say.mr ? "List मधील प्रत्येक item वर for loop"
+        : "एक for loop, list के हर item पर"
+    }
+    if (/^while\s+/.test(line)) {
+      const cond = line.replace(/^while\s+/, "").replace(/:$/, "")
+      return say.en ? `A while loop that continues while ${cond}`
+        : say.mr ? `जोपर्यंत ${cond} तोपर्यंत चालणारा while loop`
+        : `एक while loop, जब तक ${cond}`
+    }
+    if (/^if\s+/.test(line)) {
+      const cond = line.replace(/^if\s+/, "").replace(/:$/, "")
+      return say.en ? `If ${cond}` : say.mr ? `जर ${cond}` : `अगर ${cond}`
+    }
+    if (/^elif\s+/.test(line)) {
+      const cond = line.replace(/^elif\s+/, "").replace(/:$/, "")
+      return say.en ? `Else if ${cond}` : say.mr ? `नाहीतर जर ${cond}` : `नहीं तो अगर ${cond}`
+    }
+    if (/^else\s*:/.test(line)) {
+      return say.en ? "Otherwise" : say.mr ? "नाहीतर" : "नहीं तो"
+    }
+    if (/^def\s+\w+\(/.test(line)) {
+      const name = line.match(/def\s+(\w+)\(/)?.[1] || ""
+      return say.en ? `A function called ${name}` : say.mr ? `${name} नावाचे function` : `${name} नाम का function`
+    }
+    if (/^return\b/.test(line)) {
+      const val = line.replace(/^return\s*/, "")
+      return say.en ? `Returns ${val || "nothing"}` : say.mr ? `${val || "काहीही"} return करते` : `${val || "कुछ नहीं"} return करता है`
+    }
+    if (/^print\(/.test(line)) {
+      const inner = line.match(/print\((.*)\)/)?.[1] || ""
+      return say.en ? `Prints: ${inner}` : say.mr ? `Print करते: ${inner}` : `Print करता है: ${inner}`
+    }
+    if (/^import\s+/.test(line)) {
+      const mod = line.replace(/^import\s+/, "")
+      return say.en ? `Imports the ${mod} module` : say.mr ? `${mod} module import करते` : `${mod} module import करता है`
+    }
+    if (/^\w+\s*=\s*.+/.test(line) && !line.includes("==")) {
+      const [varName, ...rest] = line.split("=")
+      const val = rest.join("=").trim()
+      return say.en ? `Sets ${varName.trim()} to ${val}` : say.mr ? `${varName.trim()} ला ${val} set करते` : `${varName.trim()} को ${val} set करता है`
+    }
+
+    // Fallback: read the raw line, swapping a few symbols for spoken words
+    return line
+      .replace(/==/g, " equals ")
+      .replace(/!=/g, " not equal ")
+      .replace(/</g, " less than ")
+      .replace(/>/g, " greater than ")
+      .replace(/:/g, "")
+  }
+
+  function speakLineAtIndex(idx, lines) {
+    const total = lines.length
+    const description = describeCodeLine(lines[idx])
+    const prefix = instructionLang === "english"
+      ? `Line ${idx + 1} of ${total}. `
+      : instructionLang === "marathi"
+      ? `ओळ ${idx + 1} पैकी ${total}. `
+      : `Line ${idx + 1} में से ${total}. `
+    speak(prefix + description)
+    setStatus(prefix + "N = अगली, P = पिछली, R = दोबारा, L = बंद करें")
+  }
+
+  function startCodeReadback() {
+    if (!code) return
+    const lines = code.split("\n")
+    setCodeLines(lines)
+    setReadingLine(0)
+    speakLineAtIndex(0, lines)
+  }
+
+  function nextCodeLine() {
+    if (readingLine === null) return
+    const next = Math.min(readingLine + 1, codeLines.length - 1)
+    setReadingLine(next)
+    speakLineAtIndex(next, codeLines)
+  }
+
+  function prevCodeLine() {
+    if (readingLine === null) return
+    const prev = Math.max(readingLine - 1, 0)
+    setReadingLine(prev)
+    speakLineAtIndex(prev, codeLines)
+  }
+
+  function stopCodeReadback() {
+    setReadingLine(null)
+    speak(instructionLang === "english" ? "Stopped reading the code." : instructionLang === "marathi" ? "Code वाचणे थांबवले." : "Code पढ़ना बंद किया।")
+  }
+
+ useEffect(() => {
     function handleKey(e) {
       const key = e.key.toLowerCase()
+
+      // Line-by-line code read-back has its own N/P navigation while active.
+      if (readingLine !== null) {
+        if (key === "n") nextCodeLine()
+        if (key === "p") prevCodeLine()
+        if (key === "r") speak(lastMessage)
+        if (key === "l") stopCodeReadback()
+        return
+      }
+
       if (key === "t") startListening()
       if (key === "c") generateCode()
       if (key === "r") speak(lastMessage)
+      if (key === "l") startCodeReadback()
       if (key === "m") toggleTheme()
       if (key === "1") navigate("/lessons", { state: { name, language, instructionLang, user_id: userId } })
       if (key === "2") navigate("/mcq", { state: { name, language, instructionLang, user_id: userId } })
@@ -301,8 +426,8 @@ function AgentPage() {
     }
     window.addEventListener("keydown", handleKey)
     return () => window.removeEventListener("keydown", handleKey)
-  }, [command, lastMessage, progress, userId])
-
+  }, [command, lastMessage, progress, userId, readingLine, codeLines])
+  
   return (
     <main aria-label="Code Agent पृष्ठ" style={{
       minHeight: "100vh",
@@ -434,14 +559,50 @@ function AgentPage() {
                 boxShadow: `0 2px 0 0 ${cardBorder}`,
                 borderRadius: "16px", padding: "1.5rem", marginBottom: "1rem",
               }}>
-                <p style={{ color: mutedColor, fontSize: "0.85rem", margin: "0 0 0.5rem" }}>Generated Code:</p>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
+                  <p style={{ color: mutedColor, fontSize: "0.85rem", margin: 0 }}>Generated Code:</p>
+                  <button
+                    onClick={readingLine !== null ? stopCodeReadback : startCodeReadback}
+                    aria-label="L — Code line by line पढ़ें"
+                    style={{
+                      background: readingLine !== null ? accentSoft : accent,
+                      color: readingLine !== null ? accent : accentText,
+                      border: "none",
+                      borderRadius: "8px",
+                      padding: "0.4rem 0.8rem",
+                      fontSize: "0.8rem",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                    }}
+                  >
+                    {readingLine !== null ? "⏹ बंद करें" : "📖 पढ़ें"} <span style={{ opacity: 0.8 }}>(L)</span>
+                  </button>
+                  
+                </div>
                 <pre style={{
                   color: successText || success, margin: "0 0 1rem", fontSize: "0.95rem",
                   fontFamily: "monospace", whiteSpace: "pre-wrap",
                   background: codeBg, padding: "1rem", borderRadius: "8px",
                 }}>
-                  {code}
+                  {code.split("\n").map((ln, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        background: readingLine === i ? accentSoft : "transparent",
+                        borderRadius: "4px",
+                        padding: "0 0.25rem",
+                      }}
+                    >
+                      {ln || "\u00A0"}
+                    </div>
+                  ))}
                 </pre>
+                {readingLine !== null && (
+                  <p style={{ color: mutedColor, fontSize: "0.8rem", margin: "0 0 1rem" }}>
+                    N = अगली line, P = पिछली line, R = दोबारा, L = बंद करें
+                  </p>
+                )}
+
                 {output !== "" && (
                   <>
                     <p style={{ color: mutedColor, fontSize: "0.85rem", margin: "0 0 0.5rem" }}>Output:</p>
