@@ -152,13 +152,29 @@ function Navbar({
     setFontSize(Math.max(fontSize - 2, 12))
   }
 
-  function increaseSpeed() {
-    setSpeed(Math.min(parseFloat((speed + 0.1).toFixed(1)), 1.5))
-  }
+  function saveSpeedToServer(newSpeed) {
+  if (!userId) return
+  fetch("http://127.0.0.1:8000/settings/speech-rate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id: userId, speech_rate: newSpeed }),
+  }).catch(() => {
+    // Silently ignore — if offline or the request fails, the change
+    // still applies locally via setSpeed above.
+  })
+}
 
-  function decreaseSpeed() {
-    setSpeed(Math.max(parseFloat((speed - 0.1).toFixed(1)), 0.5))
-  }
+function increaseSpeed() {
+  const newSpeed = Math.min(parseFloat((speed + 0.1).toFixed(1)), 1.5)
+  setSpeed(newSpeed)
+  saveSpeedToServer(newSpeed)
+}
+
+function decreaseSpeed() {
+  const newSpeed = Math.max(parseFloat((speed - 0.1).toFixed(1)), 0.5)
+  setSpeed(newSpeed)
+  saveSpeedToServer(newSpeed)
+}
 
   const controlBtn = {
     padding: "0.32rem 0.6rem",

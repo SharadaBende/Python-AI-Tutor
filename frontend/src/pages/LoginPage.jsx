@@ -87,7 +87,7 @@ function LoginPage() {
   const instructionLang = location.state?.instructionLang || "english"
   const t = translations[instructionLang]
   const lang = voiceLang[instructionLang]
-  const { bg } = useTheme()
+  const { bg, setSpeed } = useTheme()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -132,10 +132,12 @@ function LoginPage() {
       })
       const data = await res.json()
       if (data.success) {
-        speak(t.success + data.name, () => {
-          navigate("/intro", { state: { name: data.name, user_id: data.user_id, instructionLang } })
-        })
-      } else {
+  if (data.speech_rate) setSpeed(data.speech_rate)
+  speak(t.success + data.name, () => {
+    navigate("/intro", { state: { name: data.name, user_id: data.user_id, instructionLang } })
+  })
+}
+      else {
         const msg = data.error?.includes("not found") ? t.errorNotFound : t.errorWrong
         setError(msg)
         speak(msg)
