@@ -173,7 +173,8 @@ function CertificatePage() {
         }
       `}</style>
 
-      <main style={{
+      <main id="main-content" tabIndex={-1} aria-label="Certificate" style={{
+        outline: "none",
         minHeight: "100vh",
         background: theme === "dark"
           ? "linear-gradient(135deg, #0d0d0d 0%, #111218 50%, #0d0d0d 100%)"
