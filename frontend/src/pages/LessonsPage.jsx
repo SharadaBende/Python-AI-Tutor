@@ -1762,6 +1762,8 @@ function LessonsPage() {
     }
   }
 
+  const [streakDays, setStreakDays] = useState(0)
+
   useEffect(() => {
     if (!userId) return
     fetch(`http://127.0.0.1:8000/progress/${userId}`)
@@ -1773,6 +1775,23 @@ function LessonsPage() {
           const savedIndex = match.current_lesson_index || 0
           if (savedIndex > 0 && savedIndex < lessons.length) {
             setCurrentLesson(savedIndex)
+          }
+        }
+        if (typeof data.streak_days === "number") {
+          setStreakDays(data.streak_days)
+          // Announce the streak once, after the welcome message, so it
+          // doesn't talk over Pyra's greeting. Only announce if there's
+          // an actual streak worth celebrating (2+ days) — a "1-day
+          // streak" isn't meaningful praise.
+          if (data.streak_days >= 2) {
+            setTimeout(() => {
+              const streakMsg = instructionLang === "hindi"
+                ? `${data.streak_days} दिन की streak! 🔥 शानदार लगातार मेहनत!`
+                : instructionLang === "marathi"
+                ? `${data.streak_days} दिवसांची streak! 🔥 उत्तम सातत्य!`
+                : `${data.streak_days}-day streak! 🔥 Great consistency!`
+              speak(streakMsg)
+            }, 4500)
           }
         }
       })
@@ -1977,7 +1996,7 @@ function LessonsPage() {
               {/* Header with Pyra mascot */}
               <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.25rem" }}>
                 <PyraMascot size={52} speaking={speaking} />
-                <div>
+                <div style={{ flex: 1 }}>
                   <h1 style={{ color: accent, fontSize: "1.6rem", margin: 0, fontWeight: 700, lineHeight: 1.2 }}>
                     {langLabel} Lessons
                   </h1>
@@ -1986,6 +2005,24 @@ function LessonsPage() {
                     {speaking && <span style={{ marginLeft: "0.5rem" }}><BouncingDots label="Pyra बोल रही है..." /></span>}
                   </p>
                 </div>
+                {streakDays >= 2 && (
+                  <span
+                    role="status"
+                    aria-label={`${streakDays} day streak`}
+                    style={{
+                      fontSize: "0.85rem",
+                      fontWeight: 700,
+                      color: gold,
+                      background: isDark ? "rgba(255,200,0,0.1)" : "#fff8e1",
+                      border: `1px solid ${isDark ? "rgba(255,200,0,0.3)" : "#ffe082"}`,
+                      borderRadius: "10px",
+                      padding: "0.4rem 0.7rem",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    🔥 {streakDays} day{streakDays !== 1 ? "s" : ""}
+                  </span>
+                )}
               </div>
 
               {/* Overall progress bar (lessons / mcq / agent) */}

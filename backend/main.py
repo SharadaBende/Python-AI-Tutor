@@ -8,6 +8,7 @@ import os
 import subprocess
 from passlib.context import CryptContext
 from database import init_db, SessionLocal, User, Progress
+from datetime import date, timedelta
 
 load_dotenv()
 
@@ -25,6 +26,33 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 init_db()
 pwd_context = CryptContext(schemes=["sha256_crypt"], deprecated="auto")
+
+def update_streak(user: User) -> int:
+    """
+    Updates user.streak_days based on today's date vs the last day they
+    were active. Called on login and on any progress update, since both
+    signal the user showed up today. Safe to call more than once per
+    day — only the first call each day changes anything.
+
+    Returns the current streak_days after updating.
+    """
+    today = date.today().isoformat()
+
+    if user.last_active_date == today:
+        # Already counted today — no change.
+        return user.streak_days or 0
+
+    yesterday = (date.today() - timedelta(days=1)).isoformat()
+
+    if user.last_active_date == yesterday:
+        # Continuing an existing streak.
+        user.streak_days = (user.streak_days or 0) + 1
+    else:
+        # First day, or a day (or more) was missed — streak restarts.
+        user.streak_days = 1
+
+    user.last_active_date = today
+    return user.streak_days
 
 class RegisterRequest(BaseModel):
     name: str
@@ -133,11 +161,13 @@ def login(data: LoginRequest):
         db.close()
         return {"success": False, "error": "Email या password गलत है"}
 
+    streak = update_streak(user)
+    db.commit()
+
     user_id = user.id
     name = user.name
     db.close()
-    return {"success": True, "user_id": user_id, "name": name}
-
+    return {"success": True, "user_id": user_id, "name": name, "streak_days": streak}
 
 
 
@@ -177,6 +207,11 @@ def update_progress(data: ProgressUpdateRequest):
         if data.agent_done is not None:
             record.agent_done = data.agent_done
 
+        streak = 0
+        user = db.query(User).filter(User.id == data.user_id).first()
+        if user is not None:
+            streak = update_streak(user)
+
         db.commit()
         result = {
             "language": record.language,
@@ -187,7 +222,7 @@ def update_progress(data: ProgressUpdateRequest):
             "mcq_score": record.mcq_score,
             "agent_done": record.agent_done,
         }
-        return {"success": True, "progress": result}
+        return {"success": True, "progress": result, "streak_days": streak}
     finally:
         db.close()
 
@@ -208,5 +243,7 @@ def get_progress(user_id: int):
         }
         for r in records
     ]
+    user = db.query(User).filter(User.id == user_id).first()
+    streak_days = user.streak_days if user else 0
     db.close()
-    return {"success": True, "progress": progress}
+    return {"success": True, "progress": progress, "streak_days": streak_days}
