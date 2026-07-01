@@ -230,20 +230,22 @@ def update_progress(data: ProgressUpdateRequest):
 @app.get("/progress/{user_id}")
 def get_progress(user_id: int):
     db = SessionLocal()
-    records = db.query(Progress).filter(Progress.user_id == user_id).all()
-    progress = [
-        {
-            "language": r.language,
-            "lessons_done": r.lessons_done,
-            "current_lesson_index": r.current_lesson_index,
-            "mcq_done": r.mcq_done,
-            "current_mcq_index": r.current_mcq_index,
-            "mcq_score": r.mcq_score,
-            "agent_done": r.agent_done,
-        }
-        for r in records
-    ]
-    user = db.query(User).filter(User.id == user_id).first()
-    streak_days = user.streak_days if user else 0
-    db.close()
-    return {"success": True, "progress": progress, "streak_days": streak_days}
+    try:
+        records = db.query(Progress).filter(Progress.user_id == user_id).all()
+        progress = [
+            {
+                "language": r.language,
+                "lessons_done": r.lessons_done,
+                "current_lesson_index": r.current_lesson_index,
+                "mcq_done": r.mcq_done,
+                "current_mcq_index": r.current_mcq_index,
+                "mcq_score": r.mcq_score,
+                "agent_done": r.agent_done,
+            }
+            for r in records
+        ]
+        user = db.query(User).filter(User.id == user_id).first()
+        streak_days = user.streak_days if user else 0
+        return {"success": True, "progress": progress, "streak_days": streak_days}
+    finally:
+        db.close()
