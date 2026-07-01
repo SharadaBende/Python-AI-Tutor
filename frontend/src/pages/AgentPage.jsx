@@ -445,12 +445,19 @@ function AgentPage() {
       `}</style>
 
       <div style={{ width: "100%", maxWidth: "1100px" }}>
-        <Navbar
+      <Navbar
           {...theme}
           name={name}
           language={language}
           instructionLang={instructionLang}
           userId={userId}
+          helpText={
+            instructionLang === "hindi"
+              ? "T = आवाज़ से command बोलें, C = Code बनाएं, R = दोबारा सुनें, L = Code line by line पढ़ें, F = Certificate"
+              : instructionLang === "marathi"
+              ? "T = आवाजाने command सांगा, C = Code बनवा, R = पुन्हा ऐका, L = Code line by line वाचा, F = Certificate"
+              : "T to speak a command, C to generate code, R to repeat, L to read code line by line, F for certificate"
+          }
         />
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.5rem", alignItems: "start" }}>

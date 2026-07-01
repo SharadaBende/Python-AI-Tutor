@@ -28,6 +28,21 @@ const WHERE_AM_I_PROMPT = {
   mr: "मी कुठे आहे हे ऐकण्यासाठी W दाबा",
 }
 
+// Fallback shortcuts spoken by "H = help" when a page hasn't supplied
+// its own helpText prop. Covers the global navigation shortcuts that
+// exist on every page.
+const GENERAL_HELP = {
+  hi: "सामान्य shortcuts: 1 = Lessons, 2 = MCQ, 3 = Agent, M = Theme बदलें, W = कहाँ हूँ, H = यह मदद दोबारा सुनें",
+  en: "General shortcuts: 1 for Lessons, 2 for MCQ, 3 for Agent, M to toggle theme, W to hear where you are, H to hear this help again",
+  mr: "सामान्य shortcuts: 1 = Lessons, 2 = MCQ, 3 = Agent, M = Theme बदला, W = मी कुठे आहे, H = ही मदत परत ऐका",
+}
+
+const HELP_PROMPT = {
+  hi: "मदद के लिए H दबाएं",
+  en: "Press H for help",
+  mr: "मदतीसाठी H दाबा",
+}
+
 function speakWhereAmI(text, lang, rate) {
   if (typeof window === "undefined" || !window.speechSynthesis) return
   window.speechSynthesis.cancel()
@@ -42,16 +57,19 @@ function Navbar({
   language, instructionLang, userId,
   cardBg, cardBorder, borderWidth, textColor, mutedColor,
   accent, accentText, accentSoft,
-  // Optional: page-specific detail spoken after the page name, e.g.
-  // "Lesson 6 of 15" or "Question 12 of 40, score 8 out of 11".
-  // Pass this down from LessonsPage / MCQPage / AgentPage; if omitted,
-  // the announcement just says the page name.
   pageContext,
+  // Optional: page-specific list of keyboard shortcuts spoken when the
+  // user presses H. Pass this down from each page (e.g. "L = Listen,
+  // N = Next, R = Repeat, T = Voice answer"). Falls back to
+  // GENERAL_HELP (nav-only shortcuts) if not provided.
+  helpText,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
   const pageContextRef = useRef(pageContext)
   pageContextRef.current = pageContext
+  const helpTextRef = useRef(helpText)
+  helpTextRef.current = helpText
 
   const pages = [
     { path: "/lessons", label: "Lessons", key: "1" },
@@ -68,6 +86,14 @@ function Navbar({
     speakWhereAmI(text, lang, speed)
   }
 
+  function announceHelp() {
+    const lang = instructionLang || "en"
+    const specific = helpTextRef.current
+    const general = GENERAL_HELP[lang] || GENERAL_HELP.en
+    const text = specific ? `${specific}. ${general}` : general
+    speakWhereAmI(text, lang, speed)
+  }
+
   // Global "W" shortcut — works from anywhere on the page, not just
   // when the navbar has focus, so it behaves like the existing M
   // (theme) shortcut. Ignored while typing in an input/textarea so it
@@ -76,9 +102,15 @@ function Navbar({
     function handleKeyDown(e) {
       const tag = document.activeElement && document.activeElement.tagName
       if (tag === "INPUT" || tag === "TEXTAREA") return
-      if (e.key.toLowerCase() !== "w") return
-      e.preventDefault()
-      announceWhereAmI()
+      const key = e.key.toLowerCase()
+      if (key === "w") {
+        e.preventDefault()
+        announceWhereAmI()
+      }
+      if (key === "h") {
+        e.preventDefault()
+        announceHelp()
+      }
     }
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
@@ -223,8 +255,25 @@ function Navbar({
             <span style={{ fontSize: "0.62rem", opacity: 0.7 }}>(W)</span>
           </button>
 
+          {/* Help */}
+          <button
+            className="navbtn"
+            onClick={announceHelp}
+            aria-label={HELP_PROMPT[instructionLang] || HELP_PROMPT.en}
+            title={HELP_PROMPT[instructionLang] || HELP_PROMPT.en}
+            style={{
+              ...controlBtn,
+              border: `${borderWidth} solid ${cardBorder}`,
+              fontWeight: "600",
+            }}
+          >
+            ❓{" "}
+            <span style={{ fontSize: "0.62rem", opacity: 0.7 }}>(H)</span>
+          </button>
+
         </div>
       </nav>
+      
     </>
   )
 }

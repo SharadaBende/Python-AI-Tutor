@@ -1596,6 +1596,12 @@ function MCQPage() {
     ? `प्रश्न ${current + 1} पैकी ${questions.length}, स्कोर ${score}`
     : `Question ${current + 1} of ${questions.length}, score ${score}`
 
+    const helpText = instructionLang === "hindi"
+    ? "Q = Question सुनें, 1 से 4 = जवाब चुनें, T = आवाज़ से जवाब, R = दोबारा सुनें, N = अगला question"
+    : instructionLang === "marathi"
+    ? "Q = Question ऐका, 1 ते 4 = उत्तर निवडा, T = आवाजाने उत्तर, R = पुन्हा ऐका, N = पुढील question"
+    : "Q to hear the question, 1 through 4 to choose an answer, T to answer by voice, R to repeat, N for next question"
+
   return (
     <main aria-label="MCQ Practice पृष्ठ" style={{
       minHeight: "100vh", background: bg,

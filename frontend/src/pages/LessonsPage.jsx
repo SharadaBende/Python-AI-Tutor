@@ -1928,6 +1928,12 @@ function LessonsPage() {
     ? `धडा ${currentLesson + 1} पैकी ${lessons.length}, ${langLabel}`
     : `Lesson ${currentLesson + 1} of ${lessons.length}, ${langLabel}`
 
+    const helpText = instructionLang === "hindi"
+    ? "L = Lesson सुनें, N = अगली lesson, R = दोबारा सुनें, T = आवाज़ से जवाब दें, B = Sidebar toggle"
+    : instructionLang === "marathi"
+    ? "L = Lesson ऐका, N = पुढील lesson, R = पुन्हा ऐका, T = आवाजाने उत्तर द्या, B = Sidebar toggle"
+    : "L to listen to the lesson, N for next lesson, R to repeat, T to answer by voice, B to toggle sidebar"
+
   return (
     <>
       <style>{`
