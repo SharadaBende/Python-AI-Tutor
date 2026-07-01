@@ -7,7 +7,9 @@ from dotenv import load_dotenv
 import os
 import subprocess
 from passlib.context import CryptContext
-from database import init_db, SessionLocal, User, Progress
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
+from database import init_db, SessionLocal, User, Progress, get_db
 from datetime import date, timedelta
 
 load_dotenv()
@@ -137,11 +139,9 @@ End with one simple example code if needed."""},
 
 
 @app.post("/register")
-def register(data: RegisterRequest):
-    db = SessionLocal()
+def register(data: RegisterRequest, db: Session = Depends(get_db)):
     existing = db.query(User).filter(User.email == data.email).first()
     if existing:
-        db.close()
         return {"success": False, "error": "इस email से पहले से account बना हुआ है"}
 
     hashed = pwd_context.hash(data.password)
@@ -149,27 +149,25 @@ def register(data: RegisterRequest):
     db.add(user)
     db.commit()
     user_id = user.id
-    db.close()
     return {"success": True, "user_id": user_id, "name": data.name}
 
 
 @app.post("/login")
-def login(data: LoginRequest):
-    db = SessionLocal()
+def login(data: LoginRequest, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == data.email).first()
     if not user or not pwd_context.verify(data.password, user.password_hash):
-        db.close()
         return {"success": False, "error": "Email या password गलत है"}
 
     streak = update_streak(user)
     db.commit()
 
-    user_id = user.id
-    name = user.name
-    db.close()
-    return {"success": True, "user_id": user_id, "name": name, "streak_days": streak}
-
-
+    return {
+        "success": True,
+        "user_id": user.id,
+        "name": user.name,
+        "streak_days": streak,
+        "speech_rate": user.speech_rate,
+    }
 
 class ProgressUpdateRequest(BaseModel):
     user_id: int
@@ -182,70 +180,75 @@ class ProgressUpdateRequest(BaseModel):
     agent_done: bool | None = None
 
 @app.post("/progress/update")
-def update_progress(data: ProgressUpdateRequest):
-    db = SessionLocal()
-    try:
-        record = (
-            db.query(Progress)
-            .filter(Progress.user_id == data.user_id, Progress.language == data.language)
-            .first()
-        )
-        if record is None:
-            record = Progress(user_id=data.user_id, language=data.language)
-            db.add(record)
+def update_progress(data: ProgressUpdateRequest, db: Session = Depends(get_db)):
+    record = (
+        db.query(Progress)
+        .filter(Progress.user_id == data.user_id, Progress.language == data.language)
+        .first()
+    )
+    if record is None:
+        record = Progress(user_id=data.user_id, language=data.language)
+        db.add(record)
 
-        if data.lessons_done is not None:
-            record.lessons_done = data.lessons_done
-        if data.current_lesson_index is not None:
-            record.current_lesson_index = data.current_lesson_index
-        if data.mcq_done is not None:
-            record.mcq_done = data.mcq_done
-        if data.current_mcq_index is not None:
-            record.current_mcq_index = data.current_mcq_index
-        if data.mcq_score is not None:
-            record.mcq_score = data.mcq_score
-        if data.agent_done is not None:
-            record.agent_done = data.agent_done
+    if data.lessons_done is not None:
+        record.lessons_done = data.lessons_done
+    if data.current_lesson_index is not None:
+        record.current_lesson_index = data.current_lesson_index
+    if data.mcq_done is not None:
+        record.mcq_done = data.mcq_done
+    if data.current_mcq_index is not None:
+        record.current_mcq_index = data.current_mcq_index
+    if data.mcq_score is not None:
+        record.mcq_score = data.mcq_score
+    if data.agent_done is not None:
+        record.agent_done = data.agent_done
 
-        streak = 0
-        user = db.query(User).filter(User.id == data.user_id).first()
-        if user is not None:
-            streak = update_streak(user)
+    streak = 0
+    user = db.query(User).filter(User.id == data.user_id).first()
+    if user is not None:
+        streak = update_streak(user)
 
-        db.commit()
-        result = {
-            "language": record.language,
-            "lessons_done": record.lessons_done,
-            "current_lesson_index": record.current_lesson_index,
-            "mcq_done": record.mcq_done,
-            "current_mcq_index": record.current_mcq_index,
-            "mcq_score": record.mcq_score,
-            "agent_done": record.agent_done,
-        }
-        return {"success": True, "progress": result, "streak_days": streak}
-    finally:
-        db.close()
+    db.commit()
+    result = {
+        "language": record.language,
+        "lessons_done": record.lessons_done,
+        "current_lesson_index": record.current_lesson_index,
+        "mcq_done": record.mcq_done,
+        "current_mcq_index": record.current_mcq_index,
+        "mcq_score": record.mcq_score,
+        "agent_done": record.agent_done,
+    }
+    return {"success": True, "progress": result, "streak_days": streak}
 
 
 @app.get("/progress/{user_id}")
-def get_progress(user_id: int):
-    db = SessionLocal()
-    try:
-        records = db.query(Progress).filter(Progress.user_id == user_id).all()
-        progress = [
-            {
-                "language": r.language,
-                "lessons_done": r.lessons_done,
-                "current_lesson_index": r.current_lesson_index,
-                "mcq_done": r.mcq_done,
-                "current_mcq_index": r.current_mcq_index,
-                "mcq_score": r.mcq_score,
-                "agent_done": r.agent_done,
-            }
-            for r in records
-        ]
-        user = db.query(User).filter(User.id == user_id).first()
-        streak_days = user.streak_days if user else 0
-        return {"success": True, "progress": progress, "streak_days": streak_days}
-    finally:
-        db.close()
+def get_progress(user_id: int, db: Session = Depends(get_db)):
+    records = db.query(Progress).filter(Progress.user_id == user_id).all()
+    progress = [
+        {
+            "language": r.language,
+            "lessons_done": r.lessons_done,
+            "current_lesson_index": r.current_lesson_index,
+            "mcq_done": r.mcq_done,
+            "current_mcq_index": r.current_mcq_index,
+            "mcq_score": r.mcq_score,
+            "agent_done": r.agent_done,
+        }
+        for r in records
+    ]
+    user = db.query(User).filter(User.id == user_id).first()
+    streak_days = user.streak_days if user else 0
+    return {"success": True, "progress": progress, "streak_days": streak_days}
+
+class SpeechRateRequest(BaseModel):
+    user_id: int
+    speech_rate: float
+
+@app.post("/settings/speech-rate")
+def update_speech_rate(data: SpeechRateRequest, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.id == data.user_id).first()
+    if not user:
+        return {"success": False, "error": "User not found"}
+    user.speech_rate = data.speech_rate
+    db.commit()
+    return {"success": True, "speech_rate": user.speech_rate}

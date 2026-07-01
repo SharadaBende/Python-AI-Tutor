@@ -123,17 +123,18 @@ function InstructionLanguagePage() {
   }, [lastMessage])
 
   return (
-    <main aria-label="Instruction Language Selection" style={{
-      minHeight: "100vh",
-      position: "relative",
-      overflow: "hidden",
-      background: "linear-gradient(160deg, #0d1b2a 0%, #0a0a0a 100%)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      fontFamily: "'Segoe UI', sans-serif",
-      padding: "2rem",
-    }}>
+    <main id="main-content" tabIndex={-1} aria-label="Instruction Language Selection" style={{
+  minHeight: "100vh",
+  position: "relative",
+  overflow: "hidden",
+  background: "linear-gradient(160deg, #0d1b2a 0%, #0a0a0a 100%)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  fontFamily: "'Segoe UI', sans-serif",
+  padding: "2rem",
+  outline: "none",
+}}>
 
       {/* Glow blobs — blue */}
       <div style={{

@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine, Column, Integer, String, Boolean
 from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy import create_engine, Column, Integer, String, Boolean, Float
 
 DATABASE_URL = "sqlite:///./drishti.db"
 
@@ -15,15 +16,9 @@ class User(Base):
     name = Column(String, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
     password_hash = Column(String, nullable=False)
-    # Consecutive days the user has been active (lesson progress, MCQ
-    # answers, or agent use). Reset to 1 if a day is missed, incremented
-    # once per calendar day the user first does something that day.
     streak_days = Column(Integer, default=0)
-    # ISO date string (YYYY-MM-DD) of the last day streak_days was
-    # updated, used to decide whether "today" continues, starts, or
-    # breaks the streak.
     last_active_date = Column(String, nullable=True)
-
+    speech_rate = Column(Float, default=0.85)   # ← new
 
 class Progress(Base):
     __tablename__ = "progress"
