@@ -1922,6 +1922,12 @@ function LessonsPage() {
 
   const langLabel = language === "sql" ? "SQL" : language === "javascript" ? "JavaScript" : "Python"
 
+  const pageContext = instructionLang === "hindi"
+    ? `पाठ ${currentLesson + 1} में से ${lessons.length}, ${langLabel}`
+    : instructionLang === "marathi"
+    ? `धडा ${currentLesson + 1} पैकी ${lessons.length}, ${langLabel}`
+    : `Lesson ${currentLesson + 1} of ${lessons.length}, ${langLabel}`
+
   return (
     <>
       <style>{`
@@ -1947,6 +1953,7 @@ function LessonsPage() {
   cardBg={cardBg} cardBorder={cardBorder} mutedColor={mutedColor}
   accent={accent} accentText={accentText} accentSoft={accentSoft}
   borderWidth={"1px"}
+  pageContext={pageContext}
 />
 
           <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "1.5rem", alignItems: "start" }}>
