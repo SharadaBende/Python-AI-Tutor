@@ -1524,6 +1524,12 @@ function MCQPage() {
   const progressPct = Math.round((current / questions.length) * 100)
   const subjectLabel = language === "sql" ? "SQL" : language === "javascript" ? "JavaScript" : "Python"
 
+  const pageContext = instructionLang === "hindi"
+    ? `प्रश्न ${current + 1} में से ${questions.length}, स्कोर ${score}`
+    : instructionLang === "marathi"
+    ? `प्रश्न ${current + 1} पैकी ${questions.length}, स्कोर ${score}`
+    : `Question ${current + 1} of ${questions.length}, score ${score}`
+
   return (
     <main aria-label="MCQ Practice पृष्ठ" style={{
       minHeight: "100vh", background: bg,
@@ -1560,6 +1566,7 @@ function MCQPage() {
           language={language}
           instructionLang={instructionLang}
           userId={userId}
+          pageContext={pageContext}
         />
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1.25rem", alignItems: "start" }}>
