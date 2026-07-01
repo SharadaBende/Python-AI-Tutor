@@ -148,7 +148,8 @@ function LanguagePage() {
   }, [lastMessage])
 
   return (
-    <main aria-label="Language चुनें" style={{
+    <main id="main-content" tabIndex={-1} aria-label="Language चुनें" style={{
+      outline: "none",
       minHeight: "100vh",
       position: "relative",
       overflow: "hidden",
