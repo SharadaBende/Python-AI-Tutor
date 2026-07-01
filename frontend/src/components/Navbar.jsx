@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
+import { setupAutoFlush } from "./offlineSync"
 
 // Page names spoken by Pyra when the user asks "where am I" (W key).
 // Keyed by instructionLang so the announcement matches whatever
@@ -41,6 +42,28 @@ const HELP_PROMPT = {
   hi: "मदद के लिए H दबाएं",
   en: "Press H for help",
   mr: "मदतीसाठी H दाबा",
+}
+
+const [isOnline, setIsOnline] = useState(
+    typeof navigator === "undefined" ? true : navigator.onLine
+  )
+
+  useEffect(() => {
+    setupAutoFlush()
+    const goOnline = () => setIsOnline(true)
+    const goOffline = () => setIsOnline(false)
+    window.addEventListener("online", goOnline)
+    window.addEventListener("offline", goOffline)
+    return () => {
+      window.removeEventListener("online", goOnline)
+      window.removeEventListener("offline", goOffline)
+    }
+  }, [])
+
+const OFFLINE_LABEL = {
+  hi: "आप offline हैं — progress वापस आते ही save होगी",
+  en: "You're offline — progress will save when back online",
+  mr: "तुम्ही offline आहात — connection परत आल्यावर progress save होईल",
 }
 
 function speakWhereAmI(text, lang, rate) {
@@ -255,7 +278,7 @@ function Navbar({
             <span style={{ fontSize: "0.62rem", opacity: 0.7 }}>(W)</span>
           </button>
 
-          {/* Help */}
+         {/* Help */}
           <button
             className="navbtn"
             onClick={announceHelp}
@@ -271,8 +294,28 @@ function Navbar({
             <span style={{ fontSize: "0.62rem", opacity: 0.7 }}>(H)</span>
           </button>
 
+          {/* Offline indicator — only shown when actually offline */}
+          {!isOnline && (
+            <span
+              role="status"
+              aria-live="polite"
+              title={OFFLINE_LABEL[instructionLang] || OFFLINE_LABEL.en}
+              style={{
+                fontSize: "0.7rem",
+                fontWeight: 700,
+                color: "#ff4b4b",
+                background: "rgba(255,75,75,0.1)",
+                border: "1px solid rgba(255,75,75,0.3)",
+                borderRadius: "8px",
+                padding: "0.3rem 0.6rem",
+              }}
+            >
+              📡 Offline
+            </span>
+          )}
+
         </div>
-      </nav>
+      </nav> 
       
     </>
   )

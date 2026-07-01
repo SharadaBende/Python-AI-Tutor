@@ -4,6 +4,7 @@ import { useTheme } from "../components/useTheme"
 import { useState, useEffect } from "react"
 import ProgressBar from "../components/ProgressBar"
 import { useNavigate, useLocation } from "react-router-dom"
+import { postProgressUpdate } from "../components/offlineSync"
 
 // ── all question arrays unchanged ──────────────────────────────────────────
 const pythonQuestions = [
@@ -1454,22 +1455,14 @@ function MCQPage() {
       setStatus("Q = Question सुनें")
       setProgressData(prev => ({ ...prev, current_mcq_index: newIndex, mcq_score: score }))
       if (userId) {
-        fetch("http://127.0.0.1:8000/progress/update", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user_id: userId, language, current_mcq_index: newIndex, mcq_score: score }),
-        }).catch(() => {})
+        postProgressUpdate({ user_id: userId, language, current_mcq_index: newIndex, mcq_score: score })
       }
     } else {
       const finalScore = score
       setPyraMood("correct")
       setProgressData(prev => ({ ...prev, mcq_done: true, mcq_score: finalScore, current_mcq_index: 0 }))
       if (userId) {
-        fetch("http://127.0.0.1:8000/progress/update", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user_id: userId, language, mcq_done: true, mcq_score: finalScore, current_mcq_index: 0 }),
-        }).catch(() => {})
+        postProgressUpdate({ user_id: userId, language, mcq_done: true, mcq_score: finalScore, current_mcq_index: 0 })
       }
       speak(
         "बहुत शाबाश " + name + "! आपने सभी " + questions.length + " questions पूरे किए। " +

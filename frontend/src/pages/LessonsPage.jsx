@@ -5,6 +5,7 @@ import ProgressBar from "../components/ProgressBar"
 import LessonSidebar from "../components/LessonSidebar"
 import Navbar from "../components/Navbar"
 import { useTheme } from "../components/useTheme"
+import { postProgressUpdate } from "../components/offlineSync"
 
 const pythonLessons = [
   { id: 1, title: "Python क्या है?", content: "Python एक programming language है। सरल भाषा में कहें तो — Python एक तरीका है जिससे हम computer को instructions देते हैं। जैसे हम किसी को हिंदी में बोलते हैं, वैसे ही हम computer को Python में बोलते हैं। Python को 1991 में Guido van Rossum नाम के एक scientist ने बनाया था। Python इसलिए खास है क्योंकि इसे पढ़ना और समझना बहुत आसान है। Python से हम websites बना सकते हैं, games बना सकते हैं, AI बना सकते हैं, और data analysis कर सकते हैं। दुनिया की बड़ी companies जैसे Google, Netflix, और Instagram भी Python use करती हैं।", example: null },
@@ -1807,11 +1808,7 @@ function LessonsPage() {
   function updateProgress(fields) {
     setProgressData(prev => ({ ...prev, ...fields }))
     if (!userId) return
-    fetch("http://127.0.0.1:8000/progress/update", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_id: userId, language, ...fields }),
-    }).catch(() => {})
+    postProgressUpdate({ user_id: userId, language, ...fields })
   }
 
   function nextLesson() {
