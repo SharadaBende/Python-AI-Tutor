@@ -1321,6 +1321,9 @@ function MCQPage() {
   const userId = location.state?.user_id
   const [progressData, setProgressData] = useState({ lessons_done: false, mcq_done: false, agent_done: false, current_mcq_index: 0, mcq_score: 0 })
   const [listening, setListening] = useState(false)
+  // Holds the option a voice answer is waiting to be confirmed for,
+  // e.g. { index: 2 }. Null when nothing is pending confirmation.
+  const [confirmPending, setConfirmPending] = useState(null)
   // "idle" | "correct" | "wrong"
   const [pyraMood, setPyraMood] = useState("idle")
   // per-option animation: null | "correct" | "wrong"
@@ -1489,10 +1492,10 @@ function MCQPage() {
     recognition.onresult = (e) => {
       const answer = e.results[0][0].transcript.toLowerCase()
       setListening(false)
-      if (answer.includes("एक") || answer.includes("1")) selectAnswer(0)
-      else if (answer.includes("दो") || answer.includes("2")) selectAnswer(1)
-      else if (answer.includes("तीन") || answer.includes("3")) selectAnswer(2)
-      else if (answer.includes("चार") || answer.includes("4")) selectAnswer(3)
+      if (answer.includes("एक") || answer.includes("1")) confirmAnswer(0)
+      else if (answer.includes("दो") || answer.includes("2")) confirmAnswer(1)
+      else if (answer.includes("तीन") || answer.includes("3")) confirmAnswer(2)
+      else if (answer.includes("चार") || answer.includes("4")) confirmAnswer(3)
       else speak("कृपया एक, दो, तीन, या चार बोलिए")
     }
     recognition.onerror = () => {
@@ -1501,10 +1504,73 @@ function MCQPage() {
     }
   }
 
+  // Builds what Pyra says to confirm a voice-recognized answer, before
+  // it actually counts. Keeps a misheard "two" from silently becoming
+  // a wrong submitted answer.
+  function buildConfirmPrompt(index) {
+    const optionText = q.options[index]
+    const n = index + 1
+    if (instructionLang === "english")
+      return `You chose ${n}. ${optionText}. Is this right? Say or press Y for yes, N for no.`
+    if (instructionLang === "marathi")
+      return `तुम्ही निवडले ${n}. ${optionText}. हे बरोबर आहे का? होय साठी Y बोला किंवा दाबा, नाही साठी N.`
+    return `आपने चुना ${n}. ${optionText}। क्या यह सही है? हाँ के लिए Y बोलें या दबाएं, नहीं के लिए N।`
+  }
+
+  function confirmAnswer(index) {
+    setConfirmPending({ index })
+    setStatus("पुष्टि करें — Y = हाँ, N = नहीं")
+    speak(buildConfirmPrompt(index), () => listenForConfirmation())
+  }
+
+  function listenForConfirmation() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    if (!SpeechRecognition) return
+    const recognition = new SpeechRecognition()
+    recognition.lang = lang.voiceLang
+    recognition.start()
+    setListening(true)
+    recognition.onresult = (e) => {
+      const answer = e.results[0][0].transcript.toLowerCase()
+      setListening(false)
+      const isYes = ["हाँ", "हां", "ha", "yes", "होय"].some(w => answer.includes(w))
+      const isNo = ["नहीं", "nahi", "no", "नाही"].some(w => answer.includes(w))
+      if (isYes) finalizeConfirmedAnswer()
+      else if (isNo) cancelConfirmation()
+      else speak("समझ नहीं आया। हाँ या नहीं बोलें, या Y या N दबाएं।", () => listenForConfirmation())
+    }
+    recognition.onerror = () => {
+      setListening(false)
+      setStatus("सुनाई नहीं दिया — Y या N दबाएं")
+    }
+  }
+
+  function finalizeConfirmedAnswer() {
+    if (!confirmPending) return
+    const idx = confirmPending.index
+    setConfirmPending(null)
+    selectAnswer(idx)
+  }
+
+  function cancelConfirmation() {
+    setConfirmPending(null)
+    speak("ठीक है, दोबारा बोलिए। T दबाएं।")
+    setStatus("दोबारा बोलने के लिए T दबाएं")
+  }
+
   useEffect(() => {
     function handleKey(e) {
       if (e.target.tagName === "INPUT") return
       const key = e.key.toLowerCase()
+
+      // While a voice answer is waiting on Yes/No confirmation, Y and N
+      // take over so the person can confirm or retry without speaking.
+      if (confirmPending) {
+        if (key === "y") finalizeConfirmedAnswer()
+        if (key === "n") cancelConfirmation()
+        return
+      }
+
       if (key === "q") playQuestion()
       if (key === "1") selectAnswer(0)
       if (key === "2") selectAnswer(1)
@@ -1518,7 +1584,7 @@ function MCQPage() {
     }
     window.addEventListener("keydown", handleKey)
     return () => window.removeEventListener("keydown", handleKey)
-  }, [current, step, lastMessage, score, selected])
+  }, [current, step, lastMessage, score, selected, confirmPending])
 
   const q = questions[current]
   const progressPct = Math.round((current / questions.length) * 100)
