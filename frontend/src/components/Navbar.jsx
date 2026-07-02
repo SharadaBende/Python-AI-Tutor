@@ -33,9 +33,9 @@ const WHERE_AM_I_PROMPT = {
 // its own helpText prop. Covers the global navigation shortcuts that
 // exist on every page.
 const GENERAL_HELP = {
-  hi: "सामान्य shortcuts: 1 = Lessons, 2 = MCQ, 3 = Agent, M = Theme बदलें, W = कहाँ हूँ, H = यह मदद दोबारा सुनें",
-  en: "General shortcuts: 1 for Lessons, 2 for MCQ, 3 for Agent, M to toggle theme, W to hear where you are, H to hear this help again",
-  mr: "सामान्य shortcuts: 1 = Lessons, 2 = MCQ, 3 = Agent, M = Theme बदला, W = मी कुठे आहे, H = ही मदत परत ऐका",
+  hi: "M = Theme बदलें, W = कहाँ हूँ, H = यह मदद दोबारा सुनें। Lessons, MCQ, या Agent पर जाने के लिए ऊपर दिए गए buttons दबाएं",
+  en: "M to toggle theme, W to hear where you are, H to hear this help again. Use the buttons at the top to go to Lessons, MCQ, or Agent",
+  mr: "M = Theme बदला, W = मी कुठे आहे, H = ही मदत परत ऐका। Lessons, MCQ, किंवा Agent वर जाण्यासाठी वरील buttons दाबा",
 }
 
 const HELP_PROMPT = {
