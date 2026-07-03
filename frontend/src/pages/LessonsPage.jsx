@@ -1,11 +1,11 @@
 import { t } from "../components/translations"
-import { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import ProgressBar from "../components/ProgressBar"
 import LessonSidebar from "../components/LessonSidebar"
 import Navbar from "../components/Navbar"
 import { useTheme } from "../components/useTheme"
 import { postProgressUpdate } from "../components/offlineSync"
+import { useState, useEffect, useRef } from "react"
 
 const pythonLessons = [
   { id: 1, title: "Python क्या है?", content: "Python एक programming language है। सरल भाषा में कहें तो — Python एक तरीका है जिससे हम computer को instructions देते हैं। जैसे हम किसी को हिंदी में बोलते हैं, वैसे ही हम computer को Python में बोलते हैं। Python को 1991 में Guido van Rossum नाम के एक scientist ने बनाया था। Python इसलिए खास है क्योंकि इसे पढ़ना और समझना बहुत आसान है। Python से हम websites बना सकते हैं, games बना सकते हैं, AI बना सकते हैं, और data analysis कर सकते हैं। दुनिया की बड़ी companies जैसे Google, Netflix, और Instagram भी Python use करती हैं।", example: null },
@@ -1763,55 +1763,118 @@ function LessonsPage() {
   }
 
   const [streakDays, setStreakDays] = useState(0)
+  const [resumeChoicePending, setResumeChoicePending] = useState(null) // holds savedIndex while waiting, else null
+  const pendingMessagesRef = useRef([])
 
+  
   useEffect(() => {
-    if (!userId) return
+    function speakQueue(messages, i = 0) {
+      if (i >= messages.length) return
+      speak(messages[i], () => speakQueue(messages, i + 1))
+    }
+
+    function buildWelcomeMsg() {
+      return lang.welcome(name) + " " + lang.pressL + " " + lang.pressN + " " + lang.pressR
+    }
+
+    function buildStreakMsg(days) {
+      return instructionLang === "hindi"
+        ? `${days} दिन की streak! 🔥 शानदार लगातार मेहनत!`
+        : instructionLang === "marathi"
+        ? `${days} दिवसांची streak! 🔥 उत्तम सातत्य!`
+        : `${days}-day streak! 🔥 Great consistency!`
+    }
+
+    if (!userId) {
+      setTimeout(() => {
+        speakQueue([buildWelcomeMsg()])
+        setStatus(lang.status)
+        setStep("ready")
+      }, 1000)
+      return
+    }
+
     fetch(`http://127.0.0.1:8000/progress/${userId}`)
       .then(res => res.json())
       .then(data => {
         const match = data.progress?.find(p => p.language === language)
+        let savedIndex = 0
         if (match) {
           setProgressData(match)
-          const savedIndex = match.current_lesson_index || 0
-          if (savedIndex > 0 && savedIndex < lessons.length) {
-            setCurrentLesson(savedIndex)
-          }
+          savedIndex = match.current_lesson_index || 0
         }
         if (typeof data.streak_days === "number") {
           setStreakDays(data.streak_days)
-          // Announce the streak once, after the welcome message, so it
-          // doesn't talk over Pyra's greeting. Only announce if there's
-          // an actual streak worth celebrating (2+ days) — a "1-day
-          // streak" isn't meaningful praise.
-          if (data.streak_days >= 2) {
-            setTimeout(() => {
-              const streakMsg = instructionLang === "hindi"
-                ? `${data.streak_days} दिन की streak! 🔥 शानदार लगातार मेहनत!`
-                : instructionLang === "marathi"
-                ? `${data.streak_days} दिवसांची streak! 🔥 उत्तम सातत्य!`
-                : `${data.streak_days}-day streak! 🔥 Great consistency!`
-              speak(streakMsg)
-            }, 4500)
-          }
         }
+
+        const remaining = [buildWelcomeMsg()]
+        if (typeof data.streak_days === "number" && data.streak_days >= 2) {
+          remaining.push(buildStreakMsg(data.streak_days))
+        }
+
+        setTimeout(() => {
+          setStatus(lang.status)
+          setStep("ready")
+
+          if (savedIndex > 0 && savedIndex < lessons.length) {
+            const questionMsg = instructionLang === "hindi"
+              ? `स्वागत है ${name}। यह Lessons page है। आप lesson ${savedIndex + 1} पर थे। वहीं से जारी रखने के लिए C दबाएं, या शुरुआत से शुरू करने के लिए S दबाएं। आप बोल भी सकते हैं।`
+              : instructionLang === "marathi"
+              ? `स्वागत आहे ${name}. हे Lessons page आहे. तुम्ही lesson ${savedIndex + 1} वर होता. तिथून सुरू ठेवण्यासाठी C दाबा, किंवा सुरुवातीपासून सुरू करण्यासाठी S दाबा. तुम्ही बोलूनही सांगू शकता.`
+              : `Welcome ${name}. This is the Lessons page. You were on lesson ${savedIndex + 1}. Press C to continue from there, or S to start from the beginning. You can also say it out loud.`
+            pendingMessagesRef.current = remaining
+            speak(questionMsg, () => setResumeChoicePending(savedIndex))
+          } else {
+            speakQueue(remaining)
+          }
+        }, 1000)
       })
-      .catch(() => {})
+      .catch(() => {
+        setTimeout(() => {
+          speakQueue([buildWelcomeMsg()])
+          setStatus(lang.status)
+          setStep("ready")
+        }, 1000)
+      })
   }, [userId, language])
 
-  useEffect(() => {
-    setTimeout(() => {
-      speak(
-        lang.welcome(name) + " " +
-        lang.pressL + " " +
-        lang.pressN + " " +
-        lang.pressR
-      )
-      setStatus(lang.status)
-      setStep("ready")
-    }, 1000)
-  }, [])
+  function resolveResumeChoice(shouldResume) {
+    const savedIndex = resumeChoicePending
+    setResumeChoicePending(null)
+    if (shouldResume && savedIndex != null) {
+      setCurrentLesson(savedIndex)
+    } else {
+      setCurrentLesson(0)
+    }
+    const remaining = pendingMessagesRef.current
+    pendingMessagesRef.current = []
+    function speakQueue(messages, i = 0) {
+      if (i >= messages.length) return
+      speak(messages[i], () => speakQueue(messages, i + 1))
+    }
+    speakQueue(remaining)
+  }
 
-  async function playLesson() {
+  function listenForResumeChoice() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    if (!SpeechRecognition) return
+    const recognition = new SpeechRecognition()
+    recognition.lang = lang.voiceLang
+    recognition.start()
+    setListening(true)
+    recognition.onresult = (e) => {
+      const answer = e.results[0][0].transcript.toLowerCase()
+      setListening(false)
+      const wantsResume = ["वहीं से", "continue", "resume", "जारी", "तिथून"].some(w => answer.includes(w))
+      const wantsRestart = ["शुरुआत", "start over", "restart", "सुरुवात"].some(w => answer.includes(w))
+      if (wantsResume) resolveResumeChoice(true)
+      else if (wantsRestart) resolveResumeChoice(false)
+      else speak("समझ नहीं आया। C या S दबाएं।", () => listenForResumeChoice())
+    }
+    recognition.onerror = () => setListening(false)
+  }
+
+async function playLesson() {
     const lesson = lessons[currentLesson]
     speak(lang.loading(lesson.id))
     setStatus(lang.loading(lesson.id))
@@ -1869,10 +1932,20 @@ function LessonsPage() {
     recognition.onerror = () => { setListening(false); setStatus("सुनाई नहीं दिया") }
   }
 
-  useEffect(() => {
+
+
+ useEffect(() => {
     function handleKey(e) {
       if (e.target.tagName === "INPUT") return
       const key = e.key.toLowerCase()
+
+      if (resumeChoicePending !== null) {
+        if (key === "c") resolveResumeChoice(true)
+        if (key === "s") resolveResumeChoice(false)
+        if (key === "t") listenForResumeChoice()
+        return
+      }
+
       if (key === "l") playLesson()
       if (key === "n" && step === "done") navigate("/mcq", { state: { name, language, instructionLang, user_id: userId } })
       if (key === "n" && step !== "done") nextLesson()
@@ -1886,7 +1959,7 @@ function LessonsPage() {
     }
     window.addEventListener("keydown", handleKey)
     return () => window.removeEventListener("keydown", handleKey)
-  }, [currentLesson, step, lastMessage])
+  }, [currentLesson, step, lastMessage, resumeChoicePending])
 
   const lesson = lessons[currentLesson]
   const lessonProgress = Math.round((currentLesson / lessons.length) * 100)
