@@ -1,7 +1,7 @@
 import { t } from "../components/translations"
 import Navbar from "../components/Navbar"
 import { useTheme } from "../components/useTheme"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import ProgressBar from "../components/ProgressBar"
 import { useNavigate, useLocation } from "react-router-dom"
 import { postProgressUpdate } from "../components/offlineSync"
@@ -1278,6 +1278,7 @@ function PressButton({ onClick, disabled, ariaLabel, bg, shadow, color, children
 function MCQPage() {
   const location = useLocation()
   const navigate = useNavigate()
+  const mainRef = useRef(null)
   const name = location.state?.name || "दोस्त"
   const language = location.state?.language || "python"
   const instructionLang = location.state?.instructionLang || "hindi"
@@ -1375,36 +1376,109 @@ function MCQPage() {
     else trySpeak()
   }
 
+  
+const [resumeChoicePending, setResumeChoicePending] = useState(null) // holds savedIndex while waiting, else null
+  const pendingMessagesRef = useRef([])
+
   useEffect(() => {
-    if (!userId) return
+    function speakQueue(messages, i = 0) {
+      if (i >= messages.length) return
+      speak(messages[i], () => speakQueue(messages, i + 1))
+    }
+
+    function buildWelcomeMsg() {
+      return lang.mcqWelcome(name) + " " + lang.pressQ + " " + lang.press1234 + " " + lang.pressR
+    }
+
+    if (!userId) {
+      setTimeout(() => {
+        speakQueue([buildWelcomeMsg()])
+        setStatus("Q = " + lang.pressQ + " | 1,2,3,4 = जवाब | R = " + lang.repeatBtn)
+        setStep("ready")
+      }, 1000)
+      return
+    }
+
     fetch(`http://127.0.0.1:8000/progress/${userId}`)
       .then(res => res.json())
       .then(data => {
         const match = data.progress?.find(p => p.language === language)
+        let savedIndex = 0
+        let savedScore = 0
+        let alreadyDone = false
         if (match) {
           setProgressData(match)
-          if (!match.mcq_done) {
-            const savedIndex = match.current_mcq_index || 0
-            if (savedIndex > 0 && savedIndex < questions.length) setCurrent(savedIndex)
-            setScore(match.mcq_score || 0)
+          alreadyDone = !!match.mcq_done
+          if (!alreadyDone) {
+            savedIndex = match.current_mcq_index || 0
+            savedScore = match.mcq_score || 0
           }
         }
+
+        setTimeout(() => {
+          setStatus("Q = " + lang.pressQ + " | 1,2,3,4 = जवाब | R = " + lang.repeatBtn)
+          setStep("ready")
+
+          if (!alreadyDone && savedIndex > 0 && savedIndex < questions.length) {
+            const questionMsg = instructionLang === "hindi"
+              ? `स्वागत है ${name}। यह MCQ page है। आप question ${savedIndex + 1} पर थे, score ${savedScore}। वहीं से जारी रखने के लिए C दबाएं, या शुरुआत से शुरू करने के लिए S दबाएं। आप बोल भी सकते हैं।`
+              : instructionLang === "marathi"
+              ? `स्वागत आहे ${name}. हे MCQ page आहे. तुम्ही question ${savedIndex + 1} वर होता, score ${savedScore}. तिथून सुरू ठेवण्यासाठी C दाबा, किंवा सुरुवातीपासून सुरू करण्यासाठी S दाबा. तुम्ही बोलूनही सांगू शकता.`
+              : `Welcome ${name}. This is the MCQ page. You were on question ${savedIndex + 1}, score ${savedScore}. Press C to continue from there, or S to start from the beginning. You can also say it out loud.`
+            pendingMessagesRef.current = [buildWelcomeMsg()]
+            speak(questionMsg, () => setResumeChoicePending({ index: savedIndex, score: savedScore }))
+          } else {
+            speakQueue([buildWelcomeMsg()])
+          }
+        }, 1000)
       })
-      .catch(() => {})
+      .catch(() => {
+        setTimeout(() => {
+          speakQueue([buildWelcomeMsg()])
+          setStatus("Q = " + lang.pressQ + " | 1,2,3,4 = जवाब | R = " + lang.repeatBtn)
+          setStep("ready")
+        }, 1000)
+      })
   }, [userId, language])
 
-  useEffect(() => {
-    setTimeout(() => {
-      speak(
-        lang.mcqWelcome(name) + " " +
-        lang.pressQ + " " +
-        lang.press1234 + " " +
-        lang.pressR
-      )
-      setStatus("Q = " + lang.pressQ + " | 1,2,3,4 = जवाब | R = " + lang.repeatBtn)
-      setStep("ready")
-    }, 1000)
-  }, [])
+  function resolveResumeChoice(shouldResume) {
+    const pending = resumeChoicePending
+    setResumeChoicePending(null)
+    if (shouldResume && pending) {
+      setCurrent(pending.index)
+      setScore(pending.score)
+    } else {
+      setCurrent(0)
+      setScore(0)
+    }
+    const remaining = pendingMessagesRef.current
+    pendingMessagesRef.current = []
+    function speakQueue(messages, i = 0) {
+      if (i >= messages.length) return
+      speak(messages[i], () => speakQueue(messages, i + 1))
+    }
+    speakQueue(remaining)
+  }
+
+  function listenForResumeChoice() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    if (!SpeechRecognition) return
+    const recognition = new SpeechRecognition()
+    recognition.lang = lang.voiceLang
+    recognition.start()
+    setListening(true)
+    recognition.onresult = (e) => {
+      const answer = e.results[0][0].transcript.toLowerCase()
+      setListening(false)
+      const wantsResume = ["वहीं से", "continue", "resume", "जारी", "तिथून"].some(w => answer.includes(w))
+      const wantsRestart = ["शुरुआत", "start over", "restart", "सुरुवात"].some(w => answer.includes(w))
+      if (wantsResume) resolveResumeChoice(true)
+      else if (wantsRestart) resolveResumeChoice(false)
+      else speak("समझ नहीं आया। C या S दबाएं।", () => listenForResumeChoice())
+    }
+    recognition.onerror = () => setListening(false)
+  }
+  
 
   function playQuestion() {
     const q = questions[current]
@@ -1561,10 +1635,31 @@ function MCQPage() {
     setStatus("दोबारा बोलने के लिए T दबाएं")
   }
 
+useEffect(() => {
+    window.focus()
+    if (mainRef.current) mainRef.current.focus()
+    function grabFocusOnce() {
+      window.focus()
+      document.removeEventListener("click", grabFocusOnce)
+    }
+    document.addEventListener("click", grabFocusOnce)
+    return () => document.removeEventListener("click", grabFocusOnce)
+  }, [])
+
   useEffect(() => {
+
     function handleKey(e) {
       if (e.target.tagName === "INPUT") return
+  
       const key = e.key.toLowerCase()
+
+      // While waiting on the resume-or-restart choice, C/S/T take over.
+      if (resumeChoicePending) {
+        if (key === "c") resolveResumeChoice(true)
+        if (key === "s") resolveResumeChoice(false)
+        if (key === "t") listenForResumeChoice()
+        return
+      }
 
       // While a voice answer is waiting on Yes/No confirmation, Y and N
       // take over so the person can confirm or retry without speaking.
@@ -1580,6 +1675,7 @@ function MCQPage() {
       if (key === "3") selectAnswer(2)
       if (key === "4") selectAnswer(3)
       if (key === "r") speak(lastMessage)
+      if (key === "t") startListening()
       if (key === "n" && step === "done")
         navigate("/agent", { state: { name, language, instructionLang, user_id: userId } })
       if (key === "n" && step !== "done") nextQuestion()
@@ -1587,7 +1683,9 @@ function MCQPage() {
     }
     window.addEventListener("keydown", handleKey)
     return () => window.removeEventListener("keydown", handleKey)
-  }, [current, step, lastMessage, score, selected, confirmPending])
+  }, [current, step, lastMessage, score, selected, confirmPending, resumeChoicePending])
+
+
 
   const q = questions[current]
   const progressPct = Math.round((current / questions.length) * 100)
@@ -1606,7 +1704,7 @@ function MCQPage() {
     : "Q to hear the question, 1 through 4 to choose an answer, T to answer by voice, R to repeat, N for next question"
 
   return (
-    <main id="main-content" tabIndex={-1} aria-label="MCQ Practice पृष्ठ" style={{
+    <main ref={mainRef} id="main-content" tabIndex={-1} aria-label="MCQ Practice पृष्ठ" style={{
       outline: "none",
       minHeight: "100vh", background: bg,
       display: "flex", alignItems: "flex-start", justifyContent: "center",
