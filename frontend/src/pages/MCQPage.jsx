@@ -1378,7 +1378,8 @@ function MCQPage() {
 
   
 const [resumeChoicePending, setResumeChoicePending] = useState(null) // holds savedIndex while waiting, else null
-  const pendingMessagesRef = useRef([])
+const [resumeListenAttempts, setResumeListenAttempts] = useState(0)
+const pendingMessagesRef = useRef([])
 
   useEffect(() => {
     function speakQueue(messages, i = 0) {
@@ -1402,7 +1403,9 @@ const [resumeChoicePending, setResumeChoicePending] = useState(null) // holds sa
     fetch(`http://127.0.0.1:8000/progress/${userId}`)
       .then(res => res.json())
       .then(data => {
-        const match = data.progress?.find(p => p.language === language)
+        const match = data.progress?.find(
+          p => p.language === language && p.instruction_language === instructionLang
+        )
         let savedIndex = 0
         let savedScore = 0
         let alreadyDone = false
@@ -1421,12 +1424,16 @@ const [resumeChoicePending, setResumeChoicePending] = useState(null) // holds sa
 
           if (!alreadyDone && savedIndex > 0 && savedIndex < questions.length) {
             const questionMsg = instructionLang === "hindi"
-              ? `स्वागत है ${name}। यह MCQ page है। आप question ${savedIndex + 1} पर थे, score ${savedScore}। वहीं से जारी रखने के लिए C दबाएं, या शुरुआत से शुरू करने के लिए S दबाएं। आप बोल भी सकते हैं।`
+              ? `स्वागत है ${name}। यह MCQ page है। आप question ${savedIndex + 1} पर थे, score ${savedScore}। वहीं से जारी रखने के लिए C दबाएं, या शुरुआत से शुरू करने के लिए S दबाएं। आप T दबाकर बोल भी सकते हैं।`
               : instructionLang === "marathi"
-              ? `स्वागत आहे ${name}. हे MCQ page आहे. तुम्ही question ${savedIndex + 1} वर होता, score ${savedScore}. तिथून सुरू ठेवण्यासाठी C दाबा, किंवा सुरुवातीपासून सुरू करण्यासाठी S दाबा. तुम्ही बोलूनही सांगू शकता.`
-              : `Welcome ${name}. This is the MCQ page. You were on question ${savedIndex + 1}, score ${savedScore}. Press C to continue from there, or S to start from the beginning. You can also say it out loud.`
+              ? `स्वागत आहे ${name}. हे MCQ page आहे. तुम्ही question ${savedIndex + 1} वर होता, score ${savedScore}. तिथून सुरू ठेवण्यासाठी C दाबा, किंवा सुरुवातीपासून सुरू करण्यासाठी S दाबा. तुम्ही T दाबून बोलूनही सांगू शकता.`
+              : `Welcome ${name}. This is the MCQ page. You were on question ${savedIndex + 1}, score ${savedScore}. Press C to continue from there, or S to start from the beginning. You can also press T and say it out loud.`
             pendingMessagesRef.current = [buildWelcomeMsg()]
-            speak(questionMsg, () => setResumeChoicePending({ index: savedIndex, score: savedScore }))
+            speak(questionMsg, () => {
+              setResumeChoicePending({ index: savedIndex, score: savedScore })
+              setResumeListenAttempts(0)
+              listenForResumeChoice()
+            })
           } else {
             speakQueue([buildWelcomeMsg()])
           }
@@ -1467,15 +1474,35 @@ const [resumeChoicePending, setResumeChoicePending] = useState(null) // holds sa
     recognition.lang = lang.voiceLang
     recognition.start()
     setListening(true)
+
     recognition.onresult = (e) => {
       const answer = e.results[0][0].transcript.toLowerCase()
+      console.log("Pyra heard:", answer)
       setListening(false)
-      const wantsResume = ["वहीं से", "continue", "resume", "जारी", "तिथून"].some(w => answer.includes(w))
-      const wantsRestart = ["शुरुआत", "start over", "restart", "सुरुवात"].some(w => answer.includes(w))
-      if (wantsResume) resolveResumeChoice(true)
-      else if (wantsRestart) resolveResumeChoice(false)
-      else speak("समझ नहीं आया। C या S दबाएं।", () => listenForResumeChoice())
+
+      const resumeWords = ["continue", "resume", "जारी", "तिथून", "वहीं", "वही", "haan", "हाँ", "हा", "aage", "आगे", "yes", "chalu", "चालू"]
+      const restartWords = ["restart", "start over", "शुरुआत", "सुरुवात", "naya", "नया", "फिर", "again", "no", "नाही", "नहीं"]
+
+      const wantsResume = resumeWords.some(w => answer.includes(w))
+      const wantsRestart = restartWords.some(w => answer.includes(w))
+
+      if (wantsResume) {
+        resolveResumeChoice(true)
+      } else if (wantsRestart) {
+        resolveResumeChoice(false)
+      } else {
+        setResumeListenAttempts(prev => {
+          const next = prev + 1
+          if (next >= 2) {
+            speak("समझ नहीं आया। कृपया C या S दबाएं।")
+          } else {
+            speak("समझ नहीं आया। फिर से कोशिश करें, या C या S दबाएं।", () => listenForResumeChoice())
+          }
+          return next
+        })
+      }
     }
+
     recognition.onerror = () => setListening(false)
   }
   
@@ -1539,14 +1566,14 @@ const [resumeChoicePending, setResumeChoicePending] = useState(null) // holds sa
       setStatus("Q = Question सुनें")
       setProgressData(prev => ({ ...prev, current_mcq_index: newIndex, mcq_score: score }))
       if (userId) {
-        postProgressUpdate({ user_id: userId, language, current_mcq_index: newIndex, mcq_score: score })
+        postProgressUpdate({ user_id: userId, language, instruction_language: instructionLang, current_mcq_index: newIndex, mcq_score: score })
       }
     } else {
       const finalScore = score
       setPyraMood("correct")
       setProgressData(prev => ({ ...prev, mcq_done: true, mcq_score: finalScore, current_mcq_index: 0 }))
       if (userId) {
-        postProgressUpdate({ user_id: userId, language, mcq_done: true, mcq_score: finalScore, current_mcq_index: 0 })
+        postProgressUpdate({ user_id: userId, language, instruction_language: instructionLang, mcq_done: true, mcq_score: finalScore, current_mcq_index: 0 })
       }
       speak(
         "बहुत शाबाश " + name + "! आपने सभी " + questions.length + " questions पूरे किए। " +
