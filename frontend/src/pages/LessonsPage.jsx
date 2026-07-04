@@ -1797,7 +1797,9 @@ function LessonsPage() {
     fetch(`http://127.0.0.1:8000/progress/${userId}`)
       .then(res => res.json())
       .then(data => {
-        const match = data.progress?.find(p => p.language === language)
+        const match = data.progress?.find(
+          p => p.language === language && p.instruction_language === instructionLang
+        )
         let savedIndex = 0
         if (match) {
           setProgressData(match)
@@ -1869,6 +1871,7 @@ function LessonsPage() {
 
     recognition.onresult = (e) => {
       const answer = e.results[0][0].transcript.toLowerCase()
+      console.log("PYRA HEARD:", answer)
       setListening(false)
 
       const resumeWords = ["continue", "resume", "जारी", "तिथून", "वहीं", "वही", "haan", "हाँ", "हा", "aage", "आगे", "yes", "chalu", "चालू"]
@@ -1913,7 +1916,7 @@ async function playLesson() {
   function updateProgress(fields) {
     setProgressData(prev => ({ ...prev, ...fields }))
     if (!userId) return
-    postProgressUpdate({ user_id: userId, language, ...fields })
+    postProgressUpdate({ user_id: userId, language, instruction_language: instructionLang, ...fields })
   }
 
   function nextLesson() {
