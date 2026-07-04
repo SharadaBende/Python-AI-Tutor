@@ -26,6 +26,7 @@ class Progress(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, index=True, nullable=False)
     language = Column(String, nullable=False)
+    instruction_language = Column(String, nullable=False, default="hindi")   # ← new
     lessons_done = Column(Boolean, default=False)
     current_lesson_index = Column(Integer, default=0)
     mcq_done = Column(Boolean, default=False)
