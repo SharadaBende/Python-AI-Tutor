@@ -172,6 +172,7 @@ def login(data: LoginRequest, db: Session = Depends(get_db)):
 class ProgressUpdateRequest(BaseModel):
     user_id: int
     language: str
+    instruction_language: str = "hindi"
     lessons_done: bool | None = None
     current_lesson_index: int | None = None
     mcq_done: bool | None = None
@@ -183,11 +184,19 @@ class ProgressUpdateRequest(BaseModel):
 def update_progress(data: ProgressUpdateRequest, db: Session = Depends(get_db)):
     record = (
         db.query(Progress)
-        .filter(Progress.user_id == data.user_id, Progress.language == data.language)
+        .filter(
+            Progress.user_id == data.user_id,
+            Progress.language == data.language,
+            Progress.instruction_language == data.instruction_language,
+        )
         .first()
     )
     if record is None:
-        record = Progress(user_id=data.user_id, language=data.language)
+        record = Progress(
+            user_id=data.user_id,
+            language=data.language,
+            instruction_language=data.instruction_language,
+        )
         db.add(record)
 
     if data.lessons_done is not None:
@@ -211,6 +220,7 @@ def update_progress(data: ProgressUpdateRequest, db: Session = Depends(get_db)):
     db.commit()
     result = {
         "language": record.language,
+        "instruction_language": record.instruction_language,
         "lessons_done": record.lessons_done,
         "current_lesson_index": record.current_lesson_index,
         "mcq_done": record.mcq_done,
@@ -227,6 +237,7 @@ def get_progress(user_id: int, db: Session = Depends(get_db)):
     progress = [
         {
             "language": r.language,
+            "instruction_language": r.instruction_language,
             "lessons_done": r.lessons_done,
             "current_lesson_index": r.current_lesson_index,
             "mcq_done": r.mcq_done,
