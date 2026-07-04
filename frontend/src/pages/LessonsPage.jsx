@@ -1764,8 +1764,8 @@ function LessonsPage() {
 
   const [streakDays, setStreakDays] = useState(0)
   const [resumeChoicePending, setResumeChoicePending] = useState(null) // holds savedIndex while waiting, else null
+  const [resumeListenAttempts, setResumeListenAttempts] = useState(0)
   const pendingMessagesRef = useRef([])
-
   
   useEffect(() => {
     function speakQueue(messages, i = 0) {
@@ -1818,12 +1818,16 @@ function LessonsPage() {
 
           if (savedIndex > 0 && savedIndex < lessons.length) {
             const questionMsg = instructionLang === "hindi"
-              ? `स्वागत है ${name}। यह Lessons page है। आप lesson ${savedIndex + 1} पर थे। वहीं से जारी रखने के लिए C दबाएं, या शुरुआत से शुरू करने के लिए S दबाएं। आप बोल भी सकते हैं।`
-              : instructionLang === "marathi"
-              ? `स्वागत आहे ${name}. हे Lessons page आहे. तुम्ही lesson ${savedIndex + 1} वर होता. तिथून सुरू ठेवण्यासाठी C दाबा, किंवा सुरुवातीपासून सुरू करण्यासाठी S दाबा. तुम्ही बोलूनही सांगू शकता.`
-              : `Welcome ${name}. This is the Lessons page. You were on lesson ${savedIndex + 1}. Press C to continue from there, or S to start from the beginning. You can also say it out loud.`
+  ? `स्वागत है ${name}। यह Lessons page है। आप lesson ${savedIndex + 1} पर थे। वहीं से जारी रखने के लिए C दबाएं, या शुरुआत से शुरू करने के लिए S दबाएं। आप T दबाकर बोल भी सकते हैं।`
+  : instructionLang === "marathi"
+  ? `स्वागत आहे ${name}. हे Lessons page आहे. तुम्ही lesson ${savedIndex + 1} वर होता. तिथून सुरू ठेवण्यासाठी C दाबा, किंवा सुरुवातीपासून सुरू करण्यासाठी S दाबा. तुम्ही T दाबून बोलूनही सांगू शकता.`
+  : `Welcome ${name}. This is the Lessons page. You were on lesson ${savedIndex + 1}. Press C to continue from there, or S to start from the beginning. You can also press T and say it out loud.`
             pendingMessagesRef.current = remaining
-            speak(questionMsg, () => setResumeChoicePending(savedIndex))
+            speak(questionMsg, () => {
+              setResumeChoicePending(savedIndex)
+              setResumeListenAttempts(0)
+              listenForResumeChoice()
+            })
           } else {
             speakQueue(remaining)
           }
@@ -1862,15 +1866,34 @@ function LessonsPage() {
     recognition.lang = lang.voiceLang
     recognition.start()
     setListening(true)
+
     recognition.onresult = (e) => {
       const answer = e.results[0][0].transcript.toLowerCase()
       setListening(false)
-      const wantsResume = ["वहीं से", "continue", "resume", "जारी", "तिथून"].some(w => answer.includes(w))
-      const wantsRestart = ["शुरुआत", "start over", "restart", "सुरुवात"].some(w => answer.includes(w))
-      if (wantsResume) resolveResumeChoice(true)
-      else if (wantsRestart) resolveResumeChoice(false)
-      else speak("समझ नहीं आया। C या S दबाएं।", () => listenForResumeChoice())
+
+      const resumeWords = ["continue", "resume", "जारी", "तिथून", "वहीं", "वही", "haan", "हाँ", "हा", "aage", "आगे", "yes", "chalu", "चालू"]
+      const restartWords = ["restart", "start over", "शुरुआत", "सुरुवात", "naya", "नया", "फिर", "again", "no", "नाही", "नहीं"]
+
+      const wantsResume = resumeWords.some(w => answer.includes(w))
+      const wantsRestart = restartWords.some(w => answer.includes(w))
+
+      if (wantsResume) {
+        resolveResumeChoice(true)
+      } else if (wantsRestart) {
+        resolveResumeChoice(false)
+      } else {
+        setResumeListenAttempts(prev => {
+          const next = prev + 1
+          if (next >= 2) {
+            speak("समझ नहीं आया। कृपया C या S दबाएं।")
+          } else {
+            speak("समझ नहीं आया। फिर से कोशिश करें, या C या S दबाएं।", () => listenForResumeChoice())
+          }
+          return next
+        })
+      }
     }
+
     recognition.onerror = () => setListening(false)
   }
 
