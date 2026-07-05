@@ -19,6 +19,8 @@ class User(Base):
     streak_days = Column(Integer, default=0)
     last_active_date = Column(String, nullable=True)
     speech_rate = Column(Float, default=0.85)   # ← new
+    speech_rate = Column(Float, default=0.85)   # ← added this session
+    voice_pitch = Column(Float, default=1.0)    # ← new
 
 class Progress(Base):
     __tablename__ = "progress"
