@@ -189,13 +189,13 @@ function savePitchToServer(newPitch) {
 }
 
 function increasePitch() {
-  const newPitch = Math.min(parseFloat((pitch + 0.1).toFixed(1)), 2.0)
+  const newPitch = Math.min(parseFloat((pitch + 0.05).toFixed(2)), 1.15)
   setPitch(newPitch)
   savePitchToServer(newPitch)
 }
 
 function decreasePitch() {
-  const newPitch = Math.max(parseFloat((pitch - 0.1).toFixed(1)), 0.5)
+  const newPitch = Math.max(parseFloat((pitch - 0.05).toFixed(2)), 0.85)
   setPitch(newPitch)
   savePitchToServer(newPitch)
 }
