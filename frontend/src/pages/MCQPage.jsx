@@ -1378,8 +1378,8 @@ function MCQPage() {
 
   
 const [resumeChoicePending, setResumeChoicePending] = useState(null) // holds savedIndex while waiting, else null
-const [resumeListenAttempts, setResumeListenAttempts] = useState(0)
-const pendingMessagesRef = useRef([])
+  const [resumeListenAttempts, setResumeListenAttempts] = useState(0)
+  const pendingMessagesRef = useRef([])
 
   useEffect(() => {
     function speakQueue(messages, i = 0) {
@@ -1467,43 +1467,66 @@ const pendingMessagesRef = useRef([])
     speakQueue(remaining)
   }
 
-  function listenForResumeChoice() {
+function listenForResumeChoice() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!SpeechRecognition) return
-    const recognition = new SpeechRecognition()
-    recognition.lang = lang.voiceLang
-    recognition.start()
-    setListening(true)
 
-    recognition.onresult = (e) => {
-      const answer = e.results[0][0].transcript.toLowerCase()
-      console.log("Pyra heard:", answer)
-      setListening(false)
+    setTimeout(() => {
+      const recognition = new SpeechRecognition()
+      recognition.lang = lang.voiceLang
 
-      const resumeWords = ["continue", "resume", "जारी", "तिथून", "वहीं", "वही", "haan", "हाँ", "हा", "aage", "आगे", "yes", "chalu", "चालू"]
-      const restartWords = ["restart", "start over", "शुरुआत", "सुरुवात", "naya", "नया", "फिर", "again", "no", "नाही", "नहीं"]
-
-      const wantsResume = resumeWords.some(w => answer.includes(w))
-      const wantsRestart = restartWords.some(w => answer.includes(w))
-
-      if (wantsResume) {
-        resolveResumeChoice(true)
-      } else if (wantsRestart) {
-        resolveResumeChoice(false)
-      } else {
-        setResumeListenAttempts(prev => {
-          const next = prev + 1
-          if (next >= 2) {
-            speak("समझ नहीं आया। कृपया C या S दबाएं।")
-          } else {
-            speak("समझ नहीं आया। फिर से कोशिश करें, या C या S दबाएं।", () => listenForResumeChoice())
-          }
-          return next
-        })
+      try {
+        recognition.start()
+        setListening(true)
+      } catch (err) {
+        console.log("Mic failed to start:", err)
+        setListening(false)
+        speak("माइक शुरू नहीं हो पाया। दोबारा T दबाएं।")
+        return
       }
-    }
 
-    recognition.onerror = () => setListening(false)
+      recognition.onresult = (e) => {
+        const answer = e.results[0][0].transcript.toLowerCase()
+        console.log("PYRA HEARD:", answer)
+        setListening(false)
+
+        const resumeWords = [
+          "continue", "resume", "keep going", "carry on", "go ahead",
+          "जारी", "तिथून", "वहीं", "वही", "आगे", "aage",
+          "haan", "हाँ", "हा", "ha", "yes", "yeah",
+          "chalu", "चालू", "chaalu", "जारी रखो", "आगे बढ़ो", "वहीं से"
+        ]
+        const restartWords = [
+          "restart", "start over", "from beginning", "start fresh", "reset",
+          "शुरुआत", "सुरुवात", "नया", "naya", "फिर से", "phir se",
+          "again", "no", "नहीं", "नाही"
+        ]
+
+        const wantsResume = resumeWords.some(w => answer.includes(w))
+        const wantsRestart = restartWords.some(w => answer.includes(w))
+
+        if (wantsResume) {
+          resolveResumeChoice(true)
+        } else if (wantsRestart) {
+          resolveResumeChoice(false)
+        } else {
+          setResumeListenAttempts(prev => {
+            const next = prev + 1
+            if (next >= 2) {
+              speak("समझ नहीं आया। कृपया C या S दबाएं।")
+            } else {
+              speak("समझ नहीं आया। फिर से कोशिश करें, या C या S दबाएं।", () => listenForResumeChoice())
+            }
+            return next
+          })
+        }
+      }
+
+      recognition.onerror = (e) => {
+        console.log("Recognition error:", e.error)
+        setListening(false)
+      }
+    }, 300)
   }
   
 
