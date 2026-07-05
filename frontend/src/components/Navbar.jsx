@@ -61,6 +61,7 @@ function speakWhereAmI(text, lang, rate) {
 
 function Navbar({
   name, theme, toggleTheme, fontSize, setFontSize, speed, setSpeed,
+  pitch, setPitch,
   language, instructionLang, userId,
   cardBg, cardBorder, borderWidth, textColor, mutedColor,
   accent, accentText, accentSoft,
@@ -176,6 +177,29 @@ function decreaseSpeed() {
   saveSpeedToServer(newSpeed)
 }
 
+function savePitchToServer(newPitch) {
+  if (!userId) return
+  fetch("http://127.0.0.1:8000/settings/voice-pitch", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id: userId, voice_pitch: newPitch }),
+  }).catch(() => {
+    // Silently ignore — same as speed, change still applies locally.
+  })
+}
+
+function increasePitch() {
+  const newPitch = Math.min(parseFloat((pitch + 0.1).toFixed(1)), 2.0)
+  setPitch(newPitch)
+  savePitchToServer(newPitch)
+}
+
+function decreasePitch() {
+  const newPitch = Math.max(parseFloat((pitch - 0.1).toFixed(1)), 0.5)
+  setPitch(newPitch)
+  savePitchToServer(newPitch)
+}
+
   const controlBtn = {
     padding: "0.32rem 0.6rem",
     fontSize: "0.78rem",
@@ -261,6 +285,17 @@ function decreaseSpeed() {
               minWidth: "30px", textAlign: "center"
             }}>{speed}x</span>
             <button className="navbtn" onClick={increaseSpeed} aria-label="Speed बढ़ाएं" style={controlBtn}>+</button>
+          </div>
+
+          {/* Voice pitch */}
+          <div style={{ display: "flex", gap: "0.2rem", alignItems: "center" }}>
+            <span style={{ color: mutedColor, fontSize: "0.7rem" }}>🎵</span>
+            <button className="navbtn" onClick={decreasePitch} aria-label="Pitch कम करें" style={controlBtn}>−</button>
+            <span style={{
+              color: accent, fontSize: "0.75rem", fontWeight: "700",
+              minWidth: "30px", textAlign: "center"
+            }}>{pitch}x</span>
+            <button className="navbtn" onClick={increasePitch} aria-label="Pitch बढ़ाएं" style={controlBtn}>+</button>
           </div>
 
           {/* Theme toggle */}
