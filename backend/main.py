@@ -167,6 +167,7 @@ def login(data: LoginRequest, db: Session = Depends(get_db)):
         "name": user.name,
         "streak_days": streak,
         "speech_rate": user.speech_rate,
+        "voice_pitch": user.voice_pitch,
     }
 
 class ProgressUpdateRequest(BaseModel):
@@ -263,3 +264,17 @@ def update_speech_rate(data: SpeechRateRequest, db: Session = Depends(get_db)):
     user.speech_rate = data.speech_rate
     db.commit()
     return {"success": True, "speech_rate": user.speech_rate}
+
+
+class VoicePitchRequest(BaseModel):
+    user_id: int
+    voice_pitch: float
+
+@app.post("/settings/voice-pitch")
+def update_voice_pitch(data: VoicePitchRequest, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.id == data.user_id).first()
+    if not user:
+        return {"success": False, "error": "User not found"}
+    user.voice_pitch = data.voice_pitch
+    db.commit()
+    return {"success": True, "voice_pitch": user.voice_pitch}
