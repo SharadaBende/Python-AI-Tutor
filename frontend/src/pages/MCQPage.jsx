@@ -1342,7 +1342,7 @@ function MCQPage() {
     success, successShadow, successText, successSoft,
     danger, dangerSoft, dangerText,
     gold, goldShadow, goldText,
-    fontSize, setFontSize, speed, setSpeed,
+    fontSize, setFontSize, speed, setSpeed, pitch, setPitch,
   } = theme
 
   function speak(text, onEnd) {
@@ -1352,7 +1352,7 @@ function MCQPage() {
     const utterance = new SpeechSynthesisUtterance(text)
     utterance.lang = lang.voiceLang
     utterance.rate = parseFloat(localStorage.getItem("speed") || "0.85")
-    utterance.pitch = 1.0
+    utterance.pitch = parseFloat(localStorage.getItem("pitch") || "1.0")
     utterance.volume = 1
     const finish = () => {
       setPyraSpeaking(false)
