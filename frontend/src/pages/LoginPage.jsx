@@ -87,7 +87,7 @@ function LoginPage() {
   const instructionLang = location.state?.instructionLang || "english"
   const t = translations[instructionLang]
   const lang = voiceLang[instructionLang]
-  const { bg, setSpeed } = useTheme()
+  const { bg, setSpeed, setPitch } = useTheme()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -133,6 +133,7 @@ function LoginPage() {
       const data = await res.json()
       if (data.success) {
   if (data.speech_rate) setSpeed(data.speech_rate)
+  if (data.voice_pitch) setPitch(data.voice_pitch)
   speak(t.success + data.name, () => {
     navigate("/intro", { state: { name: data.name, user_id: data.user_id, instructionLang } })
   })
