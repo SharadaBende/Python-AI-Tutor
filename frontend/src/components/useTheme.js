@@ -10,6 +10,9 @@ export function useTheme() {
   const [speed, setSpeed] = useState(
     parseFloat(localStorage.getItem("speed") || "0.85")
   )
+  const [pitch, setPitch] = useState(
+    parseFloat(localStorage.getItem("pitch") || "1.0")
+  )
 
   useEffect(() => {
     localStorage.setItem("theme", theme)
@@ -22,6 +25,10 @@ export function useTheme() {
   useEffect(() => {
     localStorage.setItem("speed", speed)
   }, [speed])
+
+  useEffect(() => {
+    localStorage.setItem("pitch", pitch)
+  }, [pitch])
 
   function toggleTheme() {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"))
@@ -73,5 +80,6 @@ export function useTheme() {
     gold, goldShadow, goldText,
     fontSize, setFontSize,
     speed, setSpeed,
+    pitch, setPitch,
   }
 }
