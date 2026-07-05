@@ -1725,7 +1725,7 @@ function LessonsPage() {
   const { theme, toggleTheme, bg, textColor, cardBg, cardBorder, mutedColor, codeBg,
   accent, accentText, accentSoft, accentHover, accentShadow,
   success, successShadow, gold, goldShadow,
-  fontSize, setFontSize, speed, setSpeed
+  fontSize, setFontSize, speed, setSpeed, pitch, setPitch
 } = useTheme()
 
   const isDark = theme === "dark"
@@ -1737,7 +1737,7 @@ function LessonsPage() {
     const utterance = new SpeechSynthesisUtterance(text)
     utterance.lang = lang.voiceLang
     utterance.rate = parseFloat(localStorage.getItem("speed") || "0.85")
-    utterance.pitch = 1.0
+    utterance.pitch = parseFloat(localStorage.getItem("pitch") || "1.0")
     utterance.volume = 1
 
     const trySpeak = () => {
@@ -2069,6 +2069,7 @@ async function playLesson() {
   name={name} theme={theme} toggleTheme={toggleTheme}
   fontSize={fontSize} setFontSize={setFontSize}
   speed={speed} setSpeed={setSpeed}
+  pitch={pitch} setPitch={setPitch}
   language={language} instructionLang={instructionLang}
   userId={userId}
   cardBg={cardBg} cardBorder={cardBorder} mutedColor={mutedColor}
