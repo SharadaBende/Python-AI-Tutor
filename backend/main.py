@@ -115,6 +115,27 @@ def generate_code(data: CodeRequest):
 
 
 
+class RunCodeRequest(BaseModel):
+    code: str
+
+@app.post("/run-code")
+def run_code(data: RunCodeRequest):
+    code = data.code
+    full_code = "import sys\nsys.stdout.reconfigure(encoding='utf-8')\n" + code
+    try:
+        result = subprocess.run(
+            ["python", "-c", full_code],
+            capture_output=True,
+            timeout=10,
+            env={**os.environ, "PYTHONIOENCODING": "utf-8"}
+        )
+        output = result.stdout.decode("utf-8").strip() if result.stdout else result.stderr.decode("utf-8").strip()
+    except subprocess.TimeoutExpired:
+        output = "Code timeout ho gaya"
+    except Exception as e:
+        output = str(e)
+    return {"output": output}
+
 class LessonRequest(BaseModel):
     topic: str
     student_name: str

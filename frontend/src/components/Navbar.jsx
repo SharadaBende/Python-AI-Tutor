@@ -10,16 +10,19 @@ const PAGE_LABELS = {
     "/lessons": "पाठ पेज",
     "/mcq": "प्रश्नोत्तरी पेज",
     "/agent": "एआई एजेंट पेज",
+    "/practice": "प्रैक्टिस पेज",
   },
   en: {
     "/lessons": "Lessons page",
     "/mcq": "MCQ Quiz page",
     "/agent": "AI Agent page",
+    "/practice": "Practice page",
   },
   mr: {
     "/lessons": "धडे पान",
     "/mcq": "प्रश्नमंजुषा पान",
     "/agent": "एआय एजंट पान",
+    "/practice": "प्रॅक्टिस पान",
   },
 }
 
@@ -33,9 +36,9 @@ const WHERE_AM_I_PROMPT = {
 // its own helpText prop. Covers the global navigation shortcuts that
 // exist on every page.
 const GENERAL_HELP = {
-  hi: "M = Theme बदलें, W = कहाँ हूँ, H = यह मदद दोबारा सुनें। Lessons, MCQ, या Agent पर जाने के लिए ऊपर दिए गए buttons दबाएं",
-  en: "M to toggle theme, W to hear where you are, H to hear this help again. Use the buttons at the top to go to Lessons, MCQ, or Agent",
-  mr: "M = Theme बदला, W = मी कुठे आहे, H = ही मदत परत ऐका। Lessons, MCQ, किंवा Agent वर जाण्यासाठी वरील buttons दाबा",
+  hi: "M = Theme बदलें, W = कहाँ हूँ, H = यह मदद दोबारा सुनें। Lessons, MCQ, Agent, या Practice पर जाने के लिए ऊपर दिए गए buttons दबाएं",
+  en: "M to toggle theme, W to hear where you are, H to hear this help again. Use the buttons at the top to go to Lessons, MCQ, Agent, or Practice",
+  mr: "M = Theme बदला, W = मी कुठे आहे, H = ही मदत परत ऐका। Lessons, MCQ, Agent, किंवा Practice वर जाण्यासाठी वरील buttons दाबा",
 }
 
 const HELP_PROMPT = {
@@ -99,6 +102,7 @@ function Navbar({
     { path: "/lessons", label: "Lessons", key: "1" },
     { path: "/mcq",     label: "MCQ",     key: "2" },
     { path: "/agent",   label: "Agent",   key: "3" },
+    { path: "/practice",label: "Practice",key: "4" },
   ]
 
   function announceWhereAmI() {

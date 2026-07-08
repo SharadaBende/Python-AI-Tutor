@@ -9,6 +9,7 @@ import MCQPage from "./pages/MCQPage"
 import AgentPage from "./pages/AgentPage"
 import CertificatePage from "./pages/CertificatePage"
 import RouteFocusHandler from "./components/RouteFocusHandler"
+import PracticePage from "./pages/PracticePage"
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
         <Route path="/language" element={<LanguagePage />} />
         <Route path="/lessons" element={<LessonsPage />} />
         <Route path="/mcq" element={<MCQPage />} />
+        <Route path="/practice" element={<PracticePage />} />
         <Route path="/agent" element={<AgentPage />} />
         <Route path="/certificate" element={<CertificatePage />} />
       </Routes>
