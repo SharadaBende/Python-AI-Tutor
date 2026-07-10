@@ -145,6 +145,34 @@ function PracticePage() {
     return () => clearTimeout(t1)
   }, [])
 
+
+  function convertSpokenPunctuation(text) {
+    let result = " " + text.toLowerCase() + " "
+    const replacements = [
+      [/\bopen paren(thesis)?\b/g, "("],
+      [/\bclose paren(thesis)?\b/g, ")"],
+      [/\bopen bracket\b/g, "["],
+      [/\bclose bracket\b/g, "]"],
+      [/\bopen (brace|curly)\b/g, "{"],
+      [/\bclose (brace|curly)\b/g, "}"],
+      [/\bquote\b/g, '"'],
+      [/\bcolon\b/g, ":"],
+      [/\bcomma\b/g, ","],
+      [/\bequals?\b/g, "="],
+      [/\bplus\b/g, "+"],
+      [/\bminus\b/g, "-"],
+      [/\bdot\b/g, "."],
+      [/\bunderscore\b/g, "_"],
+    ]
+    replacements.forEach(([pattern, symbol]) => {
+      result = result.replace(pattern, symbol)
+    })
+    // Clean up spacing around symbols
+    result = result.replace(/\s+([(){}\[\].,:])/g, "$1").replace(/([(){}\[\]])\s+/g, "$1")
+    return result.trim()
+  }
+
+
   function toggleListenLine() {
     if (listening) {
       recognitionRef.current && recognitionRef.current.stop()
@@ -153,7 +181,7 @@ function PracticePage() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!SpeechRecognition) return
     const recognition = new SpeechRecognition()
-    recognition.lang = lang.voiceLang
+    recognition.lang = "en-US"
     recognition.continuous = true
     recognition.interimResults = true
     transcriptRef.current = ""
@@ -169,7 +197,8 @@ function PracticePage() {
 
     recognition.onend = () => {
       setListening(false)
-      const heard = transcriptRef.current.trim()
+      const rawHeard = transcriptRef.current.trim()
+      const heard = convertSpokenPunctuation(rawHeard)
       if (heard) {
         setPendingLine(heard)
         speak(lang.practiceHeardLine(heard))
