@@ -139,8 +139,14 @@ function PracticePage() {
     window.focus()
     if (mainRef.current) mainRef.current.focus()
     const t1 = setTimeout(() => {
-      speak(lang.practiceWelcome(name) + " " + lang.practiceDictateMode)
       setStatus(lang.practiceDictateMode)
+      // Welcome first, then chain the punctuation-convention hint onto the end of it —
+      // a first-time student needs this before they try dictating, or "print hello"
+      // will hit a real Python SyntaxError with no explanation why.
+      speak(lang.practiceWelcome(name) + " " + lang.practiceDictateMode, () => {
+        setStatus(lang.practicePunctuationHint)
+        speak(lang.practicePunctuationHint)
+      })
     }, 800)
     return () => clearTimeout(t1)
   }, [])
