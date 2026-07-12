@@ -99,6 +99,7 @@ function PracticePage() {
 
   const [dictatedLines, setDictatedLines] = useState([])
   const [pendingLine, setPendingLine] = useState(null)
+  const [indentLevel, setIndentLevel] = useState(0)
   const [listening, setListening] = useState(false)
   const [busy, setBusy] = useState(false)
   const [status, setStatus] = useState("")
@@ -154,27 +155,46 @@ function PracticePage() {
 
   function convertSpokenPunctuation(text) {
     let result = " " + text.toLowerCase() + " "
+    // Each pattern includes common Web Speech API mishearings for that word
+    // (e.g. "paren" often gets transcribed as "parent" or "pattern", "quote"
+    // as "court" or "coat"). Order matters: longer/more-specific alternatives
+    // first so e.g. "less than or equal" doesn't get eaten by "less than" first,
+    // and "open paren" doesn't get eaten by a looser rule first.
     const replacements = [
-      [/\bopen paren(thesis)?\b/g, "("],
-      [/\bclose paren(thesis)?\b/g, ")"],
+      [/\bopen (paren(t|thesis)?|pattern|parren)\b/g, "("],
+      [/\bclose (paren(t|thesis)?|pattern|parren)\b/g, ")"],
       [/\bopen bracket\b/g, "["],
       [/\bclose bracket\b/g, "]"],
       [/\bopen (brace|curly)\b/g, "{"],
       [/\bclose (brace|curly)\b/g, "}"],
-      [/\bquote\b/g, '"'],
+      [/\bless than or equal(s)?( to)?\b/g, "<="],
+      [/\bgreater than or equal(s)?( to)?\b/g, ">="],
+      [/\bnot equal(s)?( to)?\b/g, "!="],
+      [/\bless than\b/g, "<"],
+      [/\bgreater than\b/g, ">"],
+      [/\b(quote|quotes|court|coat|quart|code)\b/g, '"'],
+      [/\b(apostrophe|single quote)\b/g, "'"],
       [/\bcolon\b/g, ":"],
       [/\bcomma\b/g, ","],
+      [/\bsemicolon\b/g, ";"],
       [/\bequals?\b/g, "="],
       [/\bplus\b/g, "+"],
       [/\bminus\b/g, "-"],
+      [/\b(percent|percentage|modulo|mod)\b/g, "%"],
+      [/\b(times|multiply|multiplied by|star|asterisk)\b/g, "*"],
+      [/\b(divide|divided by|slash)\b/g, "/"],
       [/\bdot\b/g, "."],
       [/\bunderscore\b/g, "_"],
+      [/\bexclamation( mark)?\b/g, "!"],
     ]
     replacements.forEach(([pattern, symbol]) => {
       result = result.replace(pattern, symbol)
     })
     // Clean up spacing around symbols
-    result = result.replace(/\s+([(){}\[\].,:])/g, "$1").replace(/([(){}\[\]])\s+/g, "$1")
+    result = result.replace(/\s+([(){}\[\].,:;])/g, "$1").replace(/([(){}\[\]])\s+/g, "$1")
+    // Trim stray spaces just inside quotes/parens (e.g. `(" hello ")` -> `("hello")`),
+    // left over from the word-boundary spaces around "quote"/"paren" in the raw speech
+    result = result.replace(/(["'(])\s+/g, "$1").replace(/\s+(["')])/g, "$1")
     return result.trim()
   }
 
@@ -204,6 +224,21 @@ function PracticePage() {
     recognition.onend = () => {
       setListening(false)
       const rawHeard = transcriptRef.current.trim()
+      const lowerRaw = rawHeard.toLowerCase()
+      // Indent/dedent are control commands, not code content — handle them before
+      // running punctuation conversion so they never get treated as a code line.
+      if (/^(dedent|de dent|outdent|out dent|unindent|un indent)$/.test(lowerRaw)) {
+        setIndentLevel(lvl => Math.max(0, lvl - 1))
+        speak(lang.practiceDedented)
+        setStatus(lang.practiceDedented)
+        return
+      }
+      if (/^(indent|in dent)$/.test(lowerRaw)) {
+        setIndentLevel(lvl => lvl + 1)
+        speak(lang.practiceIndented)
+        setStatus(lang.practiceIndented)
+        return
+      }
       const heard = convertSpokenPunctuation(rawHeard)
       if (heard) {
         setPendingLine(heard)
@@ -223,7 +258,12 @@ function PracticePage() {
 
   function confirmLine() {
     if (pendingLine === null) return
-    setDictatedLines(prev => [...prev, pendingLine])
+    const indented = "    ".repeat(indentLevel) + pendingLine
+    setDictatedLines(prev => [...prev, indented])
+    // Auto-indent the next line if this one opens a block (if/for/while/def/etc.)
+    if (pendingLine.trim().endsWith(":")) {
+      setIndentLevel(lvl => lvl + 1)
+    }
     setPendingLine(null)
     speak(lang.practiceLineAdded)
     setStatus(lang.practiceLineAdded)
@@ -269,6 +309,7 @@ function PracticePage() {
     setPendingLine(null)
     setOutput("")
     setMood("idle")
+    setIndentLevel(0)
     speak(lang.practiceBufferCleared)
     setStatus(lang.practiceBufferCleared)
   }
@@ -288,6 +329,7 @@ function PracticePage() {
       if (key === "x") clearBuffer()
       if (key === "r") speak(lastMessage)
       if (key === "m") toggleTheme()
+      if (key === "h") { speak(lang.practiceSymbolHelp); setStatus(lang.practiceSymbolHelp) }
     }
     window.addEventListener("keydown", handleKey)
     return () => window.removeEventListener("keydown", handleKey)
@@ -341,6 +383,7 @@ function PracticePage() {
           padding: "1.5rem", borderRadius: "16px", marginBottom: "1rem",
         }}>
           <p style={{ color: mutedColor, fontSize: "0.85rem", margin: "0 0 0.5rem" }}>{lang.practiceCodeBuffer}</p>
+          <p style={{ color: mutedColor, fontSize: "0.8rem", margin: "0 0 0.5rem" }}>{lang.practiceIndentLabel(indentLevel)}</p>
           <pre style={{ background: codeBg, color: textColor, padding: "0.8rem", borderRadius: "10px", minHeight: "3rem", marginBottom: "0.8rem", whiteSpace: "pre-wrap" }}>
             {dictatedLines.length ? dictatedLines.join("\n") : "—"}
           </pre>
