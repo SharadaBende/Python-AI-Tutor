@@ -304,6 +304,25 @@ function PracticePage() {
     }
   }
 
+  function undoLastLine() {
+    if (dictatedLines.length === 0) {
+      speak(lang.practiceEmptyBuffer)
+      setStatus(lang.practiceEmptyBuffer)
+      return
+    }
+    const removed = dictatedLines[dictatedLines.length - 1]
+    setDictatedLines(prev => prev.slice(0, -1))
+    // If the removed line opened a block (ended with a colon), roll back the
+    // auto-indent bump it caused. This only undoes indentation tied to the
+    // deleted line itself — a separate manual "indent"/"dedent" command issued
+    // around it is unaffected and can be reversed the same way it was made.
+    if (removed.trim().endsWith(":")) {
+      setIndentLevel(lvl => Math.max(0, lvl - 1))
+    }
+    speak(lang.practiceLineRemoved(removed.trim()))
+    setStatus(lang.practiceLineRemoved(removed.trim()))
+  }
+
   function clearBuffer() {
     setDictatedLines([])
     setPendingLine(null)
@@ -330,6 +349,7 @@ function PracticePage() {
       if (key === "r") speak(lastMessage)
       if (key === "m") toggleTheme()
       if (key === "h") { speak(lang.practiceSymbolHelp); setStatus(lang.practiceSymbolHelp) }
+      if (key === "u") undoLastLine()
     }
     window.addEventListener("keydown", handleKey)
     return () => window.removeEventListener("keydown", handleKey)
@@ -445,6 +465,20 @@ function PracticePage() {
 
           <PressButton onClick={clearBuffer} ariaLabel="X — Clear" bg={dangerSoft || "#ffe5e5"} shadow="#c94b4b" color={dangerText || "#c94b4b"}>
             🗑️ Clear<br /><span style={{ fontSize: "0.75rem", opacity: 0.8 }}>(X)</span>
+          </PressButton>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "0.7rem" }}>
+          <PressButton
+            onClick={undoLastLine}
+            disabled={dictatedLines.length === 0}
+            ariaLabel="U — Undo last line"
+            bg={cardBg}
+            shadow={cardBorder}
+            color={mutedColor}
+            style={{ padding: "0.6rem 1.2rem", fontSize: "0.85rem" }}
+          >
+            ↩️ Undo last line <span style={{ fontSize: "0.75rem", opacity: 0.8 }}>(U)</span>
           </PressButton>
         </div>
       </div>
