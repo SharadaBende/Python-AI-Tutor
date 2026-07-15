@@ -6,6 +6,7 @@ from groq import Groq
 from dotenv import load_dotenv
 import os
 import subprocess
+import secrets
 from passlib.context import CryptContext
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
@@ -299,3 +300,73 @@ def update_voice_pitch(data: VoicePitchRequest, db: Session = Depends(get_db)):
     user.voice_pitch = data.voice_pitch
     db.commit()
     return {"success": True, "voice_pitch": user.voice_pitch}
+
+
+class GuardianEnableRequest(BaseModel):
+    user_id: int
+
+@app.post("/guardian/enable")
+def enable_guardian_sharing(data: GuardianEnableRequest, db: Session = Depends(get_db)):
+    """
+    Generates a fresh random token and saves it to the student's account.
+    Calling this again (e.g. the student clicks "Share progress" a second
+    time) silently overwrites the old token, so any previously shared link
+    stops working — this doubles as the "revoke and reissue" action, no
+    separate endpoint needed for that.
+    """
+    user = db.query(User).filter(User.id == data.user_id).first()
+    if not user:
+        return {"success": False, "error": "User not found"}
+    token = secrets.token_urlsafe(24)
+    user.guardian_token = token
+    db.commit()
+    return {"success": True, "guardian_token": token}
+
+
+class GuardianDisableRequest(BaseModel):
+    user_id: int
+
+@app.post("/guardian/disable")
+def disable_guardian_sharing(data: GuardianDisableRequest, db: Session = Depends(get_db)):
+    """Clears the token entirely — turns guardian sharing off, any existing link stops working."""
+    user = db.query(User).filter(User.id == data.user_id).first()
+    if not user:
+        return {"success": False, "error": "User not found"}
+    user.guardian_token = None
+    db.commit()
+    return {"success": True}
+
+
+@app.get("/guardian/{token}")
+def get_guardian_view(token: str, db: Session = Depends(get_db)):
+    """
+    Public, read-only — the token itself is the credential, no login required.
+    Deliberately returns only a high-level summary: no email, no password
+    data, no in-progress navigation state (current_lesson_index /
+    current_mcq_index), and nothing from Practice Mode, which was never
+    persisted to the database in the first place.
+    """
+    user = db.query(User).filter(User.guardian_token == token).first()
+    if not user:
+        return {"success": False, "error": "Invalid or expired link"}
+
+    records = db.query(Progress).filter(Progress.user_id == user.id).all()
+    progress = [
+        {
+            "language": r.language,
+            "instruction_language": r.instruction_language,
+            "lessons_done": r.lessons_done,
+            "mcq_done": r.mcq_done,
+            "mcq_score": r.mcq_score,
+            "agent_done": r.agent_done,
+        }
+        for r in records
+    ]
+
+    return {
+        "success": True,
+        "name": user.name,
+        "streak_days": user.streak_days,
+        "last_active_date": user.last_active_date,
+        "progress": progress,
+    }
