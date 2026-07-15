@@ -110,6 +110,8 @@ function PracticePage() {
 
   const recognitionRef = useRef(null)
   const transcriptRef = useRef("")
+  const interimRef = useRef("")
+  const stopRequestedRef = useRef(false)
 
   function speak(text, onEnd) {
     window.speechSynthesis.cancel()
@@ -161,8 +163,8 @@ function PracticePage() {
     // first so e.g. "less than or equal" doesn't get eaten by "less than" first,
     // and "open paren" doesn't get eaten by a looser rule first.
     const replacements = [
-      [/\bopen (paren(t|thesis)?|pattern|parren)\b/g, "("],
-      [/\bclose (paren(t|thesis)?|pattern|parren)\b/g, ")"],
+      [/\bopen (paren(t|thesis)?s?|pattern|parren|karen|parrot|paris)\b/g, "("],
+      [/\bclose (paren(t|thesis)?s?|pattern|parren|karen|parrot|paris)\b/g, ")"],
       [/\bopen bracket\b/g, "["],
       [/\bclose bracket\b/g, "]"],
       [/\bopen (brace|curly)\b/g, "{"],
@@ -201,29 +203,58 @@ function PracticePage() {
 
   function toggleListenLine() {
     if (listening) {
+      stopRequestedRef.current = true
       recognitionRef.current && recognitionRef.current.stop()
       return
     }
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!SpeechRecognition) return
+    transcriptRef.current = ""
+    interimRef.current = ""
+    stopRequestedRef.current = false
+    startRecognitionSession(SpeechRecognition)
+    setListening(true)
+    setStatus(lang.practiceListeningCommand)
+  }
+
+  function startRecognitionSession(SpeechRecognition) {
     const recognition = new SpeechRecognition()
     recognition.lang = "en-US"
     recognition.continuous = true
     recognition.interimResults = true
-    transcriptRef.current = ""
     recognitionRef.current = recognition
 
     recognition.onresult = (e) => {
       let finalChunk = ""
+      let interimChunk = ""
       for (let i = e.resultIndex; i < e.results.length; i++) {
         if (e.results[i].isFinal) finalChunk += e.results[i][0].transcript
+        else interimChunk += e.results[i][0].transcript
       }
       if (finalChunk) transcriptRef.current += finalChunk + " "
+      if (interimChunk) interimRef.current = interimChunk
     }
 
     recognition.onend = () => {
+      // Chrome auto-stops continuous recognition after a few seconds of
+      // silence — e.g. a natural pause between words — even though the
+      // student hasn't pressed T yet. If the stop wasn't requested by the
+      // student, silently start a fresh session and keep accumulating into
+      // the same transcript, so their sentence doesn't get cut off.
+      if (!stopRequestedRef.current) {
+        startRecognitionSession(SpeechRecognition)
+        return
+      }
+      stopRequestedRef.current = false
       setListening(false)
-      const rawHeard = transcriptRef.current.trim()
+      // If the student pressed T right as they finished talking, Chrome may
+      // not have finalized the last words yet — fall back to the live
+      // interim transcript rather than losing what was actually heard.
+      let rawHeard = transcriptRef.current.trim()
+      if (!rawHeard && interimRef.current.trim()) {
+        rawHeard = interimRef.current.trim()
+      }
+      interimRef.current = ""
       const lowerRaw = rawHeard.toLowerCase()
       // Indent/dedent are control commands, not code content — handle them before
       // running punctuation conversion so they never get treated as a code line.
@@ -249,11 +280,18 @@ function PracticePage() {
       }
     }
 
-    recognition.onerror = () => setListening(false)
+    recognition.onerror = (e) => {
+      // 'no-speech' and 'aborted' are expected/benign here — they fire right
+      // before onend during a normal silence-triggered restart or an
+      // intentional stop, and onend already handles both cases correctly.
+      // Only treat other errors (e.g. mic permission issues) as fatal.
+      if (e.error !== "no-speech" && e.error !== "aborted") {
+        stopRequestedRef.current = true
+        setListening(false)
+      }
+    }
 
     recognition.start()
-    setListening(true)
-    setStatus(lang.practiceListeningCommand)
   }
 
   function confirmLine() {
