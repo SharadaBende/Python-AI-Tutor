@@ -53,6 +53,59 @@ const OFFLINE_LABEL = {
   mr: "तुम्ही offline आहात — connection परत आल्यावर progress save होईल",
 }
 
+// Guardian/Mentor sharing panel — all copy + spoken confirmations,
+// keyed by instructionLang like everything else in this file.
+const GUARDIAN_LABELS = {
+  hi: {
+    title: "अभिभावक शेयरिंग",
+    enable: "लिंक बनाएं",
+    disable: "शेयरिंग बंद करें",
+    regenerate: "नया लिंक बनाएं",
+    copy: "लिंक कॉपी करें",
+    copied: "कॉपी हो गया",
+    close: "बंद करें",
+    linkLabel: "अभिभावक लिंक:",
+    noLink: "अभी कोई लिंक सक्रिय नहीं है",
+    loading: "लोड हो रहा है...",
+    spokenEnabled: "अभिभावक लिंक बन गया है",
+    spokenDisabled: "अभिभावक शेयरिंग बंद कर दी गई है",
+    spokenCopied: "लिंक कॉपी हो गया है",
+    spokenRegenerated: "नया अभिभावक लिंक बन गया है, पुराना लिंक अब काम नहीं करेगा",
+  },
+  en: {
+    title: "Guardian Sharing",
+    enable: "Generate link",
+    disable: "Turn off sharing",
+    regenerate: "Generate new link",
+    copy: "Copy link",
+    copied: "Copied",
+    close: "Close",
+    linkLabel: "Guardian link:",
+    noLink: "No active link right now",
+    loading: "Loading...",
+    spokenEnabled: "Guardian link created",
+    spokenDisabled: "Guardian sharing turned off",
+    spokenCopied: "Link copied",
+    spokenRegenerated: "New guardian link created, the old link will no longer work",
+  },
+  mr: {
+    title: "पालक शेअरिंग",
+    enable: "लिंक तयार करा",
+    disable: "शेअरिंग बंद करा",
+    regenerate: "नवीन लिंक तयार करा",
+    copy: "लिंक कॉपी करा",
+    copied: "कॉपी झाले",
+    close: "बंद करा",
+    linkLabel: "पालक लिंक:",
+    noLink: "सध्या कोणतीही लिंक सक्रिय नाही",
+    loading: "लोड होत आहे...",
+    spokenEnabled: "पालक लिंक तयार झाली आहे",
+    spokenDisabled: "पालक शेअरिंग बंद केली आहे",
+    spokenCopied: "लिंक कॉपी झाली आहे",
+    spokenRegenerated: "नवीन पालक लिंक तयार झाली आहे, जुनी लिंक आता काम करणार नाही",
+  },
+}
+
 function speakWhereAmI(text, lang, rate) {
   if (typeof window === "undefined" || !window.speechSynthesis) return
   window.speechSynthesis.cancel()
@@ -85,6 +138,13 @@ function Navbar({
   const [isOnline, setIsOnline] = useState(
     typeof navigator === "undefined" ? true : navigator.onLine
   )
+
+  // Guardian/Mentor sharing panel state
+  const [guardianOpen, setGuardianOpen] = useState(false)
+  const [guardianToken, setGuardianToken] = useState(null)
+  const [guardianEnabled, setGuardianEnabled] = useState(false)
+  const [guardianLoading, setGuardianLoading] = useState(false)
+  const [guardianCopied, setGuardianCopied] = useState(false)
 
   useEffect(() => {
     setupAutoFlush()
@@ -204,6 +264,96 @@ function decreasePitch() {
   savePitchToServer(newPitch)
 }
 
+  // --- Guardian/Mentor sharing -------------------------------------
+
+  async function fetchGuardianStatus() {
+    if (!userId) return
+    setGuardianLoading(true)
+    try {
+      const res = await fetch(`http://127.0.0.1:8000/guardian/status/${userId}`)
+      const data = await res.json()
+      const token = data.token || data.guardian_token || null
+      setGuardianToken(token)
+      setGuardianEnabled(Boolean(data.enabled ?? token))
+    } catch {
+      // Offline or backend unreachable — panel still opens, buttons
+      // remain usable to retry.
+    } finally {
+      setGuardianLoading(false)
+    }
+  }
+
+  function openGuardianPanel() {
+    setGuardianOpen(true)
+    setGuardianCopied(false)
+    fetchGuardianStatus()
+  }
+
+  function closeGuardianPanel() {
+    setGuardianOpen(false)
+  }
+
+  async function handleEnableOrRegenerate() {
+    if (!userId) return
+    const wasEnabled = guardianEnabled
+    setGuardianLoading(true)
+    try {
+      const res = await fetch("http://127.0.0.1:8000/guardian/enable", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: userId }),
+      })
+      const data = await res.json()
+      const token = data.token || data.guardian_token || null
+      setGuardianToken(token)
+      setGuardianEnabled(true)
+      setGuardianCopied(false)
+      const lang = instructionLang || "en"
+      const labels = GUARDIAN_LABELS[lang] || GUARDIAN_LABELS.en
+      speakWhereAmI(wasEnabled ? labels.spokenRegenerated : labels.spokenEnabled, lang, speed)
+    } catch {
+      // Offline or backend unreachable — leave state as-is, student can retry.
+    } finally {
+      setGuardianLoading(false)
+    }
+  }
+
+  async function handleDisable() {
+    if (!userId) return
+    setGuardianLoading(true)
+    try {
+      await fetch("http://127.0.0.1:8000/guardian/disable", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: userId }),
+      })
+      setGuardianToken(null)
+      setGuardianEnabled(false)
+      const lang = instructionLang || "en"
+      const labels = GUARDIAN_LABELS[lang] || GUARDIAN_LABELS.en
+      speakWhereAmI(labels.spokenDisabled, lang, speed)
+    } catch {
+      // Offline or backend unreachable — leave state as-is, student can retry.
+    } finally {
+      setGuardianLoading(false)
+    }
+  }
+
+  function handleCopyLink() {
+    if (!guardianToken || typeof window === "undefined") return
+    const url = `${window.location.origin}/guardian/${guardianToken}`
+    navigator.clipboard.writeText(url).then(() => {
+      setGuardianCopied(true)
+      const lang = instructionLang || "en"
+      const labels = GUARDIAN_LABELS[lang] || GUARDIAN_LABELS.en
+      speakWhereAmI(labels.spokenCopied, lang, speed)
+      setTimeout(() => setGuardianCopied(false), 2500)
+    }).catch(() => {
+      // Clipboard API may be unavailable (e.g. non-HTTPS context) —
+      // the link text is still visible in the panel to copy manually.
+    })
+  }
+
   const controlBtn = {
     padding: "0.32rem 0.6rem",
     fontSize: "0.78rem",
@@ -213,6 +363,8 @@ function decreasePitch() {
     color: mutedColor,
     cursor: "pointer",
   }
+
+  const gLabels = GUARDIAN_LABELS[instructionLang] || GUARDIAN_LABELS.en
 
   return (
     <>
@@ -348,6 +500,129 @@ function decreasePitch() {
             ❓{" "}
             <span style={{ fontSize: "0.62rem", opacity: 0.7 }}>(H)</span>
           </button>
+
+          {/* Guardian/Mentor sharing — only shown to a logged-in student */}
+          {userId && (
+            <div style={{ position: "relative" }}>
+              <button
+                className="navbtn"
+                onClick={() => (guardianOpen ? closeGuardianPanel() : openGuardianPanel())}
+                aria-label={gLabels.title}
+                title={gLabels.title}
+                aria-expanded={guardianOpen}
+                style={{
+                  ...controlBtn,
+                  border: `${borderWidth} solid ${cardBorder}`,
+                  fontWeight: "600",
+                }}
+              >
+                👪 Guardian
+              </button>
+
+              {guardianOpen && (
+                <div
+                  role="dialog"
+                  aria-label={gLabels.title}
+                  style={{
+                    position: "absolute",
+                    top: "calc(100% + 6px)",
+                    right: 0,
+                    zIndex: 50,
+                    minWidth: "260px",
+                    background: cardBg,
+                    border: `${borderWidth} solid ${cardBorder}`,
+                    borderRadius: "12px",
+                    padding: "0.75rem",
+                    boxShadow: "0 4px 14px rgba(0,0,0,0.25)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <strong style={{ color: textColor, fontSize: "0.85rem" }}>{gLabels.title}</strong>
+                    <button
+                      className="navbtn"
+                      onClick={closeGuardianPanel}
+                      aria-label={gLabels.close}
+                      style={{ ...controlBtn, padding: "0.15rem 0.4rem" }}
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  {guardianLoading && (
+                    <span style={{ color: mutedColor, fontSize: "0.75rem" }}>{gLabels.loading}</span>
+                  )}
+
+                  {!guardianLoading && guardianEnabled && guardianToken && (
+                    <>
+                      <div style={{ fontSize: "0.72rem", color: mutedColor }}>{gLabels.linkLabel}</div>
+                      <div
+                        style={{
+                          fontSize: "0.7rem",
+                          color: textColor,
+                          background: accentSoft,
+                          borderRadius: "8px",
+                          padding: "0.4rem 0.5rem",
+                          wordBreak: "break-all",
+                        }}
+                      >
+                        {`${typeof window !== "undefined" ? window.location.origin : ""}/guardian/${guardianToken}`}
+                      </div>
+                      <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+                        <button
+                          className="navbtn"
+                          onClick={handleCopyLink}
+                          style={{ ...controlBtn, border: `${borderWidth} solid ${cardBorder}`, fontWeight: "600" }}
+                        >
+                          {guardianCopied ? gLabels.copied : gLabels.copy}
+                        </button>
+                        <button
+                          className="navbtn"
+                          onClick={handleEnableOrRegenerate}
+                          style={{ ...controlBtn, border: `${borderWidth} solid ${cardBorder}`, fontWeight: "600" }}
+                        >
+                          {gLabels.regenerate}
+                        </button>
+                        <button
+                          className="navbtn"
+                          onClick={handleDisable}
+                          style={{
+                            ...controlBtn,
+                            border: `${borderWidth} solid ${cardBorder}`,
+                            fontWeight: "600",
+                            color: "#ff4b4b",
+                          }}
+                        >
+                          {gLabels.disable}
+                        </button>
+                      </div>
+                    </>
+                  )}
+
+                  {!guardianLoading && !guardianEnabled && (
+                    <>
+                      <div style={{ fontSize: "0.72rem", color: mutedColor }}>{gLabels.noLink}</div>
+                      <button
+                        className="navbtn"
+                        onClick={handleEnableOrRegenerate}
+                        style={{
+                          ...controlBtn,
+                          border: `${borderWidth} solid ${cardBorder}`,
+                          fontWeight: "600",
+                          background: accent,
+                          color: accentText,
+                        }}
+                      >
+                        {gLabels.enable}
+                      </button>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Offline indicator — only shown when actually offline */}
           {!isOnline && (
