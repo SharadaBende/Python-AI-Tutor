@@ -18,9 +18,9 @@ class User(Base):
     password_hash = Column(String, nullable=False)
     streak_days = Column(Integer, default=0)
     last_active_date = Column(String, nullable=True)
-    speech_rate = Column(Float, default=0.85)   # ← new
-    speech_rate = Column(Float, default=0.85)   # ← added this session
-    voice_pitch = Column(Float, default=1.0)    # ← new
+    speech_rate = Column(Float, default=0.85)
+    voice_pitch = Column(Float, default=1.0)
+    guardian_token = Column(String, unique=True, index=True, nullable=True)  # ← new: set only when student enables guardian sharing
 
 class Progress(Base):
     __tablename__ = "progress"
