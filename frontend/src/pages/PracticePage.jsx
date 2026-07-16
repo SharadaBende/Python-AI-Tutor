@@ -157,11 +157,6 @@ function PracticePage() {
 
   function convertSpokenPunctuation(text) {
     let result = " " + text.toLowerCase() + " "
-    // Each pattern includes common Web Speech API mishearings for that word
-    // (e.g. "paren" often gets transcribed as "parent" or "pattern", "quote"
-    // as "court" or "coat"). Order matters: longer/more-specific alternatives
-    // first so e.g. "less than or equal" doesn't get eaten by "less than" first,
-    // and "open paren" doesn't get eaten by a looser rule first.
     const replacements = [
       [/\bopen (paren(t|thesis)?s?|pattern|parren|karen|parrot|paris)\b/g, "("],
       [/\bclose (paren(t|thesis)?s?|pattern|parren|karen|parrot|paris)\b/g, ")"],
@@ -192,14 +187,18 @@ function PracticePage() {
     replacements.forEach(([pattern, symbol]) => {
       result = result.replace(pattern, symbol)
     })
+    // Strip filler words that sit directly next to a comparison/equality
+    // symbol once it's already been converted — e.g. "is equal to" only
+    // matches the "equal" part above, leaving "is ... = ... to" behind.
+    // Safe to strip unconditionally: legitimate Python "is" is never
+    // immediately followed by =/</>/!, so this can't eat real code.
+    result = result.replace(/\bis\s+(?=[=<>!])/g, "")
+    result = result.replace(/(?<=[=<>!]=?)\s+to\b/g, "")
     // Clean up spacing around symbols
     result = result.replace(/\s+([(){}\[\].,:;])/g, "$1").replace(/([(){}\[\]])\s+/g, "$1")
-    // Trim stray spaces just inside quotes/parens (e.g. `(" hello ")` -> `("hello")`),
-    // left over from the word-boundary spaces around "quote"/"paren" in the raw speech
     result = result.replace(/(["'(])\s+/g, "$1").replace(/\s+(["')])/g, "$1")
     return result.trim()
   }
-
 
   function toggleListenLine() {
     if (listening) {
