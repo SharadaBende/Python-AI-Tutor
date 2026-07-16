@@ -10,6 +10,7 @@ import AgentPage from "./pages/AgentPage"
 import CertificatePage from "./pages/CertificatePage"
 import RouteFocusHandler from "./components/RouteFocusHandler"
 import PracticePage from "./pages/PracticePage"
+import GuardianViewPage from "./pages/GuardianViewPage"
 
 function App() {
   return (
@@ -57,6 +58,10 @@ function App() {
         <Route path="/practice" element={<PracticePage />} />
         <Route path="/agent" element={<AgentPage />} />
         <Route path="/certificate" element={<CertificatePage />} />
+        {/* Public, read-only — no login/instructionLang required.
+            Not wrapped in RouteFocusHandler's voice-first assumptions
+            since GuardianViewPage is a plain sighted-user page. */}
+        <Route path="/guardian/:token" element={<GuardianViewPage />} />
       </Routes>
     </BrowserRouter>
   )
