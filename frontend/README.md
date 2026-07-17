@@ -1,5 +1,5 @@
 # दृष्टि (Drishti) — Full Project Summary
-**Updated to include this session's work: Practice Mode (voice-dictated coding sandbox).**
+**Updated through this session's work: Practice Mode hardening (mishearing tolerance, full symbol set, indentation, undo) + Guardian/Mentor progress sharing (in progress).**
 
 ---
 
@@ -14,21 +14,22 @@ Drishti is a voice-first Python/programming tutor built for visually impaired st
 ```
 Drishti/
 ├── backend/
-│   ├── main.py                     ← MODIFIED this session (/run-code added)
-│   ├── database.py
-│   ├── drishti.db                  ← gitignored
+│   ├── main.py                     ← MODIFIED this session (guardian endpoints)
+│   ├── database.py                 ← MODIFIED this session (guardian_token column, speech_rate dedup)
+│   ├── drishti.db                  ← gitignored — needs migration, see §8
 │   ├── requirements.txt
 │   ├── venv/
 │   ├── .env
 │   └── .gitignore
 └── frontend/
+    ├── README.md                   ← still flagged modified across sessions, never reviewed
     └── src/
-        ├── App.jsx                             ← MODIFIED this session (/practice route)
+        ├── App.jsx                             ← NEEDS UPDATE: /guardian/:token route not yet added
         ├── components/
-        │   ├── Navbar.jsx                      ← MODIFIED this session (Practice link, labels, help text)
+        │   ├── Navbar.jsx                      ← IN PROGRESS this session, see §6.2 (delivery failed, needs redo)
         │   ├── ProgressBar.jsx
         │   ├── LessonSidebar.jsx
-        │   ├── translations.js                 ← MODIFIED this session (practice* keys)
+        │   ├── translations.js                 ← MODIFIED this session (practice* keys expanded)
         │   ├── useTheme.js
         │   ├── offlineSync.js
         │   └── RouteFocusHandler.jsx
@@ -41,8 +42,9 @@ Drishti/
             ├── LessonsPage.jsx
             ├── MCQPage.jsx
             ├── AgentPage.jsx
-            ├── PracticePage.jsx                ← NEW this session
-            └── CertificatePage.jsx
+            ├── PracticePage.jsx                ← HEAVILY MODIFIED this session, see §6.1
+            ├── CertificatePage.jsx
+            └── GuardianViewPage.jsx             ← NOT YET CREATED, see §7
 ```
 
 ---
@@ -53,14 +55,18 @@ Drishti/
 |---|---|---|
 | `/chat` | POST | Pyra chatbot (Groq, Hindi Devanagari system prompt) |
 | `/generate-code` | POST | Natural language → Python code → executed → output. Used by Agent page. |
-| `/run-code` | POST | **NEW this session.** Takes raw `{code: string}`, executes it via subprocess, returns `{output: string}`. Reuses the exact execution logic from `/generate-code` but skips the generation step — used by Practice Mode to run student-dictated code. |
+| `/run-code` | POST | Takes raw `{code: string}`, executes via subprocess, returns `{output: string}`. Used by Practice Mode. |
 | `/get-lesson` | POST | AI-generated personalized lesson (Hindi, Groq) |
 | `/register` | POST | Creates user; returns `{success, user_id, name}` |
 | `/login` | POST | Verifies credentials; returns `streak_days`, `speech_rate`, `voice_pitch` |
 | `/progress/update` | POST | Writes progress fields; updates + returns `streak_days` |
 | `/progress/{user_id}` | GET | Reads all progress rows for a user; returns `streak_days` |
 | `/settings/speech-rate` | POST | Saves a user's preferred TTS speed to their account |
-| `/settings/voice-pitch` | POST | Saves a user's preferred TTS pitch to their account (already existed; confirmed working this session) |
+| `/settings/voice-pitch` | POST | Saves a user's preferred TTS pitch to their account |
+| `/guardian/status/{user_id}` | GET | **NEW this session.** Checks whether sharing is currently on and returns the existing token, without regenerating it (avoids accidentally invalidating a link already shared). |
+| `/guardian/enable` | POST | **NEW this session.** Generates a fresh random token (`secrets.token_urlsafe(24)`), saves it to the student's account. Calling again silently overwrites the old token — doubles as "regenerate / revoke old link." |
+| `/guardian/disable` | POST | **NEW this session.** Clears the token entirely — turns sharing off, any existing link stops working. |
+| `/guardian/{token}` | GET | **NEW this session.** Public, no login required — the token itself is the credential. Returns a deliberately high-level summary only: student name, streak, last active date, and per-language progress (lessons/MCQ done, MCQ score, agent used). Does **not** expose email, password data, in-progress navigation state (`current_lesson_index`/`current_mcq_index`), or anything from Practice Mode (which was never persisted to the database). |
 
 All core CRUD endpoints use FastAPI's `Depends(get_db)` dependency-injection pattern.
 
@@ -79,6 +85,7 @@ class User(Base):
     last_active_date = Column(String, nullable=True)
     speech_rate = Column(Float, default=0.85)
     voice_pitch = Column(Float, default=1.0)
+    guardian_token = Column(String, unique=True, index=True, nullable=True)  # ← NEW this session
 
 class Progress(Base):
     __tablename__ = "progress"
@@ -94,80 +101,116 @@ class Progress(Base):
     agent_done = Column(Boolean, default=False)
 ```
 
-**Migration note (recurring, well understood):** every new column on `User`/`Progress` needs either a fresh `.db` file (dev-only, loses accounts) or an `ALTER TABLE` migration.
+**Also fixed this session:** `speech_rate` was accidentally declared twice in `User` (harmless — Python just kept the second one — but redundant). Deduplicated to a single declaration.
+
+**Migration note (recurring, well understood):** every new column on `User`/`Progress` needs either a fresh `.db` file (dev-only, loses accounts) or an `ALTER TABLE` migration. For `guardian_token` specifically:
+```sql
+ALTER TABLE users ADD COLUMN guardian_token VARCHAR;
+```
+**Status: unconfirmed whether this migration has actually been run against the live `drishti.db`** — needs verification before the backend is restarted with the new model, or `/login`, `/register`, etc. will error on any query touching the `users` table.
 
 ---
 
 ## 5. Features From Before This Session (stable, unchanged)
 
-1. **"Where Am I" voice breadcrumb (W key)** — Navbar-wide, announces current page + context.
-2. **Voice confirmation loop for MCQ answers** — repeats back recognized option before submitting.
-3. **Line-by-line code read-back (AI Agent)** — parses Python into plain-language descriptions.
-4. **Universal Help command (H key)** — page-specific shortcuts + general nav fallback.
-5. **Low-bandwidth/offline resilience** — queues failed progress POSTs, retries when back online.
-6. **Daily streak tracking** — backend logic + spoken celebration on Lessons page.
-7. **Screen reader compatibility fixes** — TTS double-speak prevention, skip-to-content link + focus-on-route-change.
-8. **`Depends(get_db)` refactor** — closed off the leaked-connection bug class permanently.
-9. **Speech rate persistence per-user** — account-level, not per-browser.
-10. **Audio cue on page load** — 880Hz Web Audio tone, fills the TTS-loading gap.
-11. **Corrected Help text** — no longer claims 1/2/3 are universal nav shortcuts.
-12. **Session resume-or-restart choice — Lessons page** — full C/S keyboard + voice choice, chained via `speakQueue`.
-13. **Session resume-or-restart choice — MCQ page** — same pattern, adapted for MCQ fields (`current_mcq_index`, `mcq_score`). **Completed and fully tested this session** (was left broken/incomplete at the start of this session — now confirmed working via both keyboard and voice, both continue and restart paths).
-14. **Voice pitch control** — discovered this session to already be fully built (backend column, `/settings/voice-pitch` endpoint, Navbar UI with 🎵 +/− buttons, `savePitchToServer`). Nothing further needed here; the project's internal tracking doc was out of date on this point.
+1. "Where Am I" voice breadcrumb (W key)
+2. Voice confirmation loop for MCQ answers
+3. Line-by-line code read-back (AI Agent)
+4. Universal Help command (H key) — page-specific shortcuts + general nav fallback
+5. Low-bandwidth/offline resilience — queued progress POSTs
+6. Daily streak tracking
+7. Screen reader compatibility fixes (TTS double-speak prevention, skip-to-content, focus-on-route-change)
+8. `Depends(get_db)` refactor
+9. Speech rate persistence per-user
+10. Audio cue on page load
+11. Corrected Help text
+12. Session resume-or-restart choice — Lessons page
+13. Session resume-or-restart choice — MCQ page
+14. Voice pitch control (backend column, endpoint, Navbar UI)
+15. Practice Mode (Dictate-only voice coding sandbox) — built in an earlier session, hardened extensively in this one (see §6.1)
 
 ---
 
-## 6. Features Built THIS Session
+## 6. Features Built / Modified THIS Session
 
-### ① MCQ resume/restart — completed and tested
-- The `useState`/`useEffect`/`resolveResumeChoice`/`listenForResumeChoice` block was missing at the start of this session, causing a `resumeChoicePending is not defined` crash.
-- Pasted in, mirroring the working Lessons pattern exactly. `handleKey` checks `resumeChoicePending` before `confirmPending` (correct precedence — resume choice always takes priority over an in-flight answer confirmation).
-- **Fully tested**: keyboard `C`/`S` and voice ("continue"/"जारी"/"चालू" vs "restart"/"शुरुआत"/"पुन्हा") — all four paths confirmed working.
+### 6.1 Practice Mode — hardening pass (multiple rounds)
 
-### ② Practice Mode — new page, Dictate-only sandbox
-- **New route:** `/practice`, new file `PracticePage.jsx`.
-- **Concept evolution:** originally scoped as two modes — "Describe" (natural language → generated code, reusing `/generate-code`) and "Dictate" (speak code line-by-line, confirm, run). **Describe mode was cut** after recognizing it heavily overlapped with the existing Agent page (which already does describe → generate → explain). Practice Mode now does **one thing only**: line-by-line voice code dictation and execution — genuinely new functionality not covered elsewhere in the app.
-- **Backend:** new `/run-code` endpoint (`main.py`) — accepts raw code, executes via the same subprocess pattern as `/generate-code`, returns output. No code generation involved; this just runs what the student built.
-- **Flow:**
-  1. `T` — start listening (continuous recognition, not single-utterance)
-  2. Student speaks one line, including spoken punctuation (see below)
-  3. `T` again — stop listening; transcript is finalized and read back
-  4. `Y` — accept the line into the code buffer / `N` — reject and re-dictate
-  5. Repeat to build up multiple lines
-  6. `P` — run the accumulated code via `/run-code`, hear the real output spoken aloud
-  7. `X` — clear the buffer and start over
-- **Key fixes made during this session's testing:**
-  - **Speech cutting off mid-sentence:** default Web Speech API behavior (`continuous: false`) stops listening after a brief pause, truncating natural speech. Fixed by switching to `continuous: true` + `interimResults: true`, accumulating final chunks in a ref, and letting the student explicitly press `T` again to stop — putting them in control of when they're done talking instead of the browser guessing.
-  - **Wrong recognition language:** Dictate mode was inheriting `recognition.lang` from `instructionLang` (e.g. `hi-IN` for Hindi-medium students), which caused English code phrases like "print hello" to be phonetically transcribed into Devanagari (`प्रिंट हेलो`) instead of staying as English text — since Python syntax is always English regardless of the student's instruction language. **Fixed by hardcoding `recognition.lang = "en-US"`** in Dictate mode specifically, independent of the student's chosen instruction language.
-  - **Spoken punctuation conversion:** added a `convertSpokenPunctuation()` function that maps spoken words to symbols (`"open paren"` → `(`, `"close paren"` → `)`, `"quote"` → `"`, `"colon"` → `:`, `"comma"` → `,`, `"equals"` → `=`, `"plus"` → `+`, `"minus"` → `-`, `"dot"` → `.`, `"underscore"` → `_`, plus bracket/brace variants), applied to the transcript before it's shown as a pending line. This is what makes voice-dictated Python syntactically valid — e.g. saying "print open paren quote hello quote close paren" now correctly becomes `print("hello")`.
-- **Known gap, not yet addressed:** Pyra doesn't yet explain the punctuation-word convention up front. A first-time student saying "print hello" naturally (without punctuation words) will get a real Python `SyntaxError` read back to them, which could be confusing without context. **Planned fix for next session:** add a short spoken hint to the Practice Mode welcome message explaining that punctuation must be spoken aloud, with a concrete example.
-- **Navbar integration:** added `/practice` to the page-link list (with `4` shown as a visual hint, not an actual bound key), added Hindi/Marathi/English labels to `PAGE_LABELS` for the W-key "where am I" announcement, and extended `GENERAL_HELP` text in all three languages to mention Practice.
-- **Translations:** added a full `practice*` key set to `translations.js` for all three languages (Hindi/English/Marathi) — welcome message, mode explanation, listening prompts, confirmation prompts, buffer-empty/cleared messages, etc. Note: a few Describe-mode-specific keys (`practiceModeExplain`, `practiceDescribeMode`, `practiceHeardCommand`, `practiceNoCommand`, `practiceGenerating`, `practiceCodeReady`, `practiceYourCommand`) are now unused after Describe mode was cut — harmless, can be cleaned up later or left as-is.
-- **Debugging note:** hit a JSX parse error (`Unexpected token` at a line number far beyond the actual file length) after trimming Describe mode out — root cause was a stale/partial paste-over leaving orphaned JSX fragments beyond what was visible in the editor. Resolved by doing a full select-all-and-replace of the file rather than a partial edit.
+Starting point: Practice Mode worked for simple single-line dictation but had no error tolerance, a limited symbol vocabulary, no indentation support, and (it turned out) a real underlying audio-capture bug.
+
+**a. Spoken punctuation-convention hint**
+- Added to the welcome flow in all three languages: explains that Python symbols must be spoken as words ("open paren," "quote," "colon," etc.) with a worked example, so a first-time student doesn't hit an unexplained `SyntaxError`.
+
+**b. `H` key — on-demand full symbol reference**
+- New translation key `practiceSymbolHelp`, speakable anytime, listing every supported symbol word.
+- Fixed a real bug found during this: the first version embedded raw glyphs like `(` `)` `[` `]` directly in the Hindi spoken string, which browser TTS engines skip/mumble — producing an audible "के लिए के लिए" stutter. Rewrote to describe symbols verbally ("round bracket," "square bracket," etc.) instead of embedding the literal characters.
+
+**c. Expanded symbol/operator set**
+Original set: paren, bracket, brace (open/close each), quote, colon, comma, equals, plus, minus, dot, underscore.
+Added this session: comparison operators (`<`, `>`, `<=`, `>=`, `!=`), arithmetic (`%`, `*`, `/`), apostrophe (`'`), semicolon (`;`), exclamation (`!`) — 20 symbols total, all tested (e.g. "x not equal to y colon" → `x != y:`).
+
+**d. Mishearing tolerance (`convertSpokenPunctuation`)**
+Iteratively expanded based on real transcripts the student reported:
+- "paren" mishearings handled: `parent`, `pattern`, `parren`, `karen`, `parrot`, `paris`, `parents` (plural)
+- "quote" mishearings handled: `quotes`, `court`, `coat`, `quart`, `code`
+- Process: student reports a failed phrase → debug logging (temporarily added, later removed) shows the exact raw transcript → new alias added → verified against the literal failing case before shipping.
+
+**e. Indentation support (previously the largest structural gap)**
+- **Auto-indent:** any confirmed line ending in `:` automatically indents the next line one level — covers `if`/`for`/`while`/`def`/`class`/`try` with zero extra student effort.
+- **Manual `dedent`** — spoken as its own line, applied immediately (no Y/N confirmation needed) — steps the indent level back by one. Used before `else`/`elif`, or after leaving a loop body.
+- **Manual `indent`** — for the rare case auto-indent isn't enough.
+- On-screen "Indent level: N (N×4 spaces)" indicator next to the code buffer, so it's not purely audio-only.
+- Verified end-to-end with a real `if`/`else` dictation producing correctly-nested Python.
+
+**f. Undo last line (`U` key)**
+- Deliberately scoped to *only* undo the most recent line — not arbitrary mid-buffer editing — because indentation for everything after a given line depends on the full sequence up to that point (colons, manual indent/dedent). Correctly reprocessing an arbitrary deletion is a much bigger, bug-prone job for comparatively little real-world benefit; "undo my last mistake" covers the actual pain point.
+- Correctly rolls back the auto-indent bump if the removed line ended in `:` — verified with a dry-run: dictating a wrong nested `if`, undoing it, and confirming the next line lands back at the correct (shallower) indent.
+- Visible "Undo last line" button added below the main action grid, disabled when buffer is empty.
+
+**g. Fixed real speech-recognition bugs (not just vocabulary)**
+- **Chrome silence-timeout cutoff:** Chrome auto-stops "continuous" recognition after a few seconds of silence (e.g. a natural pause mid-sentence) — cutting students off before they pressed T to stop. Fixed by detecting whether a stop was student-requested (via a `stopRequestedRef`) vs. browser-initiated; browser-initiated stops now silently trigger a fresh recognition session that keeps accumulating into the same transcript, invisible to the student.
+- **Finalization-timing race:** if a student pressed T to stop right as they finished talking, Chrome sometimes hadn't yet "finalized" the last words, and the old code discarded anything not finalized — producing a false "could not hear" even though the mic worked. Fixed by tracking the live interim transcript as a fallback, used only if nothing got finalized by stop time.
+
+**h. Root-cause diagnosis: the real "it's not listening" bug**
+- After the above fixes, dictation was still silently failing. Used temporary `console.log` debug instrumentation (later removed) to discover `onresult` was never firing at all — meaning no audio was reaching the recognizer, despite Chrome's mic icon showing active.
+- Root cause found via the user's Windows Sound Settings screenshot: the **default microphone was set to "DroidCam Audio"** (a virtual device from a phone-as-webcam app), not the real headset — so Windows itself was capturing silence.
+- **Not a code bug.** Fixed by the student switching the default input device in Windows Settings → System → Sound → Input to their actual headset mic. Confirmed working via the input meter moving when speaking.
 
 ---
 
-## 7. Features Discussed, Explicitly Skipped
+### 6.2 Guardian/Mentor progress view — IN PROGRESS, not yet complete
 
-### WhatsApp reminders — **skipped entirely**
-- No free tier for production WhatsApp messaging exists (Twilio + Meta fees apply regardless of provider).
-- In-app spoken streak announcement remains the sole reminder mechanism. Off the roadmap, not paused.
+**Design decided (Claude's recommendation, accepted):**
+- **Access method:** shareable read-only link with a random token, not a separate guardian login system — lighter to build correctly, and the *student* controls it (regenerating the token instantly kills an old link, no password-reset flow needed).
+- **Data exposed:** deliberately high-level only — streak, lessons/MCQ completion status, MCQ score, last active date. No raw dictated code, no quiz question content, no email/password. Chosen conservatively since some students may be minors.
 
-### Vibration feedback (`navigator.vibrate()`) — **skipped**
-- Redundant given the app is already audio-first with verbal confirmation of every action. No iOS Safari support. Not worth building.
+**Backend — DONE:**
+- `database.py`: `guardian_token` column added to `User` (see §4). Migration not yet confirmed run against the live DB.
+- `main.py`: four endpoints added — `/guardian/enable`, `/guardian/disable`, `/guardian/status/{user_id}`, `/guardian/{token}` (see §3 for full detail). Syntax-verified, all original endpoints confirmed still intact.
 
-### Describe Mode within Practice — **cut this session**
-- Originally planned as one of two Practice sub-modes. Removed after recognizing near-total functional overlap with the existing Agent page. Practice Mode is now Dictate-only, which is the genuinely differentiated feature.
+**Frontend — INCOMPLETE, needs redo:**
+- A `Navbar.jsx` update was drafted this session: a "👪 Guardian" button opening a small panel with generate-link / copy-link / regenerate / turn-off-sharing controls, plus spoken confirmations in all three languages (`GUARDIAN_LABELS` dictionary written for hi/en/mr).
+- **This file delivery failed** — the `create_file` tool call errored out (`path: Field required`) and the updated `Navbar.jsx` was never actually generated or handed to the student. **This needs to be redone from scratch in a follow-up turn** — nothing from this attempt currently exists as a deliverable file.
+- `GuardianViewPage.jsx` (the actual page a guardian sees when they open the link) — **not started at all.**
+- `App.jsx` route for `/guardian/:token` — **not started at all.**
 
 ---
 
-## 8. Known Open Items / Immediate Next Steps
+## 7. Known Open Items / Immediate Next Steps
 
-1. **Add a spoken punctuation-convention hint to Practice Mode's welcome message.** Currently a first-time user isn't told they need to say "open paren," "quote," "colon," etc. aloud — they'll hit a real Python `SyntaxError` on natural phrasing without warning. Small fix, high clarity value.
-2. **Full end-to-end retest of Practice Mode** after the punctuation-conversion and English-recognition fixes — confirm a full multi-line dictation → run → hear real output cycle works cleanly (last tested with a single corrected line: `print open paren quote hello quote close paren` → pending, not yet confirmed run end-to-end with output heard).
-3. **Commit and push today's Practice Mode work** (`main.py`, `translations.js`, `App.jsx`, `Navbar.jsx`, new `PracticePage.jsx`) — was committed and pushed once already this session, but the punctuation/language fixes made *after* that commit are not yet pushed.
-4. Consider whether `dictatedLines` needs an edit/delete-single-line capability, or whether `X` (clear all) is sufficient for now — currently there's no way to remove just one bad line from the middle of the buffer without clearing everything.
-5. `frontend/README.md` — still flagged as modified in git status across sessions, contents never reviewed. Likely harmless, still unconfirmed.
+1. **Redo the `Navbar.jsx` guardian-sharing panel** — the previous attempt failed to save; needs to be regenerated and actually delivered this time.
+2. **Build `GuardianViewPage.jsx`** — a plain, sighted-friendly (not voice-first) page at `/guardian/:token` that calls `GET /guardian/{token}` and displays the summary: student name, streak, per-language lesson/MCQ/agent progress, last active date. Needs a friendly "link not found/expired" state for invalid tokens.
+3. **Wire the `/guardian/:token` route into `App.jsx`.**
+4. **Confirm the `guardian_token` migration has actually been run** against the live `drishti.db` before restarting the backend with the new model — otherwise queries touching `users` will error.
+5. **Verify Practice Mode end-to-end** with the corrected microphone selection and the full run of fixes from this session (mishearing tolerance, indentation, undo) — last confirmed working test was a single corrected line; a longer multi-line session with indentation and an undo hasn't been retested back-to-back by the student yet.
+
+---
+
+## 8. Features Discussed, Explicitly Skipped (unchanged from before)
+
+- **WhatsApp reminders** — skipped, no free tier exists for production messaging (Twilio + Meta fees apply regardless of provider). In-app spoken streak announcement remains the sole reminder mechanism.
+- **Vibration feedback** (`navigator.vibrate()`) — skipped, redundant given the app is already audio-first with verbal confirmation of every action; no iOS Safari support.
+- **Describe Mode within Practice** — cut in an earlier session after recognizing near-total overlap with the existing Agent page. Practice Mode is Dictate-only.
+- **Arbitrary mid-buffer line editing in Practice Mode** — deliberately scoped down to "undo last line only" this session (see §6.1f) — full arbitrary-position editing would need to correctly recompute indentation for everything downstream of the edit, which is a much larger and more error-prone job for comparatively marginal benefit over "undo the mistake I just made."
 
 ---
 
@@ -175,32 +218,24 @@ class Progress(Base):
 
 **From the original brainstorm, still open:**
 - Peer support / buddy system pairing
-- Actual hands-on testing with real screen readers (NVDA/JAWS/TalkBack) — code-review-level audit only so far, not a live test. Needs a human at the keyboard; not buildable by AI.
+- Actual hands-on testing with real screen readers (NVDA/JAWS/TalkBack) — code-review-level audit only so far. **Needs a human at the keyboard — Sharada specifically — not buildable by AI.**
 - Braille display verification
-- Guardian/mentor progress view
+- Guardian/mentor progress view — **in progress this session, see §6.2, not complete.**
 - Rephrase/simplify button for lessons
-
-**From the "ease of use" brainstorm:**
-1. ✅ Persist speech rate per-user — built
-2. ✅ Audio cue on page load — built
-3. ⏭️ Vibration feedback — skipped
-4. ✅ Adjustable Pyra voice/pitch — **discovered already built this session** (was mistakenly tracked as "not started")
-5. ✅ Practice mode / audio-only sandbox — **built this session** (Dictate-only version)
-6. ✅ Session resume/restart — built for both Lessons and MCQ, fully tested
-7. ⬜ Real screen-reader testing (NVDA/TalkBack) — still needs a human tester
-8. ⬜ Guardian/mentor progress view — not started
 
 **Also still open:**
 - Server timezone for streaks — recommend pinning to `Asia/Kolkata` for production, not yet done
 - Shortcut key collisions with screen readers — intentionally left unresolved by design
 - `H` key double-duty on IntroPage/CertificatePage — harmless, unresolved, noted for future
+- `frontend/README.md` — still flagged modified in git status across many sessions now, contents never actually reviewed
+- A handful of unused Describe-mode translation keys (`practiceModeExplain`, `practiceDescribeMode`, `practiceHeardCommand`, `practiceNoCommand`, `practiceGenerating`, `practiceCodeReady`, `practiceYourCommand`) — harmless leftover from when Practice Mode had a Describe sub-mode that was later cut; safe to clean up whenever, not urgent
 
 ---
 
 ## 10. Suggested Next Steps, In Priority Order
 
-1. **Add the punctuation-convention spoken hint** to Practice Mode's welcome message (small, high-value fix).
-2. **Fully retest Practice Mode end-to-end** with correctly-punctuated multi-line dictation, confirming real code execution and spoken output.
-3. **Commit and push the punctuation/language fixes** made after today's first Practice Mode commit.
-4. Decide whether per-line editing/deletion is needed in the Practice buffer, or defer.
-5. Move to the next major open item: either **real screen-reader testing** (requires Sharada at the keyboard with NVDA or TalkBack — can't be done by AI) or **guardian/mentor progress view** (a new buildable feature, would need scoping: what should a guardian see, how do they get access, is this a separate login role or a shareable read-only link).
+1. **Redo `Navbar.jsx`** — the guardian panel that failed to save last time. This is the immediate unblocker for the rest of the guardian feature.
+2. **Build `GuardianViewPage.jsx` and wire the route** — completes the guardian/mentor feature end-to-end.
+3. **Confirm the database migration** for `guardian_token` was actually applied.
+4. **Full end-to-end retest of Practice Mode** with the real microphone now correctly selected, covering: mishearing-tolerant dictation, the `H` symbol reference, an `if`/`else` block using auto-indent + manual `dedent`, and an `U` undo mid-session.
+5. Once guardian view is stable: decide on **real screen-reader testing** (needs Sharada with NVDA or TalkBack) as the next major milestone — this is the one item on the whole roadmap that fundamentally cannot be done by AI and needs a human tester.

@@ -18,23 +18,45 @@ const LANGUAGE_DISPLAY_NAMES = {
   python: "Python",
   sql: "SQL",
   javascript: "JavaScript",
+  java: "JavaScript", // backend appears to store the short form "java" for JavaScript
+  js: "JavaScript",
 }
 
 function normalizeSummary(data) {
   const languagesRaw = data.languages || data.progress || data.per_language || []
-  const languages = languagesRaw.map((entry) => ({
-    language: entry.language || entry.lang || "Unknown",
-    lessonsDone: Boolean(entry.lessons_done ?? entry.lessonsDone),
-    mcqDone: Boolean(entry.mcq_done ?? entry.mcqDone),
-    mcqScore: entry.mcq_score ?? entry.mcqScore ?? null,
-    agentDone: Boolean(entry.agent_done ?? entry.agentDone),
-  }))
+
+  // The backend keeps one Progress row per (language, instruction_language)
+  // pair — e.g. javascript+hi, javascript+en, javascript+mr all exist as
+  // separate rows for the same subject. Guardian view only cares about
+  // subject-level progress, so merge rows that share a language: a step
+  // counts as done if it's done in ANY instruction language, and the
+  // score shown is the highest recorded.
+  const merged = new Map()
+  for (const entry of languagesRaw) {
+    const rawLang = (entry.language || entry.lang || "unknown").toLowerCase()
+    const lessonsDone = Boolean(entry.lessons_done ?? entry.lessonsDone)
+    const mcqDone = Boolean(entry.mcq_done ?? entry.mcqDone)
+    const mcqScore = entry.mcq_score ?? entry.mcqScore ?? null
+    const agentDone = Boolean(entry.agent_done ?? entry.agentDone)
+
+    const existing = merged.get(rawLang)
+    if (!existing) {
+      merged.set(rawLang, { language: rawLang, lessonsDone, mcqDone, mcqScore, agentDone })
+    } else {
+      existing.lessonsDone = existing.lessonsDone || lessonsDone
+      existing.mcqDone = existing.mcqDone || mcqDone
+      existing.agentDone = existing.agentDone || agentDone
+      if (mcqScore != null && (existing.mcqScore == null || mcqScore > existing.mcqScore)) {
+        existing.mcqScore = mcqScore
+      }
+    }
+  }
 
   return {
     name: data.name || data.student_name || "Student",
     streakDays: data.streak_days ?? data.streak ?? 0,
     lastActiveDate: data.last_active_date || data.last_active || null,
-    languages,
+    languages: Array.from(merged.values()),
   }
 }
 
