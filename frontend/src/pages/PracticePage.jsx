@@ -169,7 +169,7 @@ function PracticePage() {
       [/\bnot equal(s)?( to)?\b/g, "!="],
       [/\bless than\b/g, "<"],
       [/\bgreater than\b/g, ">"],
-      [/\b(quote|quotes|court|coat|quart|code)\b/g, '"'],
+      [/\b(quote|quotes|court|coat|quart|code|cote)\b/g, '"'],
       [/\b(apostrophe|single quote)\b/g, "'"],
       [/\bcolon\b/g, ":"],
       [/\bcomma\b/g, ","],
@@ -257,12 +257,13 @@ function PracticePage() {
       const lowerRaw = rawHeard.toLowerCase()
       // Indent/dedent are control commands, not code content — handle them before
       // running punctuation conversion so they never get treated as a code line.
-      if (/^(dedent|de dent|outdent|out dent|unindent|un indent)$/.test(lowerRaw)) {
-        setIndentLevel(lvl => Math.max(0, lvl - 1))
-        speak(lang.practiceDedented)
-        setStatus(lang.practiceDedented)
-        return
-      }
+      console.log("DEDENT DEBUG:", JSON.stringify(lowerRaw))
+if (/^(dedent|de dent|didn't|didnt|outdent|out dent|unindent|un indent)$/.test(lowerRaw)) {
+    setIndentLevel(lvl => Math.max(0, lvl - 1))
+    speak(lang.practiceDedented)
+    setStatus(lang.practiceDedented)
+    return
+}
       if (/^(indent|in dent)$/.test(lowerRaw)) {
         setIndentLevel(lvl => lvl + 1)
         speak(lang.practiceIndented)
