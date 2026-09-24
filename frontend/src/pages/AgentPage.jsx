@@ -143,7 +143,7 @@ function AgentPage() {
   const language = location.state?.language || "python"
   const lang = t[instructionLang]
   const userId = location.state?.user_id
-  const [progress, setProgress] = useState({ lessons_done: false, mcq_done: false, agent_visited: false, mcq_score: 0 })
+  const [progress, setProgress] = useState({ lessons_done: false, mcq_done: false, agent_done: false, mcq_score: 0 })
   const [command, setCommand] = useState("")
   const [code, setCode] = useState("")
   const [output, setOutput] = useState("")
@@ -204,7 +204,19 @@ function AgentPage() {
     if (!userId) return
     fetch(`http://127.0.0.1:8000/progress/${userId}`)
       .then(res => res.json())
-      .then(data => setProgress(data))
+      .then(data => {
+        const match = data.progress?.find(
+          p => p.language === language && p.instruction_language === instructionLang
+        )
+        if (match) {
+          setProgress({
+            lessons_done: match.lessons_done,
+            mcq_done: match.mcq_done,
+            agent_done: match.agent_done,
+            mcq_score: match.mcq_score,
+          })
+        }
+      })
       .catch(() => {})
   }, [userId])
 
@@ -268,12 +280,12 @@ function AgentPage() {
       setCode(data.code)
       setOutput(data.output)
       setLoading(false)
-      setProgress(prev => ({ ...prev, agent_visited: true }))
+      setProgress(prev => ({ ...prev, agent_done: true }))
       if (userId) {
         fetch("http://127.0.0.1:8000/progress/update", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user_id: userId, agent_visited: true }),
+          body: JSON.stringify({ user_id: userId, language, instruction_language: instructionLang, agent_done: true }),
         }).catch(() => {})
       }
       setStatus("Code तैयार है! R दबाएं सुनने के लिए।")
@@ -504,7 +516,7 @@ function AgentPage() {
             <ProgressBar
               lessons={progress.lessons_done}
               mcq={progress.mcq_done}
-              agent={progress.agent_visited}
+              agent={progress.agent_done}
               theme={themeMode}
             />
 
