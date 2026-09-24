@@ -192,15 +192,15 @@ function GuardianViewPage() {
       setStatus("loading")
       try {
         const res = await fetch(`http://127.0.0.1:8000/guardian/${token}`)
-        if (res.status === 404) {
-          if (!cancelled) setStatus("not_found")
-          return
-        }
         if (!res.ok) {
           if (!cancelled) setStatus("error")
           return
         }
         const data = await res.json()
+        if (!data.success) {
+          if (!cancelled) setStatus("not_found")
+          return
+        }
         if (!cancelled) {
           setSummary(normalizeSummary(data))
           setStatus("ok")
