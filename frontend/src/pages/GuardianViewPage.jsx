@@ -18,8 +18,12 @@ const LANGUAGE_DISPLAY_NAMES = {
   python: "Python",
   sql: "SQL",
   javascript: "JavaScript",
-  java: "JavaScript", // backend appears to store the short form "java" for JavaScript
-  js: "JavaScript",
+  java: "Java",
+  cpp: "C++",
+  html: "HTML",
+  css: "CSS",
+  tailwind: "Tailwind CSS",
+  typescript: "TypeScript",
 }
 
 function normalizeSummary(data) {
