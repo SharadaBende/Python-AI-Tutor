@@ -33,14 +33,31 @@ function CertificatePage() {
   const totalLessons = language === "python" || language === "java" || language === "cpp" ? 15 : 10
   const percentage     = Math.round((score / totalQuestions) * 100)
 
-  const languageLabel = language === "sql"
-    ? "SQL Database"
-    : language === "javascript"
-    ? "JavaScript"
-    : "Python Programming"
+  const languageLabels = {
+    python: "Python Programming",
+    sql: "SQL Database",
+    javascript: "JavaScript",
+    java: "Java",
+    cpp: "C++",
+    html: "HTML",
+    css: "CSS",
+    tailwind: "Tailwind CSS",
+    typescript: "TypeScript",
+  }
+  const languageLabel = languageLabels[language] || "Python Programming"
 
-  const languageEmoji = language === "sql" ? "🗄️"
-    : language === "javascript" ? "🌐" : "🐍"
+  const languageEmojis = {
+    python: "🐍",
+    sql: "🗄️",
+    javascript: "🌐",
+    java: "☕",
+    cpp: "⚡",
+    html: "🌸",
+    css: "🎨",
+    tailwind: "💨",
+    typescript: "🔷",
+  }
+  const languageEmoji = languageEmojis[language] || "🐍"
 
   const gradeInfo = percentage >= 90
     ? { grade: "A+", label: "Outstanding",     color: GOLD }
