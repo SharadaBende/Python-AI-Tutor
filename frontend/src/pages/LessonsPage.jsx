@@ -1979,7 +1979,7 @@ async function playLesson() {
       if (key === "t") startListening()
       if (key === "1") navigate("/lessons", { state: { name, language, instructionLang, user_id: userId } })
       if (key === "2") navigate("/mcq", { state: { name, language, instructionLang, user_id: userId } })
-      if (key === "3") navigate("/agent", { state: { name, user_id: userId } })
+      if (key === "3") navigate("/agent", { state: { name, language, instructionLang, user_id: userId } })
       if (key === "m") toggleTheme()
       if (key === "b") document.getElementById("sidebar-toggle")?.click()
     }
