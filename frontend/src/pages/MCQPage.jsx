@@ -1309,8 +1309,8 @@ function MCQPage() {
     : language === "cpp" ? cppQuestions
     : language === "html" ? htmlQuestions
     : language === "css" ? cssQuestions
-    : language === "tailwind" ? tailwindQuestionsMarathi
-    : language === "typescript" ? typescriptQuestionsMarathi
+    : language === "tailwind" ? tailwindQuestions
+    : language === "typescript" ? typescriptQuestions
     : pythonQuestions)
 
   const lang = t[instructionLang]
