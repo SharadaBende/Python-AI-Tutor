@@ -80,7 +80,7 @@ def chat(data: Message):
         {"role": "user", "content": data.message}
     ]
     response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
+        model="openai/gpt-oss-20b",
         messages=[{"role": "system", "content": system_prompt}] + messages,
         max_tokens=500,
     )
