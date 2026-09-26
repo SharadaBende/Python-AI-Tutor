@@ -91,6 +91,8 @@ function LoginPage() {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [password, setPassword] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
@@ -277,14 +279,36 @@ function LoginPage() {
               <label style={{ color: ACCENT, fontSize: "0.82rem", display: "block", marginBottom: "0.4rem", fontWeight: 600 }}>
                 {t.passwordLabel}
               </label>
-              <input
-                className="login-input"
-                type="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                aria-label={t.passwordLabel}
-                autoComplete="current-password"
-              />
+              <div style={{ position: "relative" }}>
+                <input
+                  className="login-input"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  aria-label={t.passwordLabel}
+                  autoComplete="current-password"
+                  style={{ paddingRight: "2.75rem" }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(prev => !prev)}
+                  aria-label={showPassword ? "Password छुपाएं" : "Password दिखाएं"}
+                  style={{
+                    position: "absolute",
+                    right: "0.6rem",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    fontSize: "1.1rem",
+                    color: ACCENT,
+                    padding: "0.2rem",
+                  }}
+                >
+                  {showPassword ? "🙈" : "👁️"}
+                </button>
+              </div>
             </div>
 
             {/* Error */}
