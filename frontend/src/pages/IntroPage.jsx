@@ -107,7 +107,7 @@ function IntroPage() {
       ) || voices.find(v => v.lang === lang)
       if (preferred) utterance.voice = preferred
       utterance.onend = () => { setSpeaking(false); if (onEnd) onEnd() }
-      utterance.onerror = () => setSpeaking(false)
+      utterance.onerror = () => { setSpeaking(false); if (onEnd) onEnd() }
       window.speechSynthesis.speak(utterance)
     }
     if (window.speechSynthesis.getVoices().length === 0) {

@@ -112,7 +112,10 @@ function LanguagePage() {
         (voiceLang === "hi-IN" && v.name === "Google हिन्दी")
       ) || voices.find(v => v.lang === voiceLang)
       if (preferred) utterance.voice = preferred
-      if (onEnd) utterance.onend = onEnd
+      if (onEnd) {
+        utterance.onend = onEnd
+        utterance.onerror = onEnd
+      }
       window.speechSynthesis.speak(utterance)
     }
     if (window.speechSynthesis.getVoices().length === 0) {
