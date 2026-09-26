@@ -2,6 +2,8 @@
 
 **Where code speaks.**
 
+![Drishti — Language Selection](frontend/docs/images/hero.png)
+
 Drishti is a voice-first coding education platform built for visually impaired students in India. It teaches programming through spoken lessons, voice-driven quizzes, an AI coding assistant, and a fully hands-free code dictation mode — all in Hindi, English, or Marathi.
 
 ---
