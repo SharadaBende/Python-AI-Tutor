@@ -1,147 +1,272 @@
 # दृष्टि (Drishti)
 
-**A voice-first programming tutor for visually impaired students in India.**
+**Where code speaks.**
 
-Drishti teaches Python, SQL, JavaScript, Java, C++, HTML, CSS, Tailwind, and TypeScript entirely through speech — no mouse, no visual navigation required. An AI tutor named **Pyra** teaches lessons, asks quiz questions, reads code aloud, and takes voice commands, in **Hindi, English, or Marathi**.
-
-> Built solo as a full-stack accessibility project — not a tutorial clone. Every core interaction (lesson delivery, quiz confirmation, code dictation) was designed around one constraint: **the user cannot see the screen.**
+Drishti is a voice-first coding education platform built for visually impaired students in India. It teaches programming through spoken lessons, voice-driven quizzes, an AI coding assistant, and a fully hands-free code dictation mode — all in Hindi, English, or Marathi.
 
 ---
 
-## Why this exists
+## Table of Contents
 
-Most "accessible" coding platforms bolt screen-reader support onto a visual-first UI as an afterthought. Drishti flips that: the primary interaction model *is* speech and keyboard shortcuts, and visual elements exist as a secondary layer for sighted collaborators (like the Guardian view — see below). This forces different design decisions at every level, from how errors are communicated to how a student can even *write code* without looking at a screen (see Practice Mode).
-
----
-
-## Core Features
-
-### 🎧 Voice-First Lesson Delivery
-- Lessons, quiz questions, and generated code are read aloud via the Web Speech API (TTS)
-- Full keyboard shortcut navigation (`L` listen, `N` next, `R` repeat, `W` "where am I", `H` help) — no shortcut requires sight to discover, since `H` always announces the current page's available commands
-- Content delivered in Hindi (Devanagari), English, or Marathi — selected once, persisted across the session
-
-### 🗣️ Practice Mode — Dictate-Only Coding Sandbox
-The hardest problem in the whole project: **how does someone write syntactically valid code by voice alone?**
-
-- Custom spoken-punctuation parser converts natural phrases into Python syntax — "open paren", "quote", "colon", "greater than or equal to", etc. (20 symbols total)
-- **Mishearing-tolerant**: iteratively hardened against real Web Speech API transcription errors — "paren" gets misheard as "karen"/"parrot"/"pattern"; "quote" as "coat"/"cote"/"cope"; each alias added only after reproducing the actual failing transcript, not guessed speculatively
-- **Auto-indent**: any line ending in `:` automatically indents the next line — `if`/`for`/`while`/`def`/`class`/`try` all handled with zero extra student effort
-- Manual `indent`/`dedent` voice commands for everything auto-indent can't infer (e.g. stepping back before `else`)
-- `U` to undo the last dictated line, with indent level correctly rolled back
-- Line-by-line Y/N spoken confirmation before code is committed to the buffer
-- Real Python execution via a backend sandbox, with output read back aloud
-
-### 👪 Guardian/Mentor Sharing
-- Students can generate a shareable, read-only progress link for a parent or mentor — no separate login system, no password reset flow to build
-- The student fully controls the link: regenerating it instantly invalidates the old one
-- Deliberately minimal data exposure by design: streak, lesson/quiz completion status, and last-active date only — never raw code, quiz content, or credentials, since some students using this platform may be minors
-- The Guardian view itself is a plain, sighted-friendly page — the one part of the app that intentionally *isn't* voice-first, because the target reader is assumed sighted
-
-### 🎨 Accessibility-First Visual Design
-- Even though the app is voice-first, the visual layer isn't neglected: solid (non-translucent) color tokens, high-contrast light/dark themes, and a centralized `useTheme()` hook so every page pulls from one source of truth instead of scattered hardcoded colors
-- Font size, speech rate, and voice pitch are all user-adjustable and persisted per-account
-
-### 📊 Progress Tracking & Streaks
-- Per-language, per-instruction-language progress (a student learning Python in Hindi and English has separately tracked progress)
-- Daily streak counter, resume-or-restart choice when returning to an in-progress lesson or quiz
-- Offline resilience: progress updates queue locally and flush automatically when connectivity returns
+- [About](#about)
+- [Key Features](#key-features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Backend Setup](#backend-setup)
+  - [Frontend Setup](#frontend-setup)
+- [Languages Taught](#languages-taught)
+- [Instruction Languages](#instruction-languages)
+- [Application Flow](#application-flow)
+- [Keyboard Shortcuts](#keyboard-shortcuts)
+- [API Reference](#api-reference)
+- [Accessibility Features](#accessibility-features)
+- [Guardian / Mentor Sharing](#guardian--mentor-sharing)
+- [Offline Support](#offline-support)
+- [Known Limitations](#known-limitations)
+- [Contributing](#contributing)
 
 ---
+
+## About
+
+Most coding education platforms assume the learner can see the screen. Drishti doesn't. Every page is designed to be fully usable by a blind or low-vision student using only keyboard shortcuts and text-to-speech (TTS) / speech-to-text (STT) — no mouse required.
+
+The platform is guided by **Pyra**, an animated AI mascot who narrates lessons, reads quiz questions, explains generated code line-by-line in plain spoken language (not raw symbols), and walks the student through the entire learning journey from language selection to a final certificate.
+
+## Key Features
+
+- 🎙️ **Fully voice-first UI** — every page speaks its content aloud and responds to voice commands or keyboard shortcuts
+- 🌐 **Trilingual instruction** — Hindi, English, and Marathi, selectable at the very first screen
+- 📚 **9 programming languages** — Python, SQL, JavaScript, Java, C++, HTML, CSS, Tailwind CSS, and TypeScript, each with 10–15 structured lessons
+- ✅ **40-question MCQ quizzes** per language, with voice-answer confirmation before submitting
+- 🤖 **AI Code Agent** — describe what you want in plain language (voice or text) and get real, runnable code back, powered by Groq's LLM API
+- 🗣️ **Practice Mode** — dictate Python code line-by-line using spoken punctuation ("open paren", "colon", "dedent", etc.), with auto-indentation and instant execution
+- 🔥 **Streak tracking** — daily login/activity streaks to encourage consistency
+- 👪 **Guardian/Mentor Sharing** — students can generate a read-only, token-based link so a parent or mentor can view (but not edit) their progress
+- 📡 **Offline-resilient progress sync** — progress updates queue in `localStorage` when offline and flush automatically on reconnect
+- 🏆 **Certificates** — auto-generated, printable completion certificates with grade and score
+- ♿ **Screen-reader friendly navigation** — route changes announce themselves via focus management and an audio cue, plus a skip-to-content link
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Frontend | React (Vite), React Router |
-| Backend | FastAPI |
-| Database | SQLite via SQLAlchemy (Postgres-ready for production) |
-| AI | Groq API (`llama-3.1-8b-instant`) — powers Pyra's conversational responses and code generation |
-| Speech | Browser Web Speech API (STT + TTS) — no third-party speech service, works offline-capable and free |
-| Deployment target | Vercel (frontend) + Render (backend) |
+**Backend**
+- [FastAPI](https://fastapi.tiangolo.com/) (Python)
+- [SQLAlchemy](https://www.sqlalchemy.org/) + SQLite
+- [Groq API](https://groq.com/) (LLM inference for chat, lessons, and code generation)
+- `passlib` (sha256_crypt) for password hashing
 
----
+**Frontend**
+- [React 19](https://react.dev/) + [React Router 7](https://reactrouter.com/)
+- [Vite 8](https://vitejs.dev/) as build tool
+- Web Speech API (`SpeechSynthesisUtterance` for TTS, `SpeechRecognition` for STT) — no external voice service
+- Plain CSS-in-JS (inline styles) — no UI framework dependency
 
 ## Project Structure
 
 ```
 Drishti/
 ├── backend/
-│   ├── main.py              # All API routes
-│   ├── database.py          # SQLAlchemy models (User, Progress)
-│   └── requirements.txt
+│   ├── main.py              # FastAPI app — all routes
+│   ├── database.py          # SQLAlchemy models (User, Progress) + DB setup
+│   ├── requirements.txt
+│   └── .env                 # GROQ_API_KEY (not committed)
+│
 └── frontend/
-    └── src/
-        ├── components/
-        │   ├── Navbar.jsx           # Global nav, settings, Guardian panel
-        │   ├── useTheme.js          # Centralized design tokens (light/dark)
-        │   ├── translations.js      # hi/en/mr copy
-        │   └── offlineSync.js       # Queued progress sync
-        └── pages/
-            ├── LessonsPage.jsx
-            ├── MCQPage.jsx
-            ├── AgentPage.jsx
-            ├── PracticePage.jsx     # Dictate-only coding sandbox
-            └── GuardianViewPage.jsx # Public read-only progress view
+    ├── src/
+    │   ├── main.jsx
+    │   ├── App.jsx                    # Router + skip link + route focus handler
+    │   ├── pages/
+    │   │   ├── InstructionLanguagePage.jsx
+    │   │   ├── LoginPage.jsx
+    │   │   ├── RegisterPage.jsx
+    │   │   ├── IntroPage.jsx
+    │   │   ├── LanguagePage.jsx
+    │   │   ├── LessonsPage.jsx
+    │   │   ├── MCQPage.jsx
+    │   │   ├── AgentPage.jsx
+    │   │   ├── PracticePage.jsx
+    │   │   ├── CertificatePage.jsx
+    │   │   └── GuardianViewPage.jsx
+    │   └── components/
+    │       ├── Navbar.jsx
+    │       ├── LessonSidebar.jsx
+    │       ├── ProgressBar.jsx
+    │       ├── RouteFocusHandler.jsx
+    │       ├── useTheme.js
+    │       ├── translations.js
+    │       └── offlineSync.js
+    ├── index.html
+    ├── package.json
+    └── vite.config.js
 ```
-
----
-
-## API Overview
-
-| Endpoint | Method | Purpose |
-|---|---|---|
-| `/register`, `/login` | POST | Auth |
-| `/get-lesson` | POST | AI-generated personalized lesson content |
-| `/generate-code`, `/run-code` | POST | Natural-language-to-code and raw code execution |
-| `/progress/update`, `/progress/{user_id}` | POST/GET | Per-language progress tracking |
-| `/settings/speech-rate`, `/settings/voice-pitch` | POST | Persisted per-user TTS preferences |
-| `/guardian/enable`, `/guardian/disable`, `/guardian/status/{user_id}` | POST/GET | Student-controlled sharing toggle |
-| `/guardian/{token}` | GET | Public, token-authenticated, read-only progress summary |
-
----
 
 ## Getting Started
 
-### Backend
+### Prerequisites
+
+- Python 3.10+
+- Node.js 18+
+- A [Groq API key](https://console.groq.com/) (free tier works)
+
+### Backend Setup
+
 ```bash
 cd backend
 python -m venv venv
 venv\Scripts\activate        # Windows
+# source venv/bin/activate   # macOS/Linux
+
 pip install -r requirements.txt
+```
+
+Create a `.env` file in `backend/`:
+
+```
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+Start the server:
+
+```bash
 uvicorn main:app --reload
 ```
 
-### Frontend
+The API will run at `http://127.0.0.1:8000`. Visit `http://127.0.0.1:8000/docs` for the interactive Swagger UI listing every route.
+
+A SQLite database file (`drishti.db`) is created automatically on first run.
+
+### Frontend Setup
+
+In a separate terminal:
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Runs at `http://127.0.0.1:8000` (backend) and the Vite dev server (frontend, typically `http://localhost:5173`).
+Visit the printed local URL (typically `http://localhost:5173`).
+
+> **Note:** The frontend calls the backend at the hardcoded address `http://127.0.0.1:8000`. Both servers must be running locally for the app to function — there is no dev proxy configured in `vite.config.js`.
+
+## Languages Taught
+
+| Language | Lessons | MCQ Questions |
+|---|---|---|
+| Python | 15 | 40 |
+| Java | 15 | 40 |
+| C++ | 15 | 40 |
+| SQL | 10 | 40 |
+| JavaScript | 10 | 40 |
+| HTML | 10 | 40 |
+| CSS | 10 | 40 |
+| Tailwind CSS | 10 | 40 |
+| TypeScript | 10 | 40 |
+
+Every lesson and every quiz question exists fully translated in Hindi, English, and Marathi.
+
+## Instruction Languages
+
+Chosen once at the very first screen and carried through the whole session:
+
+- **हिंदी (Hindi)** — voice: `hi-IN`
+- **English** — voice: `en-US`
+- **मराठी (Marathi)** — voice: `hi-IN` (Marathi text spoken with Hindi TTS voice, since dedicated Marathi voices are rarely available on end-user devices)
+
+## Application Flow
+
+```
+Instruction Language → Login/Register → Intro (Pyra greeting)
+        → Language Selection → Lessons → MCQ Quiz → Code Agent → Certificate
+                           ↘ Practice Mode (voice code dictation, side branch)                
+```
+
+Guardian links (`/guardian/:token`) are a separate, public, non-voice entry point — accessible without logging in.
+
+## Keyboard Shortcuts
+
+Every page is fully operable by keyboard. Global shortcuts (available on every logged-in page via the Navbar):
+
+| Key | Action |
+|---|---|
+| `1` / `2` / `3` / `4` | Jump to Lessons / MCQ / Agent / Practice |
+| `M` | Toggle light/dark theme |
+| `W` | Announce current page ("Where am I?") |
+| `H` | Repeat page-specific help |
+
+Page-specific shortcuts (examples):
+
+- **Lessons:** `L` listen, `N` next, `R` repeat, `T` voice answer, `B` toggle sidebar
+- **MCQ:** `Q` hear question, `1`–`4` select answer, `T` voice answer, `R` repeat
+- **Agent:** `T` speak command, `C` generate code, `R` repeat, `L` read code line-by-line, `F` certificate
+- **Practice Mode:** `T` toggle dictation, `Y`/`N` confirm/reject line, `P` run code, `U` undo last line, `X` clear buffer, `H` symbol-word help
+- **Certificate:** `S` save/print, `R` repeat, `H` home
+
+## API Reference
+
+Base URL: `http://127.0.0.1:8000`
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/register` | Create a new account |
+| `POST` | `/login` | Log in, returns streak and voice settings |
+| `POST` | `/chat` | General chat with Pyra (Groq-powered) |
+| `POST` | `/get-lesson` | Fetch an AI-generated lesson explanation |
+| `POST` | `/generate-code` | Generate code from a natural-language command and run it |
+| `POST` | `/run-code` | Execute a raw code string and return output |
+| `GET` | `/progress/{user_id}` | Fetch all progress records for a user |
+| `POST` | `/progress/update` | Update lesson/quiz/agent progress for a language |
+| `POST` | `/settings/speech-rate` | Update saved TTS speed |
+| `POST` | `/settings/voice-pitch` | Update saved TTS pitch |
+| `POST` | `/guardian/enable` | Generate (or regenerate) a guardian sharing token |
+| `POST` | `/guardian/disable` | Revoke guardian sharing |
+| `GET` | `/guardian/status/{user_id}` | Check current guardian sharing status |
+| `GET` | `/guardian/{token}` | Public read-only progress summary for a shared token |
+
+Full request/response schemas are available at `/docs` once the backend is running.
+
+## Accessibility Features
+
+- Skip-to-main-content link (visible on first `Tab` press)
+- Programmatic focus shift to `<main>` on every route change
+- Short audio cue on navigation, played immediately (before TTS starts) so a page change is never silent
+- `aria-live` regions that go quiet while Pyra is speaking, to avoid double narration
+- Adjustable font size, speech rate, and voice pitch — all persisted across sessions
+- Light/dark theme toggle
+- Every interactive element has a descriptive `aria-label`
+
+## Guardian / Mentor Sharing
+
+A student can generate a shareable, read-only link from the Navbar's "Guardian" panel. The link:
+
+- Requires no login for the guardian/parent to view
+- Shows only high-level, subject-merged progress (streak, last active, lessons/quiz/agent completion per subject)
+- Never exposes email, password data, or in-progress navigation state
+- Can be revoked or regenerated at any time, instantly invalidating the old link
+
+## Offline Support
+
+Progress updates are never silently lost on a flaky connection:
+
+- `offlineSync.js` attempts each `/progress/update` call immediately
+- On failure (offline, timeout, server error), the payload is queued in `localStorage`
+- Multiple queued updates for the same `(user_id, language)` collapse into just the latest one
+- The queue automatically flushes when the browser regains connectivity
+
+## Known Limitations
+
+- Practice Mode's code buffer is **not persisted** — it exists only in that session's local state
+- Certificates are **not saved server-side** — they're generated client-side from navigation state, so there's no permanent record of a certificate beyond printing/saving it as a PDF
+- Voice recognition (`SpeechRecognition`) quality depends entirely on the browser and OS — best supported in Chrome
+- Marathi and Hindi both currently rely on the `hi-IN` system voice for TTS; output quality depends on what voices are installed on the user's device
+- The frontend calls a hardcoded `http://127.0.0.1:8000` — no environment-based API URL configuration yet, so production deployment requires this to be parameterized
+
+## Contributing
+
+This is currently a learning/portfolio project. Issues and pull requests are welcome if you'd like to extend language support, add new lesson content, or improve accessibility further.
 
 ---
 
-## Notable Engineering Challenges
-
-A few problems worth mentioning in an interview, since they involved real debugging rather than following a tutorial:
-
-- **Chrome's silence-timeout on continuous speech recognition** — Chrome auto-stops STT after a few seconds of silence, cutting students off mid-thought. Fixed by distinguishing student-initiated stops from browser-initiated ones and silently restarting recognition into the same accumulating transcript.
-- **A "the mic isn't working" bug that wasn't a code bug at all** — after ruling out every software cause via `onresult` never firing, root cause turned out to be the OS default input device pointing at a virtual webcam-app microphone rather than the real headset. A reminder that not every bug is in your code.
-- **Designing minimal-disclosure data sharing** for the Guardian feature, given that some end users may be minors — the token-based, student-revocable link model was chosen deliberately over a full second-account system to minimize both attack surface and unnecessary personal data exposure.
-
----
-
-## Known Limitations / Honest Roadmap
-
-- Real assistive-technology testing (NVDA, TalkBack) has not yet been performed — testing so far has been code-review-level accessibility auditing, not a live screen-reader session. This is the single most important remaining validation step.
-- Practice Mode dictation is tuned against observed Web Speech API mishearings and will keep needing new aliases as more real usage surfaces new failure patterns — this is expected, ongoing maintenance rather than a defect.
-- SQLite is used in development; a migration to PostgreSQL is planned before any real production deployment.
-- Peer support / buddy pairing and a lesson "simplify/rephrase" button were discussed but are not yet built.
-
----
-
-## License
-
-MIT
+*दृष्टि — जहाँ code बोलता है.*
