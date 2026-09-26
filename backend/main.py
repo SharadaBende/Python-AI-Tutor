@@ -90,7 +90,7 @@ def chat(data: Message):
 @app.post("/generate-code")
 def generate_code(data: CodeRequest):
     response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
+        model="openai/gpt-oss-20b",
         messages=[
             {"role": "system", "content": "You are a Python code generator. Generate ONLY raw Python code. No explanations, no markdown, no backticks. Use hardcoded English values only, never use input(). Keep it simple."},
             {"role": "user", "content": f"Python code to: {data.command}"}
@@ -144,7 +144,7 @@ class LessonRequest(BaseModel):
 @app.post("/get-lesson")
 def get_lesson(data: LessonRequest):
     response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
+        model="openai/gpt-oss-20b",
         messages=[
             {"role": "system", "content": """You are Pyra, a Python tutor for visually impaired students in India. 
 Always reply in Hindi using Devanagari script.
